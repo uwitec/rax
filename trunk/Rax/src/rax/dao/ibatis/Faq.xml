@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Faq">
+
+	<typeAlias alias="Faq" type="rax.model.Faq" />
+
+	<insert id="createFaq" parameterClass="Faq">
+		<![CDATA[
+		INSERT INTO rax_faq (question, answer, pub_date, pub) VALUES
+		(#question#, #answer#, #pubDate#, #pub#)
+		]]>
+	</insert>
+
+	<select id="readFaq" parameterClass="Long" resultClass="Faq">
+		<![CDATA[
+		SELECT id,question,answer,pub_date AS pubDate,pub FROM rax_faq
+		WHERE id=#id#
+		]]>
+	</select>
+
+	<update id="updateFaq" parameterClass="Faq">
+		<![CDATA[
+		UPDATE rax_faq SET question=#question#, answer=#answer#,
+		pub_date=#pubDate#, pub=#pub# WHERE id=#id#
+		]]>
+	</update>
+
+	<delete id="deleteFaq" parameterClass="Long">
+		<![CDATA[
+		DELETE rax_faq WHERE id=#id#
+		]]>
+	</delete>
+
+	<select id="countAllFaq" resultClass="Long">
+		<![CDATA[
+		SELECT COUNT(*) AS NUM FROM rax_faq
+		]]>
+	</select>
+
+	<select id="countPubFaq" resultClass="Long">
+		<![CDATA[
+		SELECT COUNT(*) AS NUM FROM rax_faq WHERE pub=TRUE
+		]]>
+	</select>
+
+	<parameterMap id="listParam" class="java.util.Map">
+		<parameter property="index" jdbcType="integer" javaType="Long"
+			nullValue="0" />
+		<parameter property="number" jdbcType="integer"
+			javaType="Integer" nullValue="20" />
+	</parameterMap>
+
+	<select id="listFaq" parameterMap="listParam" resultClass="Faq">
+		<![CDATA[
+		SELECT id,question,answer,pub_date AS pubDate,pub 
+		FROM rax_faq
+		LIMIT #number# OFFSET #index#
+		]]>
+	</select>
+
+	<select id="listPubFaq" parameterMap="listParam"
+		resultClass="Faq">
+		<![CDATA[
+		SELECT id,question,answer,pub_date AS pubDate,pub 
+		FROM rax_faq
+		WHERE pub=TRUE
+		LIMIT #number# OFFSET #index#
+		]]>
+	</select>
+
+	<select id="listAllFaq" parameterMap="listParam"
+		resultClass="Faq">
+		<![CDATA[
+		SELECT id,question,answer,pub_date AS pubDate,pub 
+		FROM rax_faq
+		]]>
+	</select>
+
+	<select id="listAllPubFaq" parameterMap="listParam"
+		resultClass="Faq">
+		<![CDATA[
+		SELECT id,question,answer,pub_date AS pubDate,pub 
+		FROM rax_faq
+		WHERE pub=TRUE
+		]]>
+	</select>
+
+	<select id="lastInsert" resultClass="Long">
+		<![CDATA[
+		SELECT last_insert_id() AS NUM
+		]]>
+	</select>
+
+</sqlMap>

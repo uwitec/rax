@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="rax.model.Faq" table="rax_faq">
+        <id name="id" type="long" column="id">
+			<generator class="sequence">
+				<param name="sequence">rax_faq_id_seq</param>
+			</generator>
+        </id>
+        <property name="question" type="string" length="128" column="question"/>
+        <property name="answer" type="text" column="answer"/>
+        <property name="pubDate" type="date" column="pub_date"/>
+        <property name="pub" type="boolean" column="pub"/>
+    </class>
+</hibernate-mapping>

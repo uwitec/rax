@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="rax.model.LinkCategory" table="rax_link_category">
+		<id name="id" type="long" column="id">
+			<generator class="sequence">
+				<param name="sequence">rax_link_category_id_seq</param>
+			</generator>
+		</id>
+		<property name="title" type="string" length="64" column="title" />
+		<property name="summary" type="string" length="128"
+			column="summary" />
+	</class>
+</hibernate-mapping>

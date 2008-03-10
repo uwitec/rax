@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Link">
+
+	<typeAlias alias="Link" type="rax.model.Link" />
+
+	<insert id="createLink" parameterClass="Link">
+		<![CDATA[
+		INSERT INTO rax_link (category_id, title, address, summary, pub) 
+		VALUES (#category_id#, #title#, #address#, #summary#, #pub#)
+		]]>
+	</insert>
+
+	<select id="readLink" parameterClass="Long" resultClass="Link">
+		<![CDATA[
+		SELECT id,category_id,title,address,summary,pub 
+		FROM rax_link
+		WHERE id=#id#
+		]]>
+	</select>
+
+	<update id="updateLink" parameterClass="Link">
+		<![CDATA[
+		UPDATE rax_link SET category_id=#categoryId#, title=#title#,
+		address=#address#, summary=#summary#, pub=#pub#
+		WHERE id=#id#
+		]]>
+	</update>
+
+	<delete id="deleteLink" parameterClass="Long">
+		<![CDATA[
+		DELETE rax_link WHERE id=#id#
+		]]>
+	</delete>
+
+	<delete id="deleteLinkByCategoryId" parameterClass="Long">
+		<![CDATA[
+		DELETE rax_link WHERE category_id=#id#
+		]]>
+	</delete>
+
+	<select id="countAllLink" resultClass="Long">
+		<![CDATA[
+		SELECT COUNT(*) AS NUM FROM rax_link
+		]]>
+	</select>
+
+	<select id="countPubLink" resultClass="Long">
+		<![CDATA[
+		SELECT COUNT(*) AS NUM FROM rax_link WHERE pub=TRUE
+		]]>
+	</select>
+
+	<select id="countAllLinkByCategoryId" parameterClass="Long"
+		resultClass="Long">
+		<![CDATA[
+		SELECT COUNT(*) AS NUM FROM rax_link 
+		WHERE category_id=#id#
+		]]>
+	</select>
+
+	<select id="countPubLinkByCategoryId" parameterClass="Long"
+		resultClass="Long">
+		<![CDATA[
+		SELECT COUNT(*) AS NUM FROM rax_link 
+		WHERE pub=TRUE AND category_id=#id#
+		]]>
+	</select>
+
+	<parameterMap id="listParam" class="java.util.Map">
+		<parameter property="index" jdbcType="integer" javaType="Long"
+			nullValue="0" />
+		<parameter property="number" jdbcType="integer"
+			javaType="Integer" nullValue="20" />
+	</parameterMap>
+
+	<select id="listLink" parameterMap="listParam" resultClass="Link">
+		<![CDATA[
+		SELECT id,category_id,title,address,summary,pub 
+		FROM rax_link
+		LIMIT #number# OFFSET #index#
+		]]>
+	</select>
+
+	<select id="listPubLink" parameterMap="listParam"
+		resultClass="Link">
+		<![CDATA[
+		SELECT id,category_id,title,address,summary,pub 
+		FROM rax_link
+		WHERE pub=TRUE
+		LIMIT #number# OFFSET #index#
+		]]>
+	</select>
+
+	<select id="listLinkByCategoryId" parameterMap="listParam"
+		resultClass="Link">
+		<![CDATA[
+		SELECT id,category_id,title,address,summary,pub 
+		FROM rax_link
+		WHERE category_id=#id#
+		LIMIT #number# OFFSET #index#
+		]]>
+	</select>
+
+	<select id="listPubLinkByCategoryId" parameterMap="listParam"
+		resultClass="Link">
+		<![CDATA[
+		SELECT id,category_id,title,address,summary,pub 
+		FROM rax_link
+		WHERE pub=TRUE AND category_id=#id#
+		LIMIT #number# OFFSET #index#
+		]]>
+	</select>
+
+	<select id="listAllLink" resultClass="Link">
+		<![CDATA[
+		SELECT id,category_id,title,address,summary,pub 
+		FROM rax_link
+		]]>
+	</select>
+
+	<select id="listAllPubLink" resultClass="Link">
+		<![CDATA[
+		SELECT id,category_id,title,address,summary,pub 
+		FROM rax_link
+		WHERE pub=TRUE
+		]]>
+	</select>
+
+	<select id="listAllLinkByCategoryId" parameterClass="Long"
+		resultClass="Link">
+		<![CDATA[
+		SELECT id,category_id,title,address,summary,pub 
+		FROM rax_link
+		WHERE category_id=#id#
+		]]>
+	</select>
+
+	<select id="listAllPubLinkByCategoryId" parameterClass="Long"
+		resultClass="Link">
+		<![CDATA[
+		SELECT id,category_id,title,address,summary,pub 
+		FROM rax_link
+		WHERE pub=TRUE AND category_id=#id#
+		]]>
+	</select>
+
+	<select id="lastInsert" resultClass="Long">
+		<![CDATA[
+		SELECT last_insert_id() AS NUM
+		]]>
+	</select>
+</sqlMap>
