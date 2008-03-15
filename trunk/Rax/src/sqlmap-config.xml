@@ -10,25 +10,8 @@
 		lazyLoadingEnabled="true" maxRequests="32" maxSessions="10"
 		maxTransactions="5" useStatementNamespaces="false" />
 
-	<!--  commitRequired="false"> -->
-
-	<!-- 
-		<transactionManager type="JDBC">
-		<dataSource type="SIMPLE">
-		<property name="JDBC.Driver" value="org.postgresql.Driver" />
-		<property name="JDBC.ConnectionURL"
-		value="jdbc:postgresql://localhost/test" />
-		<property name="JDBC.Username" value="test" />
-		<property name="JDBC.Password" value="test" />
-		</dataSource>
-		</transactionManager>
-	-->
-
 	<sqlMap resource="rax/dao/ibatis/Faq.xml" />
 	<sqlMap resource="rax/dao/ibatis/Link.xml" />
-
-	<!--  
-		<sqlMap resource="rax/dao/ibatis/LinkCategory.xml" />
-	-->
+	<sqlMap resource="rax/dao/ibatis/LinkCategory.xml" />
 
 </sqlMapConfig>

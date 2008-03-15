@@ -18,12 +18,9 @@
     </layout>
 </appender>
 
-<root> <!-- 设置接收所有输出的通道 -->
+<root>
 	<priority value="ERROR"/>
-	<!-- 与前面的通道id相对应 -/-> 
-	<appender-ref ref="STDOUT" />
-	<!-/- -->
-	<appender-ref ref="FILE" /><!-- 与前面的通道id相对应 -->
+	<appender-ref ref="FILE" />
 </root>
 
 </log4j:configuration>
