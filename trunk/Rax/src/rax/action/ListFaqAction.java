@@ -16,11 +16,10 @@ public class ListFaqAction extends ActionSupport {
 
     private List<Faq> faqList;
     private int count = 0;
+    private FaqService faqService = null;
 
     @Override
     public String execute() throws Exception {
-
-        FaqService faqService = new FaqService();
         
         faqList = faqService.listAllFaqs(true);
         try {
@@ -31,6 +30,10 @@ public class ListFaqAction extends ActionSupport {
         }
 
         return SUCCESS;
+    }
+    
+    public void setFaqService(FaqService service) {
+        faqService = service;
     }
 
     public List<Faq> getFaqList() {

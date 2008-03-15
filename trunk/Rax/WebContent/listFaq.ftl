@@ -13,7 +13,7 @@
 <#if faqList??>
 <#list faqList as faq>
 <div>
-id:${faq.id} date:${faq.pubDate}<br />
+id:${faq.id} date:${faq.pubDate?string('yyyy-MM-dd')}<br />
 问：${faq.question}<br />
 答：${faq.answer}
 </div>

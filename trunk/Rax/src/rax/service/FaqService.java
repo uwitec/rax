@@ -2,7 +2,7 @@ package rax.service;
 
 import java.util.List;
 
-import rax.dao.hibernate.FaqDao;
+import rax.dao.FaqDao;
 import rax.model.Faq;
 
 public class FaqService {
@@ -10,9 +10,12 @@ public class FaqService {
     private FaqDao faqDao;
 
     public FaqService() {
-        faqDao = new FaqDao();
     }
 
+    public void setFaqDao(FaqDao dao) {
+        faqDao = dao;
+    }
+    
     public long createFaq(Faq faq) {
         return faqDao.create(faq);
     }
@@ -21,7 +24,7 @@ public class FaqService {
         Faq faq = faqDao.read(id);
         return (null == faq) ? false : faqDao.delete(faq);
     }
-    
+
     public boolean updateFaq(long id, Faq faq) {
         return faqDao.update(faq);
     }
@@ -33,9 +36,9 @@ public class FaqService {
     public List<Faq> listFaqs(int index, int num, boolean onlyPub) {
         return faqDao.list(index, num, onlyPub);
     }
-    
+
     public List<Faq> listAllFaqs(boolean onlyPub) {
         return faqDao.listAll(onlyPub);
     }
-    
+
 }

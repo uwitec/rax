@@ -21,7 +21,7 @@
 			<result name="success">/listLink.ftl</result>
 		</action>
 
-		<action name="listFaq" class="rax.action.ListFaqAction">
+		<action name="listFaq" class="ListFaqAction">
 			<result name="success">/listFaq.ftl</result>
 		</action>
 

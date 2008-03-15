@@ -72,16 +72,14 @@
 		]]>
 	</select>
 
-	<select id="listAllFaq" parameterMap="listParam"
-		resultClass="Faq">
+	<select id="listAllFaq" resultClass="Faq">
 		<![CDATA[
 		SELECT id,question,answer,pub_date AS pubDate,pub 
 		FROM rax_faq
 		]]>
 	</select>
 
-	<select id="listAllPubFaq" parameterMap="listParam"
-		resultClass="Faq">
+	<select id="listAllPubFaq" resultClass="Faq">
 		<![CDATA[
 		SELECT id,question,answer,pub_date AS pubDate,pub 
 		FROM rax_faq

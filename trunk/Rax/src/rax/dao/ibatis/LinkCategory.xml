@@ -4,18 +4,18 @@
     PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
-<sqlMap namespace="Link">
+<sqlMap namespace="LinkCategory">
 
-	<typeAlias alias="Link" type="rax.model.Link" />
+	<typeAlias alias="LinkCategory" type="rax.model.LinkCategory" />
 
-	<insert id="createLink" parameterClass="Link">
+	<insert id="createLinkCategory" parameterClass="LinkCategory">
 		<![CDATA[
 		INSERT INTO rax_link (category_id, title, address, summary, pub) 
-		VALUES (#categoryId#, #title#, #address#, #summary#, #pub#)
+		VALUES (#category_id#, #title#, #address#, #summary#, #pub#)
 		]]>
 	</insert>
 
-	<select id="readLink" parameterClass="Long" resultClass="Link">
+	<select id="readLinkCategory" parameterClass="Long" resultClass="LinkCategory">
 		<![CDATA[
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link
@@ -23,7 +23,7 @@
 		]]>
 	</select>
 
-	<update id="updateLink" parameterClass="Link">
+	<update id="updateLinkCategory" parameterClass="LinkCategory">
 		<![CDATA[
 		UPDATE rax_link SET category_id=#categoryId#, title=#title#,
 		address=#address#, summary=#summary#, pub=#pub#
@@ -31,31 +31,31 @@
 		]]>
 	</update>
 
-	<delete id="deleteLink" parameterClass="Long">
+	<delete id="deleteLinkCategory" parameterClass="Long">
 		<![CDATA[
 		DELETE rax_link WHERE id=#id#
 		]]>
 	</delete>
 
-	<delete id="deleteLinkByCategoryId" parameterClass="Long">
+	<delete id="deleteLinkCategoryByCategoryId" parameterClass="Long">
 		<![CDATA[
 		DELETE rax_link WHERE category_id=#id#
 		]]>
 	</delete>
 
-	<select id="countAllLink" resultClass="Long">
+	<select id="countAllLinkCategory" resultClass="Long">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM rax_link
 		]]>
 	</select>
 
-	<select id="countPubLink" resultClass="Long">
+	<select id="countPubLinkCategory" resultClass="Long">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM rax_link WHERE pub=TRUE
 		]]>
 	</select>
 
-	<select id="countAllLinkByCategoryId" parameterClass="Long"
+	<select id="countAllLinkCategoryByCategoryId" parameterClass="Long"
 		resultClass="Long">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM rax_link 
@@ -63,7 +63,7 @@
 		]]>
 	</select>
 
-	<select id="countPubLinkByCategoryId" parameterClass="Long"
+	<select id="countPubLinkCategoryByCategoryId" parameterClass="Long"
 		resultClass="Long">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM rax_link 
@@ -78,7 +78,7 @@
 			javaType="Integer" nullValue="20" />
 	</parameterMap>
 
-	<select id="listLink" parameterMap="listParam" resultClass="Link">
+	<select id="listLinkCategory" parameterMap="listParam" resultClass="LinkCategory">
 		<![CDATA[
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link
@@ -86,8 +86,8 @@
 		]]>
 	</select>
 
-	<select id="listPubLink" parameterMap="listParam"
-		resultClass="Link">
+	<select id="listPubLinkCategory" parameterMap="listParam"
+		resultClass="LinkCategory">
 		<![CDATA[
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link
@@ -96,8 +96,8 @@
 		]]>
 	</select>
 
-	<select id="listLinkByCategoryId" parameterMap="listParam"
-		resultClass="Link">
+	<select id="listLinkCategoryByCategoryId" parameterMap="listParam"
+		resultClass="LinkCategory">
 		<![CDATA[
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link
@@ -106,8 +106,8 @@
 		]]>
 	</select>
 
-	<select id="listPubLinkByCategoryId" parameterMap="listParam"
-		resultClass="Link">
+	<select id="listPubLinkCategoryByCategoryId" parameterMap="listParam"
+		resultClass="LinkCategory">
 		<![CDATA[
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link
@@ -116,14 +116,14 @@
 		]]>
 	</select>
 
-	<select id="listAllLink" resultClass="Link">
+	<select id="listAllLinkCategory" resultClass="LinkCategory">
 		<![CDATA[
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link
 		]]>
 	</select>
 
-	<select id="listAllPubLink" resultClass="Link">
+	<select id="listAllPubLinkCategory" resultClass="LinkCategory">
 		<![CDATA[
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link
@@ -131,8 +131,8 @@
 		]]>
 	</select>
 
-	<select id="listAllLinkByCategoryId" parameterClass="Long"
-		resultClass="Link">
+	<select id="listAllLinkCategoryByCategoryId" parameterClass="Long"
+		resultClass="LinkCategory">
 		<![CDATA[
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link
@@ -140,8 +140,8 @@
 		]]>
 	</select>
 
-	<select id="listAllPubLinkByCategoryId" parameterClass="Long"
-		resultClass="Link">
+	<select id="listAllPubLinkCategoryByCategoryId" parameterClass="Long"
+		resultClass="LinkCategory">
 		<![CDATA[
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link
@@ -149,11 +149,10 @@
 		]]>
 	</select>
 
-	<!-- 
 	<select id="lastInsert" resultClass="Long">
 		<![CDATA[
 		SELECT last_insert_id() AS NUM
 		]]>
 	</select>
-	 -->
+	
 </sqlMap>

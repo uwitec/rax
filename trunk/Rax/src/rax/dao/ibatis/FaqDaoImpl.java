@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.DataSource;
+
 import org.apache.log4j.Logger;
+import org.springframework.dao.DataAccessException;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import rax.dao.FaqDao;
@@ -19,7 +22,6 @@ public class FaqDaoImpl extends SqlMapClientDaoSupport implements FaqDao {
     @Override
     public Long create(Faq newInstance) {
         Long ret = new Long(0);
-
         SqlMapClient sqlMap = getSqlMapClient();
         try {
             sqlMap.insert("createFaq", newInstance);
@@ -75,7 +77,6 @@ public class FaqDaoImpl extends SqlMapClientDaoSupport implements FaqDao {
 
     public long count(boolean bOnlyPub) {
         Long num = new Long(0);
-
         SqlMapClient sqlMap = getSqlMapClient();
         try {
             sqlMap.queryForObject(bOnlyPub ? "countPubFaq" : "countAllFaq");
@@ -93,10 +94,8 @@ public class FaqDaoImpl extends SqlMapClientDaoSupport implements FaqDao {
 
     public List<Faq> list(int index, int num, boolean bOnlyPub) {
         List<Faq> items = null;
-
         SqlMapClient sqlMap = getSqlMapClient();
         Map param = new HashMap();
-
         try {
             param.put("index", index);
             param.put("num", num);
@@ -106,7 +105,6 @@ public class FaqDaoImpl extends SqlMapClientDaoSupport implements FaqDao {
             logger.error(ex.toString());
             items = null;
         }
-
         return items;
     }
 
@@ -115,20 +113,21 @@ public class FaqDaoImpl extends SqlMapClientDaoSupport implements FaqDao {
         return listAll(false);
     }
 
-    public List<Faq> listAll(boolean bOnlyPub) {
+    public List<Faq> listAll(boolean bOnlyPub) throws DataAccessException {
+        return getSqlMapClientTemplate().queryForList(bOnlyPub ? "listAllPubFaq" : "listAllFaq");
+        /*
         List<Faq> items = null;
-
         SqlMapClient sqlMap = getSqlMapClient();
-
+                
         try {
             items = sqlMap.queryForList(bOnlyPub ? "listAllPubFaq"
                     : "listAllFaq");
         } catch (Exception ex) {
-            logger.error(ex.toString());
+            logger.error("FaqDaoImpl::listAll() " + ex.toString());
             items = null;
         }
-
         return items;
+        */
     }
 
 }

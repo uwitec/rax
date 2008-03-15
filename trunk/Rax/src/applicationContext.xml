@@ -8,42 +8,69 @@
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
+		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="url" value="jdbc:postgresql://localhost/test" />
+		<property name="username" value="test" />
+		<property name="password" value="test" />
+	</bean>
+
+	<!-- 
+		<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
 		<property name="driverClassName"
-			value="${jdbc.driverClassName}" />
+		value="${jdbc.driverClassName}" />
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
-	</bean>
-
-	<bean id="propertyConfigurer"
+		</bean>
+		<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">
-			<value>dataSource.properties</value>
+		<value>WEB-INF/dataSource.properties</value>
 		</property>
-	</bean>
+		</bean>
+	-->
 
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
 	</bean>
 
 	<bean id="sqlMapClient"
 		class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
-		<property name="configLocation" value="sqlmap-config.xml" />
+		<property name="configLocation"
+			value="classpath:sqlMapConfig.xml" />
 		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="sqlMapClientTemplate"
+		class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
 
 	<bean id="FaqDao" class="rax.dao.ibatis.FaqDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
 
-	<bean id="LinkDao" class="rax.dao.ibatis.LinkDaoImpl">
-		<property name="sqlMapClient" ref="sqlMapClient" />
+	<bean id="FaqService" class="rax.service.FaqService">
+		<property name="faqDao" ref="FaqDao" />
 	</bean>
 
-	<bean id="LinkCategoryDao"
+	<bean id="ListFaqAction" class="rax.action.ListFaqAction">
+		<property name="faqService" ref="FaqService" />
+	</bean>
+	
+	<!-- 
+		<bean id="LinkDao" class="rax.dao.ibatis.LinkDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+		</bean>
+		
+		<bean id="LinkCategoryDao"
 		class="rax.dao.ibatis.LinkCategoryDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
-	</bean>
-
+		</bean>
+	-->
 </beans>
