@@ -2,7 +2,7 @@ package rax.service;
 
 import java.util.List;
 
-import rax.dao.hibernate.LinkDao;
+import rax.dao.LinkDao;
 import rax.model.Link;
 import rax.model.LinkCategory;
 
@@ -12,8 +12,8 @@ public class LinkService {
 
     public LinkService() {
     }
-    
-    public void setLink(LinkDao dao) {
+
+    public void setLinkDao(LinkDao dao) {
         linkDao = dao;
     }
 
@@ -22,22 +22,28 @@ public class LinkService {
     }
 
     public boolean deleteLink(long id) {
+        boolean ret = false;
         Link link = linkDao.read(id);
-        return (null == link) ? false : linkDao.delete(link);
+        if (null != link) {
+            linkDao.delete(link);
+            ret = true;
+        }
+        return ret;
     }
 
     public boolean updateLink(long id, Link link) {
-        return linkDao.update(link);
+        linkDao.update(link);
+        return true;
     }
 
     public long getCount(boolean onlyPub) {
         return linkDao.count();
     }
-    
+
     public long getCountByCategory(LinkCategory category, boolean onlyPub) {
         return linkDao.countByCategoryId(category.getId(), onlyPub);
     }
-    
+
     public List<Link> listLinks(int index, int num, boolean onlyPub) {
         return linkDao.list(index, num, onlyPub);
     }

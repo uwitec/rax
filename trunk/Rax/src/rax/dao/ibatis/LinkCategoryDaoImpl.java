@@ -38,8 +38,8 @@ public class LinkCategoryDaoImpl extends SqlMapClientDaoSupport implements
     }
 
     @Override
-    public long count() throws DataAccessException {
-        return (Long) getSqlMapClientTemplate().queryForObject(
+    public int count() throws DataAccessException {
+        return (Integer) getSqlMapClientTemplate().queryForObject(
                 "countLinkCategory");
     }
 
@@ -48,7 +48,7 @@ public class LinkCategoryDaoImpl extends SqlMapClientDaoSupport implements
             throws DataAccessException {
         Map param = new HashMap();
         param.put("index", index);
-        param.put("num", num);
+        param.put("number", num);
         return getSqlMapClientTemplate()
                 .queryForList("listLinkCategory", param);
     }

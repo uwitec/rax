@@ -43,20 +43,20 @@
 		]]>
 	</delete>
 
-	<select id="countAllLink" resultClass="Long">
+	<select id="countAllLink" resultClass="Integer">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM rax_link
 		]]>
 	</select>
 
-	<select id="countPubLink" resultClass="Long">
+	<select id="countPubLink" resultClass="Integer">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM rax_link WHERE pub=TRUE
 		]]>
 	</select>
 
 	<select id="countAllLinkByCategoryId" parameterClass="Long"
-		resultClass="Long">
+		resultClass="Integer">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM rax_link 
 		WHERE category_id=#id#
@@ -64,21 +64,15 @@
 	</select>
 
 	<select id="countPubLinkByCategoryId" parameterClass="Long"
-		resultClass="Long">
+		resultClass="Integer">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM rax_link 
 		WHERE pub=TRUE AND category_id=#id#
 		]]>
 	</select>
 
-	<parameterMap id="listParam" class="java.util.Map">
-		<parameter property="index" jdbcType="integer" javaType="Long"
-			nullValue="0" />
-		<parameter property="number" jdbcType="integer"
-			javaType="Integer" nullValue="20" />
-	</parameterMap>
-
-	<select id="listLink" parameterMap="listParam" resultClass="Link">
+	<select id="listLink" parameterClass="java.util.Map"
+		resultClass="Link">
 		<![CDATA[
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link
@@ -86,7 +80,7 @@
 		]]>
 	</select>
 
-	<select id="listPubLink" parameterMap="listParam"
+	<select id="listPubLink" parameterClass="java.util.Map"
 		resultClass="Link">
 		<![CDATA[
 		SELECT id,category_id,title,address,summary,pub 
@@ -96,22 +90,22 @@
 		]]>
 	</select>
 
-	<select id="listLinkByCategoryId" parameterMap="listParam"
+	<select id="listLinkByCategoryId" parameterClass="java.util.Map"
 		resultClass="Link">
 		<![CDATA[
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link
-		WHERE category_id=#id#
+		WHERE category_id=#categoryId#
 		LIMIT #number# OFFSET #index#
 		]]>
 	</select>
 
-	<select id="listPubLinkByCategoryId" parameterMap="listParam"
+	<select id="listPubLinkByCategoryId" parameterClass="java.util.Map"
 		resultClass="Link">
 		<![CDATA[
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link
-		WHERE pub=TRUE AND category_id=#id#
+		WHERE pub=TRUE AND category_id=#categoryId#
 		LIMIT #number# OFFSET #index#
 		]]>
 	</select>
@@ -136,7 +130,7 @@
 		<![CDATA[
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link
-		WHERE category_id=#id#
+		WHERE category_id=#categoryId#
 		]]>
 	</select>
 
@@ -145,7 +139,7 @@
 		<![CDATA[
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link
-		WHERE pub=TRUE AND category_id=#id#
+		WHERE pub=TRUE AND category_id=#categoryId#
 		]]>
 	</select>
 

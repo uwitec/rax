@@ -7,9 +7,9 @@ import rax.model.ArticleCategory;
 public interface ArticleCategoryDao extends GenericDao<ArticleCategory, Long> {
 
     @Override
-    public long count();
+    public int count();
 
-    public long countByCategoryId(Long id);
+    public int countByCategoryId(Long id);
 
     @Override
     public Long create(ArticleCategory newInstance);

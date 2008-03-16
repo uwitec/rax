@@ -7,9 +7,9 @@ import rax.model.Attachment;
 public interface AttachmentDao extends GenericDao<Attachment, Long> {
 
     @Override
-    public long count();
+    public int count();
 
-    public long countByArticleId(Long id);
+    public int countByArticleId(Long id);
 
     @Override
     public List<Attachment> list(int index, int num);

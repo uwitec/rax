@@ -35,12 +35,12 @@ public class FaqDaoImpl extends SqlMapClientDaoSupport implements FaqDao {
     }
 
     @Override
-    public long count() throws DataAccessException {
+    public int count() throws DataAccessException {
         return count(false);
     }
 
-    public long count(boolean bOnlyPub) throws DataAccessException {
-        return (Long) getSqlMapClientTemplate().queryForObject(
+    public int count(boolean bOnlyPub) throws DataAccessException {
+        return (Integer) getSqlMapClientTemplate().queryForObject(
                 bOnlyPub ? "countPubFaq" : "countAllFaq");
     }
 
@@ -53,7 +53,7 @@ public class FaqDaoImpl extends SqlMapClientDaoSupport implements FaqDao {
             throws DataAccessException {
         Map param = new HashMap();
         param.put("index", index);
-        param.put("num", num);
+        param.put("number", num);
         return getSqlMapClientTemplate().queryForList(
                 bOnlyPub ? "listPubFaq" : "listFaq", param);
     }

@@ -13,7 +13,7 @@ public interface GenericDao<T, PK extends Serializable> {
 
     int delete(T persistentObject);
     
-    long count();
+    int count();
 
     List<T> list(int index, int num);
 

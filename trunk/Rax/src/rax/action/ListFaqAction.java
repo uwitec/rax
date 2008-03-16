@@ -14,10 +14,11 @@ public class ListFaqAction extends ActionSupport {
     private static final long serialVersionUID = 1L;
     private final static Logger logger = Logger.getLogger(ListFaqAction.class);
 
-    private List<Faq> faqList;
-    private int count = 0;
     private FaqService faqService = null;
 
+    private List<Faq> faqList;
+    private int count = 0;
+    
     @Override
     public String execute() throws Exception {
         

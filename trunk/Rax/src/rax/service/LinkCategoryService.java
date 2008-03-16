@@ -2,8 +2,8 @@ package rax.service;
 
 import java.util.List;
 
-import rax.dao.hibernate.LinkCategoryDao;
-import rax.dao.hibernate.LinkDao;
+import rax.dao.LinkCategoryDao;
+import rax.dao.LinkDao;
 import rax.model.LinkCategory;
 
 public class LinkCategoryService {
@@ -31,14 +31,19 @@ public class LinkCategoryService {
     }
 
     public boolean deleteCategory(long id) {
+        boolean ret = false;
         LinkCategory category = linkCategoryDao.read(id);
-        boolean bFlag = linkDao.deleteByCategoryId(category.getId());
-        return (null != category && bFlag) ? linkCategoryDao.delete(category)
-                : false;
+        if (category != null) {
+            linkDao.deleteByCategoryId(category.getId());
+            linkCategoryDao.delete(category);
+            ret = true;
+        }
+        return ret;
     }
 
     public boolean updateCategory(long id, LinkCategory category) {
-        return linkCategoryDao.update(category);
+        linkCategoryDao.update(category);
+        return true;
     }
 
     public long getCount(boolean onlyPub) {

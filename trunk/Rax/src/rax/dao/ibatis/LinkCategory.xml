@@ -42,20 +42,13 @@
 		]]>
 	</delete>
 
-	<select id="countLinkCategory" resultClass="Long">
+	<select id="countLinkCategory" resultClass="Integer">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM rax_link_category
 		]]>
 	</select>
 
-	<parameterMap id="listParam" class="java.util.Map">
-		<parameter property="index" jdbcType="integer" javaType="Long"
-			nullValue="0" />
-		<parameter property="number" jdbcType="integer"
-			javaType="Integer" nullValue="20" />
-	</parameterMap>
-
-	<select id="listLinkCategory" parameterMap="listParam"
+	<select id="listLinkCategory" parameterClass="java.util.Map"
 		resultClass="LinkCategory">
 		<![CDATA[
 		SELECT id,title,summary 

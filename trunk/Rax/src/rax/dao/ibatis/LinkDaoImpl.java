@@ -38,25 +38,24 @@ public class LinkDaoImpl extends SqlMapClientDaoSupport implements LinkDao {
     }
 
     @Override
-    public long count() throws DataAccessException {
+    public int count() throws DataAccessException {
         return count(false);
     }
 
-    public long count(boolean bOnlyPub) throws DataAccessException {
-        return (Long) getSqlMapClientTemplate().queryForObject(
+    public int count(boolean bOnlyPub) throws DataAccessException {
+        return (Integer) getSqlMapClientTemplate().queryForObject(
                 bOnlyPub ? "countPubLink" : "countAllLink");
     }
 
-    public long countByCategoryId(Long id) throws DataAccessException {
+    public int countByCategoryId(Long id) throws DataAccessException {
         return countByCategoryId(id, false);
     }
 
-    public long countByCategoryId(Long id, boolean bOnlyPub)
+    public int countByCategoryId(Long id, boolean bOnlyPub)
             throws DataAccessException {
-
-        return (Long) getSqlMapClientTemplate().queryForObject(
+        return (Integer) getSqlMapClientTemplate().queryForObject(
                 bOnlyPub ? "countPubLinkByCategoryId"
-                        : "countAllLinkByCategoryId");
+                        : "countAllLinkByCategoryId", id);
     }
 
     @Override
@@ -68,7 +67,7 @@ public class LinkDaoImpl extends SqlMapClientDaoSupport implements LinkDao {
             throws DataAccessException {
         Map param = new HashMap();
         param.put("index", index);
-        param.put("num", num);
+        param.put("number", num);
         return getSqlMapClientTemplate().queryForList(
                 bOnlyPub ? "listPubLink" : "listLink", param);
     }
@@ -82,7 +81,8 @@ public class LinkDaoImpl extends SqlMapClientDaoSupport implements LinkDao {
             boolean bOnlyPub) throws DataAccessException {
         Map param = new HashMap();
         param.put("index", index);
-        param.put("num", num);
+        param.put("number", num);
+        param.put("categoryId", id);
         return getSqlMapClientTemplate().queryForList(
                 bOnlyPub ? "listPubLinkByCategoryId" : "listLinkByCategoryId",
                 param);
@@ -106,7 +106,7 @@ public class LinkDaoImpl extends SqlMapClientDaoSupport implements LinkDao {
             throws DataAccessException {
         return getSqlMapClientTemplate().queryForList(
                 bOnlyPub ? "listAllPubLinkByCategoryId"
-                        : "listAllLinkByCategoryId");
+                        : "listAllLinkByCategoryId", id);
     }
 
 }

@@ -20,11 +20,11 @@ public interface LinkDao extends GenericDao<Link, Long> {
 
     public int deleteByCategoryId(Long id);
 
-    public long count();
+    public int count();
 
-    public long countByCategoryId(Long id);
+    public int countByCategoryId(Long id);
 
-    public long countByCategoryId(Long id, boolean bOnlyPub);
+    public int countByCategoryId(Long id, boolean bOnlyPub);
 
     @Override
     public List<Link> list(int index, int num);

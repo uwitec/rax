@@ -5,9 +5,9 @@ import java.util.List;
 public interface ArticleContentDao extends GenericDao<String, Long> {
 
     @Override
-    public long count();
+    public int count();
 
-    public long countByCategoryId(Long id);
+    public int countByCategoryId(Long id);
 
     @Override
     public List<String> list(int index, int num);

@@ -7,9 +7,9 @@ import rax.model.Faq;
 public interface FaqDao extends GenericDao<Faq, Long> {
 
     @Override
-    public long count();
+    public int count();
 
-    public long count(boolean bOnlyPub);
+    public int count(boolean bOnlyPub);
 
     @Override
     public List<Faq> list(int index, int num);

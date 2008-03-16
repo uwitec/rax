@@ -16,6 +16,9 @@ public class ListLinkAction extends ActionSupport {
     private static final long serialVersionUID = 1L;
     private final static Logger logger = Logger.getLogger(ListLinkAction.class);
 
+    LinkService linkService = null;
+    LinkCategoryService linkCategoryService = null;
+
     private List<Link> links;
     private List<LinkCategory> categorys;
 
@@ -26,18 +29,18 @@ public class ListLinkAction extends ActionSupport {
     @Override
     public String execute() throws Exception {
 
-        LinkCategoryService categoryService = new LinkCategoryService();
-        LinkService linkService = new LinkService();
-
-        categorys = categoryService.listAllCategorys();
-        category = categoryService.getCategoryById(categoryId);
+        categorys = linkCategoryService.listAllCategorys();
+        category = linkCategoryService.getCategoryById(categoryId);
         try {
-            
-            logger.trace(String.valueOf(category.getId()));
-            logger.trace(category.getTitle());
-            logger.trace(category.getSummary());
-            
+
+            logger.debug("categoryId:" + category.getId());
+            logger.debug("title:" + category.getTitle());
+            logger.debug("summary:" + category.getSummary());
+
             linkNum = (int) linkService.getCountByCategory(category, false);
+            
+            logger.debug("num:" + linkNum);
+            
             links = linkService
                     .listLinksByCategory(category, 0, linkNum, false);
         } catch (Exception ex) {
@@ -45,6 +48,14 @@ public class ListLinkAction extends ActionSupport {
         }
 
         return SUCCESS;
+    }
+
+    public void setLinkService(LinkService service) {
+        linkService = service;
+    }
+
+    public void setLinkCategoryService(LinkCategoryService service) {
+        linkCategoryService = service;
     }
 
     public int getCategoryId() {

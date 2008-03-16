@@ -21,14 +21,12 @@ public class FaqService {
     }
 
     public boolean deleteFaq(long id) {
-
         boolean ret = false;
         Faq faq = faqDao.read(id);
         if (faq != null) {
             faqDao.delete(faq);
             ret = true;
         }
-
         return ret;
     }
 

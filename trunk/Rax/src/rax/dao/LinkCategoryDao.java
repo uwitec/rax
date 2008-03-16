@@ -19,7 +19,7 @@ public interface LinkCategoryDao extends GenericDao<LinkCategory, Long> {
     public int delete(LinkCategory persistentObject);
 
     @Override
-    public long count();
+    public int count();
 
     @Override
     public List<LinkCategory> list(int index, int num);

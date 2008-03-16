@@ -8,5 +8,10 @@
 	<bean id="ListFaqAction" class="rax.action.ListFaqAction">
 		<property name="faqService" ref="FaqService" />
 	</bean>
-	
+
+	<bean id="ListLinkAction" class="rax.action.ListLinkAction">
+		<property name="linkService" ref="LinkService" />
+		<property name="linkCategoryService" ref="LinkCategoryService" />
+	</bean>
+
 </beans>

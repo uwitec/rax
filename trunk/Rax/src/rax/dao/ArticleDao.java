@@ -7,13 +7,13 @@ import rax.model.Article;
 public interface ArticleDao extends GenericDao<Article, Long> {
 
     @Override
-    public long count();
+    public int count();
 
-    public long count(boolean onlyPub);
+    public int count(boolean onlyPub);
 
-    public long countByCategoryId(Long id);
+    public int countByCategoryId(Long id);
 
-    public long countByCategoryId(Long id, boolean onlyPub);
+    public int countByCategoryId(Long id, boolean onlyPub);
 
     @Override
     public List<Article> list(int index, int num);

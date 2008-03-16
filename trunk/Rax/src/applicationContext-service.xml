@@ -9,12 +9,12 @@
 		<property name="faqDao" ref="FaqDao" />
 	</bean>
 
-	<bean id="LinkService" class="rax.service.FaqService">
+	<bean id="LinkService" class="rax.service.LinkService">
 		<property name="linkDao" ref="LinkDao" />
 	</bean>
 
 	<bean id="LinkCategoryService"
-		class="rax.service.LinkCategoryDao">
+		class="rax.service.LinkCategoryService">
 		<property name="linkDao" ref="LinkDao" />
 		<property name="linkCategoryDao" ref="LinkCategoryDao" />
 	</bean>

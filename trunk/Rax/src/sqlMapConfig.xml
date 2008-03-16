@@ -11,12 +11,9 @@
 		maxTransactions="5" useStatementNamespaces="false" />
 
 	<sqlMap resource="sqlMapCommon.xml" />
-	
+
 	<sqlMap resource="rax/dao/ibatis/Faq.xml" />
 	<sqlMap resource="rax/dao/ibatis/Link.xml" />
+	<sqlMap resource="rax/dao/ibatis/LinkCategory.xml" />
 
-	<!-- 
-		<sqlMap resource="rax/dao/ibatis/LinkCategory.xml" />
-	-->
-	
 </sqlMapConfig>

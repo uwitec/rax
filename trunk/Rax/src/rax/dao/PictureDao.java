@@ -7,9 +7,9 @@ import rax.model.Picture;
 public interface PictureDao extends GenericDao<Picture, Long> {
 
     @Override
-    public long count();
+    public int count();
 
-    public long countByArticleId(Long id);
+    public int countByArticleId(Long id);
 
     @Override
     public List<Picture> list(int index, int num);

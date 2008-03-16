@@ -42,26 +42,19 @@
 		]]>
 	</delete>
 
-	<select id="countAllFaq" resultClass="Long">
+	<select id="countAllFaq" resultClass="Integer">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM rax_faq
 		]]>
 	</select>
 
-	<select id="countPubFaq" resultClass="Long">
+	<select id="countPubFaq" resultClass="Integer">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM rax_faq WHERE pub=TRUE
 		]]>
 	</select>
 
-	<parameterMap id="listParam" class="java.util.Map">
-		<parameter property="index" jdbcType="integer" javaType="Long"
-			nullValue="0" />
-		<parameter property="number" jdbcType="integer"
-			javaType="Integer" nullValue="20" />
-	</parameterMap>
-
-	<select id="listFaq" parameterMap="listParam" resultClass="Faq">
+	<select id="listFaq" parameterClass="java.util.Map" resultClass="Faq">
 		<![CDATA[
 		SELECT id,question,answer,pub_date AS pubDate,pub 
 		FROM rax_faq
@@ -69,7 +62,7 @@
 		]]>
 	</select>
 
-	<select id="listPubFaq" parameterMap="listParam"
+	<select id="listPubFaq" parameterClass="java.util.Map"
 		resultClass="Faq">
 		<![CDATA[
 		SELECT id,question,answer,pub_date AS pubDate,pub 
