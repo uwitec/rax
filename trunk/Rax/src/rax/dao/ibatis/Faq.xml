@@ -17,7 +17,8 @@
 
 	<select id="readFaq" parameterClass="Long" resultClass="Faq">
 		<![CDATA[
-		SELECT id,question,answer,pub_date AS pubDate,pub FROM rax_faq
+		SELECT id,question,answer,pub_date AS pubDate,pub
+		FROM rax_faq
 		WHERE id=#id#
 		]]>
 	</select>
@@ -25,7 +26,8 @@
 	<update id="updateFaq" parameterClass="Faq">
 		<![CDATA[
 		UPDATE rax_faq SET question=#question#, answer=#answer#,
-		pub_date=#pubDate#, pub=#pub# WHERE id=#id#
+		pub_date=#pubDate#, pub=#pub#
+		WHERE id=#id#
 		]]>
 	</update>
 
@@ -84,12 +86,6 @@
 		SELECT id,question,answer,pub_date AS pubDate,pub 
 		FROM rax_faq
 		WHERE pub=TRUE
-		]]>
-	</select>
-
-	<select id="lastInsert" resultClass="Long">
-		<![CDATA[
-		SELECT last_insert_id() AS NUM
 		]]>
 	</select>
 

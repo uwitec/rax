@@ -10,6 +10,8 @@
 		lazyLoadingEnabled="true" maxRequests="32" maxSessions="10"
 		maxTransactions="5" useStatementNamespaces="false" />
 
+	<sqlMap resource="sqlMapCommon.xml" />
+	
 	<sqlMap resource="rax/dao/ibatis/Faq.xml" />
 	<sqlMap resource="rax/dao/ibatis/Link.xml" />
 

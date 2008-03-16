@@ -148,11 +148,5 @@
 		WHERE pub=TRUE AND category_id=#id#
 		]]>
 	</select>
-
-	<select id="lastInsert" resultClass="Long">
-		<![CDATA[
-		SELECT last_insert_id() AS NUM
-		]]>
-	</select>
 	
 </sqlMap>
