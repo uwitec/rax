@@ -38,14 +38,14 @@ public interface ArticleDao extends GenericDao<Article, Long> {
     public Long create(Article newInstance);
 
     @Override
-    public boolean delete(Article persistentObject);
+    public int delete(Article persistentObject);
 
-    public boolean deleteByCategoryId(Long id);
+    public int deleteByCategoryId(Long id);
 
     @Override
     public Article read(Long id);
 
     @Override
-    public boolean update(Article transientObject);
+    public int update(Article transientObject);
 
 }

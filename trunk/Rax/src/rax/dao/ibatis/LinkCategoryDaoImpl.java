@@ -33,7 +33,7 @@ public class LinkCategoryDaoImpl implements LinkCategoryDao {
     }
 
     @Override
-    public boolean delete(LinkCategory persistentObject) {
+    public int delete(LinkCategory persistentObject) {
         try {
             Session session = HibernateUtil.getSessionFactory()
                     .getCurrentSession();
@@ -45,9 +45,9 @@ public class LinkCategoryDaoImpl implements LinkCategoryDao {
 
             session.getTransaction().commit();
         } catch (HibernateException ex) {
-            return false;
+            return 0;
         }
-        return true;
+        return 0;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class LinkCategoryDaoImpl implements LinkCategoryDao {
     }
 
     @Override
-    public boolean update(LinkCategory transientObject) {
+    public int update(LinkCategory transientObject) {
         try {
             Session session = HibernateUtil.getSessionFactory()
                     .getCurrentSession();
@@ -87,9 +87,9 @@ public class LinkCategoryDaoImpl implements LinkCategoryDao {
             session.save(obj);
             session.getTransaction().commit();
         } catch (HibernateException ex) {
-            return false;
+            return 0;
         }
-        return true;
+        return 0;
     }
 
     @Override

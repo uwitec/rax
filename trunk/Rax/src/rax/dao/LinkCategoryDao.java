@@ -10,13 +10,13 @@ public interface LinkCategoryDao extends GenericDao<LinkCategory, Long> {
     public Long create(LinkCategory newInstance);
 
     @Override
-    public boolean delete(LinkCategory persistentObject);
+    public int delete(LinkCategory persistentObject);
 
     @Override
     public LinkCategory read(Long id);
 
     @Override
-    public boolean update(LinkCategory transientObject);
+    public int update(LinkCategory transientObject);
 
     @Override
     public long count();

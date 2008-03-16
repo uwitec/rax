@@ -21,14 +21,14 @@ public interface ArticleContentDao extends GenericDao<String, Long> {
     public Long create(String newInstance);
 
     @Override
-    public boolean delete(String persistentObject);
+    public int delete(String persistentObject);
 
-    public boolean deleteByCategoryId(Long id);
+    public int deleteByCategoryId(Long id);
 
     @Override
     public String read(Long id);
 
     @Override
-    public boolean update(String transientObject);
+    public int update(String transientObject);
 
 }

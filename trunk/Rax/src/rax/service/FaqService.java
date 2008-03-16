@@ -15,18 +15,26 @@ public class FaqService {
     public void setFaqDao(FaqDao dao) {
         faqDao = dao;
     }
-    
+
     public long createFaq(Faq faq) {
         return faqDao.create(faq);
     }
 
     public boolean deleteFaq(long id) {
+
+        boolean ret = false;
         Faq faq = faqDao.read(id);
-        return (null == faq) ? false : faqDao.delete(faq);
+        if (faq != null) {
+            faqDao.delete(faq);
+            ret = true;
+        }
+
+        return ret;
     }
 
     public boolean updateFaq(long id, Faq faq) {
-        return faqDao.update(faq);
+        faqDao.update(faq);
+        return true;
     }
 
     public long getCount(boolean onlyPub) {

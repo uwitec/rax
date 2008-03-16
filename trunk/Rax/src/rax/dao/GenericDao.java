@@ -9,9 +9,9 @@ public interface GenericDao<T, PK extends Serializable> {
 
     T read(PK id);
 
-    boolean update(T transientObject);
+    int update(T transientObject);
 
-    boolean delete(T persistentObject);
+    int delete(T persistentObject);
     
     long count();
 

@@ -48,39 +48,39 @@ public class LinkDaoImpl extends SqlMapClientDaoSupport implements LinkDao {
     }
 
     @Override
-    public boolean update(Link transientObject) {
+    public int update(Link transientObject) {
         SqlMapClient sqlMap = getSqlMapClient();
         try {
             sqlMap.update("updateLink", transientObject);
         } catch (Exception ex) {
             logger.error(ex.toString());
-            return false;
+            return 0;
         }
-        return true;
+        return 0;
     }
 
     @Override
-    public boolean delete(Link persistentObject) {
+    public int delete(Link persistentObject) {
         SqlMapClient sqlMap = getSqlMapClient();
         try {
             sqlMap.delete("deleteLink", persistentObject.getId());
         } catch (Exception ex) {
             logger.error(ex.toString());
-            return false;
+            return 0;
         }
-        return true;
+        return 0;
     }
 
-    public boolean deleteByCategoryId(Long id) {
+    public int deleteByCategoryId(Long id) {
         SqlMapClient sqlMap = getSqlMapClient();
         try {
             sqlMap.delete("deleteLinkByCategoryId", id);
         } catch (Exception ex) {
             logger.error(ex.toString());
-            return false;
+            return 0;
         }
 
-        return true;
+        return 0;
     }
 
     @Override

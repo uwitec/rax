@@ -23,12 +23,12 @@ public interface AttachmentDao extends GenericDao<Attachment, Long> {
     public Long create(Attachment newInstance);
 
     @Override
-    public boolean delete(Attachment persistentObject);
+    public int delete(Attachment persistentObject);
 
     @Override
     public Attachment read(Long id);
 
     @Override
-    public boolean update(Attachment transientObject);
+    public int update(Attachment transientObject);
 
 }

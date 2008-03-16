@@ -23,12 +23,12 @@ public interface PictureDao extends GenericDao<Picture, Long> {
     public Long create(Picture newInstance);
 
     @Override
-    public boolean delete(Picture persistentObject);
+    public int delete(Picture persistentObject);
 
     @Override
     public Picture read(Long id);
 
     @Override
-    public boolean update(Picture transientObject);
+    public int update(Picture transientObject);
 
 }

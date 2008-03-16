@@ -25,12 +25,12 @@ public interface FaqDao extends GenericDao<Faq, Long> {
     public Long create(Faq newInstance);
 
     @Override
-    public boolean delete(Faq persistentObject);
+    public int delete(Faq persistentObject);
 
     @Override
     public Faq read(Long id);
 
     @Override
-    public boolean update(Faq transientObject);
+    public int update(Faq transientObject);
 
 }

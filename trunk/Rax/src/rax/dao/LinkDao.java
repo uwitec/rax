@@ -35,14 +35,14 @@ public interface LinkDao extends GenericDao<Link, Long> {
     public Long create(Link newInstance);
 
     @Override
-    public boolean delete(Link persistentObject);
+    public int delete(Link persistentObject);
 
-    public boolean deleteByCategoryId(Long id);
+    public int deleteByCategoryId(Long id);
 
     @Override
     public Link read(Long id);
 
     @Override
-    public boolean update(Link transientObject);
+    public int update(Link transientObject);
 
 }

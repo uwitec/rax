@@ -15,9 +15,9 @@ public interface ArticleCategoryDao extends GenericDao<ArticleCategory, Long> {
     public Long create(ArticleCategory newInstance);
 
     @Override
-    public boolean delete(ArticleCategory persistentObject);
+    public int delete(ArticleCategory persistentObject);
 
-    public boolean deleteByCategoryId(Long id);
+    public int deleteByCategoryId(Long id);
 
     @Override
     public List<ArticleCategory> list(int index, int num);
@@ -35,6 +35,6 @@ public interface ArticleCategoryDao extends GenericDao<ArticleCategory, Long> {
     public ArticleCategory read(Long id);
 
     @Override
-    public boolean update(ArticleCategory transientObject);
+    public int update(ArticleCategory transientObject);
 
 }
