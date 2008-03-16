@@ -20,7 +20,7 @@ public class FaqDaoImpl extends SqlMapClientDaoSupport implements FaqDao {
 
     @Override
     public Faq read(Long id) throws DataAccessException {
-        return (Faq) getSqlMapClientTemplate().queryForObject("readLink", id);
+        return (Faq) getSqlMapClientTemplate().queryForObject("readFaq", id);
     }
 
     @Override

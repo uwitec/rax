@@ -10,64 +10,41 @@
 
 	<insert id="createLinkCategory" parameterClass="LinkCategory">
 		<![CDATA[
-		INSERT INTO rax_link (category_id, title, address, summary, pub) 
-		VALUES (#category_id#, #title#, #address#, #summary#, #pub#)
+		INSERT INTO rax_link_category (title, summary) 
+		VALUES (#title#, #summary#)
 		]]>
+		<selectKey resultClass="Long" keyProperty="id">
+			<![CDATA[
+			SELECT currval('rax_link_category_id_seq'::regclass)
+			]]>
+		</selectKey>
 	</insert>
 
-	<select id="readLinkCategory" parameterClass="Long" resultClass="LinkCategory">
+	<select id="readLinkCategory" parameterClass="Long"
+		resultClass="LinkCategory">
 		<![CDATA[
-		SELECT id,category_id,title,address,summary,pub 
-		FROM rax_link
+		SELECT id,title,summary 
+		FROM rax_link_category
 		WHERE id=#id#
 		]]>
 	</select>
 
 	<update id="updateLinkCategory" parameterClass="LinkCategory">
 		<![CDATA[
-		UPDATE rax_link SET category_id=#categoryId#, title=#title#,
-		address=#address#, summary=#summary#, pub=#pub#
+		UPDATE rax_link_category SET title=#title#, summary=#summary#
 		WHERE id=#id#
 		]]>
 	</update>
 
 	<delete id="deleteLinkCategory" parameterClass="Long">
 		<![CDATA[
-		DELETE rax_link WHERE id=#id#
+		DELETE rax_link_category WHERE id=#id#
 		]]>
 	</delete>
 
-	<delete id="deleteLinkCategoryByCategoryId" parameterClass="Long">
+	<select id="countLinkCategory" resultClass="Long">
 		<![CDATA[
-		DELETE rax_link WHERE category_id=#id#
-		]]>
-	</delete>
-
-	<select id="countAllLinkCategory" resultClass="Long">
-		<![CDATA[
-		SELECT COUNT(*) AS NUM FROM rax_link
-		]]>
-	</select>
-
-	<select id="countPubLinkCategory" resultClass="Long">
-		<![CDATA[
-		SELECT COUNT(*) AS NUM FROM rax_link WHERE pub=TRUE
-		]]>
-	</select>
-
-	<select id="countAllLinkCategoryByCategoryId" parameterClass="Long"
-		resultClass="Long">
-		<![CDATA[
-		SELECT COUNT(*) AS NUM FROM rax_link 
-		WHERE category_id=#id#
-		]]>
-	</select>
-
-	<select id="countPubLinkCategoryByCategoryId" parameterClass="Long"
-		resultClass="Long">
-		<![CDATA[
-		SELECT COUNT(*) AS NUM FROM rax_link 
-		WHERE pub=TRUE AND category_id=#id#
+		SELECT COUNT(*) AS NUM FROM rax_link_category
 		]]>
 	</select>
 
@@ -78,75 +55,20 @@
 			javaType="Integer" nullValue="20" />
 	</parameterMap>
 
-	<select id="listLinkCategory" parameterMap="listParam" resultClass="LinkCategory">
-		<![CDATA[
-		SELECT id,category_id,title,address,summary,pub 
-		FROM rax_link
-		LIMIT #number# OFFSET #index#
-		]]>
-	</select>
-
-	<select id="listPubLinkCategory" parameterMap="listParam"
+	<select id="listLinkCategory" parameterMap="listParam"
 		resultClass="LinkCategory">
 		<![CDATA[
-		SELECT id,category_id,title,address,summary,pub 
-		FROM rax_link
-		WHERE pub=TRUE
-		LIMIT #number# OFFSET #index#
-		]]>
-	</select>
-
-	<select id="listLinkCategoryByCategoryId" parameterMap="listParam"
-		resultClass="LinkCategory">
-		<![CDATA[
-		SELECT id,category_id,title,address,summary,pub 
-		FROM rax_link
-		WHERE category_id=#id#
-		LIMIT #number# OFFSET #index#
-		]]>
-	</select>
-
-	<select id="listPubLinkCategoryByCategoryId" parameterMap="listParam"
-		resultClass="LinkCategory">
-		<![CDATA[
-		SELECT id,category_id,title,address,summary,pub 
-		FROM rax_link
-		WHERE pub=TRUE AND category_id=#id#
+		SELECT id,title,summary 
+		FROM rax_link_category
 		LIMIT #number# OFFSET #index#
 		]]>
 	</select>
 
 	<select id="listAllLinkCategory" resultClass="LinkCategory">
 		<![CDATA[
-		SELECT id,category_id,title,address,summary,pub 
-		FROM rax_link
+		SELECT id,title,summary 
+		FROM rax_link_category
 		]]>
 	</select>
 
-	<select id="listAllPubLinkCategory" resultClass="LinkCategory">
-		<![CDATA[
-		SELECT id,category_id,title,address,summary,pub 
-		FROM rax_link
-		WHERE pub=TRUE
-		]]>
-	</select>
-
-	<select id="listAllLinkCategoryByCategoryId" parameterClass="Long"
-		resultClass="LinkCategory">
-		<![CDATA[
-		SELECT id,category_id,title,address,summary,pub 
-		FROM rax_link
-		WHERE category_id=#id#
-		]]>
-	</select>
-
-	<select id="listAllPubLinkCategoryByCategoryId" parameterClass="Long"
-		resultClass="LinkCategory">
-		<![CDATA[
-		SELECT id,category_id,title,address,summary,pub 
-		FROM rax_link
-		WHERE pub=TRUE AND category_id=#id#
-		]]>
-	</select>
-	
 </sqlMap>
