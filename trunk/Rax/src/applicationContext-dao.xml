@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="FaqDao" class="rax.dao.ibatis.FaqDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<!-- 
+		<bean id="LinkDao" class="rax.dao.ibatis.LinkDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+		</bean>
+		
+		<bean id="LinkCategoryDao"
+		class="rax.dao.ibatis.LinkCategoryDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+		</bean>
+	-->
+</beans>
