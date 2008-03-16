@@ -13,6 +13,11 @@
 		INSERT INTO rax_faq (question, answer, pub_date, pub) VALUES
 		(#question#, #answer#, #pubDate#, #pub#)
 		]]>
+		<selectKey resultClass="Long" keyProperty="id" >
+			<![CDATA[
+			SELECT currval('rax_faq_id_seq'::regclass)
+			]]>
+		</selectKey>
 	</insert>
 
 	<select id="readFaq" parameterClass="Long" resultClass="Faq">

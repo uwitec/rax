@@ -6,6 +6,10 @@
 
 <sqlMap>
 
+	<!--
+	这里放一些公用的查询服务器时间, 服务器状态之类的映射
+	-->
+	
 	<select id="lastInsert" resultClass="Long">
 		<![CDATA[
 		SELECT last_insert_id() AS NUM
