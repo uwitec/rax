@@ -9,11 +9,11 @@
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
 
-	<!-- 
-		<bean id="LinkDao" class="rax.dao.ibatis.LinkDaoImpl">
+	<bean id="LinkDao" class="rax.dao.ibatis.LinkDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
-		</bean>
-		
+	</bean>
+
+	<!-- 		
 		<bean id="LinkCategoryDao"
 		class="rax.dao.ibatis.LinkCategoryDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
