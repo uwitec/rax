@@ -13,10 +13,9 @@
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
 
-	<!-- 		
-		<bean id="LinkCategoryDao"
+	<bean id="LinkCategoryDao"
 		class="rax.dao.ibatis.LinkCategoryDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
-		</bean>
-	-->
+	</bean>
+
 </beans>

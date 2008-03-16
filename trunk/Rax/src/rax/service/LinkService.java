@@ -11,7 +11,10 @@ public class LinkService {
     private LinkDao linkDao;
 
     public LinkService() {
-        linkDao = new LinkDao();
+    }
+    
+    public void setLink(LinkDao dao) {
+        linkDao = dao;
     }
 
     public long createLink(Link link) {

@@ -9,38 +9,44 @@ import rax.model.LinkCategory;
 public class LinkCategoryService {
 
     private LinkDao linkDao;
-    private LinkCategoryDao categoryDao;
+    private LinkCategoryDao linkCategoryDao;
 
     public LinkCategoryService() {
-        linkDao = new LinkDao();
-        categoryDao = new LinkCategoryDao();
     }
-    
+
+    public void setLinkDao(LinkDao dao) {
+        linkDao = dao;
+    }
+
+    public void setLinkCategoryDao(LinkCategoryDao dao) {
+        linkCategoryDao = dao;
+    }
+
     public LinkCategory getCategoryById(long id) {
-        return categoryDao.read(id);
+        return linkCategoryDao.read(id);
     }
-    
+
     public long createCategory(LinkCategory category) {
-        return categoryDao.create(category);
+        return linkCategoryDao.create(category);
     }
 
     public boolean deleteCategory(long id) {
-        LinkCategory category = categoryDao.read(id);
+        LinkCategory category = linkCategoryDao.read(id);
         boolean bFlag = linkDao.deleteByCategoryId(category.getId());
-        return (null != category && bFlag) ? categoryDao.delete(category)
+        return (null != category && bFlag) ? linkCategoryDao.delete(category)
                 : false;
     }
 
     public boolean updateCategory(long id, LinkCategory category) {
-        return categoryDao.update(category);
+        return linkCategoryDao.update(category);
     }
 
     public long getCount(boolean onlyPub) {
-        return categoryDao.count();
+        return linkCategoryDao.count();
     }
-  
+
     public List<LinkCategory> listAllCategorys() {
-        return categoryDao.listAll();
+        return linkCategoryDao.listAll();
     }
-    
+
 }
