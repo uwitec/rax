@@ -36,11 +36,11 @@ public class LinkService {
         return true;
     }
 
-    public long getCount(boolean onlyPub) {
+    public int getCount(boolean onlyPub) {
         return linkDao.count();
     }
 
-    public long getCountByCategory(LinkCategory category, boolean onlyPub) {
+    public int getCountByCategory(LinkCategory category, boolean onlyPub) {
         return linkDao.countByCategoryId(category.getId(), onlyPub);
     }
 

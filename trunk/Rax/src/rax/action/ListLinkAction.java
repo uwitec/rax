@@ -32,15 +32,7 @@ public class ListLinkAction extends ActionSupport {
         categorys = linkCategoryService.listAllCategorys();
         category = linkCategoryService.getCategoryById(categoryId);
         try {
-
-            logger.debug("categoryId:" + category.getId());
-            logger.debug("title:" + category.getTitle());
-            logger.debug("summary:" + category.getSummary());
-
-            linkNum = (int) linkService.getCountByCategory(category, false);
-            
-            logger.debug("num:" + linkNum);
-            
+            linkNum = linkService.getCountByCategory(category, false);
             links = linkService
                     .listLinksByCategory(category, 0, linkNum, false);
         } catch (Exception ex) {
