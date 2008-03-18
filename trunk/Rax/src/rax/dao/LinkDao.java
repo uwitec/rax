@@ -2,47 +2,36 @@ package rax.dao;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
+
 import rax.model.Link;
 
-public interface LinkDao extends GenericDao<Link, Long> {
-    
-    @Override
-    public Long create(Link newInstance);
+public interface LinkDao {
 
-    @Override
-    public Link read(Long id);
+    public Long create(Link newInstance) throws DataAccessException;
 
-    @Override
-    public int update(Link transientObject);
+    public Link read(Long id) throws DataAccessException;
 
-    @Override
-    public int delete(Link persistentObject);
+    public int update(Link transientObject) throws DataAccessException;
 
-    public int deleteByCategoryId(Long id);
+    public int delete(Link persistentObject) throws DataAccessException;
 
-    public int count();
+    public int deleteByCategoryId(Long id) throws DataAccessException;
 
-    public int countByCategoryId(Long id);
+    public int count() throws DataAccessException;
 
-    public int countByCategoryId(Long id, boolean bOnlyPub);
+    public int countByCategoryId(Long id, boolean bOnlyPub)
+            throws DataAccessException;
 
-    @Override
-    public List<Link> list(int index, int num);
-
-    public List<Link> list(int index, int num, boolean bOnlyPub);
-
-    public List<Link> listByCategoryId(Long id, int index, int num);
+    public List<Link> list(int index, int num, boolean bOnlyPub)
+            throws DataAccessException;
 
     public List<Link> listByCategoryId(Long id, int index, int num,
-            boolean bOnlyPub);
+            boolean bOnlyPub) throws DataAccessException;
 
-    @Override
-    public List<Link> listAll();
+    public List<Link> listAll(boolean bOnlyPub) throws DataAccessException;
 
-    public List<Link> listAll(boolean bOnlyPub);
-
-    public List<Link> listAllByCategoryId(long id);
-
-    public List<Link> listAllByCategoryId(long id, boolean bOnlyPub);
+    public List<Link> listAllByCategoryId(long id, boolean bOnlyPub)
+            throws DataAccessException;
 
 }

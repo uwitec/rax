@@ -2,33 +2,25 @@ package rax.dao;
 
 import java.util.List;
 
-public interface ArticleContentDao extends GenericDao<String, Long> {
+import org.springframework.dao.DataAccessException;
 
-    @Override
-    public int count();
+public interface ArticleContentDao {
 
-    public int countByCategoryId(Long id);
+    public Long create(String newInstance) throws DataAccessException;
 
-    @Override
-    public List<String> list(int index, int num);
+    public int update(String transientObject) throws DataAccessException;
 
-    public List<String> listByCategoryId(Long id, int index, int num);
+    public int delete(String persistentObject) throws DataAccessException;
 
-    @Override
-    public List<String> listAll();
+    public int deleteByCategoryId(Long id) throws DataAccessException;
 
-    @Override
-    public Long create(String newInstance);
+    public String read(Long id) throws DataAccessException;
 
-    @Override
-    public int delete(String persistentObject);
+    public int countByCategoryId(Long id) throws DataAccessException;
 
-    public int deleteByCategoryId(Long id);
+    public List<String> listByCategoryId(Long id, int index, int num)
+            throws DataAccessException;
 
-    @Override
-    public String read(Long id);
-
-    @Override
-    public int update(String transientObject);
+    public List<String> listAllByCategoryId(Long id) throws DataAccessException;
 
 }

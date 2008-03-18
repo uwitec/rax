@@ -2,33 +2,24 @@ package rax.dao;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
+
 import rax.model.Attachment;
 
-public interface AttachmentDao extends GenericDao<Attachment, Long> {
+public interface AttachmentDao {
 
-    @Override
-    public int count();
+    public Long create(Attachment newInstance) throws DataAccessException;
 
-    public int countByArticleId(Long id);
+    public Attachment read(Long id) throws DataAccessException;
 
-    @Override
-    public List<Attachment> list(int index, int num);
+    public int update(Attachment transientObject) throws DataAccessException;
 
-    @Override
-    public List<Attachment> listAll();
+    public int delete(Attachment persistentObject) throws DataAccessException;
 
-    public List<Attachment> listByArticleId(Long id);
+    public int count() throws DataAccessException;
 
-    @Override
-    public Long create(Attachment newInstance);
+    public int countByArticleId(Long id) throws DataAccessException;
 
-    @Override
-    public int delete(Attachment persistentObject);
-
-    @Override
-    public Attachment read(Long id);
-
-    @Override
-    public int update(Attachment transientObject);
+    public List<Attachment> listByArticleId(Long id) throws DataAccessException;
 
 }

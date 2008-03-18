@@ -58,11 +58,6 @@ public class LinkDaoImpl extends SqlMapClientDaoSupport implements LinkDao {
                         : "countAllLinkByCategoryId", id);
     }
 
-    @Override
-    public List<Link> list(int index, int num) throws DataAccessException {
-        return list(index, num, false);
-    }
-
     public List<Link> list(int index, int num, boolean bOnlyPub)
             throws DataAccessException {
         Map param = new HashMap();
@@ -86,11 +81,6 @@ public class LinkDaoImpl extends SqlMapClientDaoSupport implements LinkDao {
         return getSqlMapClientTemplate().queryForList(
                 bOnlyPub ? "listPubLinkByCategoryId" : "listLinkByCategoryId",
                 param);
-    }
-
-    @Override
-    public List<Link> listAll() throws DataAccessException {
-        return listAll(false);
     }
 
     public List<Link> listAll(boolean bOnlyPub) throws DataAccessException {

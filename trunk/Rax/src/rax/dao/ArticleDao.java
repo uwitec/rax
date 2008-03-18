@@ -2,50 +2,50 @@ package rax.dao;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
+
 import rax.model.Article;
 
-public interface ArticleDao extends GenericDao<Article, Long> {
+public interface ArticleDao {
 
-    @Override
-    public int count();
+    public Long create(Article newInstance) throws DataAccessException;
 
-    public int count(boolean onlyPub);
+    public Article read(Long id) throws DataAccessException;
 
-    public int countByCategoryId(Long id);
+    public int update(Article transientObject) throws DataAccessException;
 
-    public int countByCategoryId(Long id, boolean onlyPub);
+    public int delete(Article persistentObject) throws DataAccessException;
 
-    @Override
-    public List<Article> list(int index, int num);
+    public int deleteByCategoryId(Long id) throws DataAccessException;
 
-    public List<Article> list(long index, int num, boolean onlyPub);
+    public int count() throws DataAccessException;
 
-    @Override
-    public List<Article> listAll();
+    public int count(boolean onlyPub) throws DataAccessException;
 
-    public List<Article> listAll(boolean onlyPub);
+    public int countByCategoryId(Long id) throws DataAccessException;
 
-    public List<Article> listByCategoryId(Long id, long index, int num);
+    public int countByCategoryId(Long id, boolean onlyPub)
+            throws DataAccessException;
+
+    public List<Article> list(int index, int num) throws DataAccessException;
+
+    public List<Article> list(long index, int num, boolean onlyPub)
+            throws DataAccessException;
+
+    public List<Article> listAll() throws DataAccessException;
+
+    public List<Article> listAll(boolean onlyPub) throws DataAccessException;
+
+    public List<Article> listByCategoryId(Long id, long index, int num)
+            throws DataAccessException;
 
     public List<Article> listByCategoryId(Long id, long index, int num,
-            boolean onlyPub);
+            boolean onlyPub) throws DataAccessException;
 
-    public List<Article> listAllByCategoryId(Long id);
+    public List<Article> listAllByCategoryId(Long id)
+            throws DataAccessException;
 
-    public List<Article> listAllByCategoryId(Long id, boolean onlyPub);
-
-    @Override
-    public Long create(Article newInstance);
-
-    @Override
-    public int delete(Article persistentObject);
-
-    public int deleteByCategoryId(Long id);
-
-    @Override
-    public Article read(Long id);
-
-    @Override
-    public int update(Article transientObject);
+    public List<Article> listAllByCategoryId(Long id, boolean onlyPub)
+            throws DataAccessException;
 
 }

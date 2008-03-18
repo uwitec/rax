@@ -2,29 +2,25 @@ package rax.dao;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
+
 import rax.model.LinkCategory;
 
-public interface LinkCategoryDao extends GenericDao<LinkCategory, Long> {
+public interface LinkCategoryDao {
 
-    @Override
-    public Long create(LinkCategory newInstance);
+    public Long create(LinkCategory newInstance) throws DataAccessException;
 
-    @Override
-    public LinkCategory read(Long id);
+    public LinkCategory read(Long id) throws DataAccessException;
 
-    @Override
-    public int update(LinkCategory transientObject);
+    public int update(LinkCategory transientObject) throws DataAccessException;
 
-    @Override
-    public int delete(LinkCategory persistentObject);
+    public int delete(LinkCategory persistentObject) throws DataAccessException;
 
-    @Override
-    public int count();
+    public int count() throws DataAccessException;
 
-    @Override
-    public List<LinkCategory> list(int index, int num);
+    public List<LinkCategory> list(int index, int num)
+            throws DataAccessException;
 
-    @Override
-    public List<LinkCategory> listAll();
+    public List<LinkCategory> listAll() throws DataAccessException;
 
 }

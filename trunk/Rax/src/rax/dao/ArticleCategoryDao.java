@@ -2,39 +2,40 @@ package rax.dao;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
+
 import rax.model.ArticleCategory;
 
-public interface ArticleCategoryDao extends GenericDao<ArticleCategory, Long> {
+public interface ArticleCategoryDao {
 
-    @Override
-    public int count();
+    public Long create(ArticleCategory newInstance) throws DataAccessException;
 
-    public int countByCategoryId(Long id);
+    public ArticleCategory read(Long id) throws DataAccessException;
 
-    @Override
-    public Long create(ArticleCategory newInstance);
+    public int update(ArticleCategory transientObject)
+            throws DataAccessException;
 
-    @Override
-    public int delete(ArticleCategory persistentObject);
+    public int delete(ArticleCategory persistentObject)
+            throws DataAccessException;
 
-    public int deleteByCategoryId(Long id);
+    public int deleteByCategoryId(Long id) throws DataAccessException;
 
-    @Override
-    public List<ArticleCategory> list(int index, int num);
+    public int count() throws DataAccessException;
 
-    public List<ArticleCategory> listByCategoryId(Long id, int index, int num);
+    public int countByCategoryId(Long id) throws DataAccessException;
 
-    @Override
-    public List<ArticleCategory> listAll();
+    public List<ArticleCategory> list(int index, int num)
+            throws DataAccessException;
 
-    public List<ArticleCategory> listAllByCategoryId(Long id);
+    public List<ArticleCategory> listByCategoryId(Long id, int index, int num)
+            throws DataAccessException;
 
-    public List<ArticleCategory> listAllSubCategoryByCategoryId(Long id);
+    public List<ArticleCategory> listAll() throws DataAccessException;
 
-    @Override
-    public ArticleCategory read(Long id);
+    public List<ArticleCategory> listAllByCategoryId(Long id)
+            throws DataAccessException;
 
-    @Override
-    public int update(ArticleCategory transientObject);
+    public List<ArticleCategory> listAllSubCategoryByCategoryId(Long id)
+            throws DataAccessException;
 
 }

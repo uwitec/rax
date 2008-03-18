@@ -2,35 +2,25 @@ package rax.dao;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
+
 import rax.model.Faq;
 
-public interface FaqDao extends GenericDao<Faq, Long> {
+public interface FaqDao {
 
-    @Override
-    public int count();
+    public Long create(Faq newInstance) throws DataAccessException;
 
-    public int count(boolean bOnlyPub);
+    public Faq read(Long id) throws DataAccessException;
 
-    @Override
-    public List<Faq> list(int index, int num);
+    public int update(Faq transientObject) throws DataAccessException;
 
-    public List<Faq> list(int index, int num, boolean bOnlyPub);
+    public int delete(Faq persistentObject) throws DataAccessException;
 
-    @Override
-    public List<Faq> listAll();
+    public int count(boolean bOnlyPub) throws DataAccessException;
 
-    public List<Faq> listAll(boolean bOnlyPub);
+    public List<Faq> list(int index, int num, boolean bOnlyPub)
+            throws DataAccessException;
 
-    @Override
-    public Long create(Faq newInstance);
-
-    @Override
-    public int delete(Faq persistentObject);
-
-    @Override
-    public Faq read(Long id);
-
-    @Override
-    public int update(Faq transientObject);
+    public List<Faq> listAll(boolean bOnlyPub) throws DataAccessException;
 
 }

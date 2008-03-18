@@ -34,19 +34,9 @@ public class FaqDaoImpl extends SqlMapClientDaoSupport implements FaqDao {
                 persistentObject.getId());
     }
 
-    @Override
-    public int count() throws DataAccessException {
-        return count(false);
-    }
-
     public int count(boolean bOnlyPub) throws DataAccessException {
         return (Integer) getSqlMapClientTemplate().queryForObject(
                 bOnlyPub ? "countPubFaq" : "countAllFaq");
-    }
-
-    @Override
-    public List<Faq> list(int index, int num) throws DataAccessException {
-        return list(index, num, false);
     }
 
     public List<Faq> list(int index, int num, boolean bOnlyPub)
@@ -56,11 +46,6 @@ public class FaqDaoImpl extends SqlMapClientDaoSupport implements FaqDao {
         param.put("number", num);
         return getSqlMapClientTemplate().queryForList(
                 bOnlyPub ? "listPubFaq" : "listFaq", param);
-    }
-
-    @Override
-    public List<Faq> listAll() throws DataAccessException {
-        return listAll(false);
     }
 
     public List<Faq> listAll(boolean bOnlyPub) throws DataAccessException {

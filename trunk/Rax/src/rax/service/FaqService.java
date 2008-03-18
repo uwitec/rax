@@ -12,12 +12,13 @@ public class FaqService {
     public FaqService() {
     }
 
-    public void setFaqDao(FaqDao dao) {
-        faqDao = dao;
-    }
-
     public long createFaq(Faq faq) {
         return faqDao.create(faq);
+    }
+
+    public boolean updateFaq(long id, Faq faq) {
+        faqDao.update(faq);
+        return true;
     }
 
     public boolean deleteFaq(long id) {
@@ -30,13 +31,8 @@ public class FaqService {
         return ret;
     }
 
-    public boolean updateFaq(long id, Faq faq) {
-        faqDao.update(faq);
-        return true;
-    }
-
     public long getCount(boolean onlyPub) {
-        return faqDao.count();
+        return faqDao.count(onlyPub);
     }
 
     public List<Faq> listFaqs(int index, int num, boolean onlyPub) {
@@ -47,4 +43,7 @@ public class FaqService {
         return faqDao.listAll(onlyPub);
     }
 
+    public void setFaqDao(FaqDao dao) {
+        faqDao = dao;
+    }
 }
