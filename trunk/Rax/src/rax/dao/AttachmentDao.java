@@ -8,9 +8,9 @@ import rax.model.Attachment;
 
 public interface AttachmentDao {
 
-    public Long create(Attachment newInstance) throws DataAccessException;
+    public int create(Attachment newInstance) throws DataAccessException;
 
-    public Attachment read(Long id) throws DataAccessException;
+    public Attachment read(int id) throws DataAccessException;
 
     public int update(Attachment transientObject) throws DataAccessException;
 
@@ -18,8 +18,8 @@ public interface AttachmentDao {
 
     public int count() throws DataAccessException;
 
-    public int countByArticleId(Long id) throws DataAccessException;
+    public int countByArticleId(int id) throws DataAccessException;
 
-    public List<Attachment> listByArticleId(Long id) throws DataAccessException;
+    public List<Attachment> listByArticleId(int id) throws DataAccessException;
 
 }

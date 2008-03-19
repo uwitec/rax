@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Article {
 
-    private long id;
+    private int id;
     private String title;
     private String summary;
     private String[] contents;
@@ -14,11 +14,11 @@ public class Article {
     private int views;
     private boolean pub;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

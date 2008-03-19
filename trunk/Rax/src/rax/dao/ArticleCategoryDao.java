@@ -8,9 +8,9 @@ import rax.model.ArticleCategory;
 
 public interface ArticleCategoryDao {
 
-    public Long create(ArticleCategory newInstance) throws DataAccessException;
+    public int create(ArticleCategory newInstance) throws DataAccessException;
 
-    public ArticleCategory read(Long id) throws DataAccessException;
+    public ArticleCategory read(int id) throws DataAccessException;
 
     public int update(ArticleCategory transientObject)
             throws DataAccessException;
@@ -18,24 +18,24 @@ public interface ArticleCategoryDao {
     public int delete(ArticleCategory persistentObject)
             throws DataAccessException;
 
-    public int deleteByCategoryId(Long id) throws DataAccessException;
+    public int deleteByCategoryId(int id) throws DataAccessException;
 
     public int count() throws DataAccessException;
 
-    public int countByCategoryId(Long id) throws DataAccessException;
+    public int countByCategoryId(int id) throws DataAccessException;
 
     public List<ArticleCategory> list(int index, int num)
             throws DataAccessException;
 
-    public List<ArticleCategory> listByCategoryId(Long id, int index, int num)
+    public List<ArticleCategory> listByCategoryId(int id, int index, int num)
             throws DataAccessException;
 
     public List<ArticleCategory> listAll() throws DataAccessException;
 
-    public List<ArticleCategory> listAllByCategoryId(Long id)
+    public List<ArticleCategory> listAllByCategoryId(int id)
             throws DataAccessException;
 
-    public List<ArticleCategory> listAllSubCategoryByCategoryId(Long id)
+    public List<ArticleCategory> listAllSubCategoryByCategoryId(int id)
             throws DataAccessException;
 
 }

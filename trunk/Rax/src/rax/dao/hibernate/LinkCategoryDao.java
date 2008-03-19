@@ -24,7 +24,7 @@ public class LinkCategoryDao implements GenericDao<LinkCategory, Long> {
             session.beginTransaction();
             session.save(newInstance);
             session.getTransaction().commit();
-            ret = newInstance.getId();
+            ret = Long.valueOf(newInstance.getId());
         } catch (HibernateException ex) {
             ret = Long.valueOf(0);
         }

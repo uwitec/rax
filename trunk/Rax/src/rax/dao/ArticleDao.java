@@ -8,44 +8,44 @@ import rax.model.Article;
 
 public interface ArticleDao {
 
-    public Long create(Article newInstance) throws DataAccessException;
+    public int create(Article newInstance) throws DataAccessException;
 
-    public Article read(Long id) throws DataAccessException;
+    public Article read(int id) throws DataAccessException;
 
     public int update(Article transientObject) throws DataAccessException;
 
     public int delete(Article persistentObject) throws DataAccessException;
 
-    public int deleteByCategoryId(Long id) throws DataAccessException;
+    public int deleteByCategoryId(int id) throws DataAccessException;
 
     public int count() throws DataAccessException;
 
     public int count(boolean onlyPub) throws DataAccessException;
 
-    public int countByCategoryId(Long id) throws DataAccessException;
+    public int countByCategoryId(int id) throws DataAccessException;
 
-    public int countByCategoryId(Long id, boolean onlyPub)
+    public int countByCategoryId(int id, boolean onlyPub)
             throws DataAccessException;
 
     public List<Article> list(int index, int num) throws DataAccessException;
 
-    public List<Article> list(long index, int num, boolean onlyPub)
+    public List<Article> list(int index, int num, boolean onlyPub)
             throws DataAccessException;
 
     public List<Article> listAll() throws DataAccessException;
 
     public List<Article> listAll(boolean onlyPub) throws DataAccessException;
 
-    public List<Article> listByCategoryId(Long id, long index, int num)
+    public List<Article> listByCategoryId(int id, long index, int num)
             throws DataAccessException;
 
-    public List<Article> listByCategoryId(Long id, long index, int num,
+    public List<Article> listByCategoryId(int id, long index, int num,
             boolean onlyPub) throws DataAccessException;
 
-    public List<Article> listAllByCategoryId(Long id)
+    public List<Article> listAllByCategoryId(int id)
             throws DataAccessException;
 
-    public List<Article> listAllByCategoryId(Long id, boolean onlyPub)
+    public List<Article> listAllByCategoryId(int id, boolean onlyPub)
             throws DataAccessException;
 
 }

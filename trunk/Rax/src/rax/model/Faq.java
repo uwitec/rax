@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Faq {
 
-    private long id;
+    private int id;
     private String question;
     private String answer;
     private Date pubDate;
@@ -42,11 +42,11 @@ public class Faq {
         this.pub = pub;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

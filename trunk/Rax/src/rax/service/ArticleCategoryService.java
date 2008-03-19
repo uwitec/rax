@@ -2,8 +2,8 @@ package rax.service;
 
 import java.util.List;
 
-import rax.dao.hibernate.ArticleCategoryDao;
-import rax.dao.hibernate.ArticleDao;
+import rax.dao.ArticleCategoryDao;
+import rax.dao.ArticleDao;
 import rax.model.ArticleCategory;
 
 public class ArticleCategoryService {
@@ -12,15 +12,13 @@ public class ArticleCategoryService {
     private ArticleCategoryDao categoryDao;
 
     public ArticleCategoryService() {
-        articleDao = new ArticleDao();
-        categoryDao = new ArticleCategoryDao();
     }
 
     public long createCategory(ArticleCategory category) {
         return categoryDao.create(category);
     }
 
-    public boolean deleteCategory(long id) {
+    public boolean deleteCategory(int id) {
         ArticleCategory category = categoryDao.read(id);
 
         if (null == category)
@@ -30,20 +28,17 @@ public class ArticleCategoryService {
                 .listAllSubCategoryByCategoryId(category.getId());
         subCategoryList.add(category);
 
-        boolean bArticleFlag = true;
-        boolean bCategoryFlag = true;
         for (ArticleCategory subCategory : subCategoryList) {
-            bArticleFlag = bArticleFlag
-                    && articleDao.deleteByCategoryId(subCategory.getId());
-            bCategoryFlag = bArticleFlag && bCategoryFlag
-                    && categoryDao.delete(subCategory);
+            articleDao.deleteByCategoryId(subCategory.getId());
+            categoryDao.delete(subCategory);
         }
 
-        return bArticleFlag && bCategoryFlag;
+        return true;
     }
 
     public boolean updateCategory(long id, ArticleCategory category) {
-        return categoryDao.update(category);
+        categoryDao.update(category);
+        return true;
     }
 
     public long getCount(boolean onlyPub) {
@@ -57,6 +52,14 @@ public class ArticleCategoryService {
     public List<ArticleCategory> listCategorysByCategory(
             ArticleCategory category, int index, int num) {
         return categoryDao.listByCategoryId(category.getId(), index, num);
+    }
+
+    public void setArticleDao(ArticleDao articleDao) {
+        this.articleDao = articleDao;
+    }
+
+    public void setCategoryDao(ArticleCategoryDao categoryDao) {
+        this.categoryDao = categoryDao;
     }
 
 }

@@ -21,7 +21,7 @@ public class LinkService {
         return linkDao.create(link);
     }
 
-    public boolean deleteLink(long id) {
+    public boolean deleteLink(Integer id) {
         boolean ret = false;
         Link link = linkDao.read(id);
         if (null != link) {
@@ -31,7 +31,7 @@ public class LinkService {
         return ret;
     }
 
-    public boolean updateLink(long id, Link link) {
+    public boolean updateLink(Integer id, Link link) {
         linkDao.update(link);
         return true;
     }

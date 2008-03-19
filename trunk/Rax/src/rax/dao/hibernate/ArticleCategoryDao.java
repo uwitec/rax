@@ -62,7 +62,7 @@ public class ArticleCategoryDao implements GenericDao<ArticleCategory, Long> {
             session.beginTransaction();
             session.save(newInstance);
             session.getTransaction().commit();
-            ret = newInstance.getId();
+            ret = Long.valueOf(newInstance.getId());
         } catch (HibernateException ex) {
             ret = Long.valueOf(0);
         }

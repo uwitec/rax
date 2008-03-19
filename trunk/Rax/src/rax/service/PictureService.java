@@ -17,7 +17,7 @@ public class PictureService {
         return pictureDao.create(picture);
     }
 
-    public boolean deletePicture(long id) {
+    public boolean deletePicture(int id) {
         boolean ret = false;
         Picture picture = pictureDao.read(id);
         if (null != picture) {
@@ -27,7 +27,7 @@ public class PictureService {
         return ret;
     }
 
-    public boolean updatePicture(long id, Picture picture) {
+    public boolean updatePicture(int id, Picture picture) {
         pictureDao.update(picture);
         return true;
     }

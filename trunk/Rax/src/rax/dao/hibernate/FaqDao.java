@@ -12,9 +12,8 @@ import rax.model.Link;
 import rax.util.HibernateUtil;
 
 public class FaqDao implements GenericDao<Faq, Long> {
-    
-    private final static Logger logger = Logger
-    .getLogger(FaqDao.class);
+
+    private final static Logger logger = Logger.getLogger(FaqDao.class);
 
     @Override
     public long count() {
@@ -79,17 +78,13 @@ public class FaqDao implements GenericDao<Faq, Long> {
                     : "FROM Faq";
             Query query = session.createQuery(hql);
             items = query.list();
-            
+
             /*
-            Faq faq;
-            for (Iterator it = query.iterate(); it.hasNext(); ) {
-                faq = (Faq) it.next();
-                logger.error(String.valueOf(faq.getId()));
-                logger.error(faq.getQuestion());
-                logger.error(faq.getAnswer());
-                logger.error(faq.getPubDate().toString());
-            }
-            */
+             * Faq faq; for (Iterator it = query.iterate(); it.hasNext(); ) {
+             * faq = (Faq) it.next(); logger.error(String.valueOf(faq.getId()));
+             * logger.error(faq.getQuestion()); logger.error(faq.getAnswer());
+             * logger.error(faq.getPubDate().toString()); }
+             */
 
             session.getTransaction().rollback();
         } catch (HibernateException ex) {
@@ -108,7 +103,7 @@ public class FaqDao implements GenericDao<Faq, Long> {
             session.beginTransaction();
             session.save(newInstance);
             session.getTransaction().commit();
-            ret = newInstance.getId();
+            ret = Long.valueOf(newInstance.getId());
         } catch (HibernateException ex) {
             ret = Long.valueOf(0);
         }

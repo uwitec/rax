@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Picture {
 
-    private long id;
-    private long articleId;
+    private int id;
+    private int articleId;
     private String title;
     private String mimeType;
     private int size;
@@ -65,15 +65,15 @@ public class Picture {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public long getArticleId() {
+    public int getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(long articleId) {
+    public void setArticleId(int articleId) {
         this.articleId = articleId;
     }
 

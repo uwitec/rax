@@ -12,16 +12,16 @@ public class FaqService {
     public FaqService() {
     }
 
-    public long createFaq(Faq faq) {
+    public Integer createFaq(Faq faq) {
         return faqDao.create(faq);
     }
 
-    public boolean updateFaq(long id, Faq faq) {
+    public boolean updateFaq(Integer id, Faq faq) {
         faqDao.update(faq);
         return true;
     }
 
-    public boolean deleteFaq(long id) {
+    public boolean deleteFaq(Integer id) {
         boolean ret = false;
         Faq faq = faqDao.read(id);
         if (faq != null) {
@@ -31,7 +31,7 @@ public class FaqService {
         return ret;
     }
 
-    public long getCount(boolean onlyPub) {
+    public int getCount(boolean onlyPub) {
         return faqDao.count(onlyPub);
     }
 

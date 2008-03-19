@@ -2,7 +2,7 @@ package rax.service;
 
 import java.util.List;
 
-import rax.dao.hibernate.ArticleDao;
+import rax.dao.ArticleDao;
 import rax.model.Article;
 import rax.model.ArticleCategory;
 
@@ -11,20 +11,21 @@ public class ArticleService {
     private ArticleDao articleDao;
 
     public ArticleService() {
-        articleDao = new ArticleDao();
     }
 
     public long createArticle(Article article) {
         return articleDao.create(article);
     }
 
-    public boolean deleteArticle(long id) {
+    public boolean deleteArticle(int id) {
         Article article = articleDao.read(id);
-        return (null == article) ? false : articleDao.delete(article);
+        if (null != article) articleDao.delete(article);
+        return true;
     }
 
-    public boolean updateArticle(long id, Article article) {
-        return articleDao.update(article);
+    public boolean updateArticle(int id, Article article) {
+        articleDao.update(article);
+        return true;
     }
 
     public long getCount(boolean onlyPub) {
@@ -36,9 +37,13 @@ public class ArticleService {
     }
 
     public List<Article> listArticlesByCategory(ArticleCategory category,
-            long index, int num, boolean onlyPub) {
+            int index, int num, boolean onlyPub) {
         return articleDao.listByCategoryId(category.getId(), index, num,
                 onlyPub);
+    }
+
+    public void setArticleDao(ArticleDao articleDao) {
+        this.articleDao = articleDao;
     }
 
 }

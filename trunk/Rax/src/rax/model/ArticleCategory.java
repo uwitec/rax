@@ -4,30 +4,30 @@ import java.util.Date;
 
 public class ArticleCategory {
 
-    private long id;
-    private long parentId;
+    private int id;
+    private int parentId;
 
     private String className;
     private String summary;
 
-    private long lthread;
-    private long rthread;
+    private int lthread;
+    private int rthread;
 
     private Date createDate;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public long getParentId() {
+    public int getParentId() {
         return parentId;
     }
 
-    public void setParentCid(long parentId) {
+    public void setParentCid(int parentId) {
         this.parentId = parentId;
     }
 
@@ -47,19 +47,19 @@ public class ArticleCategory {
         this.summary = summary;
     }
 
-    public long getLthread() {
+    public int getLthread() {
         return lthread;
     }
 
-    public void setLthread(long lthread) {
+    public void setLthread(int lthread) {
         this.lthread = lthread;
     }
 
-    public long getRthread() {
+    public int getRthread() {
         return rthread;
     }
 
-    public void setRthread(long rthread) {
+    public void setRthread(int rthread) {
         this.rthread = rthread;
     }
 

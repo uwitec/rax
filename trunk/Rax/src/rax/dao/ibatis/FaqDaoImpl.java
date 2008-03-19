@@ -13,13 +13,13 @@ import rax.model.Faq;
 public class FaqDaoImpl extends SqlMapClientDaoSupport implements FaqDao {
 
     @Override
-    public Long create(Faq newInstance) throws DataAccessException {
-        return (Long) getSqlMapClientTemplate()
+    public Integer create(Faq newInstance) throws DataAccessException {
+        return (Integer) getSqlMapClientTemplate()
                 .insert("createFaq", newInstance);
     }
 
     @Override
-    public Faq read(Long id) throws DataAccessException {
+    public Faq read(Integer id) throws DataAccessException {
         return (Faq) getSqlMapClientTemplate().queryForObject("readFaq", id);
     }
 

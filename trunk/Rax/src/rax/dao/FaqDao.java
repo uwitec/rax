@@ -8,9 +8,9 @@ import rax.model.Faq;
 
 public interface FaqDao {
 
-    public Long create(Faq newInstance) throws DataAccessException;
+    public Integer create(Faq newInstance) throws DataAccessException;
 
-    public Faq read(Long id) throws DataAccessException;
+    public Faq read(Integer id) throws DataAccessException;
 
     public int update(Faq transientObject) throws DataAccessException;
 

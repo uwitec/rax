@@ -2,7 +2,7 @@ package rax.service;
 
 import java.util.List;
 
-import rax.dao.hibernate.AttachmentDao;
+import rax.dao.AttachmentDao;
 import rax.model.Article;
 import rax.model.Attachment;
 
@@ -11,23 +11,28 @@ public class AttachmentService {
     private AttachmentDao attachmentDao;
 
     public AttachmentService() {
-        attachmentDao = new AttachmentDao();
     }
 
-    public long createAttachment(Attachment attachment) {
+    public void setAttachmentDao(AttachmentDao attachmentDao) {
+        this.attachmentDao = attachmentDao;
+    }
+
+    public int createAttachment(Attachment attachment) {
         return attachmentDao.create(attachment);
     }
 
-    public boolean deleteAttachment(long id) {
+    public boolean deleteAttachment(int id) {
         Attachment attachment = attachmentDao.read(id);
-        return (null == attachment) ? false : attachmentDao.delete(attachment);
+        if (null != attachment) attachmentDao.delete(attachment);
+        return true;
     }
 
-    public boolean updateAttachment(long id, Attachment attachment) {
-        return attachmentDao.update(attachment);
+    public boolean updateAttachment(int id, Attachment attachment) {
+        attachmentDao.update(attachment);
+        return true;
     }
 
-    public long getCount() {
+    public int getCount() {
         return attachmentDao.count();
     }
 
