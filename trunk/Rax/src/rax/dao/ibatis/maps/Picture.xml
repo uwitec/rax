@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Picture">
+
+	<typeAlias alias="Picture" type="rax.model.Picture" />
+
+	<insert id="createPicture" parameterClass="Picture">
+		<![CDATA[
+		INSERT INTO rax_picture (article_id, title, mime_type, size, summary, file_path, upload_date) VALUES
+		(#articleId#, #title#, #mimeType#, #size#, #summary#, #filePath#, #uploadDate#)
+		]]>
+		<selectKey resultClass="Integer" keyProperty="id">
+			<![CDATA[
+			SELECT currval('rax_picture_id_seq'::regclass)
+			]]>
+		</selectKey>
+	</insert>
+
+	<select id="readPicture" parameterClass="Integer"
+		resultClass="Picture">
+		<![CDATA[
+		SELECT id, article_id AS articleId, title, mime_type, summary, size, file_path AS filePath, upload_date AS pubDate,pub
+		FROM rax_picture
+		WHERE id=#id#
+		]]>
+	</select>
+
+	<update id="updatePicture" parameterClass="Picture">
+		<![CDATA[
+		UPDATE rax_article SET article_id=#articleId#, title=#title#,
+		mime_type=#mimeType#, size=#size#, summary=#summary# 
+		file_path=#filePath#, upload_date=#uploadDate#, 
+		WHERE id=#id#
+		]]>
+	</update>
+
+	<delete id="deletePicture" parameterClass="Integer">
+		<![CDATA[
+		DELETE rax_article WHERE id=#id#
+		]]>
+	</delete>
+
+	<select id="countPicture" resultClass="Integer">
+		<![CDATA[
+		SELECT COUNT(*) AS NUM FROM rax_picture
+		]]>
+	</select>
+
+	<select id="countPictureByArticleId" parameterClass="Integer"
+		resultClass="Integer">
+		<![CDATA[
+		SELECT COUNT(*) AS NUM FROM rax_picture
+		WHERE article_id=#id#
+		]]>
+	</select>
+
+	<select id="listPictureByArticleId" parameterClass="Integer"
+		resultClass="Picture">
+		<![CDATA[
+		SELECT id, article_id AS articleId, title, mime_type, summary, size, file_path AS filePath, upload_date AS pubDate,pub
+		FROM rax_picture
+		WHERE article_id=#id#
+		]]>
+	</select>
+
+</sqlMap>

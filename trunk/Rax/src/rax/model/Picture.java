@@ -10,7 +10,7 @@ public class Picture {
     private String mimeType;
     private int size;
     private String summary;
-    private String fileName;
+    private String filePath;
     private Date uploadDate;
 
     public String getTitle() {
@@ -46,11 +46,11 @@ public class Picture {
     }
 
     public String getFileName() {
-        return fileName;
+        return filePath;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setFileName(String filePath) {
+        this.filePath = filePath;
     }
 
     public Date getUploadDate() {

@@ -2,7 +2,7 @@ package rax.service;
 
 import java.util.List;
 
-import rax.dao.hibernate.PictureDao;
+import rax.dao.PictureDao;
 import rax.model.Article;
 import rax.model.Picture;
 
@@ -11,20 +11,25 @@ public class PictureService {
     private PictureDao pictureDao;
 
     public PictureService() {
-        pictureDao = new PictureDao();
     }
 
-    public long createfaq(Picture picture) {
+    public long createPicture(Picture picture) {
         return pictureDao.create(picture);
     }
 
-    public boolean deleteFaq(long id) {
+    public boolean deletePicture(long id) {
+        boolean ret = false;
         Picture picture = pictureDao.read(id);
-        return (null == picture) ? false : pictureDao.delete(picture);
+        if (null != picture) {
+            pictureDao.delete(picture);
+            ret = true;
+        }
+        return ret;
     }
 
-    public boolean updateFaq(long id, Picture picture) {
-        return pictureDao.update(picture);
+    public boolean updatePicture(long id, Picture picture) {
+        pictureDao.update(picture);
+        return true;
     }
 
     public long getCount() {
@@ -33,6 +38,10 @@ public class PictureService {
 
     public List<Picture> listPicturesByArticle(Article article) {
         return pictureDao.listByArticleId(article.getId());
+    }
+
+    public void setPictureDao(PictureDao dao) {
+        pictureDao = dao;
     }
 
 }

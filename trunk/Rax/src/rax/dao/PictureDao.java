@@ -8,9 +8,9 @@ import rax.model.Picture;
 
 public interface PictureDao {
 
-    public Long create(Picture newInstance) throws DataAccessException;
+    public Integer create(Picture newInstance) throws DataAccessException;
 
-    public Picture read(Long id) throws DataAccessException;
+    public Picture read(Integer id) throws DataAccessException;
 
     public int update(Picture transientObject) throws DataAccessException;
 
@@ -18,8 +18,8 @@ public interface PictureDao {
 
     public int count() throws DataAccessException;
 
-    public int countByArticleId(Long id) throws DataAccessException;
+    public int countByArticleId(Integer id) throws DataAccessException;
 
-    public List<Picture> listByArticleId(Long id) throws DataAccessException;
+    public List<Picture> listByArticleId(Integer id) throws DataAccessException;
 
 }
