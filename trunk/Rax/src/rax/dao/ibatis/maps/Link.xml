@@ -13,6 +13,11 @@
 		INSERT INTO rax_link (category_id, title, address, summary, pub) 
 		VALUES (#categoryId#, #title#, #address#, #summary#, #pub#)
 		]]>
+		<selectKey resultClass="int" keyProperty="id">
+			<![CDATA[
+			SELECT currval('rax_link_id_seq'::regclass)
+			]]>
+		</selectKey>
 	</insert>
 
 	<select id="readLink" parameterClass="int" resultClass="Link">
@@ -71,8 +76,7 @@
 		]]>
 	</select>
 
-	<select id="listLink" parameterClass="map"
-		resultClass="Link">
+	<select id="listLink" parameterClass="map" resultClass="Link">
 		<![CDATA[
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link
@@ -81,8 +85,7 @@
 		]]>
 	</select>
 
-	<select id="listPubLink" parameterClass="map"
-		resultClass="Link">
+	<select id="listPubLink" parameterClass="map" resultClass="Link">
 		<![CDATA[
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link

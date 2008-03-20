@@ -6,12 +6,13 @@ import java.util.List;
 public class Article {
 
     private int id;
+    private int categoryId;
     private String title;
     private String summary;
     private List<String> contents;
     private String author;
     private String source;
-    private Date pubDate;
+    private Date createDate;
     private int views;
     private boolean pub;
 
@@ -55,12 +56,12 @@ public class Article {
         this.source = source;
     }
 
-    public Date getPubDate() {
-        return pubDate;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setPubDate(Date pubDate) {
-        this.pubDate = pubDate;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     public int getViews() {
@@ -85,6 +86,14 @@ public class Article {
 
     public void setContents(List<String> contents) {
         this.contents = contents;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
 }
