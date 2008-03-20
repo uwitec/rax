@@ -6,21 +6,19 @@ import org.springframework.dao.DataAccessException;
 
 public interface ArticleContentDao {
 
-    public int create(String newInstance) throws DataAccessException;
+    public int create(int id, List<String> newInstance) throws DataAccessException;
 
-    public int update(String transientObject) throws DataAccessException;
+    public String read(int id, int pageId) throws DataAccessException;
+    
+    public int update(int id, List<String> transientObject) throws DataAccessException;
 
-    public int delete(String persistentObject) throws DataAccessException;
+    public int deleteByArticleId(int id) throws DataAccessException;
 
-    public int deleteByCategoryId(int id) throws DataAccessException;
+    public int countByArticleId(int id) throws DataAccessException;
 
-    public String read(int id) throws DataAccessException;
-
-    public int countByCategoryId(int id) throws DataAccessException;
-
-    public List<String> listByCategoryId(int id, int index, int num)
+    public List<String> listByArticleId(int id, int index, int num)
             throws DataAccessException;
 
-    public List<String> listAllByCategoryId(int id) throws DataAccessException;
+    public List<String> listAllByArticleId(int id) throws DataAccessException;
 
 }

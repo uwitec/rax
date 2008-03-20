@@ -65,7 +65,7 @@
 		SELECT id, article_id AS articleId, title, update_name AS updateName, 
 		update_date AS updateDate, file_path AS filePath, downloads, size
 		FROM rax_attachment
-		WHERE article_id=#id#
+		WHERE article_id=#id# ORDER BY id
 		]]>
 	</select>
 

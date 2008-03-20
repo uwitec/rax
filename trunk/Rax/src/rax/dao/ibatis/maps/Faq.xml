@@ -13,7 +13,7 @@
 		INSERT INTO rax_faq (question, answer, pub_date, pub) VALUES
 		(#question#, #answer#, #pubDate#, #pub#)
 		]]>
-		<selectKey resultClass="int" keyProperty="id" >
+		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
 			SELECT currval('rax_faq_id_seq'::regclass)
 			]]>
@@ -59,16 +59,17 @@
 		SELECT id,question,answer,pub_date AS pubDate,pub 
 		FROM rax_faq
 		LIMIT #number# OFFSET #index#
+		ORDER BY id
 		]]>
 	</select>
 
-	<select id="listPubFaq" parameterClass="map"
-		resultClass="Faq">
+	<select id="listPubFaq" parameterClass="map" resultClass="Faq">
 		<![CDATA[
 		SELECT id,question,answer,pub_date AS pubDate,pub 
 		FROM rax_faq
 		WHERE pub=TRUE
 		LIMIT #number# OFFSET #index#
+		ORDER BY id
 		]]>
 	</select>
 
@@ -76,6 +77,7 @@
 		<![CDATA[
 		SELECT id,question,answer,pub_date AS pubDate,pub 
 		FROM rax_faq
+		ORDER BY id
 		]]>
 	</select>
 
@@ -84,6 +86,7 @@
 		SELECT id,question,answer,pub_date AS pubDate,pub 
 		FROM rax_faq
 		WHERE pub=TRUE
+		ORDER BY id
 		]]>
 	</select>
 

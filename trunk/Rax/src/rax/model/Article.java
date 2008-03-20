@@ -1,13 +1,14 @@
 package rax.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Article {
 
     private int id;
     private String title;
     private String summary;
-    private String[] contents;
+    private List<String> contents;
     private String author;
     private String source;
     private Date pubDate;
@@ -78,11 +79,11 @@ public class Article {
         this.pub = pub;
     }
 
-    public String[] getContents() {
+    public List<String> getContents() {
         return contents;
     }
 
-    public void setContents(String[] contents) {
+    public void setContents(List<String> contents) {
         this.contents = contents;
     }
 

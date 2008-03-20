@@ -13,60 +13,62 @@ public class ArticleContentDaoImpl extends SqlMapClientDaoSupport implements
         ArticleContentDao {
 
     @Override
-    public int create(String newInstance) throws DataAccessException {
-        return (Integer) getSqlMapClientTemplate().insert("createArticleContent",
-                newInstance);
+    public int create(int id, List<String> newInstance)
+            throws DataAccessException {
+        int i = 1;
+        Map param = new HashMap();
+        for (String content : newInstance) {
+            param.put("articleId", id);
+            param.put("pageId", i++);
+            param.put("content", content);
+            getSqlMapClientTemplate().insert("createArticleContent", param);
+        }
+        return i;
     }
 
     @Override
-    public String read(int id) throws DataAccessException {
-        // TODO
-        // Import multiple line into one
+    public String read(int id, int pageId) throws DataAccessException {
+        Map param = new HashMap();
+        param.put("articleId", id);
+        param.put("pageId", pageId);
         return (String) getSqlMapClientTemplate().queryForObject(
-                "readArticleContent", id);
+                "readArticleContent", param);
     }
 
     @Override
-    public int update(String transientObject) throws DataAccessException {
-        // TODO
-        return getSqlMapClientTemplate().update("updateArticleContent",
-                transientObject);
+    public int update(int id, List<String> transientObject)
+            throws DataAccessException {
+        deleteByArticleId(id);
+        return create(id, transientObject);
     }
 
     @Override
-    public int delete(String persistentObject) throws DataAccessException {
-        // TODO
-        return getSqlMapClientTemplate().delete("deleteArticleContent",
-                persistentObject);
-    }
-
-    @Override
-    public int deleteByCategoryId(int id) throws DataAccessException {
+    public int deleteByArticleId(int id) throws DataAccessException {
         return getSqlMapClientTemplate().delete(
-                "deleteArticleContentByCategoryId", id);
+                "deleteArticleContentByArticleId", id);
     }
 
     @Override
-    public int countByCategoryId(int id) throws DataAccessException {
+    public int countByArticleId(int id) throws DataAccessException {
         return (Integer) getSqlMapClientTemplate().queryForObject(
-                "countArticleContentByCategoryId", id);
+                "countArticleContentByArticleId", id);
     }
 
     @Override
-    public List<String> listByCategoryId(int id, int index, int num)
+    public List<String> listByArticleId(int id, int index, int num)
             throws DataAccessException {
         Map param = new HashMap();
         param.put("index", index);
         param.put("number", num);
         param.put("id", id);
         return getSqlMapClientTemplate().queryForList(
-                "listArticleContentByCategoryId", param);
+                "listArticleContentByArticleId", param);
     }
 
     @Override
-    public List<String> listAllByCategoryId(int id) throws DataAccessException {
+    public List<String> listAllByArticleId(int id) throws DataAccessException {
         return getSqlMapClientTemplate().queryForList(
-                "listAllArticleContentByCategoryId", id);
+                "listAllArticleContentByArticleId", id);
     }
 
 }

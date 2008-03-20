@@ -7,7 +7,7 @@ public class ArticleCategory {
     private int id;
     private int parentId;
 
-    private String className;
+    private String name;
     private String summary;
 
     private int lthread;
@@ -31,12 +31,12 @@ public class ArticleCategory {
         this.parentId = parentId;
     }
 
-    public String getClassName() {
-        return className;
+    public String getName() {
+        return name;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSummary() {

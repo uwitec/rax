@@ -225,7 +225,7 @@ public class ArticleCategoryDao implements GenericDao<ArticleCategory, Long> {
             logger.trace("Dao:read");
             logger.trace("Id:" + String.valueOf(category.getId()));
             logger.trace("ParentId:" + String.valueOf(category.getParentId()));
-            logger.trace(category.getClassName());
+            logger.trace(category.getName());
             logger.trace(category.getSummary());
             logger.trace(category.getCreateDate());
 
