@@ -13,14 +13,14 @@
 		INSERT INTO rax_picture (article_id, title, mime_type, size, summary, file_path, upload_date) VALUES
 		(#articleId#, #title#, #mimeType#, #size#, #summary#, #filePath#, #uploadDate#)
 		]]>
-		<selectKey resultClass="Integer" keyProperty="id">
+		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
 			SELECT currval('rax_picture_id_seq'::regclass)
 			]]>
 		</selectKey>
 	</insert>
 
-	<select id="readPicture" parameterClass="Integer"
+	<select id="readPicture" parameterClass="int"
 		resultClass="Picture">
 		<![CDATA[
 		SELECT id, article_id AS articleId, title, mime_type, summary, size, file_path AS filePath, upload_date AS pubDate,pub
@@ -38,27 +38,27 @@
 		]]>
 	</update>
 
-	<delete id="deletePicture" parameterClass="Integer">
+	<delete id="deletePicture" parameterClass="int">
 		<![CDATA[
 		DELETE rax_picture WHERE id=#id#
 		]]>
 	</delete>
 
-	<select id="countPicture" resultClass="Integer">
+	<select id="countPicture" resultClass="int">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM rax_picture
 		]]>
 	</select>
 
-	<select id="countPictureByArticleId" parameterClass="Integer"
-		resultClass="Integer">
+	<select id="countPictureByArticleId" parameterClass="int"
+		resultClass="int">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM rax_picture
 		WHERE article_id=#id#
 		]]>
 	</select>
 
-	<select id="listPictureByArticleId" parameterClass="Integer"
+	<select id="listPictureByArticleId" parameterClass="int"
 		resultClass="Picture">
 		<![CDATA[
 		SELECT id, article_id AS articleId, title, mime_type, summary, size, file_path AS filePath, upload_date AS pubDate,pub

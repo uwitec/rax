@@ -8,9 +8,9 @@ import rax.model.LinkCategory;
 
 public interface LinkCategoryDao {
 
-    public Long create(LinkCategory newInstance) throws DataAccessException;
+    public int create(LinkCategory newInstance) throws DataAccessException;
 
-    public LinkCategory read(Long id) throws DataAccessException;
+    public LinkCategory read(int id) throws DataAccessException;
 
     public int update(LinkCategory transientObject) throws DataAccessException;
 

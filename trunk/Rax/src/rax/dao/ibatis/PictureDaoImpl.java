@@ -12,13 +12,13 @@ public class PictureDaoImpl extends SqlMapClientDaoSupport implements
         PictureDao {
 
     @Override
-    public Integer create(Picture newInstance) throws DataAccessException {
+    public int create(Picture newInstance) throws DataAccessException {
         return (Integer) getSqlMapClientTemplate().insert("createPicture",
                 newInstance);
     }
 
     @Override
-    public Picture read(Integer id) throws DataAccessException {
+    public Picture read(int id) throws DataAccessException {
         return (Picture) getSqlMapClientTemplate().queryForObject(
                 "readPicture", id);
     }
@@ -42,13 +42,13 @@ public class PictureDaoImpl extends SqlMapClientDaoSupport implements
     }
 
     @Override
-    public int countByArticleId(Integer id) throws DataAccessException {
+    public int countByArticleId(int id) throws DataAccessException {
         return (Integer) getSqlMapClientTemplate().queryForObject(
                 "countPictureByArticleId", id);
     }
 
     @Override
-    public List<Picture> listByArticleId(Integer id) throws DataAccessException {
+    public List<Picture> listByArticleId(int id) throws DataAccessException {
         return getSqlMapClientTemplate().queryForList("listPictureByArticleId",
                 id);
     }

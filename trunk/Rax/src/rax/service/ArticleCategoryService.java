@@ -14,7 +14,7 @@ public class ArticleCategoryService {
     public ArticleCategoryService() {
     }
 
-    public long createCategory(ArticleCategory category) {
+    public int createCategory(ArticleCategory category) {
         return categoryDao.create(category);
     }
 
@@ -36,12 +36,12 @@ public class ArticleCategoryService {
         return true;
     }
 
-    public boolean updateCategory(long id, ArticleCategory category) {
+    public boolean updateCategory(int id, ArticleCategory category) {
         categoryDao.update(category);
         return true;
     }
 
-    public long getCount(boolean onlyPub) {
+    public int getCount(boolean onlyPub) {
         return categoryDao.count();
     }
 

@@ -12,13 +12,13 @@ public class AttachmentDaoImpl extends SqlMapClientDaoSupport implements
         AttachmentDao {
 
     @Override
-    public Integer create(Attachment newInstance) throws DataAccessException {
+    public int create(Attachment newInstance) throws DataAccessException {
         return (Integer) getSqlMapClientTemplate().insert("createAttachment",
                 newInstance);
     }
 
     @Override
-    public Attachment read(Integer id) throws DataAccessException {
+    public Attachment read(int id) throws DataAccessException {
         return (Attachment) getSqlMapClientTemplate().queryForObject(
                 "readAttachment", id);
     }
@@ -42,13 +42,13 @@ public class AttachmentDaoImpl extends SqlMapClientDaoSupport implements
     }
 
     @Override
-    public int countByArticleId(Integer id) throws DataAccessException {
+    public int countByArticleId(int id) throws DataAccessException {
         return (Integer) getSqlMapClientTemplate().queryForObject(
                 "countAttachmentByArticleId", id);
     }
 
     @Override
-    public List<Attachment> listByArticleId(Integer id)
+    public List<Attachment> listByArticleId(int id)
             throws DataAccessException {
         return getSqlMapClientTemplate().queryForList(
                 "listAttachmentByArticleId", id);

@@ -13,14 +13,14 @@
 		INSERT INTO rax_attachment (article_id, title, update_name, update_date, file_path, downloads, size) VALUES
 		(#articleId#, #title#, #updateName#, #updateDate#, #filePath#, #downloads#, #size#)
 		]]>
-		<selectKey resultClass="Integer" keyProperty="id">
+		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
 			SELECT currval('rax_attachment_id_seq'::regclass)
 			]]>
 		</selectKey>
 	</insert>
 
-	<select id="readAttachment" parameterClass="Integer"
+	<select id="readAttachment" parameterClass="int"
 		resultClass="Attachment">
 		<![CDATA[
 		SELECT id, article_id AS articleId, title, update_name AS updateName, 
@@ -39,27 +39,27 @@
 		]]>
 	</update>
 
-	<delete id="deleteAttachment" parameterClass="Integer">
+	<delete id="deleteAttachment" parameterClass="int">
 		<![CDATA[
 		DELETE rax_attachment WHERE id=#id#
 		]]>
 	</delete>
 
-	<select id="countAttachment" resultClass="Integer">
+	<select id="countAttachment" resultClass="int">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM rax_attachment
 		]]>
 	</select>
 
-	<select id="countAttachmentByArticleId" parameterClass="Integer"
-		resultClass="Integer">
+	<select id="countAttachmentByArticleId" parameterClass="int"
+		resultClass="int">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM rax_attachment
 		WHERE article_id=#id#
 		]]>
 	</select>
 
-	<select id="listAttachmentByArticleId" parameterClass="Integer"
+	<select id="listAttachmentByArticleId" parameterClass="int"
 		resultClass="Attachment">
 		<![CDATA[
 		SELECT id, article_id AS articleId, title, update_name AS updateName, 

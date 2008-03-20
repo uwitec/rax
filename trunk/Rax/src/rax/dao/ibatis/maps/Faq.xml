@@ -13,14 +13,14 @@
 		INSERT INTO rax_faq (question, answer, pub_date, pub) VALUES
 		(#question#, #answer#, #pubDate#, #pub#)
 		]]>
-		<selectKey resultClass="Long" keyProperty="id" >
+		<selectKey resultClass="int" keyProperty="id" >
 			<![CDATA[
 			SELECT currval('rax_faq_id_seq'::regclass)
 			]]>
 		</selectKey>
 	</insert>
 
-	<select id="readFaq" parameterClass="Long" resultClass="Faq">
+	<select id="readFaq" parameterClass="int" resultClass="Faq">
 		<![CDATA[
 		SELECT id,question,answer,pub_date AS pubDate,pub
 		FROM rax_faq
@@ -36,25 +36,25 @@
 		]]>
 	</update>
 
-	<delete id="deleteFaq" parameterClass="Long">
+	<delete id="deleteFaq" parameterClass="int">
 		<![CDATA[
 		DELETE rax_faq WHERE id=#id#
 		]]>
 	</delete>
 
-	<select id="countAllFaq" resultClass="Integer">
+	<select id="countAllFaq" resultClass="int">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM rax_faq
 		]]>
 	</select>
 
-	<select id="countPubFaq" resultClass="Integer">
+	<select id="countPubFaq" resultClass="int">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM rax_faq WHERE pub=TRUE
 		]]>
 	</select>
 
-	<select id="listFaq" parameterClass="java.util.Map" resultClass="Faq">
+	<select id="listFaq" parameterClass="map" resultClass="Faq">
 		<![CDATA[
 		SELECT id,question,answer,pub_date AS pubDate,pub 
 		FROM rax_faq
@@ -62,7 +62,7 @@
 		]]>
 	</select>
 
-	<select id="listPubFaq" parameterClass="java.util.Map"
+	<select id="listPubFaq" parameterClass="map"
 		resultClass="Faq">
 		<![CDATA[
 		SELECT id,question,answer,pub_date AS pubDate,pub 

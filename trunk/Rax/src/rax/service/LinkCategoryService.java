@@ -22,15 +22,15 @@ public class LinkCategoryService {
         linkCategoryDao = dao;
     }
 
-    public LinkCategory getCategoryById(long id) {
+    public LinkCategory getCategoryById(int id) {
         return linkCategoryDao.read(id);
     }
 
-    public long createCategory(LinkCategory category) {
+    public int createCategory(LinkCategory category) {
         return linkCategoryDao.create(category);
     }
 
-    public boolean deleteCategory(long id) {
+    public boolean deleteCategory(int id) {
         boolean ret = false;
         LinkCategory category = linkCategoryDao.read(id);
         if (category != null) {
@@ -41,12 +41,12 @@ public class LinkCategoryService {
         return ret;
     }
 
-    public boolean updateCategory(long id, LinkCategory category) {
+    public boolean updateCategory(int id, LinkCategory category) {
         linkCategoryDao.update(category);
         return true;
     }
 
-    public long getCount(boolean onlyPub) {
+    public int getCount(boolean onlyPub) {
         return linkCategoryDao.count();
     }
 

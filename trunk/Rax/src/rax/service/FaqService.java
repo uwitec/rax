@@ -12,16 +12,16 @@ public class FaqService {
     public FaqService() {
     }
 
-    public Integer createFaq(Faq faq) {
+    public int createFaq(Faq faq) {
         return faqDao.create(faq);
     }
 
-    public boolean updateFaq(Integer id, Faq faq) {
+    public boolean updateFaq(int id, Faq faq) {
         faqDao.update(faq);
         return true;
     }
 
-    public boolean deleteFaq(Integer id) {
+    public boolean deleteFaq(int id) {
         boolean ret = false;
         Faq faq = faqDao.read(id);
         if (faq != null) {

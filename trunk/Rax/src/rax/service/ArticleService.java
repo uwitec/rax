@@ -13,7 +13,7 @@ public class ArticleService {
     public ArticleService() {
     }
 
-    public long createArticle(Article article) {
+    public int createArticle(Article article) {
         return articleDao.create(article);
     }
 
@@ -28,11 +28,11 @@ public class ArticleService {
         return true;
     }
 
-    public long getCount(boolean onlyPub) {
+    public int getCount(boolean onlyPub) {
         return articleDao.count(onlyPub);
     }
 
-    public long getCountByCategory(ArticleCategory category, boolean onlyPub) {
+    public int getCountByCategory(ArticleCategory category, boolean onlyPub) {
         return articleDao.countByCategoryId(category.getId(), onlyPub);
     }
 

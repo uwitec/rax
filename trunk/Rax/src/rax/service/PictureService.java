@@ -13,7 +13,7 @@ public class PictureService {
     public PictureService() {
     }
 
-    public long createPicture(Picture picture) {
+    public int createPicture(Picture picture) {
         return pictureDao.create(picture);
     }
 
@@ -32,7 +32,7 @@ public class PictureService {
         return true;
     }
 
-    public long getCount() {
+    public int getCount() {
         return pictureDao.count();
     }
 

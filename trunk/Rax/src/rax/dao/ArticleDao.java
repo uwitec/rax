@@ -36,10 +36,10 @@ public interface ArticleDao {
 
     public List<Article> listAll(boolean onlyPub) throws DataAccessException;
 
-    public List<Article> listByCategoryId(int id, long index, int num)
+    public List<Article> listByCategoryId(int id, int index, int num)
             throws DataAccessException;
 
-    public List<Article> listByCategoryId(int id, long index, int num,
+    public List<Article> listByCategoryId(int id, int index, int num,
             boolean onlyPub) throws DataAccessException;
 
     public List<Article> listAllByCategoryId(int id)

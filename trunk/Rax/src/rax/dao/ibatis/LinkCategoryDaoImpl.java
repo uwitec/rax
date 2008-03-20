@@ -14,13 +14,13 @@ public class LinkCategoryDaoImpl extends SqlMapClientDaoSupport implements
         LinkCategoryDao {
 
     @Override
-    public Long create(LinkCategory newInstance) throws DataAccessException {
-        return (Long) getSqlMapClientTemplate().insert("createLinkCategory",
+    public int create(LinkCategory newInstance) throws DataAccessException {
+        return (Integer) getSqlMapClientTemplate().insert("createLinkCategory",
                 newInstance);
     }
 
     @Override
-    public LinkCategory read(Long id) throws DataAccessException {
+    public LinkCategory read(int id) throws DataAccessException {
         return (LinkCategory) getSqlMapClientTemplate().queryForObject(
                 "readLinkCategory", id);
     }

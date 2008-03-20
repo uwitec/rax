@@ -13,14 +13,14 @@
 		INSERT INTO rax_link_category (title, summary) 
 		VALUES (#title#, #summary#)
 		]]>
-		<selectKey resultClass="Long" keyProperty="id">
+		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
 			SELECT currval('rax_link_category_id_seq'::regclass)
 			]]>
 		</selectKey>
 	</insert>
 
-	<select id="readLinkCategory" parameterClass="Long"
+	<select id="readLinkCategory" parameterClass="int"
 		resultClass="LinkCategory">
 		<![CDATA[
 		SELECT id,title,summary 
@@ -36,19 +36,19 @@
 		]]>
 	</update>
 
-	<delete id="deleteLinkCategory" parameterClass="Long">
+	<delete id="deleteLinkCategory" parameterClass="int">
 		<![CDATA[
 		DELETE rax_link_category WHERE id=#id#
 		]]>
 	</delete>
 
-	<select id="countLinkCategory" resultClass="Integer">
+	<select id="countLinkCategory" resultClass="int">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM rax_link_category
 		]]>
 	</select>
 
-	<select id="listLinkCategory" parameterClass="java.util.Map"
+	<select id="listLinkCategory" parameterClass="map"
 		resultClass="LinkCategory">
 		<![CDATA[
 		SELECT id,title,summary 

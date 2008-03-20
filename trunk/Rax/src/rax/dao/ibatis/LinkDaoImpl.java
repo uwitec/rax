@@ -12,13 +12,13 @@ import rax.model.Link;
 
 public class LinkDaoImpl extends SqlMapClientDaoSupport implements LinkDao {
 
-    public Integer create(Link newInstance) throws DataAccessException {
+    public int create(Link newInstance) throws DataAccessException {
         return (Integer) getSqlMapClientTemplate().insert("createLink",
                 newInstance);
     }
 
     @Override
-    public Link read(Integer id) throws DataAccessException {
+    public Link read(int id) throws DataAccessException {
         return (Link) getSqlMapClientTemplate().queryForObject("readLink", id);
     }
 
@@ -33,7 +33,7 @@ public class LinkDaoImpl extends SqlMapClientDaoSupport implements LinkDao {
                 persistentObject.getId());
     }
 
-    public int deleteByCategoryId(Integer id) throws DataAccessException {
+    public int deleteByCategoryId(int id) throws DataAccessException {
         return getSqlMapClientTemplate().delete("deleteLinkByCategoryId", id);
     }
 
@@ -47,11 +47,11 @@ public class LinkDaoImpl extends SqlMapClientDaoSupport implements LinkDao {
                 bOnlyPub ? "countPubLink" : "countAllLink");
     }
 
-    public int countByCategoryId(Integer id) throws DataAccessException {
+    public int countByCategoryId(int id) throws DataAccessException {
         return countByCategoryId(id, false);
     }
 
-    public int countByCategoryId(Integer id, boolean bOnlyPub)
+    public int countByCategoryId(int id, boolean bOnlyPub)
             throws DataAccessException {
         return (Integer) getSqlMapClientTemplate().queryForObject(
                 bOnlyPub ? "countPubLinkByCategoryId"
@@ -67,12 +67,12 @@ public class LinkDaoImpl extends SqlMapClientDaoSupport implements LinkDao {
                 bOnlyPub ? "listPubLink" : "listLink", param);
     }
 
-    public List<Link> listByCategoryId(Integer id, int index, int num)
+    public List<Link> listByCategoryId(int id, int index, int num)
             throws DataAccessException {
         return listByCategoryId(id, index, num, false);
     }
 
-    public List<Link> listByCategoryId(Integer id, int index, int num,
+    public List<Link> listByCategoryId(int id, int index, int num,
             boolean bOnlyPub) throws DataAccessException {
         Map param = new HashMap();
         param.put("index", index);
@@ -88,11 +88,11 @@ public class LinkDaoImpl extends SqlMapClientDaoSupport implements LinkDao {
                 bOnlyPub ? "listAllPubLink" : "listAllLink");
     }
 
-    public List<Link> listAllByCategoryId(Integer id) throws DataAccessException {
+    public List<Link> listAllByCategoryId(int id) throws DataAccessException {
         return listAllByCategoryId(id, false);
     }
 
-    public List<Link> listAllByCategoryId(Integer id, boolean bOnlyPub)
+    public List<Link> listAllByCategoryId(int id, boolean bOnlyPub)
             throws DataAccessException {
         return getSqlMapClientTemplate().queryForList(
                 bOnlyPub ? "listAllPubLinkByCategoryId"
