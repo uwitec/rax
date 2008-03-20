@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Attachment">
+
+	<typeAlias alias="Attachment" type="rax.model.Attachment" />
+
+	<insert id="createAttachment" parameterClass="Attachment">
+		<![CDATA[
+		INSERT INTO rax_attachment (article_id, title, update_name, update_date, file_path, downloads, size) VALUES
+		(#articleId#, #title#, #updateName#, #updateDate#, #filePath#, #downloads#, #size#)
+		]]>
+		<selectKey resultClass="Integer" keyProperty="id">
+			<![CDATA[
+			SELECT currval('rax_attachment_id_seq'::regclass)
+			]]>
+		</selectKey>
+	</insert>
+
+	<select id="readAttachment" parameterClass="Integer"
+		resultClass="Attachment">
+		<![CDATA[
+		SELECT id, article_id AS articleId, title, update_name AS updateName, 
+		update_date AS updateDate, file_path AS filePath, downloads, size
+		FROM rax_attachment
+		WHERE id=#id#
+		]]>
+	</select>
+
+	<update id="updateAttachment" parameterClass="Attachment">
+		<![CDATA[
+		UPDATE rax_attachment SET article_id=#articleId#, title=#title#,
+		update_name=#updateName#, update_date=#updateDate#, file_path=#filePath# 
+		downloads=#downloads#, size=#size#, 
+		WHERE id=#id#
+		]]>
+	</update>
+
+	<delete id="deleteAttachment" parameterClass="Integer">
+		<![CDATA[
+		DELETE rax_attachment WHERE id=#id#
+		]]>
+	</delete>
+
+	<select id="countAttachment" resultClass="Integer">
+		<![CDATA[
+		SELECT COUNT(*) AS NUM FROM rax_attachment
+		]]>
+	</select>
+
+	<select id="countAttachmentByArticleId" parameterClass="Integer"
+		resultClass="Integer">
+		<![CDATA[
+		SELECT COUNT(*) AS NUM FROM rax_attachment
+		WHERE article_id=#id#
+		]]>
+	</select>
+
+	<select id="listAttachmentByArticleId" parameterClass="Integer"
+		resultClass="Attachment">
+		<![CDATA[
+		SELECT id, article_id AS articleId, title, update_name AS updateName, 
+		update_date AS updateDate, file_path AS filePath, downloads, size
+		FROM rax_attachment
+		WHERE article_id=#id#
+		]]>
+	</select>
+
+</sqlMap>

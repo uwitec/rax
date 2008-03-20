@@ -4,11 +4,12 @@ import java.util.Date;
 
 public class Attachment {
 
-    private long id;
+    private int id;
+    private int articleId;
     private String title;
     private String uploadName;
     private Date uploadDate;
-    private String fileName;
+    private String filePath;
     private int downloads;
     private int size;
 
@@ -36,12 +37,12 @@ public class Attachment {
         this.uploadDate = uploadDate;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getFilePath() {
+        return filePath;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     public int getDownloads() {
@@ -60,12 +61,20 @@ public class Attachment {
         this.size = size;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public int getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(int articleId) {
+        this.articleId = articleId;
     }
 
 }
