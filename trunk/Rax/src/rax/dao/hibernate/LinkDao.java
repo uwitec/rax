@@ -169,7 +169,7 @@ public class LinkDao implements GenericDao<Link, Long> {
             session.beginTransaction();
             session.save(newInstance);
             session.getTransaction().commit();
-            ret = newInstance.getId();
+            ret = Long.valueOf(newInstance.getId());
         } catch (HibernateException ex) {
             ret = Long.valueOf(0);
         }

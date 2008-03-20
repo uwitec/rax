@@ -2,8 +2,8 @@ package rax.model;
 
 public class Link {
 
-    private long id;
-    private long categoryId;
+    private int id;
+    private int categoryId;
     private String title;
     private String address;
     private String summary;
@@ -41,19 +41,19 @@ public class Link {
         this.pub = pub;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public long getCategoryId() {
+    public int getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(long categoryId) {
+    public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 
