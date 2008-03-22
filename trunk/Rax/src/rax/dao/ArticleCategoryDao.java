@@ -18,8 +18,6 @@ public interface ArticleCategoryDao {
     public int delete(ArticleCategory persistentObject)
             throws DataAccessException;
 
-    public int deleteByCategoryId(int id) throws DataAccessException;
-
     public int countByCategoryId(int id) throws DataAccessException;
 
     public List<ArticleCategory> listAll() throws DataAccessException;
@@ -36,4 +34,10 @@ public interface ArticleCategoryDao {
     public List<ArticleCategory> listAllSubCategoryByCategoryId(int id)
             throws DataAccessException;
 
+    public int adjustLthread() throws DataAccessException;
+
+    public int adjustRthread() throws DataAccessException;
+
+    public List<ArticleCategory> listPathToCategory(int lthread, int rthread)
+            throws DataAccessException;
 }

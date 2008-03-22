@@ -15,34 +15,28 @@ public class ArticleCategoryDaoImpl extends SqlMapClientDaoSupport implements
 
     @Override
     public int create(ArticleCategory newInstance) throws DataAccessException {
-        // TODO Auto-generated method stub
-        return 0;
+        return (Integer) getSqlMapClientTemplate().insert("createArticleCategory",
+                newInstance);
     }
 
     @Override
     public ArticleCategory read(int id) throws DataAccessException {
         return (ArticleCategory) getSqlMapClientTemplate().queryForObject(
-                "readLinkCategory", id);
+                "readArticleCategory", id);
     }
 
     @Override
     public int update(ArticleCategory transientObject)
             throws DataAccessException {
-        // TODO Auto-generated method stub
-        return 0;
+        return getSqlMapClientTemplate().update("updateArticleCategory",
+                transientObject);
     }
 
     @Override
     public int delete(ArticleCategory persistentObject)
             throws DataAccessException {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public int deleteByCategoryId(int id) throws DataAccessException {
-        // TODO Auto-generated method stub
-        return 0;
+        return getSqlMapClientTemplate().delete("deleteArticleCategory",
+                persistentObject.getId());
     }
 
     @Override
@@ -53,7 +47,7 @@ public class ArticleCategoryDaoImpl extends SqlMapClientDaoSupport implements
 
     @Override
     public List<ArticleCategory> listAll() throws DataAccessException {
-        return getSqlMapClientTemplate().queryForList("listAllLinkCategory");
+        return getSqlMapClientTemplate().queryForList("listAllArticleCategory");
     }
 
     @Override
@@ -92,4 +86,25 @@ public class ArticleCategoryDaoImpl extends SqlMapClientDaoSupport implements
                 "listAllSubArticleCategoryByCategoryId", id);
     }
 
+    @Override
+    public int adjustLthread() throws DataAccessException {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int adjustRthread() throws DataAccessException {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public List<ArticleCategory> listPathToCategory(int lthread, int rthread)
+            throws DataAccessException {
+        Map param = new HashMap();
+        param.put("lThread", lthread);
+        param.put("rThread", rthread);
+        return getSqlMapClientTemplate().queryForList("listPathToCategory",
+                param);
+    }
 }
