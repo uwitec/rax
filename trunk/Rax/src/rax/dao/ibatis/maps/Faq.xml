@@ -58,8 +58,8 @@
 		<![CDATA[
 		SELECT id,question,answer,pub_date AS pubDate,pub 
 		FROM rax_faq
-		LIMIT #number# OFFSET #index#
 		ORDER BY id
+		LIMIT #number# OFFSET #index#
 		]]>
 	</select>
 
@@ -68,8 +68,8 @@
 		SELECT id,question,answer,pub_date AS pubDate,pub 
 		FROM rax_faq
 		WHERE pub=TRUE
-		LIMIT #number# OFFSET #index#
 		ORDER BY id
+		LIMIT #number# OFFSET #index#
 		]]>
 	</select>
 

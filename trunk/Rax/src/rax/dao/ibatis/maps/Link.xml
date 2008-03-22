@@ -80,8 +80,8 @@
 		<![CDATA[
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link
-		LIMIT #number# OFFSET #index#
 		ORDER BY id
+		LIMIT #number# OFFSET #index#
 		]]>
 	</select>
 
@@ -90,8 +90,8 @@
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link
 		WHERE pub=TRUE
-		LIMIT #number# OFFSET #index#
 		ORDER BY id
+		LIMIT #number# OFFSET #index#
 		]]>
 	</select>
 
@@ -101,8 +101,8 @@
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link
 		WHERE category_id=#categoryId#
-		LIMIT #number# OFFSET #index#
 		ORDER BY id
+		LIMIT #number# OFFSET #index#
 		]]>
 	</select>
 
@@ -112,8 +112,8 @@
 		SELECT id,category_id,title,address,summary,pub 
 		FROM rax_link
 		WHERE pub=TRUE AND category_id=#categoryId#
-		LIMIT #number# OFFSET #index#
 		ORDER BY id
+		LIMIT #number# OFFSET #index#
 		]]>
 	</select>
 

@@ -50,7 +50,8 @@
 		<![CDATA[
 		SELECT string
 		FROM rax_article_content
-		WHERE article_id=#id# ORDER BY page_id
+		WHERE article_id=#id#
+		ORDER BY page_id
 		]]>
 	</select>
 

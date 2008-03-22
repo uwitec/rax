@@ -82,8 +82,8 @@
 		<![CDATA[
 		SELECT id,title,summary,author,source,create_date AS createDate,views,pub,category_id AS categoryId
 		FROM rax_article
-		LIMIT #number# OFFSET #index#
 		ORDER BY id
+		LIMIT #number# OFFSET #index#
 		]]>
 	</select>
 
@@ -93,8 +93,8 @@
 		SELECT id,title,summary,author,source,create_date AS createDate,views,pub,category_id AS categoryId
 		FROM rax_article
 		WHERE pub=TRUE
-		LIMIT #number# OFFSET #index#
 		ORDER BY id
+		LIMIT #number# OFFSET #index#
 		]]>
 	</select>
 
@@ -121,8 +121,8 @@
 		SELECT id,title,summary,author,source,create_date AS createDate,views,pub,category_id AS categoryId
 		FROM rax_article
 		WHERE category_id=#categoryId#
-		LIMIT #number# OFFSET #index#
 		ORDER BY id
+		LIMIT #number# OFFSET #index#
 		]]>
 	</select>
 
@@ -132,8 +132,8 @@
 		SELECT id,title,summary,author,source,create_date AS createDate,views,pub,category_id AS categoryId
 		FROM rax_article
 		WHERE pub=TRUE AND category_id=#categoryId#
-		LIMIT #number# OFFSET #index#
 		ORDER BY id
+		LIMIT #number# OFFSET #index#
 		]]>
 	</select>
 	

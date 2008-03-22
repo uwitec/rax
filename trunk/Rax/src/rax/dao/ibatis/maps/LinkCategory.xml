@@ -53,8 +53,8 @@
 		<![CDATA[
 		SELECT id,title,summary 
 		FROM rax_link_category
-		LIMIT #number# OFFSET #index#
 		ORDER BY id
+		LIMIT #number# OFFSET #index#
 		]]>
 	</select>
 

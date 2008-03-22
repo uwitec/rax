@@ -63,8 +63,8 @@
 		<![CDATA[
 		SELECT id, article_id AS articleId, title, mime_type, summary, size, file_path AS filePath, upload_date AS pubDate,pub
 		FROM rax_picture
-		WHERE article_id=#id#
 		ORDER BY id
+		WHERE article_id=#id#
 		]]>
 	</select>
 
