@@ -41,12 +41,12 @@ public class ArticleCategoryService {
         return true;
     }
 
-    public int getCount(boolean onlyPub) {
-        return categoryDao.count();
+    public int getCountByCategoryId(int id) {
+        return categoryDao.countByCategoryId(id);
     }
 
-    public List<ArticleCategory> listCategorys(int index, int num) {
-        return categoryDao.list(index, num);
+    public List<ArticleCategory> listAllCategorys() {
+        return categoryDao.listAll();
     }
 
     public List<ArticleCategory> listCategorysByCategory(
