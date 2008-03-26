@@ -15,8 +15,8 @@ public class ArticleCategoryDaoImpl extends SqlMapClientDaoSupport implements
 
     @Override
     public int create(ArticleCategory newInstance) throws DataAccessException {
-        return (Integer) getSqlMapClientTemplate().insert("createArticleCategory",
-                newInstance);
+        return (Integer) getSqlMapClientTemplate().insert(
+                "createArticleCategory", newInstance);
     }
 
     @Override
@@ -87,15 +87,21 @@ public class ArticleCategoryDaoImpl extends SqlMapClientDaoSupport implements
     }
 
     @Override
-    public int adjustLthread() throws DataAccessException {
-        // TODO Auto-generated method stub
-        return 0;
+    public int adjustLthread(int from, int diff) throws DataAccessException {
+        Map param = new HashMap();
+        param.put("from", from);
+        param.put("diff", diff);
+        return getSqlMapClientTemplate().update(
+                "adjustArticleCategoryLeftThread", param);
     }
 
     @Override
-    public int adjustRthread() throws DataAccessException {
-        // TODO Auto-generated method stub
-        return 0;
+    public int adjustRthread(int from, int diff) throws DataAccessException {
+        Map param = new HashMap();
+        param.put("from", from);
+        param.put("diff", diff);
+        return getSqlMapClientTemplate().update(
+                "adjustArticleCategoryRightThread", param);
     }
 
     @Override

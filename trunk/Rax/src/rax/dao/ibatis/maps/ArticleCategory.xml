@@ -4,64 +4,91 @@
     PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
-<sqlMap namespace="LinkCategory">
+<sqlMap namespace="ArticleCategory">
 
-	<typeAlias alias="LinkCategory" type="rax.model.LinkCategory" />
+	<typeAlias alias="ArticleCategory" type="rax.model.ArticleCategory" />
 
-	<insert id="createLinkCategory" parameterClass="LinkCategory">
+	<insert id="createArticleCategory" parameterClass="ArticleCategory">
 		<![CDATA[
-		INSERT INTO rax_link_category (title, summary) 
+		INSERT INTO rax_article_category (title, summary) 
 		VALUES (#title#, #summary#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
-			SELECT currval('rax_link_category_id_seq'::regclass)
+			SELECT currval('rax_article_category_id_seq'::regclass)
 			]]>
 		</selectKey>
 	</insert>
 
-	<select id="readLinkCategory" parameterClass="int"
-		resultClass="LinkCategory">
+	<select id="readArticleCategory" parameterClass="int"
+		resultClass="ArticleCategory">
 		<![CDATA[
 		SELECT id,title,summary 
-		FROM rax_link_category
+		FROM rax_article_category
 		WHERE id=#id#
 		]]>
 	</select>
 
-	<update id="updateLinkCategory" parameterClass="LinkCategory">
+	<update id="updateArticleCategory" parameterClass="ArticleCategory">
 		<![CDATA[
-		UPDATE rax_link_category SET title=#title#, summary=#summary#
+		UPDATE rax_article_category SET title=#title#, summary=#summary#
 		WHERE id=#id#
 		]]>
 	</update>
 
-	<delete id="deleteLinkCategory" parameterClass="int">
+	<delete id="deleteArticleCategory" parameterClass="int">
 		<![CDATA[
-		DELETE rax_link_category WHERE id=#id#
+		DELETE rax_article_category WHERE id=#id#
 		]]>
 	</delete>
 
-	<select id="countLinkCategory" resultClass="int">
+	<select id="countArticleCategory" resultClass="int">
 		<![CDATA[
-		SELECT COUNT(*) AS NUM FROM rax_link_category
+		SELECT COUNT(*) AS NUM FROM rax_article_category
 		]]>
 	</select>
 
-	<select id="listLinkCategory" parameterClass="map"
-		resultClass="LinkCategory">
+	<select id="listArticleCategory" parameterClass="map"
+		resultClass="ArticleCategory">
 		<![CDATA[
 		SELECT id,title,summary 
-		FROM rax_link_category
+		FROM rax_article_category
 		ORDER BY id
 		LIMIT #number# OFFSET #index#
 		]]>
 	</select>
 
-	<select id="listAllLinkCategory" resultClass="LinkCategory">
+	<select id="listAllArticleCategory" resultClass="ArticleCategory">
 		<![CDATA[
 		SELECT id,title,summary 
-		FROM rax_link_category
+		FROM rax_article_category
+		ORDER BY id
+		]]>
+	</select>
+
+	<select id="adjustArticleCategoryLeftThread" parameterClass="map">
+		<![CDATA[
+		UPDATE rax_article_category
+		SET r_thread = r_thread + #diff#
+		WHERE r_thread > #from#
+		]]>
+	</select>
+
+	<select id="adjustArticleCategoryRightThread"
+		parameterClass="map">
+		<![CDATA[
+		UPDATE rax_article_category
+		SET r_thread = r_thread + #diff#
+		WHERE r_thread > #from#
+		]]>
+	</select>
+
+	<select id="listPathToCategory" parameterClass="map"
+		resultClass="ArticleCategory">
+		<![CDATA[
+		SELECT id, parent_id AS parentId, name, summary, l_thread AS lthread, r_thread AS rthread, create_date AS createDate
+		FROM rax_article_category
+		WHERE lthread < #lThread# AND rthread > #rThread#
 		ORDER BY id
 		]]>
 	</select>

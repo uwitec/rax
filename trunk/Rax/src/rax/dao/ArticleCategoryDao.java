@@ -34,9 +34,9 @@ public interface ArticleCategoryDao {
     public List<ArticleCategory> listAllSubCategoryByCategoryId(int id)
             throws DataAccessException;
 
-    public int adjustLthread() throws DataAccessException;
+    public int adjustLthread(int from, int diff) throws DataAccessException;
 
-    public int adjustRthread() throws DataAccessException;
+    public int adjustRthread(int from, int diff) throws DataAccessException;
 
     public List<ArticleCategory> listPathToCategory(int lthread, int rthread)
             throws DataAccessException;
