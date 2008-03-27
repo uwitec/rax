@@ -33,7 +33,7 @@
 
 	<delete id="deleteArticleContentByArticleId" parameterClass="int">
 		<![CDATA[
-		DELETE rax_article_content WHERE article_id=#id#
+		DELETE FROM rax_article_content WHERE article_id=#id#
 		]]>
 	</delete>
 

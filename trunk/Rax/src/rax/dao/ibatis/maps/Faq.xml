@@ -15,7 +15,7 @@
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
-			SELECT currval('rax_faq_id_seq'::regclass)
+			SELECT currval('rax_faq_id_seq')
 			]]>
 		</selectKey>
 	</insert>
@@ -38,7 +38,7 @@
 
 	<delete id="deleteFaq" parameterClass="int">
 		<![CDATA[
-		DELETE rax_faq WHERE id=#id#
+		DELETE FROM rax_faq WHERE id=#id#
 		]]>
 	</delete>
 

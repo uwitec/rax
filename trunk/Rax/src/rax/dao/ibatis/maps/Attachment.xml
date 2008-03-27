@@ -41,7 +41,7 @@
 
 	<delete id="deleteAttachment" parameterClass="int">
 		<![CDATA[
-		DELETE rax_attachment WHERE id=#id#
+		DELETE FROM rax_attachment WHERE id=#id#
 		]]>
 	</delete>
 

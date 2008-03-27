@@ -38,7 +38,7 @@
 
 	<delete id="deleteLinkCategory" parameterClass="int">
 		<![CDATA[
-		DELETE rax_link_category WHERE id=#id#
+		DELETE FROM rax_link_category WHERE id=#id#
 		]]>
 	</delete>
 

@@ -40,7 +40,7 @@
 
 	<delete id="deletePicture" parameterClass="int">
 		<![CDATA[
-		DELETE rax_picture WHERE id=#id#
+		DELETE FROM rax_picture WHERE id=#id#
 		]]>
 	</delete>
 
