@@ -3,7 +3,7 @@
 FAQ
 留言板
 
-ArticleCategoryDao 的 service 需要重新整理, daoImpl内不应该需要read id
+ArticleCategoryDao 的 service 需要重新整理
 Spring iBatis 事务管理
 DAO 单元测试
 Struts2 表单验证机制
@@ -12,3 +12,4 @@ Session 认证
 文件上传下载
 图片验证码
 支付网关接口
+Annotation

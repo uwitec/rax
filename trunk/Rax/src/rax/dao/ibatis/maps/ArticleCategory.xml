@@ -45,7 +45,7 @@
 		]]>
 	</delete>
 
-	<select id="countDirectArticleCategoryByCategoryId"
+	<select id="countChildArticleCategoryByCategoryId"
 		resultClass="int">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM 
@@ -54,7 +54,7 @@
 		]]>
 	</select>
 
-	<select id="countAllArticleCategoryByCategoryId"
+	<select id="countSubArticleCategoryByCategoryId"
 		parameterClass="map" resultClass="int">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM 
@@ -71,18 +71,7 @@
 		]]>
 	</select>
 
-	<select id="listDirectArticleCategoryByCategoryId"
-		parameterClass="map" resultClass="ArticleCategory">
-		<![CDATA[
-		SELECT id, parent_id, name, summary, l_thread, r_thread, create_date 
-		FROM rax_article_category
-		WHERE parent_id=#categoryId#
-		ORDER BY id
-		LIMIT #number# OFFSET #index#		
-		]]>
-	</select>
-
-	<select id="listAllDirectArticleCategoryByCategoryId"
+	<select id="listChildArticleCategoryByCategoryId"
 		resultClass="ArticleCategory">
 		<![CDATA[
 		SELECT id, parent_id, name, summary, l_thread, r_thread, create_date 
@@ -94,17 +83,6 @@
 
 	<select id="listSubArticleCategoryByCategoryId" parameterClass="map"
 		resultClass="ArticleCategory">
-		<![CDATA[
-		SELECT id, parent_id, name, summary, l_thread, r_thread, create_date 
-		FROM rax_article_category
-		WHERE l_thread > #lthraed# AND r_thread < #rthraed#
-		ORDER BY id
-		LIMIT #number# OFFSET #index#		
-		]]>
-	</select>
-
-	<select id="listAllSubArticleCategoryByCategoryId"
-		parameterClass="map" resultClass="ArticleCategory">
 		<![CDATA[
 		SELECT id, parent_id, name, summary, l_thread, r_thread, create_date 
 		FROM rax_article_category
