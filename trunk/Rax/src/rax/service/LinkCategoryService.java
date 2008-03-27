@@ -14,14 +14,6 @@ public class LinkCategoryService {
     public LinkCategoryService() {
     }
 
-    public void setLinkDao(LinkDao dao) {
-        linkDao = dao;
-    }
-
-    public void setLinkCategoryDao(LinkCategoryDao dao) {
-        linkCategoryDao = dao;
-    }
-
     public LinkCategory getCategoryById(int id) {
         return linkCategoryDao.read(id);
     }
@@ -41,7 +33,7 @@ public class LinkCategoryService {
         return ret;
     }
 
-    public boolean updateCategory(int id, LinkCategory category) {
+    public boolean updateCategory(LinkCategory category) {
         linkCategoryDao.update(category);
         return true;
     }
@@ -54,4 +46,11 @@ public class LinkCategoryService {
         return linkCategoryDao.listAll();
     }
 
+    public void setLinkDao(LinkDao dao) {
+        linkDao = dao;
+    }
+
+    public void setLinkCategoryDao(LinkCategoryDao dao) {
+        linkCategoryDao = dao;
+    }
 }

@@ -13,8 +13,8 @@ public class AttachmentService {
     public AttachmentService() {
     }
 
-    public void setAttachmentDao(AttachmentDao attachmentDao) {
-        this.attachmentDao = attachmentDao;
+    public Attachment getAttachmentsById(int id) {
+        return attachmentDao.read(id);
     }
 
     public int createAttachment(Attachment attachment) {
@@ -23,11 +23,12 @@ public class AttachmentService {
 
     public boolean deleteAttachment(int id) {
         Attachment attachment = attachmentDao.read(id);
-        if (null != attachment) attachmentDao.delete(attachment);
+        if (null != attachment)
+            attachmentDao.delete(attachment);
         return true;
     }
 
-    public boolean updateAttachment(int id, Attachment attachment) {
+    public boolean updateAttachment(Attachment attachment) {
         attachmentDao.update(attachment);
         return true;
     }
@@ -40,4 +41,7 @@ public class AttachmentService {
         return attachmentDao.listByArticleId(article.getId());
     }
 
+    public void setAttachmentDao(AttachmentDao attachmentDao) {
+        this.attachmentDao = attachmentDao;
+    }
 }

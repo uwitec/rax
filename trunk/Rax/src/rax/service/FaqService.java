@@ -12,11 +12,15 @@ public class FaqService {
     public FaqService() {
     }
 
+    public Faq getFaqById(int id) {
+        return faqDao.read(id);
+    }
+
     public int createFaq(Faq faq) {
         return faqDao.create(faq);
     }
 
-    public boolean updateFaq(int id, Faq faq) {
+    public boolean updateFaq(Faq faq) {
         faqDao.update(faq);
         return true;
     }

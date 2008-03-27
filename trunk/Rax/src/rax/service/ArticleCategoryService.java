@@ -14,6 +14,10 @@ public class ArticleCategoryService {
     public ArticleCategoryService() {
     }
 
+    public ArticleCategory getCategoryById(ArticleCategory category) {
+        return categoryDao.read(category.getId());
+    }
+
     public int createCategory(ArticleCategory category) {
         ArticleCategory parent = categoryDao.read(category.getParentId());
         int thread = parent.getRthread();

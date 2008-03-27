@@ -13,17 +13,22 @@ public class ArticleService {
     public ArticleService() {
     }
 
+    public Article getArticleById(int id) {
+        return articleDao.read(id);
+    }
+
     public int createArticle(Article article) {
         return articleDao.create(article);
     }
 
     public boolean deleteArticle(int id) {
         Article article = articleDao.read(id);
-        if (null != article) articleDao.delete(article);
+        if (null != article)
+            articleDao.delete(article);
         return true;
     }
 
-    public boolean updateArticle(int id, Article article) {
+    public boolean updateArticle(Article article) {
         articleDao.update(article);
         return true;
     }

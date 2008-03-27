@@ -13,8 +13,8 @@ public class LinkService {
     public LinkService() {
     }
 
-    public void setLinkDao(LinkDao dao) {
-        linkDao = dao;
+    public Link getLinkById(int id) {
+        return linkDao.read(id);
     }
 
     public int createLink(Link link) {
@@ -53,4 +53,7 @@ public class LinkService {
         return linkDao.listByCategoryId(category.getId(), index, num, onlyPub);
     }
 
+    public void setLinkDao(LinkDao dao) {
+        linkDao = dao;
+    }
 }

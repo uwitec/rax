@@ -13,6 +13,10 @@ public class PictureService {
     public PictureService() {
     }
 
+    public Picture getPictureById(int id) {
+        return pictureDao.read(id);
+    }
+
     public int createPicture(Picture picture) {
         return pictureDao.create(picture);
     }
