@@ -8,10 +8,11 @@
 
 	<typeAlias alias="ArticleCategory" type="rax.model.ArticleCategory" />
 
-	<insert id="createArticleCategory" parameterClass="ArticleCategory">
+	<insert id="createArticleCategory"
+		parameterClass="ArticleCategory">
 		<![CDATA[
-		INSERT INTO rax_article_category (title, summary) 
-		VALUES (#title#, #summary#)
+		INSERT INTO rax_article_category (parent_id, name, summary, l_thread, r_thread, create_date) 
+		VALUES (#parent_id#, #name#, #summary#, #l_thread#, #r_thread#, #create_date#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
@@ -23,15 +24,17 @@
 	<select id="readArticleCategory" parameterClass="int"
 		resultClass="ArticleCategory">
 		<![CDATA[
-		SELECT id,title,summary 
+		SELECT id, parent_id, name, summary, l_thread, r_thread, create_date 
 		FROM rax_article_category
 		WHERE id=#id#
 		]]>
 	</select>
 
-	<update id="updateArticleCategory" parameterClass="ArticleCategory">
+	<update id="updateArticleCategory"
+		parameterClass="ArticleCategory">
 		<![CDATA[
-		UPDATE rax_article_category SET title=#title#, summary=#summary#
+		UPDATE rax_article_category SET parent_id=#parentId#, name=#name#, summary=#summary#
+		l_thread=#lthread#, r_thread=#rthread#, create_date=#createDate#
 		WHERE id=#id#
 		]]>
 	</update>
@@ -42,26 +45,70 @@
 		]]>
 	</delete>
 
-	<select id="countArticleCategory" resultClass="int">
+	<select id="countDirectArticleCategoryByCategoryId"
+		resultClass="int">
 		<![CDATA[
-		SELECT COUNT(*) AS NUM FROM rax_article_category
+		SELECT COUNT(*) AS NUM 
+		FROM rax_article_category
+		WHERE parent_id=#id#
 		]]>
 	</select>
 
-	<select id="listArticleCategory" parameterClass="map"
-		resultClass="ArticleCategory">
+	<select id="countAllArticleCategoryByCategoryId"
+		parameterClass="map" resultClass="int">
 		<![CDATA[
-		SELECT id,title,summary 
+		SELECT COUNT(*) AS NUM 
 		FROM rax_article_category
-		ORDER BY id
-		LIMIT #number# OFFSET #index#
+		WHERE l_thread > #lthread# AND r_thread < #rthread#
 		]]>
 	</select>
 
 	<select id="listAllArticleCategory" resultClass="ArticleCategory">
 		<![CDATA[
-		SELECT id,title,summary 
+		SELECT id, parent_id, name, summary, l_thread, r_thread, create_date 
 		FROM rax_article_category
+		ORDER BY id
+		]]>
+	</select>
+
+	<select id="listDirectArticleCategoryByCategoryId"
+		parameterClass="map" resultClass="ArticleCategory">
+		<![CDATA[
+		SELECT id, parent_id, name, summary, l_thread, r_thread, create_date 
+		FROM rax_article_category
+		WHERE parent_id=#categoryId#
+		ORDER BY id
+		LIMIT #number# OFFSET #index#		
+		]]>
+	</select>
+
+	<select id="listAllDirectArticleCategoryByCategoryId"
+		resultClass="ArticleCategory">
+		<![CDATA[
+		SELECT id, parent_id, name, summary, l_thread, r_thread, create_date 
+		FROM rax_article_category
+		WHERE parent_id=#id#
+		ORDER BY id
+		]]>
+	</select>
+
+	<select id="listSubArticleCategoryByCategoryId" parameterClass="map"
+		resultClass="ArticleCategory">
+		<![CDATA[
+		SELECT id, parent_id, name, summary, l_thread, r_thread, create_date 
+		FROM rax_article_category
+		WHERE l_thread > #lthraed# AND r_thread < #rthraed#
+		ORDER BY id
+		LIMIT #number# OFFSET #index#		
+		]]>
+	</select>
+
+	<select id="listAllSubArticleCategoryByCategoryId"
+		parameterClass="map" resultClass="ArticleCategory">
+		<![CDATA[
+		SELECT id, parent_id, name, summary, l_thread, r_thread, create_date 
+		FROM rax_article_category
+		WHERE l_thread > #lthraed# AND r_thread < #rthraed#		
 		ORDER BY id
 		]]>
 	</select>
@@ -70,7 +117,7 @@
 		<![CDATA[
 		UPDATE rax_article_category
 		SET r_thread = r_thread + #diff#
-		WHERE r_thread > #from#
+		WHERE r_thread >= #from#
 		]]>
 	</select>
 
@@ -79,7 +126,7 @@
 		<![CDATA[
 		UPDATE rax_article_category
 		SET r_thread = r_thread + #diff#
-		WHERE r_thread > #from#
+		WHERE r_thread >= #from#
 		]]>
 	</select>
 
