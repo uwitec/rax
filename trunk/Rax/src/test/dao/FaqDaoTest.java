@@ -19,62 +19,63 @@ public class FaqDaoTest extends
         assertTrue(dao.count(false) >= cnt);
     }
 
-    public void testCreateFaq() throws Exception {
+    public void testList() throws Exception {
+        List<Faq> list;
+        int size;
+        int cnt = dao.count(false);
+        list = dao.list(0, cnt, false);
+        size = list.size();
+        assertNotNull(list);
+        list = dao.list(0, cnt, true);
+        assertNotNull(list);
+        assertTrue(size >= list.size());
+        list = dao.listAll(false);
+        size = list.size();
+        assertNotNull(list);
+        list = dao.listAll(true);
+        assertNotNull(list);
+        assertTrue(size >= list.size());
+    }
+
+    public void testAll() throws Exception {
         int id;
         int cnt;
-        int num = 3;
+        int num = 7;
         Faq obj = new Faq();
-        cnt = dao.count(false);
+        cnt = dao.count(false) - dao.count(true);
         for (int i = 1; i <= num; i++) {
             obj.setQuestion("Q" + i);
             obj.setAnswer("A" + i);
             obj.setPubDate(new Date());
-            obj.setPub(i % 2 == 1);
+            obj.setPub(i > (num / 2));
             id = dao.create(obj);
             assertTrue(id > 0);
+
+            obj = dao.read(id);
+            assertNotNull(obj);
+            obj.setPubDate(new Date());
+            assertTrue(dao.update(obj) > 0);
         }
-        assertTrue(dao.count(false) == cnt + num);
-    }
+        assertTrue(dao.count(false) - dao.count(true) == cnt
+                + Math.round(num / 2));
 
-    public void testReadFaq() throws Exception {
-        Faq obj = new Faq();
-        obj = dao.read(1);
-        assertNotNull(obj);
-    }
+        List<Faq> list;
 
-    public void testUpdateFaq() throws Exception {
-        Faq obj = new Faq();
-        obj = dao.read(1);
-        obj.setPubDate(new Date());
-        assertTrue(dao.update(obj) > 0);
-    }
-
-    public void testDeleteFaq() throws Exception {
-        Faq obj = dao.read(1);
-        assertTrue(dao.delete(obj) > 0);
-    }
-
-    public void testList() throws Exception {
-        int cnt = dao.count(false);
-        List<Faq> list = dao.list(0, cnt / 2, false);
-        assertTrue(list.size() == cnt / 2);
+        cnt = dao.count(false);
         list = dao.list(0, cnt / 2, false);
-        assertTrue(cnt - list.size() > 1);
-    }
+        assertTrue(list.size() == cnt / 2);
 
-    public void testListAll() throws Exception {
-        int size;
-        Faq obj = new Faq();
-        obj.setQuestion("Q");
-        obj.setAnswer("A");
-        obj.setPubDate(new Date());
-        obj.setPub(false);
-        dao.create(obj);
-        List<Faq> list = dao.listAll(false);
-        size = list.size();
-        assertTrue(size > 0);
+        cnt = dao.count(true);
+        list = dao.list(0, cnt / 2, true);
+        assertTrue(cnt - list.size() > Math.round(num / 2));
+
+        assertTrue(dao.delete(obj) > 0);
+
+        list = dao.listAll(false);
+        cnt = list.size();
+        assertTrue(cnt > 0);
         list = dao.listAll(true);
-        assertTrue(list.size() < size);
+        assertTrue(list.size() < cnt);
     }
 
     public void setDao(FaqDao dao) {

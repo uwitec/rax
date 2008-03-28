@@ -52,6 +52,7 @@ public class LinkDaoTest extends
             assertTrue(id > 0);
             
             obj = dao.read(id);
+            assertNotNull(obj);
             obj.setCategoryId(-obj.getCategoryId());
             assertTrue(dao.update(obj) > 0);
         }
