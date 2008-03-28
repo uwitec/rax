@@ -45,14 +45,6 @@ public class Picture {
         this.summary = summary;
     }
 
-    public String getFileName() {
-        return filePath;
-    }
-
-    public void setFileName(String filePath) {
-        this.filePath = filePath;
-    }
-
     public Date getUploadDate() {
         return uploadDate;
     }
@@ -61,7 +53,7 @@ public class Picture {
         this.uploadDate = uploadDate;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -75,6 +67,14 @@ public class Picture {
 
     public void setArticleId(int articleId) {
         this.articleId = articleId;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
 }

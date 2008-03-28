@@ -15,7 +15,7 @@
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
-			SELECT currval('rax_picture_id_seq'::regclass)
+			SELECT currval('rax_picture_id_seq')
 			]]>
 		</selectKey>
 	</insert>
@@ -23,7 +23,8 @@
 	<select id="readPicture" parameterClass="int"
 		resultClass="Picture">
 		<![CDATA[
-		SELECT id, article_id AS articleId, title, mime_type, summary, size, file_path AS filePath, upload_date AS pubDate,pub
+		SELECT id, article_id AS articleId, title, mime_type AS mimeType, summary, size,
+		file_path AS filePath, upload_date AS uploadDate
 		FROM rax_picture
 		WHERE id=#id#
 		]]>
@@ -32,8 +33,8 @@
 	<update id="updatePicture" parameterClass="Picture">
 		<![CDATA[
 		UPDATE rax_picture SET article_id=#articleId#, title=#title#,
-		mime_type=#mimeType#, size=#size#, summary=#summary# 
-		file_path=#filePath#, upload_date=#uploadDate#, 
+		mime_type=#mimeType#, size=#size#, summary=#summary#,
+		file_path=#filePath#, upload_date=#uploadDate#
 		WHERE id=#id#
 		]]>
 	</update>
@@ -61,10 +62,11 @@
 	<select id="listPictureByArticleId" parameterClass="int"
 		resultClass="Picture">
 		<![CDATA[
-		SELECT id, article_id AS articleId, title, mime_type, summary, size, file_path AS filePath, upload_date AS pubDate,pub
+		SELECT id, article_id AS articleId, title, mime_type AS mimeType,
+		summary, size, file_path AS filePath, upload_date AS uploadDate
 		FROM rax_picture
-		ORDER BY id
 		WHERE article_id=#id#
+		ORDER BY id
 		]]>
 	</select>
 

@@ -34,7 +34,11 @@
 	<bean id="LinkDaoTest" class="test.dao.LinkDaoTest">
 		<property name="dao" ref="LinkDao" />
 	</bean>
-	<bean id="LinkCategoryDaoTest" class="test.dao.LinkCategoryDaoTest">
+	<bean id="LinkCategoryDaoTest"
+		class="test.dao.LinkCategoryDaoTest">
 		<property name="dao" ref="LinkCategoryDao" />
+	</bean>
+	<bean id="PictureDaoTest" class="test.dao.PictureDaoTest">
+		<property name="dao" ref="PictureDao" />
 	</bean>
 </beans>

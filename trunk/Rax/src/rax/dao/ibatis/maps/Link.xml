@@ -15,7 +15,7 @@
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
-			SELECT currval('rax_link_id_seq'::regclass)
+			SELECT currval('rax_link_id_seq')
 			]]>
 		</selectKey>
 	</insert>

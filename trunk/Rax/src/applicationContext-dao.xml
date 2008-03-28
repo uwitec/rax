@@ -17,5 +17,10 @@
 		class="rax.dao.ibatis.LinkCategoryDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
-
+	
+	<bean id="PictureDao"
+		class="rax.dao.ibatis.PictureDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+	
 </beans>
