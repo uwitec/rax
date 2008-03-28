@@ -24,8 +24,8 @@ public class FaqDaoTest extends
         int size;
         int cnt = dao.count(false);
         list = dao.list(0, cnt, false);
-        size = list.size();
         assertNotNull(list);
+        size = list.size();
         list = dao.list(0, cnt, true);
         assertNotNull(list);
         assertTrue(size >= list.size());
@@ -53,8 +53,14 @@ public class FaqDaoTest extends
 
             obj = dao.read(id);
             assertNotNull(obj);
+            assertTrue(obj.getQuestion().equals("Q" + i));
             obj.setPubDate(new Date());
+            obj.setAnswer("Answer" + i);
             assertTrue(dao.update(obj) > 0);
+            
+            obj = dao.read(id);
+            assertNotNull(obj);
+            assertTrue(obj.getAnswer().equals("Answer" + i));
         }
         assertTrue(dao.count(false) - dao.count(true) == cnt
                 + Math.round(num / 2));

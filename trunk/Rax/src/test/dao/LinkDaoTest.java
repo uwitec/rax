@@ -23,8 +23,8 @@ public class LinkDaoTest extends
         int size;
         int cnt = dao.count(false);
         list = dao.list(0, cnt, false);
-        size = list.size();
         assertNotNull(list);
+        size = list.size();
         list = dao.list(0, cnt, true);
         assertNotNull(list);
         assertTrue(size >= list.size());
@@ -50,9 +50,10 @@ public class LinkDaoTest extends
             obj.setPub(i > (num / 2));
             id = dao.create(obj);
             assertTrue(id > 0);
-            
+
             obj = dao.read(id);
             assertNotNull(obj);
+            assertTrue(obj.getTitle().equals("Title" + i));
             obj.setCategoryId(-obj.getCategoryId());
             assertTrue(dao.update(obj) > 0);
         }
