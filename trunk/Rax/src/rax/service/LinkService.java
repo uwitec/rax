@@ -36,21 +36,21 @@ public class LinkService {
         return true;
     }
 
-    public int getCount(boolean onlyPub) {
-        return linkDao.count();
+    public int getCount(boolean bOnlyPub) {
+        return linkDao.count(bOnlyPub);
     }
 
-    public int getCountByCategory(LinkCategory category, boolean onlyPub) {
-        return linkDao.countByCategoryId(category.getId(), onlyPub);
+    public int getCountByCategory(LinkCategory category, boolean bOnlyPub) {
+        return linkDao.countByCategoryId(category.getId(), bOnlyPub);
     }
 
-    public List<Link> listLinks(int index, int num, boolean onlyPub) {
-        return linkDao.list(index, num, onlyPub);
+    public List<Link> listLinks(int index, int num, boolean bOnlyPub) {
+        return linkDao.list(index, num, bOnlyPub);
     }
 
     public List<Link> listLinksByCategory(LinkCategory category, int index,
-            int num, boolean onlyPub) {
-        return linkDao.listByCategoryId(category.getId(), index, num, onlyPub);
+            int num, boolean bOnlyPub) {
+        return linkDao.listByCategoryId(category.getId(), index, num, bOnlyPub);
     }
 
     public void setLinkDao(LinkDao dao) {

@@ -11,17 +11,16 @@
 			<ref bean="dataSource" />
 		</property>
 	</bean>
-	
+
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
-		<property name="driverClassName"
-			value="org.postgresql.Driver" />
+		<property name="driverClassName" value="org.postgresql.Driver" />
 		<property name="url" value="jdbc:postgresql://localhost/test" />
 		<property name="username" value="test" />
 		<property name="password" value="test" />
 	</bean>
-	
+
 	<bean id="sqlMapClient"
 		class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
 		<property name="configLocation"
@@ -31,6 +30,10 @@
 
 	<bean id="FaqDaoTest" class="test.dao.FaqDaoTest">
 		<property name="dao" ref="FaqDao" />
+	</bean>
+
+	<bean id="LinkDaoTest" class="test.dao.LinkDaoTest">
+		<property name="dao" ref="LinkDao" />
 	</bean>
 
 </beans>

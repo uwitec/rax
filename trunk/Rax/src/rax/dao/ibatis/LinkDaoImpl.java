@@ -36,12 +36,8 @@ public class LinkDaoImpl extends SqlMapClientDaoSupport implements LinkDao {
     public int deleteByCategoryId(int id) throws DataAccessException {
         return getSqlMapClientTemplate().delete("deleteLinkByCategoryId", id);
     }
-
+    
     @Override
-    public int count() throws DataAccessException {
-        return count(false);
-    }
-
     public int count(boolean bOnlyPub) throws DataAccessException {
         return (Integer) getSqlMapClientTemplate().queryForObject(
                 bOnlyPub ? "countPubLink" : "countAllLink");

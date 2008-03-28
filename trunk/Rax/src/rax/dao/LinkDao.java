@@ -18,7 +18,7 @@ public interface LinkDao {
 
     public int deleteByCategoryId(int id) throws DataAccessException;
 
-    public int count() throws DataAccessException;
+    public int count(boolean bOnlyPub) throws DataAccessException;
 
     public int countByCategoryId(int id, boolean bOnlyPub)
             throws DataAccessException;

@@ -1,6 +1,5 @@
 package test.dao;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,16 +12,16 @@ public class FaqDaoTest extends
         AbstractTransactionalDataSourceSpringContextTests {
 
     private FaqDao dao;
-    private List<Integer> lst = new ArrayList<Integer>();
-    private int cnt;
 
     public void testCountFaq() throws Exception {
-        cnt = dao.count(false);
+        int cnt = dao.count(true);
         assertTrue(cnt >= 0);
+        assertTrue(dao.count(false) >= cnt);
     }
 
     public void testCreateFaq() throws Exception {
         int id;
+        int cnt;
         int num = 3;
         Faq obj = new Faq();
         cnt = dao.count(false);
@@ -33,10 +32,8 @@ public class FaqDaoTest extends
             obj.setPub(i % 2 == 1);
             id = dao.create(obj);
             assertTrue(id > 0);
-            lst.add(id);
         }
         assertTrue(dao.count(false) == cnt + num);
-        cnt += num;
     }
 
     public void testReadFaq() throws Exception {
