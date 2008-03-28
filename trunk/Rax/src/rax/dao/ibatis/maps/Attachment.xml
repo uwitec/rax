@@ -10,12 +10,12 @@
 
 	<insert id="createAttachment" parameterClass="Attachment">
 		<![CDATA[
-		INSERT INTO rax_attachment (article_id, title, update_name, update_date, file_path, downloads, size) VALUES
-		(#articleId#, #title#, #updateName#, #updateDate#, #filePath#, #downloads#, #size#)
+		INSERT INTO rax_attachment (article_id, title, upload_name, upload_date, file_path, downloads, size) VALUES
+		(#articleId#, #title#, #uploadName#, #uploadDate#, #filePath#, #downloads#, #size#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
-			SELECT currval('rax_attachment_id_seq'::regclass)
+			SELECT currval('rax_attachment_id_seq')
 			]]>
 		</selectKey>
 	</insert>
@@ -23,8 +23,8 @@
 	<select id="readAttachment" parameterClass="int"
 		resultClass="Attachment">
 		<![CDATA[
-		SELECT id, article_id AS articleId, title, update_name AS updateName, 
-		update_date AS updateDate, file_path AS filePath, downloads, size
+		SELECT id, article_id AS articleId, title, upload_name AS uploadName, 
+		upload_date AS uploadDate, file_path AS filePath, downloads, size
 		FROM rax_attachment
 		WHERE id=#id#
 		]]>
@@ -33,8 +33,8 @@
 	<update id="updateAttachment" parameterClass="Attachment">
 		<![CDATA[
 		UPDATE rax_attachment SET article_id=#articleId#, title=#title#,
-		update_name=#updateName#, update_date=#updateDate#, file_path=#filePath# 
-		downloads=#downloads#, size=#size#, 
+		upload_name=#uploadName#, upload_date=#uploadDate#, file_path=#filePath#,
+		downloads=#downloads#, size=#size#
 		WHERE id=#id#
 		]]>
 	</update>
@@ -62,8 +62,8 @@
 	<select id="listAttachmentByArticleId" parameterClass="int"
 		resultClass="Attachment">
 		<![CDATA[
-		SELECT id, article_id AS articleId, title, update_name AS updateName, 
-		update_date AS updateDate, file_path AS filePath, downloads, size
+		SELECT id, article_id AS articleId, title, upload_name AS uploadName, 
+		upload_date AS uploadDate, file_path AS filePath, downloads, size
 		FROM rax_attachment
 		WHERE article_id=#id#
 		ORDER BY id
