@@ -44,4 +44,7 @@
 	<bean id="AttachmentDaoTest" class="test.dao.AttachmentDaoTest">
 		<property name="dao" ref="AttachmentDao" />
 	</bean>
+	<bean id="ArticleContentDaoTest" class="test.dao.ArticleContentDaoTest">
+		<property name="dao" ref="ArticleContentDao" />
+	</bean>
 </beans>

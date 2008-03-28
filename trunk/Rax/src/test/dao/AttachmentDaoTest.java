@@ -37,14 +37,16 @@ public class AttachmentDaoTest extends
             obj = dao.read(id);
             assertNotNull(obj);
             assertTrue(obj.getTitle().equals("Title" + i));
-            
-            System.out.println(obj.getArticleId());
-            System.out.println(obj.getTitle());
-            System.out.println(obj.getUploadName());
-            System.out.println(obj.getUploadDate());
-            System.out.println(obj.getFilePath());
-            System.out.println(obj.getSize());
-            System.out.println(obj.getDownloads());            
+
+            /*
+             * System.out.println(obj.getArticleId());
+             * System.out.println(obj.getTitle());
+             * System.out.println(obj.getUploadName());
+             * System.out.println(obj.getUploadDate());
+             * System.out.println(obj.getFilePath());
+             * System.out.println(obj.getSize());
+             * System.out.println(obj.getDownloads());
+             */
 
             obj.setArticleId(-obj.getArticleId());
             assertTrue(dao.update(obj) > 0);

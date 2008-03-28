@@ -55,20 +55,9 @@ public class ArticleContentDaoImpl extends SqlMapClientDaoSupport implements
     }
 
     @Override
-    public List<String> listByArticleId(int id, int index, int num)
-            throws DataAccessException {
-        Map param = new HashMap();
-        param.put("index", index);
-        param.put("number", num);
-        param.put("id", id);
+    public List<String> listByArticleId(int id) throws DataAccessException {
         return getSqlMapClientTemplate().queryForList(
-                "listArticleContentByArticleId", param);
-    }
-
-    @Override
-    public List<String> listAllByArticleId(int id) throws DataAccessException {
-        return getSqlMapClientTemplate().queryForList(
-                "listAllArticleContentByArticleId", id);
+                "listArticleContentByArticleId", id);
     }
 
 }

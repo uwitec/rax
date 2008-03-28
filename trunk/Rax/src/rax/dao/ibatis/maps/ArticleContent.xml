@@ -16,7 +16,7 @@
 		<!-- 
 			<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
-			SELECT currval('rax_article_content_id_seq'::regclass)
+			SELECT currval('rax_article_content_id_seq')
 			]]>
 			</selectKey>
 		-->
@@ -48,7 +48,7 @@
 	<select id="listArticleContentByArticleId" parameterClass="int"
 		resultClass="string">
 		<![CDATA[
-		SELECT string
+		SELECT content
 		FROM rax_article_content
 		WHERE article_id=#id#
 		ORDER BY page_id

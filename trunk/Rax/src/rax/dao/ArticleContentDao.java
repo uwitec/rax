@@ -16,9 +16,6 @@ public interface ArticleContentDao {
 
     public int countByArticleId(int id) throws DataAccessException;
 
-    public List<String> listByArticleId(int id, int index, int num)
-            throws DataAccessException;
-
-    public List<String> listAllByArticleId(int id) throws DataAccessException;
+    public List<String> listByArticleId(int id) throws DataAccessException;
 
 }
