@@ -31,4 +31,9 @@
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
 
+	<bean id="ArticleDao"
+		class="rax.dao.ibatis.ArticleDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+	
 </beans>

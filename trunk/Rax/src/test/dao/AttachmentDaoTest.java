@@ -13,7 +13,7 @@ public class AttachmentDaoTest extends
 
     private AttachmentDao dao;
 
-    public void testCountPicture() throws Exception {
+    public void testCount() throws Exception {
         assertTrue(dao.count() >= 0);
     }
 

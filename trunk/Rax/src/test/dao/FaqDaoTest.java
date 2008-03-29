@@ -13,7 +13,7 @@ public class FaqDaoTest extends
 
     private FaqDao dao;
 
-    public void testCountFaq() throws Exception {
+    public void testCount() throws Exception {
         int cnt = dao.count(true);
         assertTrue(cnt >= 0);
         assertTrue(dao.count(false) >= cnt);
@@ -47,7 +47,7 @@ public class FaqDaoTest extends
             obj.setQuestion("Q" + i);
             obj.setAnswer("A" + i);
             obj.setPubDate(new Date());
-            obj.setPub(i > (num / 2));
+            obj.setPub(i > num / 2);
             id = dao.create(obj);
             assertTrue(id > 0);
 

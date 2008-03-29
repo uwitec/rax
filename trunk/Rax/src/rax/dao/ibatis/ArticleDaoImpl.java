@@ -38,7 +38,7 @@ public class ArticleDaoImpl extends SqlMapClientDaoSupport implements
 
     @Override
     public int deleteByCategoryId(int id) throws DataAccessException {
-        return getSqlMapClientTemplate().delete("deleteArticle", id);
+        return getSqlMapClientTemplate().delete("deleteArticleByCategoryId", id);
     }
 
     @Override
@@ -51,23 +51,7 @@ public class ArticleDaoImpl extends SqlMapClientDaoSupport implements
     public int countByCategoryId(int id, boolean bOnlyPub)
             throws DataAccessException {
         return (Integer) getSqlMapClientTemplate().queryForObject(
-                bOnlyPub ? "countPubArticle" : "countAllArticle", id);
-    }
-
-    @Override
-    public List<Article> list(int index, int num, boolean bOnlyPub)
-            throws DataAccessException {
-        Map param = new HashMap();
-        param.put("index", index);
-        param.put("number", num);
-        return getSqlMapClientTemplate().queryForList(
-                bOnlyPub ? "listPubArticle" : "listArticle", param);
-    }
-
-    @Override
-    public List<Article> listAll(boolean bOnlyPub) throws DataAccessException {
-        return getSqlMapClientTemplate().queryForList(
-                bOnlyPub ? "listAllPubArticle" : "listAllArticle");
+                bOnlyPub ? "countPubArticleByCategoryId" : "countAllArticleByCategoryId", id);
     }
 
     @Override
@@ -76,7 +60,7 @@ public class ArticleDaoImpl extends SqlMapClientDaoSupport implements
         Map param = new HashMap();
         param.put("index", index);
         param.put("number", num);
-        param.put("articleId", id);
+        param.put("categoryId", id);
         return getSqlMapClientTemplate().queryForList(
                 bOnlyPub ? "listPubArticleByCategoryId" : "listArticleByCategoryId", param);
     }

@@ -12,7 +12,7 @@ public class LinkCategoryDaoTest extends
 
     private LinkCategoryDao dao;
 
-    public void testCountFaq() throws Exception {
+    public void testCount() throws Exception {
         assertTrue(dao.count() >= 0);
     }
 

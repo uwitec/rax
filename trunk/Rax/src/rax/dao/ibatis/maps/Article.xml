@@ -77,44 +77,6 @@
 		]]>
 	</select>
 
-	<select id="listArticle" parameterClass="map"
-		resultClass="Article">
-		<![CDATA[
-		SELECT id,title,summary,author,source,create_date AS createDate,views,pub,category_id AS categoryId
-		FROM rax_article
-		ORDER BY id
-		LIMIT #number# OFFSET #index#
-		]]>
-	</select>
-
-	<select id="listPubArticle" parameterClass="map"
-		resultClass="Article">
-		<![CDATA[
-		SELECT id,title,summary,author,source,create_date AS createDate,views,pub,category_id AS categoryId
-		FROM rax_article
-		WHERE pub=TRUE
-		ORDER BY id
-		LIMIT #number# OFFSET #index#
-		]]>
-	</select>
-
-	<select id="listAllArticle" resultClass="Article">
-		<![CDATA[
-		SELECT id,title,summary,author,source,create_date AS createDate,views,pub,category_id AS categoryId
-		FROM rax_article
-		ORDER BY id
-		]]>
-	</select>
-
-	<select id="listAllPubArticle" resultClass="Article">
-		<![CDATA[
-		SELECT id,title,summary,author,source,create_date AS createDate,views,pub,category_id AS categoryId
-		FROM rax_article
-		WHERE pub=TRUE
-		ORDER BY id
-		]]>
-	</select>
-
 	<select id="listArticleByCategoryId" parameterClass="map"
 		resultClass="Article">
 		<![CDATA[
@@ -150,7 +112,7 @@
 	<select id="listAllPubArticleByCategoryId" parameterClass="int"
 		resultClass="Article">
 		<![CDATA[
-		SELECT id,category_id,title,address,summary,pub 
+		SELECT id,title,summary,author,source,create_date AS createDate,views,pub,category_id AS categoryId
 		FROM rax_article
 		WHERE pub=TRUE AND category_id=#categoryId#
 		ORDER BY id

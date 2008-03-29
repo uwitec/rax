@@ -23,11 +23,6 @@ public interface ArticleDao {
     public int countByCategoryId(int id, boolean bOnlyPub)
             throws DataAccessException;
 
-    public List<Article> list(int index, int num, boolean bOnlyPub)
-            throws DataAccessException;
-
-    public List<Article> listAll(boolean bOnlyPub) throws DataAccessException;
-
     public List<Article> listByCategoryId(int id, int index, int num,
             boolean bOnlyPub) throws DataAccessException;
 
