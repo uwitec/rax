@@ -13,3 +13,5 @@ Session 认证
 图片验证码
 支付网关接口
 Annotation
+添加索引
+重建数据库
