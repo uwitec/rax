@@ -51,4 +51,8 @@
 	<bean id="ArticleDaoTest" class="test.dao.ArticleDaoTest">
 		<property name="dao" ref="ArticleDao" />
 	</bean>
+	<bean id="ArticleCategoryDaoTest"
+		class="test.dao.ArticleCategoryDaoTest">
+		<property name="dao" ref="ArticleCategoryDao" />
+	</bean>
 </beans>

@@ -73,17 +73,17 @@ public class ArticleCategoryDaoImpl extends SqlMapClientDaoSupport implements
             throws DataAccessException {
         ArticleCategory category = read(id);
         Map param = new HashMap();
-        param.put("lthread", category.getLthread());
-        param.put("rthread", category.getRthread());
+        param.put("l", category.getLthread());
+        param.put("r", category.getRthread());
         return getSqlMapClientTemplate().queryForList(
-                "listSubArticleArticleCategoryByCategoryId", param);
+                "listSubArticleCategoryByCategoryId", param);
     }
 
     @Override
     public int adjustLthread(int from, int diff) throws DataAccessException {
         Map param = new HashMap();
-        param.put("from", from);
         param.put("diff", diff);
+        param.put("from", from);
         return getSqlMapClientTemplate().update(
                 "adjustArticleCategoryLeftThread", param);
     }
@@ -91,8 +91,8 @@ public class ArticleCategoryDaoImpl extends SqlMapClientDaoSupport implements
     @Override
     public int adjustRthread(int from, int diff) throws DataAccessException {
         Map param = new HashMap();
-        param.put("from", from);
         param.put("diff", diff);
+        param.put("from", from);
         return getSqlMapClientTemplate().update(
                 "adjustArticleCategoryRightThread", param);
     }
@@ -101,8 +101,8 @@ public class ArticleCategoryDaoImpl extends SqlMapClientDaoSupport implements
     public List<ArticleCategory> listPathToCategory(int lthread, int rthread)
             throws DataAccessException {
         Map param = new HashMap();
-        param.put("lThread", lthread);
-        param.put("rThread", rthread);
+        param.put("l", lthread);
+        param.put("r", rthread);
         return getSqlMapClientTemplate().queryForList("listPathToCategory",
                 param);
     }

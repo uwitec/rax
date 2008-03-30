@@ -19,5 +19,6 @@
 	<sqlMap resource="rax/dao/ibatis/maps/Attachment.xml" />
 	<sqlMap resource="rax/dao/ibatis/maps/ArticleContent.xml" />
 	<sqlMap resource="rax/dao/ibatis/maps/Article.xml" />
-
+	<sqlMap resource="rax/dao/ibatis/maps/ArticleCategory.xml" />
+	
 </sqlMapConfig>

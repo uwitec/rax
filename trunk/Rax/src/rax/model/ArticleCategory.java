@@ -27,7 +27,7 @@ public class ArticleCategory {
         return parentId;
     }
 
-    public void setParentCid(int parentId) {
+    public void setParentId(int parentId) {
         this.parentId = parentId;
     }
 
