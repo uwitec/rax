@@ -5,9 +5,6 @@ import java.util.List;
 import rax.dao.FaqDao;
 import rax.model.Faq;
 
-/*
- * @Transactional
- */
 public class FaqService {
 
     private FaqDao faqDao;
