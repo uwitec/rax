@@ -3,9 +3,6 @@
 FAQ
 留言板
 
-日期类型
-Spring iBatis 事务管理
-DAO 单元测试
 Struts2 表单验证机制
 Struts2 多语言支持
 Session 认证

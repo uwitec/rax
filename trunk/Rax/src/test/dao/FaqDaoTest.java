@@ -61,6 +61,11 @@ public class FaqDaoTest extends
             obj = dao.read(id);
             assertNotNull(obj);
             assertTrue(obj.getAnswer().equals("Answer" + i));
+            
+            System.out.println("ID:" + obj.getId());
+            System.out.println("Question:" + obj.getQuestion());
+            System.out.println("Answer:" + obj.getAnswer());
+            System.out.println("PubDate:" + obj.getPubDate());
         }
         assertTrue(dao.count(false) - dao.count(true) == cnt
                 + Math.round(num / 2));
