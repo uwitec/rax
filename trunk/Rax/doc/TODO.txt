@@ -1,9 +1,10 @@
-Struts2 ±íµ¥ÑéÖ¤»úÖÆ
-Struts2 ¶àÓïÑÔÖ§³Ö
-Session ÈÏÖ¤
-ÎÄ¼þÉÏ´«ÏÂÔØ
-Í¼Æ¬ÑéÖ¤Âë
-Ö§¸¶Íø¹Ø½Ó¿Ú
+Struts2 è¡¨å•éªŒè¯æœºåˆ¶
+Struts2 å¤šè¯­è¨€æ”¯æŒ
+Session è®¤è¯
+æ–‡ä»¶ä¸Šä¼ ä¸‹è½½
+å›¾ç‰‡éªŒè¯ç 
+æ”¯ä»˜ç½‘å…³æŽ¥å£
 Annotation
-Ìí¼ÓË÷Òý
-ÖØ½¨Êý¾Ý¿â
+æ·»åŠ ç´¢å¼•
+é‡å»ºæ•°æ®åº“
+TILES

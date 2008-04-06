@@ -20,7 +20,7 @@ ${(category.summary)?if_exists}
 	label="Categorys" 
 	list="categorys" 
 	listValue="title" 
-	listKey="id" 
+	listKey="id"
 	name="categoryId"
 	onchange="javascript:location.href='${url}?categoryId=' + this.value"
 	/>

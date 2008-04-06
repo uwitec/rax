@@ -2,12 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>ListLinks</title>
+<title>ListFaqs</title>
 </head>
 
 <body>
-<@s.url id="url" value="index.htm"/>
-<a href="${url}">返回</a><br /><br />
+<@s.url id="urlReturn" value="index.htm"/>
+<@s.url id="urlAdd" action="addFaq_input"/>
+<a href="${urlReturn}">返回</a> <a href="${urlAdd}">添加新Faq</a><br /><br />
 <div>总数:${count}</div><br />
 
 <#if faqList??>
@@ -15,7 +16,8 @@
 <div>
 id:${faq.id} date:${faq.pubDate?string('yyyy-MM-dd')}<br />
 问：${faq.question}<br />
-答：${faq.answer}
+答：${faq.answer}<br />
+公开：${faq.pub?string("yes", "no")}
 </div>
 <br />
 </#list>
