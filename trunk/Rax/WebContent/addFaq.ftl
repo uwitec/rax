@@ -11,10 +11,9 @@
 
 <div>
 <@s.form action="addFaq">
-    <@s.textfield label="Question" name="question"/>
-    <@s.textfield label="Answer" name="answer"/>
-    <@s.radio label="IsPub" name="pub" list="%{0:'pub', 2:'not pub'}" value="%{{'abc', 'def'}}" listKey="value" listValue="key" />
-    <@s.select label="Public" name="pub1" list="%{{1, 0}}" />
+    <@s.textfield label="Question" name="question" />
+    <@s.textfield label="Answer" name="answer" />
+    <@s.radio label="IsPub" name="pub" list="{'pub', 'not pub'}" />
     <@s.submit value="Submit"/>
 </@s.form>
 </div>
