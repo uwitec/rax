@@ -7,7 +7,7 @@
 
 <body>
 <@s.url id="urlReturn" value="index.htm"/>
-<@s.url id="urlAdd" action="addFaq_input"/>
+<@s.url id="urlAdd" action="faq_input"/>
 <a href="${urlReturn}">返回</a> <a href="${urlAdd}">添加新Faq</a><br /><br />
 <div>总数:${count}</div><br />
 

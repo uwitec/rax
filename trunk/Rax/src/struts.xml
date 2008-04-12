@@ -21,14 +21,14 @@
 			<result name="success">/listLink.ftl</result>
 		</action>
 
-		<action name="listFaq" class="ListFaqAction">
-			<result name="success">/listFaq.ftl</result>
+		<action name="faqs" class="FaqListAction">
+			<result name="success">/faq_list.ftl</result>
 		</action>
 
-		<action name="addFaq_*" method="{1}"
-			class="rax.action.AddFaqAction">
-			<result name="success">/addFaqResult.ftl</result>
-			<result name="input">/addFaq.ftl</result>
+		<action name="faq_*" method="{1}"
+			class="FaqAction">
+			<result name="success">/faq_result.ftl</result>
+			<result name="input">/faq_input.ftl</result>
 			<result name="error">/onError.ftl</result>
 		</action>
 
@@ -36,12 +36,12 @@
 			<action name="list_post" class="gbook.action.ListPostAction">
 			<result name="success">/list_post.ftl</result>
 			</action>
-
+			
 			<action name="list_reply" class="gbook.action.ListReplyAction">
 			<result name="success">/list_reply.ftl</result>
 			<result name="input" type="redirect-action">list_post</result>
 			</action>
-
+			
 			<action name="add_reply_*" method="{1}" class="gbook.action.DoReplyAction">
 			<result name="success">/add_reply_result.ftl</result>
 			<result name="input">/add_reply.ftl</result>

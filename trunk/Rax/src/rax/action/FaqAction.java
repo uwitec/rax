@@ -11,26 +11,29 @@ import rax.service.FaqService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-public class AddFaqAction extends ActionSupport {
+public class FaqAction extends ActionSupport {
 
     private static final long serialVersionUID = 1L;
-    private final static Logger logger = Logger.getLogger(AddFaqAction.class);
+    private final static Logger logger = Logger.getLogger(FaqAction.class);
 
     private FaqService faqService = null;
     private String question;
     private String answer;
     private boolean pub;
-
     private Map pubSel;
+
+    public String input() throws Exception {
+        pubSel = new HashMap<String, Boolean>();
+        pubSel.put("pub", true);
+        pubSel.put("not pub", false);
+        return INPUT;
+    }
 
     @Override
     public String execute() throws Exception {
 
         question = "DefaultQuestion";
         answer = "DefaultAnswer";
-        pubSel = new HashMap<String, Boolean>();
-        pubSel.put("pub", true);
-        pubSel.put("not pub", false);
 
         Faq faq = new Faq();
         faq.setQuestion(question);

@@ -6,7 +6,7 @@
 </head>
 
 <body>
-<@s.url id="url" action="listFaq"/>
+<@s.url id="url" action="faqs"/>
 <a href="${url}">返回</a><br /><br />
 
 <div>
@@ -14,6 +14,7 @@
     <@s.textfield label="Question" name="question" />
     <@s.textfield label="Answer" name="answer" />
     <@s.radio label="IsPub" name="pub" list="{'pub', 'not pub'}" />
+    <@s.select label="IsPub" name="pub1" list="${pubSel}" />
     <@s.submit value="Submit"/>
 </@s.form>
 </div>

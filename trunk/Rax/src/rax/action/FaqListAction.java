@@ -9,19 +9,19 @@ import rax.service.FaqService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-public class ListFaqAction extends ActionSupport {
+public class FaqListAction extends ActionSupport {
 
     private static final long serialVersionUID = 1L;
-    private final static Logger logger = Logger.getLogger(ListFaqAction.class);
+    private final static Logger logger = Logger.getLogger(FaqListAction.class);
 
     private FaqService faqService = null;
 
     private List<Faq> faqList;
     private int count = 0;
-    
+
     @Override
     public String execute() throws Exception {
-        
+
         faqList = faqService.listAllFaqs(true);
         try {
             count = faqList.size();
@@ -32,7 +32,7 @@ public class ListFaqAction extends ActionSupport {
 
         return SUCCESS;
     }
-    
+
     public void setFaqService(FaqService service) {
         faqService = service;
     }

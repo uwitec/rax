@@ -5,7 +5,11 @@
 
 <beans>
 
-	<bean id="ListFaqAction" class="rax.action.ListFaqAction">
+	<bean id="FaqAction" class="rax.action.FaqAction">
+		<property name="faqService" ref="FaqService" />
+	</bean>
+	
+	<bean id="FaqListAction" class="rax.action.FaqListAction">
 		<property name="faqService" ref="FaqService" />
 	</bean>
 
