@@ -10,11 +10,10 @@
 <a href="${url}">返回</a><br /><br />
 
 <div>
-<@s.form action="addFaq">
+<@s.form action="faq_add">
     <@s.textfield label="Question" name="question" />
     <@s.textfield label="Answer" name="answer" />
-    <@s.radio label="IsPub" name="pub" list="{'pub', 'not pub'}" />
-    <@s.select label="IsPub" name="pub1" list="${pubSel}" />
+    <@s.radio label="IsPub" name="pub" list="pubSel" listKey="value" listValue="key" />
     <@s.submit value="Submit"/>
 </@s.form>
 </div>

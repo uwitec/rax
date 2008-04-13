@@ -22,7 +22,7 @@ public class FaqListAction extends ActionSupport {
     @Override
     public String execute() throws Exception {
 
-        faqList = faqService.listAllFaqs(true);
+        faqList = faqService.listAllFaqs(false);
         try {
             count = faqList.size();
             logger.trace(count);

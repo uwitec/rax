@@ -2,17 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>AddFaq</title>
+<title>GetFaq</title>
 </head>
 
 <body>
-<@s.url id="url" action="listFaq"/>
+<@s.url id="url" action="faqs"/>
 <a href="${url}">返回</a><br /><br />
 
 <div>
-${id}<br />
-${question}<br />
-${answer}<br />
+${faq.id}<br />
+${faq.question}<br />
+${faq.answer}<br />
 ${faq.pubDate?string('yyyy-MM-dd')}<br />
 ${faq.pub?string("public", "not public")}
 </div>

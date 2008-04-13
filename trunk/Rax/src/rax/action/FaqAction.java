@@ -20,20 +20,23 @@ public class FaqAction extends ActionSupport {
     private String question;
     private String answer;
     private boolean pub;
-    private Map pubSel;
+
+    Map pubSel;
 
     public String input() throws Exception {
-        pubSel = new HashMap<String, Boolean>();
-        pubSel.put("pub", true);
-        pubSel.put("not pub", false);
+        pub = true;
+        pubSel = new HashMap();
+        pubSel.put("Not pub", false);
+        pubSel.put("Pub", true);
         return INPUT;
+    }
+
+    public String add() throws Exception {
+        return execute();
     }
 
     @Override
     public String execute() throws Exception {
-
-        question = "DefaultQuestion";
-        answer = "DefaultAnswer";
 
         Faq faq = new Faq();
         faq.setQuestion(question);
@@ -82,9 +85,4 @@ public class FaqAction extends ActionSupport {
     public Map getPubSel() {
         return pubSel;
     }
-
-    public void setPubSel(Map pubSel) {
-        this.pubSel = pubSel;
-    }
-
 }

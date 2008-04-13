@@ -27,7 +27,7 @@
 
 		<action name="faq_*" method="{1}"
 			class="FaqAction">
-			<result name="success">/faq_result.ftl</result>
+			<result name="success" type="redirect-action">faqs</result>
 			<result name="input">/faq_input.ftl</result>
 			<result name="error">/onError.ftl</result>
 		</action>
