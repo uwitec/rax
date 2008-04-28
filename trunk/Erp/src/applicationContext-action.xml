@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+		  
+<beans>
+
+	<!--
+	All bean must be prototype, or it will have "status" 
+	scope="prototype"
+	-->
+
+	<bean id="WareAction" class="erp.action.WareAction" scope="prototype">
+		<property name="wareService" ref="WareService" />
+	</bean>
+	
+	<!-- 
+	<bean id="FaqAction" class="rax.action.FaqAction">
+		<property name="faqService" ref="FaqService" />
+	</bean>
+	
+	<bean id="FaqListAction" class="rax.action.FaqListAction">
+		<property name="faqService" ref="FaqService" />
+	</bean>
+
+	<bean id="ListLinkAction" class="rax.action.ListLinkAction">
+		<property name="linkService" ref="LinkService" />
+		<property name="linkCategoryService" ref="LinkCategoryService" />
+	</bean>
+	 -->
+
+</beans>

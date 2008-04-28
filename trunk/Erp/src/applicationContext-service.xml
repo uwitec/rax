@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<bean id="OrderService" class="erp.service.OrderService">
+		<property name="orderDao" ref="OrderDao" />
+	</bean>
+	<bean id="OrderItemService" class="erp.service.OrderItemService">
+		<property name="orderItemDao" ref="OrderItemDao" />
+	</bean>
+	
+	<bean id="SellService" class="erp.service.SellService">
+		<property name="sellDao" ref="SellDao" />
+	</bean>
+	<bean id="SellItemService" class="erp.service.SellItemService">
+		<property name="sellItemDao" ref="SellItemDao" />
+	</bean>
+	
+	<bean id="WareCategoryService"
+		class="erp.service.WareCategoryService">
+		<property name="wareCategoryDao" ref="WareCategoryDao" />
+	</bean>
+	<bean id="WareService" class="erp.service.WareService">
+		<property name="wareDao" ref="WareDao" />
+		<property name="wareGroupingDao" ref="WareGroupingDao" />
+	</bean>
+
+</beans>

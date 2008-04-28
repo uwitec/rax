@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="WareGrouping">
+
+	<insert id="create" parameterClass="Map">
+		<![CDATA[
+		INSERT INTO erp.ware_grouping (ware_id,ware_category_id) 
+		VALUES (#wareId#, #categoryId#)
+		]]>
+		<selectKey resultClass="int" keyProperty="id">
+			<![CDATA[
+			SELECT currval('erp.ware_grouping_id_seq')
+			]]>
+		</selectKey>
+	</insert>
+
+	<delete id="delete" parameterClass="int">
+		<![CDATA[
+		DELETE FROM erp.ware WHERE id=#id#
+		]]>
+	</delete>
+	
+	<select id="list" parameterClass="int"
+		resultClass="Ware">
+		<![CDATA[
+		SELECT w.id,w.name,w.cost,w.default_price AS defaultPrice,w.barcode,w.number
+		FROM erp.ware AS w LEFT JOIN erp.ware_grouping AS g ON (w.id=g.ware_id)
+		WHERE g.ware_category_id=#id#
+		ORDER BY w.id
+		]]>
+	</select>
+	
+</sqlMap>

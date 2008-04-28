@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Order">
+
+	<typeAlias alias="Order" type="erp.model.Order" />
+
+	<insert id="create" parameterClass="Order">
+		<![CDATA[
+		INSERT INTO erp.order (create_date, status, fee) 
+		VALUES (#createDate#, #status#, #fee#)
+		]]>
+		<selectKey resultClass="int" keyProperty="id">
+			<![CDATA[
+			SELECT currval('erp.order_id_seq')
+			]]>
+		</selectKey>
+	</insert>
+
+	<select id="read" parameterClass="int"
+		resultClass="Order">
+		<![CDATA[
+		SELECT id,create_date AS createDate,status,fee
+		FROM erp.order
+		WHERE id=#id#
+		]]>
+	</select>
+
+	<update id="update" parameterClass="Order">
+		<![CDATA[
+		UPDATE erp.order SET create_date=#createDate#, status=#status#, fee=#fee#
+		WHERE id=#id#
+		]]>
+	</update>
+
+	<delete id="delete" parameterClass="int">
+		<![CDATA[
+		DELETE FROM erp.order WHERE id=#id#
+		]]>
+	</delete>
+
+	<select id="count" resultClass="int">
+		<![CDATA[
+		SELECT COUNT(*) AS NUM FROM erp.order
+		]]>
+	</select>
+
+	<select id="list" parameterClass="map"
+		resultClass="Order">
+		<![CDATA[
+		SELECT id,create_date AS createDate,status,fee
+		FROM erp.order
+		ORDER BY id
+		LIMIT #number# OFFSET #index#
+		]]>
+	</select>
+
+</sqlMap>

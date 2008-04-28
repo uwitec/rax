@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="OrderItem">
+
+	<typeAlias alias="OrderItem" type="erp.model.OrderItem" />
+
+	<insert id="create" parameterClass="OrderItem">
+		<![CDATA[
+		INSERT INTO erp.order_item (order_id, ware_id, cost, number) 
+		VALUES (#orderId#, #wareId#, #cost#, #number#)
+		]]>
+		<selectKey resultClass="int" keyProperty="id">
+			<![CDATA[
+			SELECT currval('erp.order_item_id_seq')
+			]]>
+		</selectKey>
+	</insert>
+
+	<select id="read" parameterClass="int"
+		resultClass="OrderItem">
+		<![CDATA[
+		SELECT id, order_id, ware_id, cost, number
+		FROM erp.order_item
+		WHERE id=#id#
+		]]>
+	</select>
+
+	<update id="update" parameterClass="OrderItem">
+		<![CDATA[
+		UPDATE erp.order_item SET order_id=#orderId#, ware_id=#wareId#, cost=#cost#, number=#number#
+		WHERE id=#id#
+		]]>
+	</update>
+
+	<delete id="delete" parameterClass="int">
+		<![CDATA[
+		DELETE FROM erp.order_item WHERE id=#id#
+		]]>
+	</delete>
+
+	<select id="list" resultClass="OrderItem">
+		<![CDATA[
+		SELECT id, order_id, ware_id, cost, number
+		FROM erp.order_item
+		ORDER BY id
+		]]>
+	</select>
+
+</sqlMap>

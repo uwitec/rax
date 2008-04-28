@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Sell">
+
+	<typeAlias alias="Sell" type="erp.model.Sell" />
+
+	<insert id="create" parameterClass="Sell">
+		<![CDATA[
+		INSERT INTO erp.sell (customer_name,customer_address,customer_phone1,customer_phone2,customer_postcode,customer_wangwang,fee,fee_real,create_date,print,express_id,express_barcode,status) 
+		VALUES (#customerName#, #customerAddress#, #customerPhone1#, #customerPhone2#, #customerPostCode#, #customerWangwang#, #fee#, #feeReal#, #createDate#, #print#, #expressId#, #expressBarcode#, #status#)
+		]]>
+		<selectKey resultClass="int" keyProperty="id">
+			<![CDATA[
+			SELECT currval('erp.sell_id_seq')
+			]]>
+		</selectKey>
+	</insert>
+
+	<select id="read" parameterClass="int"
+		resultClass="Sell">
+		<![CDATA[
+		SELECT id,customer_name AS customerName,customer_address AS customerAddress,
+		customer_phone1 AS customerName,customer_phone2 AS customerAddress,
+		customer_postcode AS customerName,customer_wangwang AS customerAddress,
+		fee, fee_real AS feeReal,create_date AS createDate,print,
+		express_id AS expressId,express_barcode AS expressBarcode,status
+		FROM erp.sell
+		WHERE id=#id#
+		]]>
+	</select>
+
+	<update id="update" parameterClass="Sell">
+		<![CDATA[
+		UPDATE erp.sell SET customer_name=#customerName#,customer_address=#customerAddress#,
+		customer_phone1=#customerPhone1#,customer_phone2=#customerPhone2#,
+		customer_postcode=#customerPostCode#,customer_wangwang=#customerWangwang#,
+		fee=#fee#,fee_real=#feeReal#,create_date=#createDate#,print=#print#,
+		express_id=#expressId#,express_barcode=#expressBarcode#,status=#status#) 
+		WHERE id=#id#
+		]]>
+	</update>
+
+	<delete id="delete" parameterClass="int">
+		<![CDATA[
+		DELETE FROM erp.sell WHERE id=#id#
+		]]>
+	</delete>
+
+	<select id="count" resultClass="int">
+		<![CDATA[
+		SELECT COUNT(*) AS NUM FROM erp.sell
+		]]>
+	</select>
+
+	<select id="list" parameterClass="map"
+		resultClass="Sell">
+		<![CDATA[
+		SELECT id,customer_name AS customerName,customer_address AS customerAddress,
+		customer_phone1 AS customerName,customer_phone2 AS customerAddress,
+		customer_postcode AS customerName,customer_wangwang AS customerAddress,
+		fee, fee_real AS feeReal,create_date AS createDate,print,
+		express_id AS expressId,express_barcode AS expressBarcode,status
+		FROM erp.sell
+		ORDER BY id
+		LIMIT #number# OFFSET #index#
+		]]>
+	</select>
+
+</sqlMap>

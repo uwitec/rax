@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<constant name="struts.enable.DynamicMethodInvocation"
+		value="false" />
+	<constant name="struts.devMode" value="true" />
+	<!-- 
+	<constant name="struts.objectFactory" value="spring" />
+	-->
+
+	<package name="default" extends="struts-default">
+
+		<result-types>
+			<result-type name="freemarker"
+				class="org.apache.struts2.views.freemarker.FreemarkerResult"
+				default="true" />
+		</result-types>
+
+		<action name="ware_list" class="WareAction" method="list">
+			<result name="success">/ware/list.ftl</result>
+		</action>
+		<action name="ware" class="WareAction" method="get">
+			<result name="success">/ware/property.ftl</result>
+		</action>
+		<action name="ware_save" class="WareAction">
+			<result name="input" type="redirect-action">ware</result>
+			<result name="error" type="redirect-action">ware</result>
+			<result name="success" type="redirect-action">ware_list</result>
+		</action>
+		<action name="ware_delete" class="WareAction" method="delete">
+			<result name="success" type="redirect-action">ware_list</result>
+		</action>
+		
+	</package>
+</struts>

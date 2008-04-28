@@ -1,0 +1,51 @@
+package erp.model;
+
+public class OrderItem {
+
+    private int id;
+    private int orderId;
+    private int wareId;
+    private double cost;
+    private int number;
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public int getWareId() {
+        return wareId;
+    }
+
+    public void setWareId(int wareId) {
+        this.wareId = wareId;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+}

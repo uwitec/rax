@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="SellItem">
+
+	<typeAlias alias="SellItem" type="erp.model.SellItem" />
+
+	<insert id="create" parameterClass="SellItem">
+		<![CDATA[
+		INSERT INTO erp.sell_item (sell_id, ware_id, price, number) 
+		VALUES (#sellId#, #wareId#, #price#, #number#)
+		]]>
+		<selectKey resultClass="int" keyProperty="id">
+			<![CDATA[
+			SELECT currval('erp.sell_item_id_seq')
+			]]>
+		</selectKey>
+	</insert>
+
+	<select id="read" parameterClass="int"
+		resultClass="SellItem">
+		<![CDATA[
+		SELECT id, sell_id, ware_id, price, number
+		FROM erp.sell_item
+		WHERE id=#id#
+		]]>
+	</select>
+
+	<update id="update" parameterClass="SellItem">
+		<![CDATA[
+		UPDATE erp.sell_item SET sell_id=#sellId#, ware_id=#wareId#, price=#price#, number=#number#
+		WHERE id=#id#
+		]]>
+	</update>
+
+	<delete id="delete" parameterClass="int">
+		<![CDATA[
+		DELETE FROM erp.sell_item WHERE id=#id#
+		]]>
+	</delete>
+
+	<select id="list" resultClass="SellItem">
+		<![CDATA[
+		SELECT id, sell_id, ware_id, price, number
+		FROM erp.sell_item
+		ORDER BY id
+		]]>
+	</select>
+
+</sqlMap>
