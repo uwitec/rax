@@ -16,8 +16,7 @@ public class Sell {
     private Date createDate;
     private boolean print;
     private int expressId;
-    private int expressBarcode;
-    private int status;
+    private String expressBarcode;
 
     public String getCustomerName() {
         return customerName;
@@ -75,11 +74,11 @@ public class Sell {
         this.expressId = expressId;
     }
 
-    public int getExpressBarcode() {
+    public String getExpressBarcode() {
         return expressBarcode;
     }
 
-    public void setExpressBarcode(int expressBarcode) {
+    public void setExpressBarcode(String expressBarcode) {
         this.expressBarcode = expressBarcode;
     }
 
@@ -105,14 +104,6 @@ public class Sell {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
     }
 
     public double getFee() {

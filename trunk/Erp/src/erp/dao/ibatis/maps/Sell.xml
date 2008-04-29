@@ -10,8 +10,8 @@
 
 	<insert id="create" parameterClass="Sell">
 		<![CDATA[
-		INSERT INTO erp.sell (customer_name,customer_address,customer_phone1,customer_phone2,customer_postcode,customer_wangwang,fee,fee_real,create_date,print,express_id,express_barcode,status) 
-		VALUES (#customerName#, #customerAddress#, #customerPhone1#, #customerPhone2#, #customerPostCode#, #customerWangwang#, #fee#, #feeReal#, #createDate#, #print#, #expressId#, #expressBarcode#, #status#)
+		INSERT INTO erp.sell (customer_name,customer_address,customer_phone1,customer_phone2,customer_postcode,customer_wangwang,fee,fee_real,create_date,print,express_id,express_barcode) 
+		VALUES (#customerName#, #customerAddress#, #customerPhone1#, #customerPhone2#, #customerPostCode#, #customerWangwang#, #fee#, #feeReal#, #createDate#, #print#, #expressId#, #expressBarcode#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
@@ -27,7 +27,7 @@
 		customer_phone1 AS customerName,customer_phone2 AS customerAddress,
 		customer_postcode AS customerName,customer_wangwang AS customerAddress,
 		fee, fee_real AS feeReal,create_date AS createDate,print,
-		express_id AS expressId,express_barcode AS expressBarcode,status
+		express_id AS expressId,express_barcode AS expressBarcode
 		FROM erp.sell
 		WHERE id=#id#
 		]]>
@@ -39,7 +39,7 @@
 		customer_phone1=#customerPhone1#,customer_phone2=#customerPhone2#,
 		customer_postcode=#customerPostCode#,customer_wangwang=#customerWangwang#,
 		fee=#fee#,fee_real=#feeReal#,create_date=#createDate#,print=#print#,
-		express_id=#expressId#,express_barcode=#expressBarcode#,status=#status#) 
+		express_id=#expressId#,express_barcode=#expressBarcode#) 
 		WHERE id=#id#
 		]]>
 	</update>
@@ -63,7 +63,7 @@
 		customer_phone1 AS customerName,customer_phone2 AS customerAddress,
 		customer_postcode AS customerName,customer_wangwang AS customerAddress,
 		fee, fee_real AS feeReal,create_date AS createDate,print,
-		express_id AS expressId,express_barcode AS expressBarcode,status
+		express_id AS expressId,express_barcode AS expressBarcode
 		FROM erp.sell
 		ORDER BY id
 		LIMIT #number# OFFSET #index#

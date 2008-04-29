@@ -9,7 +9,7 @@
 		value="false" />
 	<constant name="struts.devMode" value="true" />
 	<!-- 
-	<constant name="struts.objectFactory" value="spring" />
+		<constant name="struts.objectFactory" value="spring" />
 	-->
 
 	<package name="default" extends="struts-default">
@@ -29,11 +29,34 @@
 		<action name="ware_save" class="WareAction">
 			<result name="input" type="redirect-action">ware</result>
 			<result name="error" type="redirect-action">ware</result>
-			<result name="success" type="redirect-action">ware_list</result>
+			<result name="success" type="redirect-action">
+				ware_list
+			</result>
 		</action>
 		<action name="ware_delete" class="WareAction" method="delete">
-			<result name="success" type="redirect-action">ware_list</result>
+			<result name="success" type="redirect-action">
+				ware_list
+			</result>
 		</action>
-		
+
+
+		<action name="sell_list" class="SellAction" method="list">
+			<result name="success">/sell/list.ftl</result>
+		</action>
+		<action name="sell" class="SellAction" method="get">
+			<result name="success">/sell/property.ftl</result>
+		</action>
+		<action name="sell_save" class="SellAction">
+			<result name="input" type="redirect-action">sell</result>
+			<result name="error" type="redirect-action">sell</result>
+			<result name="success" type="redirect-action">
+				sell_list
+			</result>
+		</action>
+		<action name="sell_delete" class="SellAction" method="delete">
+			<result name="success" type="redirect-action">
+				sell_list
+			</result>
+		</action>
 	</package>
 </struts>

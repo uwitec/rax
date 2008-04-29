@@ -11,15 +11,14 @@
 
 <div>
 <@s.form action="ware_save">
-    <@s.textfield label="名称" name="name" value="${(ware.name)}" />
-    <@s.textfield label="条码" name="barcode" value="${(ware.barcode)}" />
-    <@s.textfield label="成本" name="cost" value="#{(ware.cost);m2M2}" />
-    <@s.textfield label="价格" name="price" value="#{(ware.price);m2M2}" />
-    <@s.textfield label="数量" name="number" value="#{(ware.number)}" />
-    <#if ware??>
-    <@s.hidden name="id" value="#{ware.id}" />
-    </#if>
-    <@s.submit value="Submit"/>
+    <@s.textfield label="名称" name="name"/>
+    <@s.textfield label="条码" name="barcode"/>
+    <@s.textfield label="成本" name="cost"/>
+    <@s.textfield label="价格" name="price"/>
+    <@s.textfield label="数量" name="number"/>
+    <@s.hidden name="id"/>
+    <@s.submit value=" 提 交 "/>
+    <@s.reset value=" 重 置 "/>
 </@s.form>
 </div>
 

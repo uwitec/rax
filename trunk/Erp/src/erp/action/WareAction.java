@@ -1,5 +1,6 @@
 package erp.action;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -27,9 +28,7 @@ public class WareAction extends ActionSupport {
     private int page = 1;
     private int pagePer = 12;
     private int count;
-
-    private Ware ware;
-
+    
     public String list() throws Exception {
         count = wareService.getCount();
         wareList = wareService.list((page - 1) * pagePer, pagePer);
@@ -37,16 +36,16 @@ public class WareAction extends ActionSupport {
     }
 
     public String get() throws Exception {
-        ware = new Ware();
-        ware.setId(0);
-        ware.setName("");
-        ware.setBarcode("");
-        ware.setCost(0);
-        ware.setPrice(0);
-        ware.setNumber(0);
         try {
+            DecimalFormat f = new DecimalFormat("###0.00");
             Ware w = wareService.getWareById(id);
-            if (w != null) ware = w;
+            if (w != null) {
+                name = w.getName();
+                barcode = w.getBarcode();
+                cost = f.format(w.getCost());
+                price = f.format(w.getPrice());
+                number = String.valueOf(w.getNumber());
+            }
         } catch (Exception ex) {
             logger.error(ex.toString());
             return ERROR;
@@ -77,8 +76,8 @@ public class WareAction extends ActionSupport {
             if (id > 0) {
                 wareService.updateWare(obj);
                 logger.error("Save: " + id);
-            }
-            else wareService.createWare(obj);
+            } else
+                wareService.createWare(obj);
         } catch (Exception ex) {
             logger.error(ex.toString());
             return ERROR;
@@ -162,7 +161,4 @@ public class WareAction extends ActionSupport {
         this.id = id;
     }
 
-    public Ware getWare() {
-        return ware;
-    }
 }
