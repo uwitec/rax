@@ -13,8 +13,9 @@ import rax.model.Link;
 public class LinkDaoImpl extends SqlMapClientDaoSupport implements LinkDao {
 
     public int create(Link newInstance) throws DataAccessException {
-        return (Integer) getSqlMapClientTemplate().insert("createLink",
-                newInstance);
+        newInstance.setId((Integer) getSqlMapClientTemplate().insert(
+                "createLink", newInstance));
+        return newInstance.getId();
     }
 
     @Override
@@ -36,7 +37,7 @@ public class LinkDaoImpl extends SqlMapClientDaoSupport implements LinkDao {
     public int deleteByCategoryId(int id) throws DataAccessException {
         return getSqlMapClientTemplate().delete("deleteLinkByCategoryId", id);
     }
-    
+
     @Override
     public int count(boolean bOnlyPub) throws DataAccessException {
         return (Integer) getSqlMapClientTemplate().queryForObject(

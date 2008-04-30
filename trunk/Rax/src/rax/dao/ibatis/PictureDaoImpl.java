@@ -13,9 +13,10 @@ public class PictureDaoImpl extends SqlMapClientDaoSupport implements
 
     @Override
     public int create(Picture newInstance) throws DataAccessException {
-        return (Integer) getSqlMapClientTemplate().insert("createPicture",
-                newInstance);
-    }
+        newInstance.setId((Integer) getSqlMapClientTemplate().insert("createPicture",
+                newInstance));
+        return newInstance.getId();
+   }
 
     @Override
     public Picture read(int id) throws DataAccessException {

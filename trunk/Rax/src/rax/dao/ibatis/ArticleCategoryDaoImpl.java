@@ -15,8 +15,9 @@ public class ArticleCategoryDaoImpl extends SqlMapClientDaoSupport implements
 
     @Override
     public int create(ArticleCategory newInstance) throws DataAccessException {
-        return (Integer) getSqlMapClientTemplate().insert(
-                "createArticleCategory", newInstance);
+        newInstance.setId((Integer) getSqlMapClientTemplate().insert(
+                "createArticleCategory", newInstance));
+        return newInstance.getId();
     }
 
     @Override

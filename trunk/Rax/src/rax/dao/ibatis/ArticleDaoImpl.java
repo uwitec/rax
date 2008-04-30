@@ -15,19 +15,21 @@ public class ArticleDaoImpl extends SqlMapClientDaoSupport implements
 
     @Override
     public int create(Article newInstance) throws DataAccessException {
-        return (Integer) getSqlMapClientTemplate().insert("createArticle",
-                newInstance);
+        newInstance.setId((Integer) getSqlMapClientTemplate().insert(
+                "createArticle", newInstance));
+        return newInstance.getId();
     }
 
     @Override
     public Article read(int id) throws DataAccessException {
-        return (Article) getSqlMapClientTemplate()
-                .queryForObject("readArticle", id);
+        return (Article) getSqlMapClientTemplate().queryForObject(
+                "readArticle", id);
     }
 
     @Override
     public int update(Article transientObject) throws DataAccessException {
-        return getSqlMapClientTemplate().update("updateArticle", transientObject);
+        return getSqlMapClientTemplate().update("updateArticle",
+                transientObject);
     }
 
     @Override
@@ -38,7 +40,8 @@ public class ArticleDaoImpl extends SqlMapClientDaoSupport implements
 
     @Override
     public int deleteByCategoryId(int id) throws DataAccessException {
-        return getSqlMapClientTemplate().delete("deleteArticleByCategoryId", id);
+        return getSqlMapClientTemplate()
+                .delete("deleteArticleByCategoryId", id);
     }
 
     @Override
@@ -51,7 +54,8 @@ public class ArticleDaoImpl extends SqlMapClientDaoSupport implements
     public int countByCategoryId(int id, boolean bOnlyPub)
             throws DataAccessException {
         return (Integer) getSqlMapClientTemplate().queryForObject(
-                bOnlyPub ? "countPubArticleByCategoryId" : "countAllArticleByCategoryId", id);
+                bOnlyPub ? "countPubArticleByCategoryId"
+                        : "countAllArticleByCategoryId", id);
     }
 
     @Override
@@ -62,14 +66,16 @@ public class ArticleDaoImpl extends SqlMapClientDaoSupport implements
         param.put("number", num);
         param.put("categoryId", id);
         return getSqlMapClientTemplate().queryForList(
-                bOnlyPub ? "listPubArticleByCategoryId" : "listArticleByCategoryId", param);
+                bOnlyPub ? "listPubArticleByCategoryId"
+                        : "listArticleByCategoryId", param);
     }
 
     @Override
     public List<Article> listAllByCategoryId(int id, boolean bOnlyPub)
             throws DataAccessException {
         return getSqlMapClientTemplate().queryForList(
-                bOnlyPub ? "listAllPubArticleByCategoryId" : "listAllArticleByCategoryId", id);
+                bOnlyPub ? "listAllPubArticleByCategoryId"
+                        : "listAllArticleByCategoryId", id);
     }
 
 }

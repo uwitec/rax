@@ -15,8 +15,9 @@ public class LinkCategoryDaoImpl extends SqlMapClientDaoSupport implements
 
     @Override
     public int create(LinkCategory newInstance) throws DataAccessException {
-        return (Integer) getSqlMapClientTemplate().insert("createLinkCategory",
-                newInstance);
+        newInstance.setId((Integer) getSqlMapClientTemplate().insert(
+                "createLinkCategory", newInstance));
+        return newInstance.getId();
     }
 
     @Override

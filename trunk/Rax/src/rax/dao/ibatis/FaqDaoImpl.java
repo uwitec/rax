@@ -14,8 +14,9 @@ public class FaqDaoImpl extends SqlMapClientDaoSupport implements FaqDao {
 
     @Override
     public int create(Faq newInstance) throws DataAccessException {
-        return (Integer) getSqlMapClientTemplate()
-                .insert("createFaq", newInstance);
+        newInstance.setId((Integer) getSqlMapClientTemplate().insert(
+                "createFaq", newInstance));
+        return newInstance.getId();
     }
 
     @Override
