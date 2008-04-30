@@ -6,7 +6,7 @@ import erp.dao.OrderItemDao;
 import erp.model.OrderItem;
 
 public class OrderItemService {
-    
+
     private OrderItemDao orderItemDao;
 
     public OrderItemService() {
@@ -17,8 +17,7 @@ public class OrderItemService {
     }
 
     public int createOrderItem(OrderItem obj) {
-        obj.setId( orderItemDao.create(obj));
-        return obj.getId();
+        return orderItemDao.create(obj);
     }
 
     public boolean deleteOrderItem(int id) {
@@ -39,11 +38,9 @@ public class OrderItemService {
     public List<OrderItem> list() {
         return orderItemDao.list();
     }
-    
+
     public void setOrderItemDao(OrderItemDao dao) {
         orderItemDao = dao;
     }
-    
- 
-    
+
 }

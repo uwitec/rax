@@ -15,8 +15,9 @@ public class WareCategoryDaoImpl extends SqlMapClientDaoSupport implements
 
     @Override
     public int create(WareCategory newInstance) throws DataAccessException {
-        return (Integer) getSqlMapClientTemplate().insert("WareCategory.create",
-                newInstance);
+        newInstance.setId((Integer) getSqlMapClientTemplate().insert(
+                "WareCategory.create", newInstance));
+        return newInstance.getId();
     }
 
     @Override
@@ -44,11 +45,13 @@ public class WareCategoryDaoImpl extends SqlMapClientDaoSupport implements
     }
 
     @Override
-    public List<WareCategory> list(int index, int num) throws DataAccessException {
+    public List<WareCategory> list(int index, int num)
+            throws DataAccessException {
         Map param = new HashMap();
         param.put("index", index);
         param.put("number", num);
-        return getSqlMapClientTemplate().queryForList("WareCategory.list", param);
+        return getSqlMapClientTemplate().queryForList("WareCategory.list",
+                param);
     }
 
 }

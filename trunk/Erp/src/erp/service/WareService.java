@@ -20,8 +20,7 @@ public class WareService {
     }
 
     public int createWare(Ware obj) {
-        obj.setId(wareDao.create(obj));
-        return obj.getId();
+        return wareDao.create(obj);
     }
 
     public boolean deleteWare(int id) {

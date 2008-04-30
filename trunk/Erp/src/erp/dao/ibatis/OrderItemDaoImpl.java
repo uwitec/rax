@@ -13,8 +13,9 @@ public class OrderItemDaoImpl extends SqlMapClientDaoSupport implements
 
     @Override
     public int create(OrderItem newInstance) throws DataAccessException {
-        return (Integer) getSqlMapClientTemplate().insert("OrderItem.create",
-                newInstance);
+        newInstance.setId((Integer) getSqlMapClientTemplate().insert(
+                "OrderItem.create", newInstance));
+        return newInstance.getId();
     }
 
     @Override

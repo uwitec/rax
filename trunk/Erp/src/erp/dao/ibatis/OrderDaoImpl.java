@@ -14,18 +14,21 @@ public class OrderDaoImpl extends SqlMapClientDaoSupport implements OrderDao {
 
     @Override
     public int create(Order newInstance) throws DataAccessException {
-        return (Integer) getSqlMapClientTemplate()
-                .insert("Order.create", newInstance);
+        newInstance.setId((Integer) getSqlMapClientTemplate().insert(
+                "Order.create", newInstance));
+        return newInstance.getId();
     }
 
     @Override
     public Order read(int id) throws DataAccessException {
-        return (Order) getSqlMapClientTemplate().queryForObject("Order.read", id);
+        return (Order) getSqlMapClientTemplate().queryForObject("Order.read",
+                id);
     }
 
     @Override
     public int update(Order transientObject) throws DataAccessException {
-        return getSqlMapClientTemplate().update("Order.update", transientObject);
+        return getSqlMapClientTemplate()
+                .update("Order.update", transientObject);
     }
 
     @Override
@@ -36,7 +39,8 @@ public class OrderDaoImpl extends SqlMapClientDaoSupport implements OrderDao {
 
     @Override
     public int count() throws DataAccessException {
-        return (Integer) getSqlMapClientTemplate().queryForObject("Order.count");
+        return (Integer) getSqlMapClientTemplate()
+                .queryForObject("Order.count");
     }
 
     @Override

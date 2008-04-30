@@ -18,8 +18,7 @@ public class SellItemService {
     }
 
     public int createSellItem(SellItem obj) {
-        obj.setId(sellItemDao.create(obj));
-        return obj.getId();
+        return sellItemDao.create(obj);
     }
 
     public boolean deleteSellItem(int id) {

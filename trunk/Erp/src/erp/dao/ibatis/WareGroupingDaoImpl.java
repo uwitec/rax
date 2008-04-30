@@ -18,17 +18,19 @@ public class WareGroupingDaoImpl extends SqlMapClientDaoSupport implements
         Map param = new HashMap();
         param.put("wareId", wareId);
         param.put("categoryId", categoryId);
-        return (Integer) getSqlMapClientTemplate().insert("WareGrouping.create", param);
+        return (Integer) getSqlMapClientTemplate().insert(
+                "WareGrouping.create", param);
     }
 
     @Override
     public int delete(int id) throws DataAccessException {
         return getSqlMapClientTemplate().delete("WareGrouping.delete", id);
     }
-    
+
     @Override
     public List<Ware> listWareByCategoryId(int categoryId) {
-        return getSqlMapClientTemplate().queryForList("WareGrouping.list", categoryId);
+        return getSqlMapClientTemplate().queryForList("WareGrouping.list",
+                categoryId);
     }
-    
+
 }

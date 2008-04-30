@@ -10,25 +10,23 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import erp.dao.SellDao;
 import erp.model.Sell;
 
-public class SellDaoImpl extends SqlMapClientDaoSupport implements
-        SellDao {
+public class SellDaoImpl extends SqlMapClientDaoSupport implements SellDao {
 
     @Override
     public int create(Sell newInstance) throws DataAccessException {
-        return (Integer) getSqlMapClientTemplate().insert("Sell.create",
-                newInstance);
+        newInstance.setId((Integer) getSqlMapClientTemplate().insert(
+                "Sell.create", newInstance));
+        return newInstance.getId();
     }
 
     @Override
     public Sell read(int id) throws DataAccessException {
-        return (Sell) getSqlMapClientTemplate().queryForObject(
-                "Sell.read", id);
+        return (Sell) getSqlMapClientTemplate().queryForObject("Sell.read", id);
     }
 
     @Override
     public int update(Sell transientObject) throws DataAccessException {
-        return getSqlMapClientTemplate().update("Sell.update",
-                transientObject);
+        return getSqlMapClientTemplate().update("Sell.update", transientObject);
     }
 
     @Override
@@ -39,8 +37,7 @@ public class SellDaoImpl extends SqlMapClientDaoSupport implements
 
     @Override
     public int count() throws DataAccessException {
-        return (Integer) getSqlMapClientTemplate().queryForObject(
-                "Sell.count");
+        return (Integer) getSqlMapClientTemplate().queryForObject("Sell.count");
     }
 
     @Override

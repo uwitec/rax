@@ -5,7 +5,6 @@ import java.util.List;
 import erp.dao.WareCategoryDao;
 import erp.model.WareCategory;
 
-
 public class WareCategoryService {
 
     private WareCategoryDao wareCategoryDao;
@@ -18,8 +17,7 @@ public class WareCategoryService {
     }
 
     public int createWare(WareCategory obj) {
-        obj.setId(wareCategoryDao.create(obj));
-        return obj.getId();
+        return wareCategoryDao.create(obj);
     }
 
     public boolean deleteWare(int id) {
@@ -44,9 +42,9 @@ public class WareCategoryService {
     public List<WareCategory> list(int index, int num) {
         return wareCategoryDao.list(index, num);
     }
-    
+
     public void setWareCategoryDao(WareCategoryDao wareCategoryDao) {
         this.wareCategoryDao = wareCategoryDao;
     }
-    
+
 }
