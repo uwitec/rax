@@ -3,6 +3,7 @@ package erp.service;
 import java.util.List;
 
 import erp.dao.SellItemDao;
+import erp.model.Sell;
 import erp.model.SellItem;
 
 public class SellItemService {
@@ -16,8 +17,9 @@ public class SellItemService {
         return sellItemDao.read(id);
     }
 
-    public int createSellItem(SellItem ware) {
-        return sellItemDao.create(ware);
+    public int createSellItem(SellItem obj) {
+        obj.setId(sellItemDao.create(obj));
+        return obj.getId();
     }
 
     public boolean deleteSellItem(int id) {
@@ -35,14 +37,12 @@ public class SellItemService {
         return true;
     }
 
-    public List<SellItem> list() {
-        return sellItemDao.list();
+    public List<SellItem> listBySell(Sell s) {
+        return sellItemDao.listBySellId(s.getId());
     }
     
     public void setSellItemDao(SellItemDao dao) {
         sellItemDao = dao;
     }
-    
- 
     
 }

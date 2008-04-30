@@ -1,7 +1,6 @@
 package erp.action;
 
 import java.text.DecimalFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +10,8 @@ import org.apache.log4j.Logger;
 import com.opensymphony.xwork2.ActionSupport;
 
 import erp.model.Sell;
+import erp.model.SellItem;
+import erp.service.SellItemService;
 import erp.service.SellService;
 
 public class SellAction extends ActionSupport {
@@ -19,6 +20,7 @@ public class SellAction extends ActionSupport {
     private final static Logger logger = Logger.getLogger(SellAction.class);
 
     private SellService sellService = null;
+    private SellItemService sellItemService = null;
 
     private int id;
     private String customerName;
@@ -32,10 +34,11 @@ public class SellAction extends ActionSupport {
     private boolean print;
     private String expressId;
     private String expressBarcode;
-    
+
     Map printSel;
-    
+
     private List<Sell> sellList;
+    private List<SellItem> sellItemList;
     private int page = 1;
     private int pagePer = 12;
     private int count;
@@ -46,7 +49,7 @@ public class SellAction extends ActionSupport {
         return SUCCESS;
     }
 
-    public String get() throws Exception {      
+    public String get() throws Exception {
         printSel = new HashMap();
         printSel.put("未打印", false);
         printSel.put("已打印", true);
@@ -65,6 +68,7 @@ public class SellAction extends ActionSupport {
                 print = s.isPrint();
                 expressId = String.valueOf(s.getExpressId());
                 expressBarcode = s.getExpressBarcode();
+                sellItemList = sellItemService.listBySell(s);
             }
         } catch (Exception ex) {
             logger.error(ex.toString());
@@ -93,12 +97,14 @@ public class SellAction extends ActionSupport {
         obj.setCustomerPhone2(customerPhone2);
         obj.setCustomerPostCode(customerPostCode);
         obj.setCustomerWangwang(customerWangwang);
-        obj.setFee(Double.parseDouble(fee));
-        obj.setFeeReal(Double.parseDouble(feeReal));
-        obj.setCreateDate(new Date());
         obj.setPrint(print);
-        obj.setExpressId(Integer.parseInt(expressId));
         obj.setExpressBarcode(expressBarcode);
+        if (!fee.isEmpty())
+            obj.setFee(Double.parseDouble(fee));
+        if (!feeReal.isEmpty())
+            obj.setFeeReal(Double.parseDouble(feeReal));
+        if (!expressId.isEmpty())
+            obj.setExpressId(Integer.parseInt(expressId));
         try {
             if (id > 0) {
                 sellService.updateSell(obj);
@@ -254,6 +260,22 @@ public class SellAction extends ActionSupport {
 
     public void setPrintSel(Map printSel) {
         this.printSel = printSel;
+    }
+
+    public SellItemService getSellItemService() {
+        return sellItemService;
+    }
+
+    public void setSellItemService(SellItemService sellItemService) {
+        this.sellItemService = sellItemService;
+    }
+
+    public List<SellItem> getSellItemList() {
+        return sellItemList;
+    }
+
+    public void setSellItemList(List<SellItem> sellItemList) {
+        this.sellItemList = sellItemList;
     }
 
 }

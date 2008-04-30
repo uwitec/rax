@@ -28,7 +28,7 @@ public class WareAction extends ActionSupport {
     private int page = 1;
     private int pagePer = 12;
     private int count;
-    
+
     public String list() throws Exception {
         count = wareService.getCount();
         wareList = wareService.list((page - 1) * pagePer, pagePer);
@@ -68,10 +68,13 @@ public class WareAction extends ActionSupport {
         Ware obj = new Ware();
         obj.setId(id);
         obj.setName(name);
-        obj.setCost(Double.parseDouble(cost));
         obj.setBarcode(barcode);
-        obj.setNumber(Integer.parseInt(number));
-        obj.setPrice(Double.parseDouble(price));
+        if (!cost.isEmpty())
+            obj.setCost(Double.parseDouble(cost));
+        if (!number.isEmpty())
+            obj.setNumber(Integer.parseInt(number));
+        if (!price.isEmpty())
+            obj.setPrice(Double.parseDouble(price));
         try {
             if (id > 0) {
                 wareService.updateWare(obj);

@@ -4,6 +4,10 @@ public class WareCategory {
 
     private int id;
     private String name;
+    
+    public WareCategory() {
+        name = "";
+    }
 
     public int getId() {
         return id;

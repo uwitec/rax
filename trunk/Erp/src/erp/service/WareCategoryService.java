@@ -17,8 +17,9 @@ public class WareCategoryService {
         return wareCategoryDao.read(id);
     }
 
-    public int createWare(WareCategory ware) {
-        return wareCategoryDao.create(ware);
+    public int createWare(WareCategory obj) {
+        obj.setId(wareCategoryDao.create(obj));
+        return obj.getId();
     }
 
     public boolean deleteWare(int id) {

@@ -16,8 +16,9 @@ public class OrderItemService {
         return orderItemDao.read(id);
     }
 
-    public int createOrderItem(OrderItem ware) {
-        return orderItemDao.create(ware);
+    public int createOrderItem(OrderItem obj) {
+        obj.setId( orderItemDao.create(obj));
+        return obj.getId();
     }
 
     public boolean deleteOrderItem(int id) {

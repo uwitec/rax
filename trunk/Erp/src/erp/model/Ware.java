@@ -9,6 +9,14 @@ public class Ware {
     private String barcode;
     private int number;
     
+    public Ware() {
+        name = "";
+        cost = 0;
+        price = 0;
+        barcode = "";
+        number = 0;
+    }
+    
     public int getId() {
         return id;
     }

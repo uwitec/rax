@@ -2,19 +2,26 @@
 
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
 		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
-		  
+
 <beans>
 
 	<!--
-	All bean must be prototype, or it will have "status" 
-	scope="prototype"
+		All bean must be prototype, or it will have "status" 
+		scope="prototype"
 	-->
 
-	<bean id="WareAction" class="erp.action.WareAction" scope="prototype">
+	<bean id="WareAction" class="erp.action.WareAction"
+		scope="prototype">
 		<property name="wareService" ref="WareService" />
 	</bean>
-	<bean id="SellAction" class="erp.action.SellAction" scope="prototype">
+	<bean id="SellAction" class="erp.action.SellAction"
+		scope="prototype">
 		<property name="sellService" ref="SellService" />
+		<property name="sellItemService" ref="SellItemService" />
 	</bean>
-	
+	<bean id="SellItemAction" class="erp.action.SellItemAction"
+		scope="prototype">
+		<property name="sellService" ref="SellService" />
+		<property name="sellItemService" ref="SellItemService" />
+	</bean>
 </beans>

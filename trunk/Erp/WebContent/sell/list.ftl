@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>ListWare</title>
+<title>出库单列表</title>
 </head>
 
 <body>
@@ -34,7 +34,7 @@
 日期:${sell.createDate?string("yyyy-MM-dd")}<br />
 打印:${(sell.print)?string("已打印", "未打印")}<br />
 快递:${sell.expressId}<br />
-快递单号:#{sell.expressBarcode}
+快递单号:${sell.expressBarcode}<br />
 <a href="sell.action?id=${sell.id}">查看/编辑</a>
 <a href="sell_delete.action?id=${sell.id}" onclick="return confirm('确实要删除这笔交易么？')">删除</a>
 </div>

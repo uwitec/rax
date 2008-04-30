@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>AddFaq</title>
+<title>发货单详情</title>
 </head>
 
 <body>
@@ -27,6 +27,16 @@
     <@s.reset value=" 重 置 "/>
 </@s.form>
 </div>
+
+<a href="sell_item.action?sellId=${id}">添加新项目</a><br /><br />
+
+<#if sellItemList??>
+<#list sellItemList as item>
+<div>
+宝贝编号:${item.wareId} 价格:${item.price} 数量:${(item.number)} <a href="sell_item.action?id=${item.id}">查看/编辑</a> <a href="sell_item_delete.action?id=${item.id}" onclick="return confirm('确实要删除这项么？')">删除</a>
+</div>
+</#list>
+</#if>
 
 </body>
 </html>

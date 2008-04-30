@@ -8,6 +8,13 @@ public class OrderItem {
     private double cost;
     private int number;
 
+    public OrderItem() {
+        orderId = 0;
+        wareId = 0;
+        cost = 0;
+        number = 0;
+    }
+    
     public int getOrderId() {
         return orderId;
     }

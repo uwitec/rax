@@ -7,6 +7,13 @@ public class SellItem {
     private int wareId;
     private double price;
     private int number;
+    
+    public SellItem() {
+        sellId = 0;
+        wareId = 0;
+        price = 0;
+        number = 0;
+    }
 
     public int getSellId() {
         return sellId;

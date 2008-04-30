@@ -24,8 +24,8 @@
 		resultClass="Sell">
 		<![CDATA[
 		SELECT id,customer_name AS customerName,customer_address AS customerAddress,
-		customer_phone1 AS customerName,customer_phone2 AS customerAddress,
-		customer_postcode AS customerName,customer_wangwang AS customerAddress,
+		customer_phone1 AS customerPhone1,customer_phone2 AS customerPhone2,
+		customer_postcode AS customerPostCode,customer_wangwang AS customerWangwang,
 		fee, fee_real AS feeReal,create_date AS createDate,print,
 		express_id AS expressId,express_barcode AS expressBarcode
 		FROM erp.sell
@@ -39,7 +39,7 @@
 		customer_phone1=#customerPhone1#,customer_phone2=#customerPhone2#,
 		customer_postcode=#customerPostCode#,customer_wangwang=#customerWangwang#,
 		fee=#fee#,fee_real=#feeReal#,create_date=#createDate#,print=#print#,
-		express_id=#expressId#,express_barcode=#expressBarcode#) 
+		express_id=#expressId#,express_barcode=#expressBarcode#
 		WHERE id=#id#
 		]]>
 	</update>
@@ -60,8 +60,8 @@
 		resultClass="Sell">
 		<![CDATA[
 		SELECT id,customer_name AS customerName,customer_address AS customerAddress,
-		customer_phone1 AS customerName,customer_phone2 AS customerAddress,
-		customer_postcode AS customerName,customer_wangwang AS customerAddress,
+		customer_phone1 AS customerPhone1,customer_phone2 AS customerPhone2,
+		customer_postcode AS customerPostCode,customer_wangwang AS customerWangwang,
 		fee, fee_real AS feeReal,create_date AS createDate,print,
 		express_id AS expressId,express_barcode AS expressBarcode
 		FROM erp.sell

@@ -23,7 +23,7 @@
 	<select id="read" parameterClass="int"
 		resultClass="SellItem">
 		<![CDATA[
-		SELECT id, sell_id, ware_id, price, number
+		SELECT id, sell_id AS sellId, ware_id AS wareId, price, number
 		FROM erp.sell_item
 		WHERE id=#id#
 		]]>
@@ -42,10 +42,11 @@
 		]]>
 	</delete>
 
-	<select id="list" resultClass="SellItem">
+	<select id="list" parameterClass="int" resultClass="SellItem">
 		<![CDATA[
-		SELECT id, sell_id, ware_id, price, number
+		SELECT id, sell_id AS sellId, ware_id AS wareId, price, number
 		FROM erp.sell_item
+		WHERE sell_id=#id#
 		ORDER BY id
 		]]>
 	</select>

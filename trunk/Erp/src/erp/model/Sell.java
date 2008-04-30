@@ -18,6 +18,21 @@ public class Sell {
     private int expressId;
     private String expressBarcode;
 
+    public Sell() {
+        customerName = "";
+        customerAddress = "";
+        customerPhone1 = "";
+        customerPhone2 = "";
+        customerPostCode = "";
+        customerWangwang = "";
+        fee = 0;
+        feeReal = 0;
+        createDate = new Date();
+        print = false;
+        expressId = 0;
+        expressBarcode = "";        
+    }
+    
     public String getCustomerName() {
         return customerName;
     }

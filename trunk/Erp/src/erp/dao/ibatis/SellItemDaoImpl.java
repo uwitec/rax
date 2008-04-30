@@ -36,8 +36,8 @@ public class SellItemDaoImpl extends SqlMapClientDaoSupport implements
     }
 
     @Override
-    public List<SellItem> list() throws DataAccessException {
-        return getSqlMapClientTemplate().queryForList("SellItem.list");
+    public List<SellItem> listBySellId(int sellId) throws DataAccessException {
+        return getSqlMapClientTemplate().queryForList("SellItem.list", sellId);
     }
 
 }

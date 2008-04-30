@@ -9,6 +9,12 @@ public class Order {
     private int status;
     private double fee;
 
+    public Order() {
+        createDate = new Date();
+        status = 0;
+        fee = 0;
+    }
+    
     public Date getCreateDate() {
         return createDate;
     }

@@ -16,6 +16,6 @@ public interface SellItemDao {
 
     public int delete(SellItem persistentObject) throws DataAccessException;
 
-    public List<SellItem> list() throws DataAccessException;
+    public List<SellItem> listBySellId(int sellId) throws DataAccessException;
 
 }

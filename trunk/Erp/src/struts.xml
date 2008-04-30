@@ -58,5 +58,19 @@
 				sell_list
 			</result>
 		</action>
+
+		<action name="sell_item" class="SellItemAction" method="get">
+			<result name="success">/sell/item_property.ftl</result>
+		</action>
+		<action name="sell_item_save" class="SellItemAction">
+			<result name="input" type="redirect-action">sell_list</result>
+			<result name="error" type="redirect-action">sell_list</result>
+			<result name="success" type="redirect-action">sell_list</result>
+		</action>
+		<action name="sell_item_delete" class="SellItemAction"
+			method="delete">
+			<result name="success" type="redirect-action">sell_list</result>
+		</action>
+
 	</package>
 </struts>
