@@ -99,16 +99,15 @@ public class SellAction extends ActionSupport {
         obj.setCustomerWangwang(customerWangwang);
         obj.setPrint(print);
         obj.setExpressBarcode(expressBarcode);
-        if (!fee.isEmpty())
+        if (fee.isEmpty() == false)
             obj.setFee(Double.parseDouble(fee));
-        if (!feeReal.isEmpty())
+        if (feeReal.isEmpty() == false)
             obj.setFeeReal(Double.parseDouble(feeReal));
-        if (!expressId.isEmpty())
+        if (expressId.isEmpty() == false)
             obj.setExpressId(Integer.parseInt(expressId));
         try {
             if (id > 0) {
                 sellService.updateSell(obj);
-                logger.error("Save: " + id);
             } else
                 sellService.createSell(obj);
         } catch (Exception ex) {

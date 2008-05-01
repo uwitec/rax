@@ -1,5 +1,6 @@
 package erp.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import erp.dao.WareDao;
@@ -45,15 +46,28 @@ public class WareService {
     public List<Ware> list(int index, int num) {
         return wareDao.list(index, num);
     }
-    
+
     public List<Ware> listByCategory(WareCategory category) {
         return wareGroupingDao.listWareByCategoryId(category.getId());
+    }
+
+    public List<Ware> findByBarcode(String barcode) {
+        return wareDao.findByBarcode(barcode);
+    }
+
+    public List<Ware> findByKeywords(String keywords) {
+        List<String> keywordList = new ArrayList<String>();
+        String[] list = keywords.split(" ");
+        for (int i = 0; i < list.length; i++) {
+            keywordList.add(list[i]);
+        }
+        return wareDao.findByKeywords(keywordList);
     }
 
     public void setWareDao(WareDao dao) {
         wareDao = dao;
     }
-    
+
     public void setWareGroupingDao(WareGroupingDao wareGroupingDao) {
         this.wareGroupingDao = wareGroupingDao;
     }

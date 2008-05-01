@@ -3,11 +3,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>查看/编辑</title>
+<@s.head theme="ajax" />
 </head>
 
 <body>
-<@s.url id="url" action="sell_list"/>
+<@s.url id="url" action="sell_list" includeParams="none"/>
 <a href="${url}">返回</a><br /><br />
+
+<div>
+<@s.url id="dataUrl" value="/json/ware_find.action" />
+<@s.autocompleter theme="ajax" 
+	name="keyword" 
+	href="%{dataUrl}" 
+	loadOnTextChange="true" 
+	loadMinimumCount="1" 
+	indicator="indicator" 
+	autoComplete="false" 
+	showDownArrow="false" />
+<img id="indicator" 
+	src="$ { pageContext.request.contextPath }/images/indicator.gif" 
+	alt="Loading" 
+	style="display:none" />
+</div>
 
 <div>
 <@s.form action="sell_item_save">

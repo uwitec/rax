@@ -20,4 +20,8 @@ public interface WareDao {
 
     public List<Ware> list(int index, int num) throws DataAccessException;
 
+    public List<Ware> findByBarcode(String barcode) throws DataAccessException;
+
+    public List<Ware> findByKeywords(List<String> keywordList) throws DataAccessException;
+
 }

@@ -20,8 +20,7 @@
 		</selectKey>
 	</insert>
 
-	<select id="read" parameterClass="int"
-		resultClass="Ware">
+	<select id="read" parameterClass="int" resultClass="Ware">
 		<![CDATA[
 		SELECT id,name,cost,price,barcode,number
 		FROM erp.ware
@@ -48,13 +47,37 @@
 		]]>
 	</select>
 
-	<select id="list" parameterClass="map"
-		resultClass="Ware">
+	<select id="list" parameterClass="map" resultClass="Ware">
 		<![CDATA[
 		SELECT id,name,cost,price,barcode,number
 		FROM erp.ware
 		ORDER BY id
 		LIMIT #number# OFFSET #index#
+		]]>
+	</select>
+
+	<select id="findByBarcode" parameterClass="string"
+		resultClass="Ware">
+		<![CDATA[
+		SELECT id,name,cost,price,barcode,number
+		FROM erp.ware
+		WHERE barcode=#barcode#
+		]]>
+	</select>
+
+	<select id="findByKeywords" parameterClass="list"
+		resultClass="Ware">
+		<![CDATA[
+		SELECT id,name,cost,price,barcode,number
+		FROM erp.ware
+		]]>
+		<dynamic prepend="WHERE">
+			<iterate open="(" close=")" conjunction="AND">
+				strpos(name, #keywordList[]#) > 0
+			</iterate>
+		</dynamic>
+		<![CDATA[
+		ORDER BY name
 		]]>
 	</select>
 

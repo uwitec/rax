@@ -22,5 +22,7 @@
 </@s.form>
 </div>
 
+<a href="ware_delete.action?id=${id}" onclick="return confirm('确实要删除这个宝贝么？')">删除</a>
+
 </body>
 </html>

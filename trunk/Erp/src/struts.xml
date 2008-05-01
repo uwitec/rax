@@ -38,7 +38,9 @@
 				ware_list
 			</result>
 		</action>
-
+		<action name="ware_find" class="WareFindAction">
+			<result name="success">/ware/find.ftl</result>
+		</action>
 
 		<action name="sell_list" class="SellAction" method="list">
 			<result name="success">/sell/list.ftl</result>
@@ -73,4 +75,11 @@
 		</action>
 
 	</package>
+	
+    <package name="json" extends="json-default">
+        <action name="findware" class="WareFindAction">
+            <result type="json" />
+        </action>
+    </package>
+    	
 </struts>

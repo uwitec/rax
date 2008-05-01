@@ -26,15 +26,8 @@
 <#if wareList??>
 <#list wareList as ware>
 <div>
-名称:${ware.name}<br />
-条码:${ware.barcode}<br />
-成本:#{(ware.cost);m2M2}<br />
-价格:#{(ware.price);m2M2}<br />
-数量:#{ware.number}
-<a href="ware.action?id=${ware.id}">查看/编辑</a>
-<a href="ware_delete.action?id=${ware.id}" onclick="return confirm('确实要删除这个宝贝么？')">删除</a>
+<a href="ware.action?id=${ware.id}">${ware.id}:${ware.name}</a> 
 </div>
-<br />
 </#list>
 </#if>
 

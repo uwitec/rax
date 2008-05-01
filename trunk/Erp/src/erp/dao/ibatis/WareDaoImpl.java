@@ -20,6 +20,23 @@ public class WareDaoImpl extends SqlMapClientDaoSupport implements WareDao {
     }
 
     @Override
+    public List<Ware> findByBarcode(String barcode) throws DataAccessException {
+        return getSqlMapClientTemplate().queryForList("Ware.findByBarcode",
+                barcode);
+    }
+
+    @Override
+    public List<Ware> findByKeywords(List<String> keywordList)
+            throws DataAccessException {
+        /*
+         * System.out.print("Keywords : "); for (String k : keywordList) {
+         * System.out.print(k + " "); } System.out.println();
+         */
+        return getSqlMapClientTemplate().queryForList("Ware.findByKeywords",
+                keywordList);
+    }
+
+    @Override
     public Ware read(int id) throws DataAccessException {
         return (Ware) getSqlMapClientTemplate().queryForObject("Ware.read", id);
     }

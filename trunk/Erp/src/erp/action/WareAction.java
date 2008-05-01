@@ -69,11 +69,11 @@ public class WareAction extends ActionSupport {
         obj.setId(id);
         obj.setName(name);
         obj.setBarcode(barcode);
-        if (!cost.isEmpty())
+        if (cost.isEmpty() == false)
             obj.setCost(Double.parseDouble(cost));
-        if (!number.isEmpty())
+        if (number.isEmpty() == false)
             obj.setNumber(Integer.parseInt(number));
-        if (!price.isEmpty())
+        if (price.isEmpty() == false)
             obj.setPrice(Double.parseDouble(price));
         try {
             if (id > 0) {
