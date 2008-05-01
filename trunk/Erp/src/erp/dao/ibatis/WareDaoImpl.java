@@ -45,9 +45,6 @@ public class WareDaoImpl extends SqlMapClientDaoSupport implements WareDao {
         Map param = new HashMap();
         param.put("index", index);
         param.put("number", num);
-
-        System.out.println("index:" + index);
-        System.out.println("number:" + num);
         return getSqlMapClientTemplate().queryForList("Ware.list", param);
     }
 

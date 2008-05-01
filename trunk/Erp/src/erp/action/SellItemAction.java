@@ -25,7 +25,7 @@ public class SellItemAction extends ActionSupport {
 
     public String get() throws Exception {
         try {
-            //DecimalFormat f = new DecimalFormat("###0.00");
+            // DecimalFormat f = new DecimalFormat("###0.00");
             SellItem item = sellItemService.getSellItemById(id);
             if (item != null) {
                 sellId = item.getSellId();
@@ -52,21 +52,20 @@ public class SellItemAction extends ActionSupport {
 
     @Override
     public String execute() throws Exception {
-        SellItem obj = new SellItem();
-        obj.setId(id);
-        obj.setSellId(sellId);
-        obj.setWareId(wareId);
-        obj.setPrice(price);
-        obj.setNumber(number);
         try {
             if (sellId == 0) {
                 Sell sell = new Sell();
                 sellId = sellService.createSell(sell);
             }
-            if (id > 0) {
+            SellItem obj = new SellItem();
+            obj.setId(id);
+            obj.setSellId(sellId);
+            obj.setWareId(wareId);
+            obj.setPrice(price);
+            obj.setNumber(number);
+            if (id > 0)
                 sellItemService.updateSellItem(obj);
-                logger.error("Save: " + id);
-            } else
+            else
                 sellItemService.createSellItem(obj);
         } catch (Exception ex) {
             logger.error(ex.toString());

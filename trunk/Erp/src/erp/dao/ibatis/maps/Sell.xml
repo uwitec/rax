@@ -65,7 +65,7 @@
 		fee, fee_real AS feeReal,create_date AS createDate,print,
 		express_id AS expressId,express_barcode AS expressBarcode
 		FROM erp.sell
-		ORDER BY id
+		ORDER BY id DESC
 		LIMIT #number# OFFSET #index#
 		]]>
 	</select>
