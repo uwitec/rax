@@ -17,6 +17,8 @@ public class Sell {
     private boolean print;
     private int expressId;
     private String expressBarcode;
+    private String comment;
+    private String sender;
 
     public Sell() {
         customerName = "";
@@ -30,9 +32,11 @@ public class Sell {
         createDate = new Date();
         print = false;
         expressId = 0;
-        expressBarcode = "";        
+        expressBarcode = "";
+        comment = "";
+        sender = "";
     }
-    
+
     public String getCustomerName() {
         return customerName;
     }
@@ -135,6 +139,22 @@ public class Sell {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
 }

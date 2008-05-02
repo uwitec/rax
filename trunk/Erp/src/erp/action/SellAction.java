@@ -34,6 +34,8 @@ public class SellAction extends ActionSupport {
     private boolean print;
     private String expressId;
     private String expressBarcode;
+    private String comment;
+    private String sender;
 
     Map printSel;
 
@@ -69,6 +71,8 @@ public class SellAction extends ActionSupport {
                 expressId = String.valueOf(s.getExpressId());
                 expressBarcode = s.getExpressBarcode();
                 sellItemList = sellItemService.listBySell(s);
+                comment = s.getComment();
+                sender = s.getSender();
             }
         } catch (Exception ex) {
             logger.error(ex.toString());
@@ -99,6 +103,8 @@ public class SellAction extends ActionSupport {
         obj.setCustomerWangwang(customerWangwang);
         obj.setPrint(print);
         obj.setExpressBarcode(expressBarcode);
+        obj.setComment(comment);
+        obj.setSender(sender);
         if (fee.isEmpty() == false)
             obj.setFee(Double.parseDouble(fee));
         if (feeReal.isEmpty() == false)
@@ -263,6 +269,22 @@ public class SellAction extends ActionSupport {
 
     public SellItemService getSellItemService() {
         return sellItemService;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
     public void setSellItemService(SellItemService sellItemService) {

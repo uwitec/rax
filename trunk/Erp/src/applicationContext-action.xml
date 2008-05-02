@@ -18,8 +18,8 @@
 		scope="prototype">
 		<property name="wareService" ref="WareService" />
 	</bean>
-	<bean id="WareAutoCompleteAction" class="erp.action.WareAutoCompleteAction"
-		scope="prototype">
+	<bean id="WareAutoCompleteAction"
+		class="erp.action.WareAutoCompleteAction" scope="prototype">
 		<property name="wareService" ref="WareService" />
 	</bean>
 	<bean id="SellAction" class="erp.action.SellAction"
@@ -31,5 +31,11 @@
 		scope="prototype">
 		<property name="sellService" ref="SellService" />
 		<property name="sellItemService" ref="SellItemService" />
+	</bean>
+	<bean id="InvoiceAction" class="erp.action.InvoiceAction"
+		scope="prototype">
+		<property name="sellService" ref="SellService" />
+		<property name="sellItemService" ref="SellItemService" />
+		<property name="wareService" ref="WareService" />
 	</bean>
 </beans>

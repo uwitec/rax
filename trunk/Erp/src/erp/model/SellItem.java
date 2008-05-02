@@ -5,6 +5,7 @@ public class SellItem {
     private int id;
     private int sellId;
     private int wareId;
+    private Ware ware;
     private double price;
     private int number;
     
@@ -53,6 +54,14 @@ public class SellItem {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Ware getWare() {
+        return ware;
+    }
+
+    public void setWare(Ware ware) {
+        this.ware = ware;
     }
 
 }

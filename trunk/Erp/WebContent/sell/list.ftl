@@ -23,20 +23,12 @@
 <#if sellList??>
 <#list sellList as sell>
 <div>
+旺旺:${sell.customerWangwang}<br />
 姓名:${sell.customerName}<br />
 地址:${sell.customerAddress}<br />
-电话1:${(sell.customerPhone1)}<br />
-电话2:${(sell.customerPhone2)}<br />
-邮编:${sell.customerPostCode}<br />
-旺旺:${sell.customerWangwang}<br />
-收取运费:#{(sell.fee);m2M2}<br />
-实际运费:#{(sell.feeReal);m2M2}<br />
-日期:${sell.createDate?string("yyyy-MM-dd")}<br />
-打印:${(sell.print)?string("已打印", "未打印")}<br />
-快递:${sell.expressId}<br />
-快递单号:${sell.expressBarcode}<br />
+<!-- 日期:${sell.createDate?string("yyyy-MM-dd")}<br /> //-->
 <a href="sell.action?id=${sell.id}">查看/编辑</a>
-<a href="sell_delete.action?id=${sell.id}" onclick="return confirm('确实要删除这笔交易么？')">删除</a>
+<a href="invoice.action?sellId=${sell.id}">打印</a>
 </div>
 <br />
 </#list>

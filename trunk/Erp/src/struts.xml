@@ -81,6 +81,10 @@
 				sell_list
 			</result>
 		</action>
+		
+		<action name="invoice" class="InvoiceAction">
+			<result name="success">/sell/invoice.ftl</result>
+		</action>
 
 	</package>
 
