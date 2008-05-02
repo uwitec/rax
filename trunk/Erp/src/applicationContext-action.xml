@@ -26,6 +26,7 @@
 		scope="prototype">
 		<property name="sellService" ref="SellService" />
 		<property name="sellItemService" ref="SellItemService" />
+		<property name="wareService" ref="WareService" />		
 	</bean>
 	<bean id="SellItemAction" class="erp.action.SellItemAction"
 		scope="prototype">

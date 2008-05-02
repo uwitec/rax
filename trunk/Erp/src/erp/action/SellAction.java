@@ -13,6 +13,7 @@ import erp.model.Sell;
 import erp.model.SellItem;
 import erp.service.SellItemService;
 import erp.service.SellService;
+import erp.service.WareService;
 
 public class SellAction extends ActionSupport {
 
@@ -21,6 +22,7 @@ public class SellAction extends ActionSupport {
 
     private SellService sellService = null;
     private SellItemService sellItemService = null;
+    private WareService wareService = null;
 
     private int id;
     private String customerName;
@@ -70,9 +72,13 @@ public class SellAction extends ActionSupport {
                 print = s.isPrint();
                 expressId = String.valueOf(s.getExpressId());
                 expressBarcode = s.getExpressBarcode();
-                sellItemList = sellItemService.listBySell(s);
                 comment = s.getComment();
                 sender = s.getSender();
+
+                sellItemList = sellItemService.listBySell(s);
+                for (SellItem item : sellItemList) {
+                    item.setWare(wareService.getWareById(item.getWareId()));
+                }
             }
         } catch (Exception ex) {
             logger.error(ex.toString());
@@ -241,6 +247,14 @@ public class SellAction extends ActionSupport {
 
     public void setPage(int page) {
         this.page = page;
+    }
+
+    public WareService getWareService() {
+        return wareService;
+    }
+
+    public void setWareService(WareService wareService) {
+        this.wareService = wareService;
     }
 
     public int getPagePer() {

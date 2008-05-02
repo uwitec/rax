@@ -8,6 +8,7 @@
 <body>
 <@s.url id="url" action="sell_list" includeParams="none"/>
 <a href="${url}">返回</a> 
+<a href="invoice.action?sellId=${id}">打印</a>
 <a href="sell_delete.action?id=${id}" onclick="return confirm('确实要删除这笔交易么？')">删除</a><br />
 <br />
 
@@ -37,7 +38,12 @@
 <#if sellItemList??>
 <#list sellItemList as item>
 <div>
-宝贝编号:${item.wareId} 价格:${item.price} 数量:${(item.number)} <a href="sell_item.action?id=${item.id}">查看/编辑</a> <a href="sell_item_delete.action?id=${item.id}" onclick="return confirm('确实要删除这项么？')">删除</a>
+宝贝编号:${item.wareId} 
+价格:${item.price} 
+数量:${(item.number)} 
+<a href="sell_item.action?id=${item.id}">查看/编辑</a> 
+<a href="sell_item_delete.action?id=${item.id}" onclick="return confirm('确实要删除这项么？')">删除</a>
+名称:${item.ware.name}
 </div>
 </#list>
 </#if>
