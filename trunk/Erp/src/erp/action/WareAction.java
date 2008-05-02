@@ -26,7 +26,7 @@ public class WareAction extends ActionSupport {
 
     private List<Ware> wareList;
     private int page = 1;
-    private int pagePer = 12;
+    private int pagePer = 30;
     private int count;
 
     public String list() throws Exception {
@@ -78,7 +78,6 @@ public class WareAction extends ActionSupport {
         try {
             if (id > 0) {
                 wareService.updateWare(obj);
-                logger.error("Save: " + id);
             } else
                 wareService.createWare(obj);
         } catch (Exception ex) {

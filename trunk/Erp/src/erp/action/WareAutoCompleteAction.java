@@ -1,5 +1,6 @@
 package erp.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -9,25 +10,34 @@ import com.opensymphony.xwork2.ActionSupport;
 import erp.model.Ware;
 import erp.service.WareService;
 
-public class WareFindAction extends ActionSupport {
+public class WareAutoCompleteAction extends ActionSupport {
 
     private static final long serialVersionUID = 1L;
-    private final static Logger logger = Logger.getLogger(WareFindAction.class);
+    private final static Logger logger = Logger
+            .getLogger(WareAutoCompleteAction.class);
 
     private WareService wareService = null;
     private String keyword;
     private String barcode;
+    private List<String[]> options;
     private List<Ware> wareList;
-    
+
     @Override
     public String execute() throws Exception {
-        logger.info("finded.");
+        //logger.info("finded.");
         if ((barcode != null) && (barcode.isEmpty() == false)) {
             logger.info("findByBarcode:" + barcode);
             wareList = wareService.findByBarcode(barcode);
         } else if ((keyword != null) && keyword.isEmpty() == false) {
             logger.info("findByKeywords:" + keyword);
             wareList = wareService.findByKeywords(keyword);
+        }
+
+        options = new ArrayList<String[]>();
+        if (wareList != null) {
+            for (Ware w : wareList) {
+                options.add(new String[] { w.getName(), w.getBarcode() });
+            }
         }
         return SUCCESS;
     }
@@ -44,8 +54,8 @@ public class WareFindAction extends ActionSupport {
         this.barcode = barcode;
     }
 
-    public List<Ware> getWareList() {
-        return wareList;
+    public List<String[]> getOptions() {
+        return options;
     }
 
 }

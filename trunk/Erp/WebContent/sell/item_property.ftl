@@ -11,22 +11,6 @@
 <a href="${url}">返回</a><br /><br />
 
 <div>
-<@s.url id="dataUrl" value="/json/ware_find.action" />
-<@s.autocompleter theme="ajax" 
-	name="keyword" 
-	href="%{dataUrl}" 
-	loadOnTextChange="true" 
-	loadMinimumCount="1" 
-	indicator="indicator" 
-	autoComplete="false" 
-	showDownArrow="false" />
-<img id="indicator" 
-	src="$ { pageContext.request.contextPath }/images/indicator.gif" 
-	alt="Loading" 
-	style="display:none" />
-</div>
-
-<div>
 <@s.form action="sell_item_save">
     <@s.textfield label="宝贝编号" name="wareId"/>
     <@s.textfield label="价格" name="price"/>
@@ -36,6 +20,22 @@
     <@s.submit value=" 提 交 "/>
     <@s.reset value=" 重 置 "/>
 </@s.form>
+</div>
+
+<div>
+<@s.url id="dataUrl" value="/json/ware_auto_complete.action" includeParams="none"/>
+<@s.autocompleter theme="ajax" 
+	name="keyword" 
+	href="%{dataUrl}" 
+	loadOnTextChange="true" 
+	loadMinimumCount="2" 
+	indicator="indicator" 
+	autoComplete="false" 
+	showDownArrow="false" />
+<img id="indicator" 
+	src="/images/indicator.gif" 
+	alt="Loading"
+	style="display:none" />
 </div>
 
 </body>

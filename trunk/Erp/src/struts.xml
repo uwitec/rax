@@ -65,21 +65,35 @@
 			<result name="success">/sell/item_property.ftl</result>
 		</action>
 		<action name="sell_item_save" class="SellItemAction">
-			<result name="input" type="redirect-action">sell_list</result>
-			<result name="error" type="redirect-action">sell_list</result>
-			<result name="success" type="redirect-action">sell_list</result>
+			<result name="input" type="redirect-action">
+				sell_list
+			</result>
+			<result name="error" type="redirect-action">
+				sell_list
+			</result>
+			<result name="success" type="redirect-action">
+				sell_list
+			</result>
 		</action>
 		<action name="sell_item_delete" class="SellItemAction"
 			method="delete">
-			<result name="success" type="redirect-action">sell_list</result>
+			<result name="success" type="redirect-action">
+				sell_list
+			</result>
 		</action>
 
 	</package>
-	
-    <package name="json" extends="json-default">
-        <action name="findware" class="WareFindAction">
-            <result type="json" />
-        </action>
-    </package>
-    	
+
+	<package name="json" extends="json-default">
+		<action name="ware_find" class="WareFindAction">
+			<result type="json" />
+		</action>
+		<action name="ware_auto_complete"
+			class="WareAutoCompleteAction">
+			<result type="json">
+				<param name="root">options</param>
+			</result>
+		</action>
+	</package>
+
 </struts>
