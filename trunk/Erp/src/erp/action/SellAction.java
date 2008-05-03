@@ -33,14 +33,13 @@ public class SellAction extends ActionSupport {
     private String customerWangwang;
     private String fee;
     private String feeReal;
-    private boolean print;
     private String expressId;
     private String expressBarcode;
     private String comment;
     private String sender;
 
-    Map printSel;
-
+    Map<Integer, String> expressSel;
+    
     private List<Sell> sellList;
     private List<SellItem> sellItemList;
     private int page = 1;
@@ -54,9 +53,13 @@ public class SellAction extends ActionSupport {
     }
 
     public String get() throws Exception {
-        printSel = new HashMap();
-        printSel.put("未打印", false);
-        printSel.put("已打印", true);
+        expressSel = new HashMap<Integer, String>();
+        expressSel.put(0, "韵达");
+        expressSel.put(1, "申通");
+        expressSel.put(2, "圆通");
+        expressSel.put(3, "中通");
+        expressSel.put(4, "天天");
+        expressSel.put(5, "顺丰");
         try {
             DecimalFormat f = new DecimalFormat("###0.00");
             Sell s = sellService.getSellById(id);
@@ -69,7 +72,6 @@ public class SellAction extends ActionSupport {
                 customerWangwang = s.getCustomerWangwang();
                 fee = f.format(s.getFee());
                 feeReal = f.format(s.getFeeReal());
-                print = s.isPrint();
                 expressId = String.valueOf(s.getExpressId());
                 expressBarcode = s.getExpressBarcode();
                 comment = s.getComment();
@@ -107,7 +109,6 @@ public class SellAction extends ActionSupport {
         obj.setCustomerPhone2(customerPhone2);
         obj.setCustomerPostCode(customerPostCode);
         obj.setCustomerWangwang(customerWangwang);
-        obj.setPrint(print);
         obj.setExpressBarcode(expressBarcode);
         obj.setComment(comment);
         obj.setSender(sender);
@@ -209,20 +210,16 @@ public class SellAction extends ActionSupport {
         this.feeReal = feeReal;
     }
 
-    public boolean isPrint() {
-        return print;
-    }
-
-    public void setPrint(boolean print) {
-        this.print = print;
-    }
-
     public String getExpressId() {
         return expressId;
     }
 
     public void setExpressId(String expressId) {
         this.expressId = expressId;
+    }
+
+    public Map<Integer, String> getExpressSel() {
+        return expressSel;
     }
 
     public String getExpressBarcode() {
@@ -271,14 +268,6 @@ public class SellAction extends ActionSupport {
 
     public void setCount(int count) {
         this.count = count;
-    }
-
-    public Map getPrintSel() {
-        return printSel;
-    }
-
-    public void setPrintSel(Map printSel) {
-        this.printSel = printSel;
     }
 
     public SellItemService getSellItemService() {

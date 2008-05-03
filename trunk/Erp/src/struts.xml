@@ -94,7 +94,20 @@
 				sell_list
 			</result>
 		</action>
-
+		
+		<action name="express" class="ExpressAction">
+			<result name="input">/sell/express.ftl</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/pdf</param>
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">
+					filename=express.pdf
+					<!-- attachment;filename=index.htm -->
+				</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+		
 	</package>
 
 	<package name="json" extends="json-default">

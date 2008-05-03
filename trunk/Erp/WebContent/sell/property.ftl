@@ -3,12 +3,46 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>发货单详情</title>
+<script type="text/javascript" language="javascript">
+function setFee(value) {
+	var obj = document.getElementById("sell_save_fee");
+	obj.value = value;
+}
+function setFeeReal(value) {
+	var obj = document.getElementById("sell_save_feeReal");
+	obj.value = value;
+}
+function onFeeChange(value) {
+	var objs = document.getElementsByName("feeSel");
+	//alert("onFeeChange:" + value);
+	for (var i = 0; i < objs.length; i++) {
+		if (Math.floor(objs[i].value) == value) objs[i].checked = true
+		else objs[i].checked = false;
+	}
+}
+function onFeeRealChange(value) {
+	var objs = document.getElementsByName("feeRealSel");
+	//alert("onFeeRealChange:" + value);
+	for (var i = 0; i < objs.length; i++) {
+		if (Math.floor(objs[i].value) == value) objs[i].checked = true;
+		else objs[i].checked = false;
+	}
+}
+window.onload = function() {
+	var obj;
+	obj = document.getElementById("sell_save_fee");
+	onFeeChange(obj.value);
+	obj = document.getElementById("sell_save_feeReal");
+	onFeeRealChange(obj.value);
+	//alert("onload");
+}
+</script>
 </head>
 
 <body>
 <@s.url id="url" action="sell_list" includeParams="none"/>
 <a href="${url}">返回</a> 
-<a href="invoice.action?sellId=${id}">打印</a>
+<a href="express.action?sellId=${id}" target="_balnk">打印快递单</a>
 <a href="sell_import.action?sellId=${id}">从淘宝地址导入出库单</a>
 <a href="sell_delete.action?id=${id}" onclick="return confirm('确实要删除这笔交易么？')">删除</a><br />
 <br />
@@ -21,10 +55,11 @@
     <@s.textfield label="电话1" name="customerPhone1"/>
     <@s.textfield label="电话2" name="customerPhone2"/>
     <@s.textfield label="邮编" name="customerPostCode"/>
-    <@s.textfield label="收取运费" name="fee"/>
-    <@s.textfield label="实际运费" name="feeReal"/>
-    <@s.radio label="打印" name="print" list="printSel" listKey="value" listValue="key" />
-    <@s.textfield label="快递" name="expressId"/>
+    <@s.textfield label="收取运费" name="fee" onkeyup="javascript:onFeeChange(this.value)"/>
+    <@s.radio name="feeSel" list="{0, 5, 10, 12, 15, 20, 25}" onclick="javascript:setFee(this.value)"/>
+    <@s.textfield label="实际运费" name="feeReal" onkeyup="javascript:onFeeRealChange(this.value)"/>
+    <@s.radio name="feeRealSel" list="{0, 4, 5, 8, 10, 12, 15, 20, 25}" onclick="javascript:setFeeReal(this.value)"/>
+    <@s.radio label="快递" name="expressId" list="expressSel"/>
     <@s.textfield label="快递单号" name="expressBarcode"/>
     <@s.textfield label="备注" name="comment"/>
     <@s.textfield label="发件人" name="sender"/>
@@ -34,7 +69,8 @@
 </@s.form>
 </div>
 
-<a href="sell_item.action?sellId=${id}">添加新项目</a><br /><br />
+<a href="sell_item.action?sellId=${id}">添加新项目</a>
+<a href="invoice.action?sellId=${id}" target="_balnk">打印发货单</a><br /><br />
 
 <#if sellItemList??>
 <#list sellItemList as item>

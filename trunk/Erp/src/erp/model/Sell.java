@@ -14,7 +14,6 @@ public class Sell {
     private double fee;
     private double feeReal;
     private Date createDate;
-    private boolean print;
     private int expressId;
     private String expressBarcode;
     private String comment;
@@ -30,7 +29,6 @@ public class Sell {
         fee = 0;
         feeReal = 0;
         createDate = new Date();
-        print = false;
         expressId = 0;
         expressBarcode = "";
         comment = "";
@@ -107,14 +105,6 @@ public class Sell {
 
     public void setFeeReal(double feeReal) {
         this.feeReal = feeReal;
-    }
-
-    public boolean isPrint() {
-        return print;
-    }
-
-    public void setPrint(boolean print) {
-        this.print = print;
     }
 
     public Date getCreateDate() {
