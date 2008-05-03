@@ -33,6 +33,10 @@
 		<property name="sellService" ref="SellService" />
 		<property name="sellItemService" ref="SellItemService" />
 	</bean>
+	<bean id="SellImportAction" class="erp.action.SellImportAction"
+		scope="prototype">
+		<property name="sellService" ref="SellService" />
+	</bean>
 	<bean id="InvoiceAction" class="erp.action.InvoiceAction"
 		scope="prototype">
 		<property name="sellService" ref="SellService" />

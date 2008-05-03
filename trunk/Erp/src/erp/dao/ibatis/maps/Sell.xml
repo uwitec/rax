@@ -11,7 +11,7 @@
 	<insert id="create" parameterClass="Sell">
 		<![CDATA[
 		INSERT INTO erp.sell (customer_name,customer_address,customer_phone1,customer_phone2,customer_postcode,customer_wangwang,fee,fee_real,create_date,print,express_id,express_barcode,comment,sender) 
-		VALUES (#customerName#, #customerAddress#, #customerPhone1#, #customerPhone2#, #customerPostCode#, #customerWangwang#, #fee#, #feeReal#, #createDate#, #print#, #expressId#, #expressBarcode#,comment=#comment#,sender=#sender#)
+		VALUES (#customerName#, #customerAddress#, #customerPhone1#, #customerPhone2#, #customerPostCode#, #customerWangwang#, #fee#, #feeReal#, #createDate#, #print#, #expressId#, #expressBarcode#,#comment#,#sender#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[

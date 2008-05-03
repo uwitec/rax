@@ -8,7 +8,8 @@
 <body>
 <@s.url id="urlReturn" value="index.htm"/>
 <@s.url id="urlAdd" action="sell" includeParams="none" />
-<a href="${urlReturn}">返回</a> <a href="${urlAdd}">添加新出库单</a><br /><br />
+<a href="${urlReturn}">返回</a> <a href="${urlAdd}">添加新出库单</a>
+<a href="sell_import.action">从淘宝地址导入出库单</a><br /><br />
 <div>总数:${count}</div><br />
 
 <#assign pages=(count + pagePer - 1) / pagePer>

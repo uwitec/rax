@@ -9,6 +9,7 @@
 <@s.url id="url" action="sell_list" includeParams="none"/>
 <a href="${url}">返回</a> 
 <a href="invoice.action?sellId=${id}">打印</a>
+<a href="sell_import.action?sellId=${id}">从淘宝地址导入出库单</a>
 <a href="sell_delete.action?id=${id}" onclick="return confirm('确实要删除这笔交易么？')">删除</a><br />
 <br />
 
