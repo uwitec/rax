@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>导入买家收货信息</title>
+<title>检查买家收货信息</title>
 <script type="text/javascript" language="javascript">
 function setDate(value) {
 	var year	= 0;
@@ -33,14 +33,19 @@ window.onload = function() {
 <div>
 <@s.form action="express">
     <@s.textfield label="姓名" name="sell.customerName"/>
-    <@s.textfield label="地址" name="sell.customerAddress"/>
+    <@s.textarea label="地址" name="sell.customerAddress" cols="80" rows="3"/>
     <@s.textfield label="电话1" name="sell.customerPhone1"/>
     <@s.textfield label="电话2" name="sell.customerPhone2"/>
     <@s.textfield label="邮编" name="sell.customerPostCode"/>
     <@s.textfield label="日期" name="date"/>
     <@s.radio name="dateSel" list="dateSel" onclick="javascript:setDate(this.value)"/>
     <@s.radio name="dateSel1" list="{'今天':0, '明天':1, '后天':2}" />
-    <@s.textfield label="备注" name="comment"/>
+    <@s.textarea label="备注" name="comment" cols="80" rows="3"/>
+    <@s.textfield label="发件人" name="sender"/>
+    <@s.textfield label="发件人电话" name="senderPhone"/>
+    <@s.textarea label="发件人地址" name="senderAddress" cols="80" rows="3"/>
+    <@s.textfield label="发件人邮编" name="senderPostCode"/>
+    <@s.hidden name="sell.expressId"/>
     <@s.hidden name="sellId"/>
     <@s.submit value=" 提 交 "/>
     <@s.reset value=" 重 置 "/>

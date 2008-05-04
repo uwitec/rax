@@ -31,7 +31,7 @@
 	loadMinimumCount="2" 
 	indicator="indicator" 
 	autoComplete="false" 
-	showDownArrow="false" />
+	showDownArrow="true" />
 <img id="indicator" 
 	src="/images/indicator.gif" 
 	alt="Loading"

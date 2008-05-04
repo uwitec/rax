@@ -27,5 +27,5 @@
 		<property name="wareDao" ref="WareDao" />
 		<property name="wareGroupingDao" ref="WareGroupingDao" />
 	</bean>
-
+	<bean id="ExpressService" class="erp.service.ExpressService"/>
 </beans>
