@@ -33,7 +33,7 @@ public class SellAction extends ActionSupport {
     private String customerWangwang;
     private String fee;
     private String feeReal;
-    private String expressId;
+    private int expressId;
     private String expressBarcode;
     private String comment;
     private String sender;
@@ -72,7 +72,7 @@ public class SellAction extends ActionSupport {
                 customerWangwang = s.getCustomerWangwang();
                 fee = f.format(s.getFee());
                 feeReal = f.format(s.getFeeReal());
-                expressId = String.valueOf(s.getExpressId());
+                expressId = s.getExpressId();
                 expressBarcode = s.getExpressBarcode();
                 comment = s.getComment();
                 sender = s.getSender();
@@ -109,6 +109,7 @@ public class SellAction extends ActionSupport {
         obj.setCustomerPhone2(customerPhone2.trim());
         obj.setCustomerPostCode(customerPostCode.trim());
         obj.setCustomerWangwang(customerWangwang.trim());
+        obj.setExpressId(expressId);
         obj.setExpressBarcode(expressBarcode.trim());
         obj.setComment(comment.trim());
         obj.setSender(sender.trim());
@@ -116,8 +117,6 @@ public class SellAction extends ActionSupport {
             obj.setFee(Double.parseDouble(fee));
         if (feeReal.isEmpty() == false)
             obj.setFeeReal(Double.parseDouble(feeReal));
-        if (expressId.isEmpty() == false)
-            obj.setExpressId(Integer.parseInt(expressId));
         try {
             if (id > 0) {
                 sellService.updateSell(obj);
@@ -210,11 +209,11 @@ public class SellAction extends ActionSupport {
         this.feeReal = feeReal;
     }
 
-    public String getExpressId() {
+    public int getExpressId() {
         return expressId;
     }
 
-    public void setExpressId(String expressId) {
+    public void setExpressId(int expressId) {
         this.expressId = expressId;
     }
 
