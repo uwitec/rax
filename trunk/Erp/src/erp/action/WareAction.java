@@ -67,8 +67,8 @@ public class WareAction extends ActionSupport {
     public String execute() throws Exception {
         Ware obj = new Ware();
         obj.setId(id);
-        obj.setName(name);
-        obj.setBarcode(barcode);
+        obj.setName(name.trim());
+        obj.setBarcode(barcode.trim());
         if (cost.isEmpty() == false)
             obj.setCost(Double.parseDouble(cost));
         if (number.isEmpty() == false)

@@ -103,15 +103,15 @@ public class SellAction extends ActionSupport {
     public String execute() throws Exception {
         Sell obj = new Sell();
         obj.setId(id);
-        obj.setCustomerName(customerName);
-        obj.setCustomerAddress(customerAddress);
-        obj.setCustomerPhone1(customerPhone1);
-        obj.setCustomerPhone2(customerPhone2);
-        obj.setCustomerPostCode(customerPostCode);
-        obj.setCustomerWangwang(customerWangwang);
-        obj.setExpressBarcode(expressBarcode);
-        obj.setComment(comment);
-        obj.setSender(sender);
+        obj.setCustomerName(customerName.trim());
+        obj.setCustomerAddress(customerAddress.trim());
+        obj.setCustomerPhone1(customerPhone1.trim());
+        obj.setCustomerPhone2(customerPhone2.trim());
+        obj.setCustomerPostCode(customerPostCode.trim());
+        obj.setCustomerWangwang(customerWangwang.trim());
+        obj.setExpressBarcode(expressBarcode.trim());
+        obj.setComment(comment.trim());
+        obj.setSender(sender.trim());
         if (fee.isEmpty() == false)
             obj.setFee(Double.parseDouble(fee));
         if (feeReal.isEmpty() == false)
