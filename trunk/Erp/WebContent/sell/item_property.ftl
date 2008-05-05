@@ -3,7 +3,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>查看/编辑</title>
-<@s.head theme="ajax" />
+<script language="javascript" type="text/javascript" src="js/dojo/dojo.js" djConfig="isDebug:true,bindEncoding:'UTF-8'"></script> 
+<script language="javascript" type="text/javascript">
+
+var keyCount = 0;
+function onKeyIn(event) {
+  if (++keyCount > 2) {
+    alert("begin search");
+  }
+}
+
+dojo.addOnLoad(function (){
+  var obj = dojo.byId("search");
+  dojo.connect(obj, "onkeyup", onKeyIn);
+});
+</script>
 </head>
 
 <body>
@@ -23,19 +37,7 @@
 </div>
 
 <div>
-<@s.url id="dataUrl" value="/json/ware_auto_complete.action" includeParams="none"/>
-<@s.autocompleter theme="ajax" 
-	name="keyword" 
-	href="%{dataUrl}" 
-	loadOnTextChange="true" 
-	loadMinimumCount="2" 
-	indicator="indicator" 
-	autoComplete="false" 
-	showDownArrow="true" />
-<img id="indicator" 
-	src="/images/indicator.gif" 
-	alt="Loading"
-	style="display:none" />
+<@s.textfield label="搜索" name="search"/>
 </div>
 
 </body>

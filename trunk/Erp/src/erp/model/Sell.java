@@ -15,7 +15,6 @@ public class Sell {
     private double feeReal;
     private Date createDate;
     private int expressId;
-    private String expressBarcode;
     private String comment;
     private String sender;
 
@@ -30,7 +29,6 @@ public class Sell {
         feeReal = 0;
         createDate = new Date();
         expressId = 0;
-        expressBarcode = "";
         comment = "";
         sender = "";
     }
@@ -89,14 +87,6 @@ public class Sell {
 
     public void setExpressId(int expressId) {
         this.expressId = expressId;
-    }
-
-    public String getExpressBarcode() {
-        return expressBarcode;
-    }
-
-    public void setExpressBarcode(String expressBarcode) {
-        this.expressBarcode = expressBarcode;
     }
 
     public double getFeeReal() {

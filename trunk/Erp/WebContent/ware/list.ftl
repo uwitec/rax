@@ -11,7 +11,7 @@
 <@s.url id="urlAdd2" action="ware">
 	<@s.param name="id" value="0" />
 </@s.url>
-<a href="${urlReturn}">返回</a> <a href="${urlAdd}">添加新Ware</a><br /><br />
+<a href="${urlReturn}">返回</a> <a href="${urlAdd}">添加新的宝贝</a><br /><br />
 <div>总数:${count}</div><br />
 
 <#assign pages=(count + pagePer - 1) / pagePer>

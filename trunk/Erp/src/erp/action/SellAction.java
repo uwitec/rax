@@ -34,7 +34,6 @@ public class SellAction extends ActionSupport {
     private String fee;
     private String feeReal;
     private int expressId;
-    private String expressBarcode;
     private String comment;
     private String sender;
 
@@ -60,6 +59,8 @@ public class SellAction extends ActionSupport {
         expressSel.put(3, "中通");
         expressSel.put(4, "天天");
         expressSel.put(5, "顺丰");
+        expressSel.put(6, "其他");
+        expressSel.put(99, "无");
         try {
             DecimalFormat f = new DecimalFormat("###0.00");
             Sell s = sellService.getSellById(id);
@@ -73,7 +74,6 @@ public class SellAction extends ActionSupport {
                 fee = f.format(s.getFee());
                 feeReal = f.format(s.getFeeReal());
                 expressId = s.getExpressId();
-                expressBarcode = s.getExpressBarcode();
                 comment = s.getComment();
                 sender = s.getSender();
 
@@ -110,7 +110,6 @@ public class SellAction extends ActionSupport {
         obj.setCustomerPostCode(customerPostCode.trim());
         obj.setCustomerWangwang(customerWangwang.trim());
         obj.setExpressId(expressId);
-        obj.setExpressBarcode(expressBarcode.trim());
         obj.setComment(comment.trim());
         obj.setSender(sender.trim());
         if (fee.isEmpty() == false)
@@ -219,14 +218,6 @@ public class SellAction extends ActionSupport {
 
     public Map<Integer, String> getExpressSel() {
         return expressSel;
-    }
-
-    public String getExpressBarcode() {
-        return expressBarcode;
-    }
-
-    public void setExpressBarcode(String expressBarcode) {
-        this.expressBarcode = expressBarcode;
     }
 
     public List<Sell> getSellList() {

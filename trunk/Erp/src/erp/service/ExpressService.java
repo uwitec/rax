@@ -4,8 +4,11 @@ import erp.model.ExpressTemplate;
 import erp.model.ExpressPos;
 
 public class ExpressService {
+    
     static public ExpressTemplate getExpress(int expressId) {
+        
         ExpressTemplate obj = new ExpressTemplate();
+        
         switch (expressId) {
         default:
         case 0: // 韵达
@@ -26,6 +29,7 @@ public class ExpressService {
             obj.setDstAddressRT(new ExpressPos(10, 10));
             obj.setDstName(new ExpressPos(493, 241));
             break;
+            
         case 1: // 申通
             obj.setDateFormat("yy MM dd");
             obj.setSize(new ExpressPos(658, 360));
@@ -44,6 +48,7 @@ public class ExpressService {
             obj.setDstAddressRT(new ExpressPos(10, 10));
             obj.setDstName(new ExpressPos(454, 179));
             break;
+            
         case 2: // 圆通
             obj.setDateFormat("yy   MM   dd");
             obj.setSize(new ExpressPos(658, 360));
@@ -62,6 +67,7 @@ public class ExpressService {
             obj.setDstAddressRT(new ExpressPos(10, 10));
             obj.setDstName(new ExpressPos(317, 230));
             break;
+            
         case 3: // 中通
             obj.setDateFormat("MM   dd");
             obj.setSize(new ExpressPos(658, 360));
@@ -80,6 +86,7 @@ public class ExpressService {
             obj.setDstAddressRT(new ExpressPos(10, 10));
             obj.setDstName(new ExpressPos(405, 258));
             break;
+            
         case 4: // 天天
             obj.setDateFormat("yyyy-MM-dd");
             obj.setSize(new ExpressPos(658, 360));
@@ -98,6 +105,7 @@ public class ExpressService {
             obj.setDstAddressRT(new ExpressPos(10, 10));
             obj.setDstName(new ExpressPos(403, 153));
             break;
+            
         case 5: // 顺丰
             obj.setDateFormat("MM    dd");
             obj.setSize(new ExpressPos(615, 397));

@@ -84,8 +84,8 @@
 
 		<action name="sell_import" class="SellImportAction">
 			<result name="input">/sell/import.ftl</result>
-			<result name="error" type="redirect-action">sell</result>
-			<result name="success" type="redirect-action">sell</result>
+			<result name="error" type="redirect-action">sell_list</result>
+			<result name="success" type="redirect-action">sell_list</result>
 		</action>
 
 		<action name="invoice" class="InvoiceAction">
