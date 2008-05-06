@@ -27,6 +27,7 @@
 		<property name="sellService" ref="SellService" />
 		<property name="sellItemService" ref="SellItemService" />
 		<property name="wareService" ref="WareService" />
+		<property name="expressService" ref="ExpressService" />
 	</bean>
 	<bean id="SellItemAction" class="erp.action.SellItemAction"
 		scope="prototype">
@@ -36,6 +37,7 @@
 	<bean id="SellImportAction" class="erp.action.SellImportAction"
 		scope="prototype">
 		<property name="sellService" ref="SellService" />
+		<property name="expressService" ref="ExpressService" />
 	</bean>
 	<bean id="InvoiceAction" class="erp.action.InvoiceAction"
 		scope="prototype">

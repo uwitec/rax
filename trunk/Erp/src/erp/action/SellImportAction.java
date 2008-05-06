@@ -1,10 +1,13 @@
 package erp.action;
 
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import erp.model.Sell;
+import erp.service.ExpressService;
 import erp.service.SellService;
 
 public class SellImportAction extends ActionSupport {
@@ -14,15 +17,29 @@ public class SellImportAction extends ActionSupport {
             .getLogger(SellImportAction.class);
 
     private SellService sellService = null;
-
+    private ExpressService expressService = null;
+    
     private int sellId;
     private String content;
+    private String wangwang;
+    private String fee;
+    private String feeReal;
+    private int expressId;
+    private String comment;
+    private String sender;
 
+    Map<Integer, String> expressSel;
+    
     @Override
     public String execute() throws Exception {
-        if (content == null || content.isEmpty())
-            return INPUT;
-
+        if (content == null || content.isEmpty()) {
+            fee = "5";
+            feeReal = "4";
+            expressId = 0;
+            expressSel = expressService.getExpressSel();
+            return INPUT;            
+        }
+        
         try {
             Sell obj;
             if (sellId > 0)
@@ -41,6 +58,14 @@ public class SellImportAction extends ActionSupport {
                 obj.setCustomerAddress(info[2].trim());
                 obj.setCustomerPostCode(info[3].trim());
             }
+            obj.setCustomerWangwang(wangwang);
+            obj.setExpressId(expressId);
+            obj.setComment(comment);
+            obj.setSender(sender);
+            if (fee.isEmpty() == false)
+                obj.setFee(Double.parseDouble(fee));
+            if (feeReal.isEmpty() == false)
+                obj.setFeeReal(Double.parseDouble(feeReal));
 
             logger.info("Name:" + obj.getCustomerName());
             logger.info("Phone1:" + obj.getCustomerPhone1());
@@ -84,4 +109,63 @@ public class SellImportAction extends ActionSupport {
         this.content = content;
     }
 
+    public String getFee() {
+        return fee;
+    }
+
+    public void setFee(String fee) {
+        this.fee = fee;
+    }
+
+    public String getFeeReal() {
+        return feeReal;
+    }
+
+    public void setFeeReal(String feeReal) {
+        this.feeReal = feeReal;
+    }
+
+    public int getExpressId() {
+        return expressId;
+    }
+
+    public void setExpressId(int expressId) {
+        this.expressId = expressId;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+    
+    public Map<Integer, String> getExpressSel() {
+        return expressSel;
+    }
+
+    public ExpressService getExpressService() {
+        return expressService;
+    }
+
+    public void setExpressService(ExpressService expressService) {
+        this.expressService = expressService;
+    }
+
+    public String getWangwang() {
+        return wangwang;
+    }
+
+    public void setWangwang(String wangwang) {
+        this.wangwang = wangwang;
+    }
 }

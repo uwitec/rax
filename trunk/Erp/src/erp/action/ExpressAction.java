@@ -42,7 +42,7 @@ public class ExpressAction implements Action {
 
     public InputStream getInputStream() throws Exception {
         ExpressPos pos;
-        ExpressTemplate tpl = ExpressService.getExpress(sell.getExpressId());
+        ExpressTemplate tpl = expressService.getExpress(sell.getExpressId());
         BaseFont bfChinese = BaseFont.createFont("STSong-Light",
                 "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
         BaseFont bfEnglish = BaseFont.createFont(BaseFont.HELVETICA,

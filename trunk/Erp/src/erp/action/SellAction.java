@@ -1,7 +1,6 @@
 package erp.action;
 
 import java.text.DecimalFormat;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +10,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import erp.model.Sell;
 import erp.model.SellItem;
+import erp.service.ExpressService;
 import erp.service.SellItemService;
 import erp.service.SellService;
 import erp.service.WareService;
@@ -23,6 +23,7 @@ public class SellAction extends ActionSupport {
     private SellService sellService = null;
     private SellItemService sellItemService = null;
     private WareService wareService = null;
+    private ExpressService expressService = null;
 
     private int id;
     private String customerName;
@@ -52,15 +53,7 @@ public class SellAction extends ActionSupport {
     }
 
     public String get() throws Exception {
-        expressSel = new HashMap<Integer, String>();
-        expressSel.put(0, "韵达");
-        expressSel.put(1, "申通");
-        expressSel.put(2, "圆通");
-        expressSel.put(3, "中通");
-        expressSel.put(4, "天天");
-        expressSel.put(5, "顺丰");
-        expressSel.put(6, "其他");
-        expressSel.put(99, "无");
+        expressSel = expressService.getExpressSel();
         try {
             DecimalFormat f = new DecimalFormat("###0.00");
             Sell s = sellService.getSellById(id);
@@ -290,6 +283,14 @@ public class SellAction extends ActionSupport {
 
     public void setSellItemList(List<SellItem> sellItemList) {
         this.sellItemList = sellItemList;
+    }
+
+    public ExpressService getExpressService() {
+        return expressService;
+    }
+
+    public void setExpressService(ExpressService expressService) {
+        this.expressService = expressService;
     }
 
 }
