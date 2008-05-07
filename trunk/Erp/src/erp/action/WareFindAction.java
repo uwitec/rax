@@ -21,7 +21,6 @@ public class WareFindAction extends ActionSupport {
     
     @Override
     public String execute() throws Exception {
-        logger.info("finded.");
         if ((barcode != null) && (barcode.isEmpty() == false)) {
             logger.info("findByBarcode:" + barcode);
             wareList = wareService.findByBarcode(barcode);

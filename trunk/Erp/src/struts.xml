@@ -5,12 +5,8 @@
 
 <struts>
 
-	<constant name="struts.enable.DynamicMethodInvocation"
-		value="false" />
 	<constant name="struts.devMode" value="true" />
-	<!-- 
-		<constant name="struts.objectFactory" value="spring" />
-	-->
+	<constant name="struts.url.includeParam" value="none" />
 
 	<package name="default" extends="struts-default">
 
@@ -84,8 +80,12 @@
 
 		<action name="sell_import" class="SellImportAction">
 			<result name="input">/sell/import.ftl</result>
-			<result name="error" type="redirect-action">sell_list</result>
-			<result name="success" type="redirect-action">sell_list</result>
+			<result name="error" type="redirect-action">
+				sell_list
+			</result>
+			<result name="success" type="redirect-action">
+				sell_list
+			</result>
 		</action>
 
 		<action name="invoice" class="InvoiceAction">
@@ -94,7 +94,7 @@
 				sell_list
 			</result>
 		</action>
-		
+
 		<action name="express" class="ExpressAction">
 			<result name="input">/sell/express.ftl</result>
 			<result name="success" type="stream">
@@ -107,18 +107,11 @@
 				<param name="bufferSize">4096</param>
 			</result>
 		</action>
-		
 	</package>
 
 	<package name="json" extends="json-default">
 		<action name="ware_find" class="WareFindAction">
 			<result type="json" />
-		</action>
-		<action name="ware_auto_complete"
-			class="WareAutoCompleteAction">
-			<result type="json">
-				<param name="root">options</param>
-			</result>
 		</action>
 	</package>
 

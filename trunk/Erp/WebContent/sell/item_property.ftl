@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>查看/编辑</title>
-<script language="javascript" type="text/javascript" src="js/dojo/dojo.js" djConfig="isDebug:true,usePlainJson:true,bindEncoding:'UTF-8'"></script> 
+<script language="javascript" type="text/javascript" src="js/dojo/dojo.js" djConfig="isDebug:false,usePlainJson:true,bindEncoding:'UTF-8'"></script> 
 <script language="javascript" type="text/javascript">
 
 var wareList;
@@ -125,7 +125,7 @@ dojo.addOnLoad(function (){
 </div>
 
 <div>
-<@s.textfield label="搜索" name="search"/> <a href="ware.action">添加新的宝贝</a><br />
+<@s.textfield label="搜索" name="search"/> <a href="ware.action" target="_blank">添加新的宝贝</a><br />
 <@s.select name="search_result" size="16"/>
 </div>
 

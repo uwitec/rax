@@ -6,8 +6,10 @@
 </head>
 
 <body>
-<@s.url id="url" action="ware_list" includeParams="none"/>
-<a href="${url}">返回</a><br /><br />
+<@s.url id="urlReturn" action="ware_list">
+	<@s.param name="page" value="page" />
+</@s.url>
+<a href="${urlReturn}">返回</a><br /><br />
 
 <div>
 <@s.form action="ware_save">
@@ -22,7 +24,11 @@
 </@s.form>
 </div>
 
-<a href="ware_delete.action?id=${id}" onclick="return confirm('确实要删除这个宝贝么？')">删除</a>
+<@s.url id="urlDelete" action="ware_delete">
+	<@s.param name="id" value="id"/>
+	<@s.param name="page" value="page"/>
+</@s.url>
+<a href="${urlDelete}" onclick="return confirm('确实要删除这个宝贝么？')">删除</a>
 
 </body>
 </html>

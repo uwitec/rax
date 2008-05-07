@@ -6,12 +6,10 @@
 </head>
 
 <body>
-<@s.url id="urlReturn" value="index.htm"/>
-<@s.url id="urlAdd" action="ware" includeParams="none" />
-<@s.url id="urlAdd2" action="ware">
-	<@s.param name="id" value="0" />
+<@s.url id="urlAdd" action="ware">
+	<@s.param name="page" value="page" />
 </@s.url>
-<a href="${urlReturn}">返回</a> <a href="${urlAdd}">添加新的宝贝</a><br /><br />
+<a href="index.htm">返回</a> <a href="${urlAdd}">添加新的宝贝</a><br /><br />
 <div>总数:${count}</div><br />
 
 <#assign pages=(count + pagePer - 1) / pagePer>
@@ -26,7 +24,11 @@
 <#if wareList??>
 <#list wareList as ware>
 <div>
-<a href="ware.action?id=${ware.id}">${ware.id}:${ware.name}</a> 
+<@s.url id="url" action="ware">
+	<@s.param name="id" value="#{ware.id}"/>
+	<@s.param name="page" value="page"/>
+</@s.url>
+<a href="${url}">${ware.id}:${ware.name}</a> 
 </div>
 </#list>
 </#if>
