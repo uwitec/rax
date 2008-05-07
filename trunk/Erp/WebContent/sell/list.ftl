@@ -6,9 +6,10 @@
 </head>
 
 <body>
-<@s.url id="urlReturn" value="index.htm"/>
-<@s.url id="urlAdd" action="sell" includeParams="none" />
-<a href="${urlReturn}">返回</a> <a href="${urlAdd}">添加新出库单</a>
+<@s.url id="urlAdd" action="sell">
+	<@s.param name="page" value="page"/>
+</@s.url>
+<a href="index.htm">返回</a> <a href="${urlAdd}">添加新出库单</a>
 <a href="sell_import.action">从淘宝地址导入出库单</a><br /><br />
 <div>总数:${count}</div><br />
 

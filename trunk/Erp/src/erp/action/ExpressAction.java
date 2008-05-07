@@ -3,6 +3,8 @@ package erp.action;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,93 +43,115 @@ public class ExpressAction implements Action {
     Map dateSel;
 
     public InputStream getInputStream() throws Exception {
-        ExpressPos pos;
-        ExpressTemplate tpl = expressService.getExpress(sell.getExpressId());
-        BaseFont bfChinese = BaseFont.createFont("STSong-Light",
-                "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
-        BaseFont bfEnglish = BaseFont.createFont(BaseFont.HELVETICA,
-                BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-        Font cf = new Font(bfChinese, 12, Font.NORMAL);
-
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
-        Document doc = new Document();
-        doc.setPageSize(tpl.getSize().toRectangle());
+        try {
+            ExpressPos pos;
+            ExpressTemplate tpl = expressService
+                    .getExpress(sell.getExpressId());
+            BaseFont bfChinese = BaseFont.createFont("STSong-Light",
+                    "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
+            BaseFont bfEnglish = BaseFont.createFont(BaseFont.HELVETICA,
+                    BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+            Font cf = new Font(bfChinese, 12, Font.NORMAL);
 
-        PdfWriter writer = PdfWriter.getInstance(doc, buf);
-        doc.open();
+            Document doc = new Document();
+            doc.setPageSize(tpl.getSize().toRectangle());
 
-        PdfContentByte cb = writer.getDirectContent();
-        cb.beginText();
+            PdfWriter writer = PdfWriter.getInstance(doc, buf);
+            doc.open();
 
-        // 英文字体
-        cb.setFontAndSize(bfEnglish, 12);
+            PdfContentByte cb = writer.getDirectContent();
+            cb.beginText();
 
-        // 发件日期
-        pos = tpl.getDate();
-        cb.setTextMatrix(pos.X, pos.Y);
-        cb.showText(date);
+            // 英文字体
+            cb.setFontAndSize(bfEnglish, 12);
 
-        // 发件人电话
-        pos = tpl.getSrcPhone();
-        cb.setTextMatrix(pos.X, pos.Y);
-        cb.showText(senderPhone);
+            // 发件日期
+            pos = tpl.getDate();
+            if (pos != null) {
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                Date d = df.parse(date);
+                df = new SimpleDateFormat(tpl.getDateFormat());
+                cb.setTextMatrix(pos.X, pos.Y);
+                cb.showText(df.format(d));
+            }
 
-        // 发件人邮编
-        pos = tpl.getSrcPostCode();
-        if (pos != null) {
+            // 发件人电话
+            pos = tpl.getSrcPhone();
             cb.setTextMatrix(pos.X, pos.Y);
-            cb.showText(senderPostCode);
-        }
+            cb.showText(senderPhone);
 
-        // 收件人电话1
-        pos = tpl.getDstPhone1();
-        cb.setTextMatrix(pos.X, pos.Y);
-        cb.showText(sell.getCustomerPhone1());
+            // 发件人邮编
+            pos = tpl.getSrcPostCode();
+            if (pos != null) {
+                cb.setTextMatrix(pos.X, pos.Y);
+                cb.showText(senderPostCode);
+            }
 
-        // 收件人电话2
-        pos = tpl.getDstPhone2();
-        cb.setTextMatrix(pos.X, pos.Y);
-        cb.showText(sell.getCustomerPhone2());
-
-        // 收件人邮编
-        pos = tpl.getDstPostCode();
-        if (pos != null) {
+            // 收件人电话1
+            pos = tpl.getDstPhone1();
             cb.setTextMatrix(pos.X, pos.Y);
-            cb.showText(sell.getCustomerPostCode());
+            cb.showText(sell.getCustomerPhone1());
+
+            // 收件人电话2
+            pos = tpl.getDstPhone2();
+            cb.setTextMatrix(pos.X, pos.Y);
+            cb.showText(sell.getCustomerPhone2());
+
+            // 收件人邮编
+            pos = tpl.getDstPostCode();
+            if (pos != null) {
+                cb.setTextMatrix(pos.X, pos.Y);
+                cb.showText(sell.getCustomerPostCode());
+            }
+
+            // 中文字体
+            cb.setFontAndSize(bfChinese, 12);
+
+            // 发件人姓名
+            pos = tpl.getSrcName();
+            cb.setTextMatrix(pos.X, pos.Y);
+            cb.showText(sender);
+
+            // 收件人姓名
+            pos = tpl.getDstName();
+            cb.setTextMatrix(pos.X, pos.Y);
+            cb.showText(sell.getCustomerName());
+
+            cb.endText();
+
+            // 收发件人地址
+            Phrase srcAddress = new Phrase(senderAddress, cf);
+            Phrase dstAddress = new Phrase(sell.getCustomerAddress(), cf);
+            ExpressPos posLB;
+            ExpressPos posRT;
+            
+            // 发件人地址
+            ColumnText ct = new ColumnText(cb);
+            posLB = tpl.getSrcAddressLB();
+            posRT = tpl.getSrcAddressRT();
+            logger.info("SrcAddr:" + senderAddress);
+            logger.info(posLB.X + "," + posLB.Y);
+            logger.info(posRT.X + "," + posRT.Y);
+            ct.setSimpleColumn(srcAddress, posLB.X, posLB.Y, posRT.X, posRT.Y, 15,
+                    Element.ALIGN_LEFT | Element.ALIGN_TOP);
+            ct.go();
+            ct.clearChunks();
+
+            // 收件人地址
+            posLB = tpl.getDstAddressLB();
+            posRT = tpl.getDstAddressRT();
+            logger.info("DstAddr:" + sell.getCustomerAddress());            
+            logger.info(posLB.X + "," + posLB.Y);
+            logger.info(posRT.X + "," + posRT.Y);
+            ct.setSimpleColumn(dstAddress, posLB.X, posLB.Y, posRT.X, posRT.Y, 15,
+                    Element.ALIGN_LEFT | Element.ALIGN_TOP);
+            ct.go();
+
+            doc.close();
+        } catch (Exception ex) {
+            logger.error(ex.toString());
         }
-
-        // 中文字体
-        cb.setFontAndSize(bfChinese, 12);
-
-        // 发件人姓名
-        pos = tpl.getSrcName();
-        cb.setTextMatrix(pos.X, pos.Y);
-        cb.showText(sender);
-
-        // 收件人姓名
-        pos = tpl.getDstName();
-        cb.setTextMatrix(pos.X, pos.Y);
-        cb.showText(sell.getCustomerName());
-
-        cb.endText();
-
-        // 收发件人地址
-        Phrase srcAddress = new Phrase(senderAddress, cf);
-        Phrase dstAddress = new Phrase(sell.getCustomerAddress(), cf);
-
-        // 发件人地址
-        ColumnText ct = new ColumnText(cb);
-        ct.setSimpleColumn(srcAddress, 100, 100, 200, 200, 15,
-                Element.ALIGN_LEFT | Element.ALIGN_TOP);
-        ct.go();
-        ct.clearChunks();
-
-        // 收件人地址
-        ct.setSimpleColumn(dstAddress, 200, 200, 300, 300, 15,
-                Element.ALIGN_LEFT | Element.ALIGN_TOP);
-        ct.go();
-
-        doc.close();
         return new ByteArrayInputStream(buf.toByteArray());
     }
 
@@ -148,7 +172,7 @@ public class ExpressAction implements Action {
             dateSel.put(1, "明天");
             dateSel.put(2, "后天");
             sender = "李立林";
-            senderAddress = "浙江省杭州市滨江区\n请确认商品无缺损后签收\n签收后申述缺损,恕我们无法承担责任";
+            senderAddress = "浙江省杭州市滨江区\n请确认商品无缺损后签收\n签收后申述缺损,恕我们无法负责";
             senderPhone = "0571-85790698";
             senderPostCode = "310053";
             return INPUT;

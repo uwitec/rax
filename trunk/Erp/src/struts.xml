@@ -7,6 +7,8 @@
 
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.url.includeParam" value="none" />
+	<constant name="struts.locale" value="zh_CN" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
 
 	<package name="default" extends="struts-default">
 

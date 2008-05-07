@@ -16,7 +16,8 @@ public class ExpressService {
         ret.put(3, "中通");
         ret.put(4, "天天");
         ret.put(5, "顺丰");
-        ret.put(6, "其他");
+        ret.put(6, "CCES");
+        ret.put(7, "其他");
         ret.put(99, "无");
         return ret;
     }
@@ -140,6 +141,26 @@ public class ExpressService {
             obj.setDstAddressRT(new ExpressPos(10, 10));
             obj.setDstName(new ExpressPos(581, 281));
             break;
+            
+        case 6: // CCES
+            //obj.setDateFormat("MM    dd");
+            obj.setSize(new ExpressPos(658, 360));
+            obj.setDate(null);
+            obj.setSrcPhone(new ExpressPos(142, 142));
+            obj.setSrcPostCode(null);
+            obj.setDstPhone1(new ExpressPos(374, 142));
+            obj.setDstPhone2(new ExpressPos(374, 155));
+            obj.setDstPostCode(null);
+
+            obj.setSrcAddressLB(new ExpressPos(142, 159));
+            obj.setSrcAddressRT(new ExpressPos(300, 227));
+            obj.setSrcName(new ExpressPos(255, 142));
+
+            obj.setDstAddressLB(new ExpressPos(374, 159));
+            obj.setDstAddressRT(new ExpressPos(530, 244));
+            obj.setDstName(new ExpressPos(468, 142));
+            break;
+            
         }
         return obj;
     }
