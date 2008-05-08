@@ -36,16 +36,22 @@ public class SellDaoImpl extends SqlMapClientDaoSupport implements SellDao {
     }
 
     @Override
-    public int count() throws DataAccessException {
-        return (Integer) getSqlMapClientTemplate().queryForObject("Sell.count");
+    public int count(int status) throws DataAccessException {
+        Map param = new HashMap();
+        param.put("status", status);
+        return (Integer) getSqlMapClientTemplate().queryForObject("Sell.count",
+                param);
     }
 
     @Override
-    public List<Sell> list(int index, int num) throws DataAccessException {
+    public List<Sell> list(int index, int num, int status)
+            throws DataAccessException {
         Map param = new HashMap();
         param.put("index", index);
         param.put("number", num);
+        if (status >= 0) {
+            param.put("status", status);
+        }
         return getSqlMapClientTemplate().queryForList("Sell.list", param);
     }
-
 }

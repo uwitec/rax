@@ -9,7 +9,11 @@
 <@s.url id="urlAdd" action="sell">
 	<@s.param name="page" value="page"/>
 </@s.url>
-<a href="index.htm">返回</a> <a href="${urlAdd}">添加新出库单</a>
+<a href="index.htm">返回</a>
+<a href="sell_list.action?page=${page}">列未处理</a>
+<a href="sell_listAll.action?page=${page}">列出所有</a>
+<br /><br />
+<a href="${urlAdd}">添加新出库单</a>
 <a href="sell_import.action">从淘宝地址导入出库单</a><br /><br />
 <div>总数:${count}</div><br />
 
@@ -18,7 +22,11 @@
 <#if i == page>
 [${i}] 
 <#else>
-<a href="sell_list.action?page=${i}">[${i}]</a>  
+<@s.url id="urlPage" action="sell_list">
+	<@s.param name="page" value="#{i}"/>
+	<@s.param name="status" value="status"/>
+</@s.url>
+<a href="${urlPage}">[${i}]</a>  
 </#if>
 </#list><br /><br />
 
@@ -27,12 +35,15 @@
 <div>
 旺旺:${sell.customerWangwang}<br />
 姓名:${sell.customerName}<br />
+日期:${sell.createDate?string("yyyy-MM-dd")}<br />
 地址:${sell.customerAddress}<br />
-<!-- 日期:${sell.createDate?string("yyyy-MM-dd")}<br /> //-->
 <a href="sell.action?id=${sell.id}">查看/编辑</a>
 <a href="sell_item.action?sellId=${sell.id}">添加购买的宝贝</a>
 <a href="express.action?sellId=${sell.id}" target="_balnk">打印快递单</a>
 <a href="invoice.action?sellId=${sell.id}" target="_balnk">打印发货单</a>
+<#if sell.status = 0>
+<a href="sell_status.action?id=${sell.id}&status=1">设为已处理</a>
+</#if>
 </div>
 <br />
 </#list>

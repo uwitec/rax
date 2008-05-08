@@ -17,6 +17,7 @@ public class Sell {
     private int expressId;
     private String comment;
     private String sender;
+    private int status;
 
     public Sell() {
         customerName = "";
@@ -31,6 +32,7 @@ public class Sell {
         expressId = 0;
         comment = "";
         sender = "";
+        status = 0;
     }
 
     public String getCustomerName() {
@@ -135,6 +137,14 @@ public class Sell {
 
     public void setSender(String sender) {
         this.sender = sender;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
 }

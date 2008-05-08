@@ -37,7 +37,8 @@ public class SellAction extends ActionSupport {
     private int expressId;
     private String comment;
     private String sender;
-
+    private int status = 0;
+    
     Map<Integer, String> expressSel;
     
     private List<Sell> sellList;
@@ -47,8 +48,8 @@ public class SellAction extends ActionSupport {
     private int count;
 
     public String list() throws Exception {
-        count = sellService.getCount();
-        sellList = sellService.list((page - 1) * pagePer, pagePer);
+        count = sellService.getCount(status);
+        sellList = sellService.list((page - 1) * pagePer, pagePer, status);
         return SUCCESS;
     }
 
@@ -114,6 +115,20 @@ public class SellAction extends ActionSupport {
                 sellService.updateSell(obj);
             } else
                 sellService.createSell(obj);
+        } catch (Exception ex) {
+            logger.error(ex.toString());
+            return ERROR;
+        }
+        return SUCCESS;
+    }
+    
+    public String status() throws Exception {
+        try {
+            if (id > 0) {
+                Sell obj = sellService.getSellById(id);
+                obj.setStatus(status);
+                sellService.updateSell(obj);
+            }
         } catch (Exception ex) {
             logger.error(ex.toString());
             return ERROR;
@@ -291,6 +306,14 @@ public class SellAction extends ActionSupport {
 
     public void setExpressService(ExpressService expressService) {
         this.expressService = expressService;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
 }

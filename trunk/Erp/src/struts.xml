@@ -43,6 +43,10 @@
 		<action name="sell_list" class="SellAction" method="list">
 			<result name="success">/sell/list.ftl</result>
 		</action>
+		<action name="sell_listAll" class="SellAction" method="list">
+			<param name="status">-1</param>
+			<result name="success">/sell/list.ftl</result>
+		</action>
 		<action name="sell" class="SellAction" method="get">
 			<result name="success">/sell/property.ftl</result>
 		</action>
@@ -51,6 +55,14 @@
 			<result name="error" type="redirect-action">sell</result>
 			<result name="success" type="redirect-action">
 				sell_list
+			</result>
+		</action>
+		<action name="sell_status" class="SellAction" method="status">
+			<result name="error" type="redirect-action">sell</result>
+			<result name="success" type="redirect-action">
+				<param name="actionName">sell_list</param>
+				<param name="page">${page}</param>
+				<param name="status">${status}</param>				
 			</result>
 		</action>
 		<action name="sell_delete" class="SellAction" method="delete">

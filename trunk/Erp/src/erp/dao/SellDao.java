@@ -16,8 +16,9 @@ public interface SellDao {
 
     public int delete(Sell persistentObject) throws DataAccessException;
 
-    public int count() throws DataAccessException;
+    public int count(int status) throws DataAccessException;
 
-    public List<Sell> list(int index, int num) throws DataAccessException;
+    public List<Sell> list(int index, int num, int status)
+            throws DataAccessException;
 
 }

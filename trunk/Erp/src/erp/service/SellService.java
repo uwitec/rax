@@ -35,12 +35,12 @@ public class SellService {
         return true;
     }
 
-    public int getCount() {
-        return sellDao.count();
+    public int getCount(int status) {
+        return sellDao.count(status);
     }
 
-    public List<Sell> list(int index, int num) {
-        return sellDao.list(index, num);
+    public List<Sell> list(int index, int num, int status) {
+        return sellDao.list(index, num, status);
     }
     
     public void setSellDao(SellDao dao) {

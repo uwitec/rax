@@ -10,8 +10,8 @@
 
 	<insert id="create" parameterClass="Sell">
 		<![CDATA[
-		INSERT INTO erp.sell (customer_name,customer_address,customer_phone1,customer_phone2,customer_postcode,customer_wangwang,fee,fee_real,create_date,express_id,comment,sender) 
-		VALUES (#customerName#, #customerAddress#, #customerPhone1#, #customerPhone2#, #customerPostCode#, #customerWangwang#, #fee#, #feeReal#, #createDate#, #expressId#,#comment#,#sender#)
+		INSERT INTO erp.sell (customer_name,customer_address,customer_phone1,customer_phone2,customer_postcode,customer_wangwang,fee,fee_real,create_date,express_id,comment,sender,status) 
+		VALUES (#customerName#, #customerAddress#, #customerPhone1#, #customerPhone2#, #customerPostCode#, #customerWangwang#, #fee#, #feeReal#, #createDate#, #expressId#,#comment#,#sender#,#status#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
@@ -20,14 +20,13 @@
 		</selectKey>
 	</insert>
 
-	<select id="read" parameterClass="int"
-		resultClass="Sell">
+	<select id="read" parameterClass="int" resultClass="Sell">
 		<![CDATA[
 		SELECT id,customer_name AS customerName,customer_address AS customerAddress,
 		customer_phone1 AS customerPhone1,customer_phone2 AS customerPhone2,
 		customer_postcode AS customerPostCode,customer_wangwang AS customerWangwang,
 		fee, fee_real AS feeReal,create_date AS createDate,
-		express_id AS expressId,comment,sender
+		express_id AS expressId,comment,sender,status
 		FROM erp.sell
 		WHERE id=#id#
 		]]>
@@ -39,7 +38,7 @@
 		customer_phone1=#customerPhone1#,customer_phone2=#customerPhone2#,
 		customer_postcode=#customerPostCode#,customer_wangwang=#customerWangwang#,
 		fee=#fee#,fee_real=#feeReal#,create_date=#createDate#,
-		express_id=#expressId#,comment=#comment#,sender=#sender#
+		express_id=#expressId#,comment=#comment#,sender=#sender#,status=#status#
 		WHERE id=#id#
 		]]>
 	</update>
@@ -50,21 +49,32 @@
 		]]>
 	</delete>
 
-	<select id="count" resultClass="int">
+	<select id="count" parameterClass="map" resultClass="int">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM erp.sell
 		]]>
+		<dynamic>
+			<isGreaterThan prepend="WHERE" property="status" compareValue="-1">
+				status=#status#
+			</isGreaterThan>
+		</dynamic>
 	</select>
 
-	<select id="list" parameterClass="map"
-		resultClass="Sell">
+	<select id="list" parameterClass="map" resultClass="Sell">
 		<![CDATA[
 		SELECT id,customer_name AS customerName,customer_address AS customerAddress,
 		customer_phone1 AS customerPhone1,customer_phone2 AS customerPhone2,
 		customer_postcode AS customerPostCode,customer_wangwang AS customerWangwang,
 		fee, fee_real AS feeReal,create_date AS createDate,
-		express_id AS expressId,comment,sender
+		express_id AS expressId,comment,sender,status
 		FROM erp.sell
+		]]>
+		<dynamic>
+			<isNotEmpty prepend="WHERE" property="status">
+				status=#status#
+			</isNotEmpty>
+		</dynamic>
+		<![CDATA[
 		ORDER BY id DESC
 		LIMIT #number# OFFSET #index#
 		]]>
