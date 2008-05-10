@@ -26,10 +26,6 @@ window.onload = function() {
 </head>
 
 <body>
-<@s.url id="url" action="sell_list" includeParams="none"/>
-<a href="${url}">返回</a> 
-<br />
-
 <div>
 <@s.form action="express">
     <@s.textfield label="姓名" name="sell.customerName"/>

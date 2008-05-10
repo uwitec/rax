@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>查看/编辑</title>
-<script language="javascript" type="text/javascript" src="js/dojo/dojo.js" djConfig="isDebug:false,usePlainJson:true,bindEncoding:'UTF-8'"></script> 
+<script language="javascript" type="text/javascript" src="js/dojo/dojo.js" djConfig="isDebug:false,usePlainJson:true,bindEncoding:'UTF-8'"></script>
 <script language="javascript" type="text/javascript">
 
 var wareList;
@@ -13,7 +13,7 @@ function addOption(objSelect, text, value) {
   var obj			= objSelect.appendChild(objOption);
   objOption.text	= text;
   objOption.value	= value;
-  console.debug("AddOption:" + objOption.text + "," + objOption.value);  
+  console.debug("AddOption:" + objOption.text + "," + objOption.value);
 }
 
 function delOption(objSelect, idx) {
@@ -49,7 +49,7 @@ function doSearch(keyword) {
           delOption(obj, idx);
         }
       }
-      
+
       var ware = null;
       for (var i = 0; i < json.wareList.length; i++) {
         ware = json.wareList[i];
@@ -60,7 +60,7 @@ function doSearch(keyword) {
       }
       wareList = json.wareList;
     } catch(e) { console.debug(e.toString()); } },
-    error: function(response) { alert("Error"); }  
+    error: function(response) { alert("Error"); }
   });
 }
 
@@ -76,13 +76,13 @@ function onSelect(event) {
   if (this.selectedIndex < 0) return;
   var obj = this.options[this.selectedIndex];
   console.debug(obj.text + ":" + obj.value);
-  
+
   var objId		= dojo.byId("sell_item_save_wareId");
   var objPrice	= dojo.byId("sell_item_save_price");
   var objNum	= dojo.byId("sell_item_save_number");
   var ware;
   for (var i = 0; i < wareList.length; i++) {
-    ware = wareList[i]; 
+    ware = wareList[i];
   	if (obj.value == ware.id) {
   	  objId.value		= ware.id;
   	  objPrice.value	= ware.price;
@@ -109,7 +109,9 @@ dojo.addOnLoad(function (){
 </head>
 
 <body>
-<@s.url id="url" action="sell_list" includeParams="none"/>
+<@s.url id="url" action="sell">
+	<@s.param name="id" value="sellId"/>
+</@s.url>
 <a href="${url}">返回</a><br /><br />
 
 <div>

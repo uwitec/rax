@@ -40,13 +40,13 @@ window.onload = function() {
 </head>
 
 <body>
-<@s.url id="url" action="sell_list" includeParams="none"/>
-<a href="${url}">返回</a> 
+<@s.url id="url" action="sell_list"/>
+<a href="${url}">返回</a>
 <br />
 
 <div>
 <@s.form action="sell_import">
-    <@s.textarea label="地址" name="content" cols="80" rows="8"/>
+    <@s.textarea label="地址" name="content" cols="80" rows="2"/>
     <@s.textfield label="旺旺" name="wangwang"/>
     <@s.textfield label="收取运费" name="fee" onkeyup="javascript:onFeeChange(this.value)"/>
     <@s.radio name="feeSel" list="{0, 5, 10, 12, 15, 20, 25}" onclick="javascript:setFee(this.value)"/>
