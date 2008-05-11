@@ -46,7 +46,7 @@ window.onload = function() {
 
 <div>
 <@s.form action="sell_import">
-    <@s.textarea label="地址" name="content" cols="80" rows="2"/>
+    <@s.textarea label="地址" name="content" cols="80" rows="3"/>
     <@s.textfield label="旺旺" name="wangwang"/>
     <@s.textfield label="收取运费" name="fee" onkeyup="javascript:onFeeChange(this.value)"/>
     <@s.radio name="feeSel" list="{0, 5, 10, 12, 15, 20, 25}" onclick="javascript:setFee(this.value)"/>

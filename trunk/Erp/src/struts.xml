@@ -91,7 +91,8 @@
 		<action name="sell_item_delete" class="SellItemAction"
 			method="delete">
 			<result name="success" type="redirect-action">
-				sell_list
+				<param name="actionName">sell</param>
+				<param name="id">${sellId}</param>
 			</result>
 		</action>
 

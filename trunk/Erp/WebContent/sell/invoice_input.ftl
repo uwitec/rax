@@ -8,7 +8,7 @@
 <body>
 <div>
 <@s.form action="invoice">
-    <@s.textarea label="备注" name="sell.commentInvoice" cols="80" rows="2"/>
+    <@s.textarea label="备注" name="sell.commentInvoice" cols="80" rows="3"/>
     <@s.textfield label="发件人" name="sell.sender"/>
     <@s.hidden name="sellId"/>
     <@s.submit value=" 提 交 "/>

@@ -51,7 +51,7 @@ window.onload = function() {
 <@s.form action="sell_save">
     <@s.textfield label="旺旺" name="customerWangwang"/>
     <@s.textfield label="姓名" name="customerName"/>
-    <@s.textarea label="地址" name="customerAddress" cols="80" rows="2"/>
+    <@s.textarea label="地址" name="customerAddress" cols="80" rows="3"/>
     <@s.textfield label="电话1" name="customerPhone1"/>
     <@s.textfield label="电话2" name="customerPhone2"/>
     <@s.textfield label="邮编" name="customerPostCode"/>
@@ -79,7 +79,7 @@ window.onload = function() {
 价格:${item.price}
 数量:${(item.number)}
 <a href="sell_item.action?id=${item.id}">查看/编辑</a>
-<a href="sell_item_delete.action?id=${item.id}" onclick="return confirm('确实要删除这项么？')">删除</a>
+<a href="sell_item_delete.action?id=${item.id}&sellId=${id}" onclick="return confirm('确实要删除这项么？')">删除</a>
 名称:${item.ware.name}
 </div>
 </#list>
