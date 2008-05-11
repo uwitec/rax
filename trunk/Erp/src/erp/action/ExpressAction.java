@@ -34,7 +34,6 @@ public class ExpressAction implements Action {
     private ExpressService expressService = null;
     private Sell sell;
     private int sellId;
-    private String comment;
     private String date;
     private String sender;
     private String senderPhone;
@@ -106,14 +105,15 @@ public class ExpressAction implements Action {
             }
 
             // 中文字体
-            cb.setFontAndSize(bfChinese, 12);
 
             // 发件人姓名
+            cb.setFontAndSize(bfChinese, 12);
             pos = tpl.getSrcName();
             cb.setTextMatrix(pos.X, pos.Y);
             cb.showText(sender);
 
             // 收件人姓名
+            cb.setFontAndSize(bfChinese, 13);
             pos = tpl.getDstName();
             cb.setTextMatrix(pos.X, pos.Y);
             cb.showText(sell.getCustomerName());
@@ -121,11 +121,17 @@ public class ExpressAction implements Action {
             cb.endText();
 
             // 收发件人地址
+            StringBuffer recvAddress = new StringBuffer();
+            recvAddress.append(sell.getCustomerAddress());
+            if (false == sell.getCommentExpress().isEmpty()) {
+                recvAddress.append("\n");
+                recvAddress.append(sell.getCommentExpress());
+            }
             Phrase srcAddress = new Phrase(senderAddress, cf);
-            Phrase dstAddress = new Phrase(sell.getCustomerAddress(), cf);
+            Phrase dstAddress = new Phrase(recvAddress.toString(), cf);
             ExpressPos posLB;
             ExpressPos posRT;
-            
+
             // 发件人地址
             ColumnText ct = new ColumnText(cb);
             posLB = tpl.getSrcAddressLB();
@@ -133,19 +139,19 @@ public class ExpressAction implements Action {
             logger.info("SrcAddr:" + senderAddress);
             logger.info(posLB.X + "," + posLB.Y);
             logger.info(posRT.X + "," + posRT.Y);
-            ct.setSimpleColumn(srcAddress, posLB.X, posLB.Y, posRT.X, posRT.Y, 15,
-                    Element.ALIGN_LEFT | Element.ALIGN_TOP);
+            ct.setSimpleColumn(srcAddress, posLB.X, posLB.Y, posRT.X, posRT.Y,
+                    15, Element.ALIGN_LEFT | Element.ALIGN_TOP);
             ct.go();
-            ct.clearChunks();
 
             // 收件人地址
+            ct = new ColumnText(cb);
             posLB = tpl.getDstAddressLB();
             posRT = tpl.getDstAddressRT();
-            logger.info("DstAddr:" + sell.getCustomerAddress());            
+            logger.info("DstAddr:" + recvAddress.toString());
             logger.info(posLB.X + "," + posLB.Y);
             logger.info(posRT.X + "," + posRT.Y);
-            ct.setSimpleColumn(dstAddress, posLB.X, posLB.Y, posRT.X, posRT.Y, 15,
-                    Element.ALIGN_LEFT | Element.ALIGN_TOP);
+            ct.setSimpleColumn(dstAddress, posLB.X, posLB.Y, posRT.X, posRT.Y,
+                    15, Element.ALIGN_LEFT | Element.ALIGN_TOP);
             ct.go();
 
             doc.close();
@@ -155,17 +161,8 @@ public class ExpressAction implements Action {
         return new ByteArrayInputStream(buf.toByteArray());
     }
 
-    /*
-     * private float centimetreToPoint(float length) { return (float) (length /
-     * 2.54 * 72); }
-     * 
-     * private float millimeterToPoint(float length) { return
-     * centimetreToPoint(length / 10); }
-     */
-
-    @Override
-    public String execute() throws Exception {
-        if (sellId > 0 && (comment == null || date == null || sender == null)) {
+    public String input() throws Exception {
+        if (sellId > 0) {
             sell = sellService.getSellById(sellId);
             dateSel = new HashMap();
             dateSel.put(0, "今天");
@@ -175,9 +172,40 @@ public class ExpressAction implements Action {
             senderAddress = "浙江省杭州市滨江区\n请确认商品无缺损后签收\n签收后申述缺损,恕我们无法负责";
             senderPhone = "0571-85790698";
             senderPostCode = "310053";
-            return INPUT;
+            return SUCCESS;
         }
-        return SUCCESS;
+        return ERROR;
+    }
+
+    @Override
+    public String execute() throws Exception {
+        if (sellId > 0) {
+            Sell s = sellService.getSellById(sellId);
+            if (false == sell.getCommentExpress().equals(s.getCommentExpress())
+                    || false == sell.getCustomerName().equals(
+                            s.getCustomerName())
+                    || false == sell.getCustomerAddress().equals(
+                            s.getCustomerAddress())
+                    || false == sell.getCustomerPhone1().equals(
+                            s.getCustomerPhone1())
+                    || false == sell.getCustomerPhone2().equals(
+                            s.getCustomerPhone2())
+                    || false == sell.getCustomerPostCode().equals(
+                            s.getCustomerPostCode())) {
+                s.setCommentExpress(sell.getCommentExpress());
+                s.setCustomerName(sell.getCustomerName());
+                s.setCustomerAddress(sell.getCustomerAddress());
+                s.setCustomerPhone1(sell.getCustomerPhone1());
+                s.setCustomerPhone2(sell.getCustomerPhone2());
+                s.setCustomerPostCode(sell.getCustomerPostCode());
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                s.setSendDate(df.parse(date));
+                sellService.updateSell(s);
+            }
+            sell = s;
+            return SUCCESS;
+        }
+        return ERROR;
     }
 
     public static void main(String[] args) throws Exception {
@@ -207,14 +235,6 @@ public class ExpressAction implements Action {
 
     public void setSellId(int sellId) {
         this.sellId = sellId;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
     }
 
     public String getDate() {
@@ -272,4 +292,5 @@ public class ExpressAction implements Action {
     public void setExpressService(ExpressService expressService) {
         this.expressService = expressService;
     }
+
 }

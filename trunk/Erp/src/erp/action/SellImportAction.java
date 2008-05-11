@@ -25,7 +25,8 @@ public class SellImportAction extends ActionSupport {
     private String fee;
     private String feeReal;
     private int expressId;
-    private String comment;
+    private String commentExpress;
+    private String commentInvoice;
     private String sender;
 
     Map<Integer, String> expressSel;
@@ -37,7 +38,7 @@ public class SellImportAction extends ActionSupport {
             feeReal = "4";
             expressId = 0;
             expressSel = expressService.getExpressSel();
-            return INPUT;            
+            return INPUT;
         }
         
         try {
@@ -60,7 +61,8 @@ public class SellImportAction extends ActionSupport {
             }
             obj.setCustomerWangwang(wangwang);
             obj.setExpressId(expressId);
-            obj.setComment(comment);
+            obj.setCommentExpress(commentExpress);
+            obj.setCommentInvoice(commentInvoice);
             obj.setSender(sender);
             if (fee.isEmpty() == false)
                 obj.setFee(Double.parseDouble(fee));
@@ -133,14 +135,6 @@ public class SellImportAction extends ActionSupport {
         this.expressId = expressId;
     }
 
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
     public String getSender() {
         return sender;
     }
@@ -167,5 +161,21 @@ public class SellImportAction extends ActionSupport {
 
     public void setWangwang(String wangwang) {
         this.wangwang = wangwang;
+    }
+
+    public String getCommentExpress() {
+        return commentExpress;
+    }
+
+    public void setCommentExpress(String commentExpress) {
+        this.commentExpress = commentExpress;
+    }
+
+    public String getCommentInvoice() {
+        return commentInvoice;
+    }
+
+    public void setCommentInvoice(String commentInvoice) {
+        this.commentInvoice = commentInvoice;
     }
 }

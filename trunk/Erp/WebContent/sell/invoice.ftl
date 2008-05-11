@@ -38,7 +38,7 @@ body { font-size:16px; }
     <td height="5" colspan="5"></td>
   </tr>
   <tr>
-    <td colspan="3"><#if sell.comment?length gt 0>备注: ${sell.comment}</#if></td>
+    <td colspan="3"><#if sell.commentExpress?length gt 0>备注: ${sell.commentExpress}</#if></td>
     <td>邮费</td>
     <td>#{(sell.fee);m2M2}</td>
   </tr>

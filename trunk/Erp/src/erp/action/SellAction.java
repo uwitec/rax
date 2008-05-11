@@ -35,7 +35,8 @@ public class SellAction extends ActionSupport {
     private String fee;
     private String feeReal;
     private int expressId;
-    private String comment;
+    private String commentExpress;
+    private String commentInvoice;
     private String sender;
     private int status = 0;
     
@@ -68,7 +69,8 @@ public class SellAction extends ActionSupport {
                 fee = f.format(s.getFee());
                 feeReal = f.format(s.getFeeReal());
                 expressId = s.getExpressId();
-                comment = s.getComment();
+                commentExpress = s.getCommentExpress();
+                commentInvoice = s.getCommentInvoice();
                 sender = s.getSender();
 
                 sellItemList = sellItemService.listBySell(s);
@@ -104,7 +106,8 @@ public class SellAction extends ActionSupport {
         obj.setCustomerPostCode(customerPostCode.trim());
         obj.setCustomerWangwang(customerWangwang.trim());
         obj.setExpressId(expressId);
-        obj.setComment(comment.trim());
+        obj.setCommentExpress(commentExpress.trim());
+        obj.setCommentInvoice(commentInvoice.trim());
         obj.setSender(sender.trim());
         if (fee.isEmpty() == false)
             obj.setFee(Double.parseDouble(fee));
@@ -272,12 +275,20 @@ public class SellAction extends ActionSupport {
         return sellItemService;
     }
 
-    public String getComment() {
-        return comment;
+    public String getCommentExpress() {
+        return commentExpress;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setCommentExpress(String commentExpress) {
+        this.commentExpress = commentExpress;
+    }
+
+    public String getCommentInvoice() {
+        return commentInvoice;
+    }
+
+    public void setCommentInvoice(String commentInvoice) {
+        this.commentInvoice = commentInvoice;
     }
 
     public String getSender() {

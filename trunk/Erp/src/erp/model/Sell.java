@@ -14,8 +14,10 @@ public class Sell {
     private double fee;
     private double feeReal;
     private Date createDate;
+    private Date sendDate;
     private int expressId;
-    private String comment;
+    private String commentExpress;
+    private String commentInvoice;
     private String sender;
     private int status;
 
@@ -30,9 +32,26 @@ public class Sell {
         feeReal = 0;
         createDate = new Date();
         expressId = 0;
-        comment = "";
+        commentExpress = "";
+        commentInvoice = "";
         sender = "";
         status = 0;
+    }
+
+    public String getCommentExpress() {
+        return commentExpress;
+    }
+
+    public void setCommentExpress(String commentExpress) {
+        this.commentExpress = commentExpress;
+    }
+
+    public String getCommentInvoice() {
+        return commentInvoice;
+    }
+
+    public void setCommentInvoice(String commentInvoice) {
+        this.commentInvoice = commentInvoice;
     }
 
     public String getCustomerName() {
@@ -123,14 +142,6 @@ public class Sell {
         this.id = id;
     }
 
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
     public String getSender() {
         return sender;
     }
@@ -145,6 +156,14 @@ public class Sell {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public Date getSendDate() {
+        return sendDate;
+    }
+
+    public void setSendDate(Date sendDate) {
+        this.sendDate = sendDate;
     }
 
 }

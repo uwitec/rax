@@ -105,15 +105,30 @@
 			</result>
 		</action>
 
+		<action name="invoice_input" class="InvoiceAction" method="input">
+			<result name="success">/sell/invoice_input.ftl</result>
+			<result name="error" type="redirect-action">
+				<param name="actionName">sell</param>
+				<param name="id">${sellId}</param>
+			</result>
+		</action>
 		<action name="invoice" class="InvoiceAction">
 			<result name="success">/sell/invoice.ftl</result>
 			<result name="error" type="redirect-action">
-				sell_list
+				<param name="actionName">sell</param>
+				<param name="id">${sellId}</param>
+			</result>
+		</action>
+
+		<action name="express_input" class="ExpressAction" method="input">
+			<result name="success">/sell/express_input.ftl</result>
+			<result name="error" type="redirect-action">
+				<param name="actionName">sell</param>
+				<param name="id">${sellId}</param>
 			</result>
 		</action>
 
 		<action name="express" class="ExpressAction">
-			<result name="input">/sell/express.ftl</result>
 			<result name="success" type="stream">
 				<param name="contentType">application/pdf</param>
 				<param name="inputName">inputStream</param>
@@ -122,6 +137,10 @@
 					<!-- attachment;filename=index.htm -->
 				</param>
 				<param name="bufferSize">4096</param>
+			</result>
+			<result name="error" type="redirect-action">
+				<param name="actionName">sell</param>
+				<param name="id">${sellId}</param>
 			</result>
 		</action>
 	</package>

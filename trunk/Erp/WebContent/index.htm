@@ -1,7 +1,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Index</title>
+<title>ERP</title>
+<script language="javascript" type="text/javascript">
+function onCompute()
+{
+  var obj	= document.getElementById("length");
+  var dsp	= document.getElementById("dispLayer");
+  dsp.innerHTML = Math.round(obj.value * 2.834645669291);
+  return false;
+}
+
+function onKeyPress(evt)
+{
+  if (evt.keyCode == 13 || evt.keyCode == 0) {
+    onCompute();
+  }
+}
+
+</script>
 </head>
 
 <body>
@@ -9,5 +26,10 @@
 <a href="ware_list.action">宝贝列表</a>
 <a href="sell_list.action">发货单列表</a>
 </p>
+<p>
+<input type="text" id="length" onfocus="this.select()" onclick="this.select()" onkeyup="javascript:onKeyPress(event)" />
+<input type="button" value=" 计 算 " onclick="javascript:onCompute()" />
+</p>
+<div id="dispLayer"></div>
 </body>
 </html>

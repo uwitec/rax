@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<!DOCTYPE sqlMap      
-    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+<!DOCTYPE sqlMap
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="Sell">
@@ -10,8 +10,14 @@
 
 	<insert id="create" parameterClass="Sell">
 		<![CDATA[
-		INSERT INTO erp.sell (customer_name,customer_address,customer_phone1,customer_phone2,customer_postcode,customer_wangwang,fee,fee_real,create_date,express_id,comment,sender,status) 
-		VALUES (#customerName#, #customerAddress#, #customerPhone1#, #customerPhone2#, #customerPostCode#, #customerWangwang#, #fee#, #feeReal#, #createDate#, #expressId#,#comment#,#sender#,#status#)
+		INSERT INTO erp.sell (customer_name,customer_address,
+		customer_phone1,customer_phone2,customer_postcode,customer_wangwang,
+		fee,fee_real,create_date,send_date,express_id,
+		comment_express,comment_invoice,sender,status)
+		VALUES (#customerName#,#customerAddress#, 
+		#customerPhone1#,#customerPhone2#,#customerPostCode#,#customerWangwang#, 
+		#fee#,#feeReal#,#createDate#,#sendDate#,#expressId#,
+		#commentExpress#,#commentInvoice#,#sender#,#status#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
@@ -25,8 +31,10 @@
 		SELECT id,customer_name AS customerName,customer_address AS customerAddress,
 		customer_phone1 AS customerPhone1,customer_phone2 AS customerPhone2,
 		customer_postcode AS customerPostCode,customer_wangwang AS customerWangwang,
-		fee, fee_real AS feeReal,create_date AS createDate,
-		express_id AS expressId,comment,sender,status
+		fee, fee_real AS feeReal,create_date AS createDate,send_date AS sendDate,
+		express_id AS expressId,
+		comment_express AS commentExpress,comment_invoice AS commentInvoice,
+		sender,status
 		FROM erp.sell
 		WHERE id=#id#
 		]]>
@@ -37,8 +45,9 @@
 		UPDATE erp.sell SET customer_name=#customerName#,customer_address=#customerAddress#,
 		customer_phone1=#customerPhone1#,customer_phone2=#customerPhone2#,
 		customer_postcode=#customerPostCode#,customer_wangwang=#customerWangwang#,
-		fee=#fee#,fee_real=#feeReal#,create_date=#createDate#,
-		express_id=#expressId#,comment=#comment#,sender=#sender#,status=#status#
+		fee=#fee#,fee_real=#feeReal#,create_date=#createDate#,send_date=#sendDate#,
+		express_id=#expressId#,comment_express=#commentExpress#,comment_invoice=#commentInvoice#,
+		sender=#sender#,status=#status#
 		WHERE id=#id#
 		]]>
 	</update>
@@ -65,8 +74,10 @@
 		SELECT id,customer_name AS customerName,customer_address AS customerAddress,
 		customer_phone1 AS customerPhone1,customer_phone2 AS customerPhone2,
 		customer_postcode AS customerPostCode,customer_wangwang AS customerWangwang,
-		fee, fee_real AS feeReal,create_date AS createDate,
-		express_id AS expressId,comment,sender,status
+		fee, fee_real AS feeReal,create_date AS createDate,send_date AS sendDate,
+		express_id AS expressId,
+		comment_express AS commentExpress,comment_invoice AS commentInvoice,
+		sender,status
 		FROM erp.sell
 		]]>
 		<dynamic>
@@ -75,7 +86,7 @@
 			</isNotEmpty>
 		</dynamic>
 		<![CDATA[
-		ORDER BY id DESC
+		ORDER BY create_date DESC
 		LIMIT #number# OFFSET #index#
 		]]>
 	</select>

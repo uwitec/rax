@@ -53,7 +53,8 @@ window.onload = function() {
     <@s.textfield label="实际运费" name="feeReal" onkeyup="javascript:onFeeRealChange(this.value)"/>
     <@s.radio name="feeRealSel" list="{0, 4, 5, 8, 10, 12, 15, 20, 25}" onclick="javascript:setFeeReal(this.value)"/>
     <@s.radio label="快递" name="expressId" list="expressSel"/>
-    <@s.textfield label="备注" name="comment"/>
+    <@s.textfield label="快递单备注" name="commentExpress"/>
+    <@s.textfield label="发货单备注" name="commentInvoice"/>
     <@s.textfield label="发件人" name="sender"/>
     <@s.hidden name="sellId"/>
     <@s.submit value=" 提 交 "/>

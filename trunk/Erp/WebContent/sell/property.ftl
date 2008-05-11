@@ -42,7 +42,7 @@ window.onload = function() {
 <body>
 <@s.url id="url" action="sell_list"/>
 <a href="${url}">返回</a>
-<a href="express.action?sellId=${id}" target="_balnk">打印快递单</a>
+<a href="express_input.action?sellId=${id}" target="_balnk">打印快递单</a>
 <a href="sell_import.action?sellId=${id}">从淘宝地址导入出库单</a>
 <a href="sell_delete.action?id=${id}" onclick="return confirm('确实要删除这笔交易么？')">删除</a><br />
 <br />
@@ -60,7 +60,8 @@ window.onload = function() {
     <@s.textfield label="实际运费" name="feeReal" onkeyup="javascript:onFeeRealChange(this.value)"/>
     <@s.radio name="feeRealSel" list="{0, 4, 5, 8, 10, 12, 15, 20, 25}" onclick="javascript:setFeeReal(this.value)"/>
     <@s.radio label="快递" name="expressId" list="expressSel"/>
-    <@s.textfield label="备注" name="comment"/>
+    <@s.textfield label="快递单备注" name="commentExpress"/>
+    <@s.textfield label="发货单备注" name="commentInvoice"/>
     <@s.textfield label="发件人" name="sender"/>
     <@s.hidden name="id"/>
     <@s.submit value=" 提 交 "/>
@@ -69,7 +70,7 @@ window.onload = function() {
 </div>
 
 <a href="sell_item.action?sellId=${id}">添加新项目</a>
-<a href="invoice.action?sellId=${id}" target="_balnk">打印发货单</a><br /><br />
+<a href="invoice_input.action?sellId=${id}" target="_balnk">打印发货单</a><br /><br />
 
 <#if sellItemList??>
 <#list sellItemList as item>

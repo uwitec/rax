@@ -25,19 +25,34 @@ public class InvoiceAction extends ActionSupport {
     private List<SellItem> sellItemList;
     private int sellId;
 
+    public String input() throws Exception {
+        if (sellId > 0) {
+            sell = sellService.getSellById(sellId);
+            if (sell.getSender().isEmpty())
+                sell.setSender("冰心抹茶");
+            return SUCCESS;
+        }
+        return ERROR;
+    }
+
     @Override
     public String execute() throws Exception {
-        try {
-            sell = sellService.getSellById(sellId);
+        if (sellId > 0) {
+            Sell s = sellService.getSellById(sellId);
+            if (false == sell.getCommentInvoice().equals(s.getCommentInvoice()) 
+                    || false == sell.getSender().equals(s.getSender())) {
+                s.setSender(sell.getSender());
+                s.setCommentInvoice(sell.getCommentInvoice());
+                sellService.updateSell(s);
+            }
+            sell = s;
             sellItemList = sellItemService.listBySell(sell);
             for (SellItem item : sellItemList) {
                 item.setWare(wareService.getWareById(item.getWareId()));
             }
-        } catch (Exception ex) {
-            logger.error(ex.toString());
-            return ERROR;
+            return SUCCESS;
         }
-        return SUCCESS;
+        return ERROR;
     }
 
     public int getSellId() {
