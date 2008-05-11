@@ -9,7 +9,7 @@ import erp.model.ExpressTemplate;
 public class ExpressService {
 
     public Map<Integer, String> getExpressSel() {
-        Map<Integer, String> ret = new HashMap<Integer, String>();
+        Map<Integer, String> ret = new HashMap<Integer, String>(16);
         ret.put(0, "韵达");
         ret.put(1, "申通");
         ret.put(2, "圆通");
@@ -18,7 +18,7 @@ public class ExpressService {
         ret.put(5, "顺丰");
         ret.put(6, "CCES");
         ret.put(7, "其他");
-        ret.put(99, "无");
+        ret.put(-1, "无");
         return ret;
     }
 
@@ -31,20 +31,20 @@ public class ExpressService {
         case 0: // 韵达
             obj.setDateFormat("yy   MM   dd");
             obj.setSize(new ExpressPos(658, 360));
-            obj.setDate(new ExpressPos(133, 264));
-            obj.setSrcPhone(new ExpressPos(113, 156));
-            obj.setSrcPostCode(new ExpressPos(283, 156));
-            obj.setDstPhone1(new ExpressPos(383, 156));
-            obj.setDstPhone2(new ExpressPos(383, 167));
-            obj.setDstPostCode(new ExpressPos(539, 156));
+            obj.setDate(new ExpressPos(99, 266));           // x:35 y:94
+            obj.setSrcPhone(new ExpressPos(85, 159));       // x:30 y:56
+            obj.setSrcPostCode(new ExpressPos(241, 159));   // x:85 y:56
+            obj.setDstPhone1(new ExpressPos(354, 159));     // x:125 y:56
+            obj.setDstPhone2(new ExpressPos(354, 172));     // x:125 y:+13point
+            obj.setDstPostCode(new ExpressPos(496, 159));   // x:175 y:56
 
-            obj.setSrcAddressLB(new ExpressPos(10, 10));
-            obj.setSrcAddressRT(new ExpressPos(10, 10));
-            obj.setSrcName(new ExpressPos(255, 241));
+            obj.setSrcAddressLB(new ExpressPos(57, 170));   // x:20 y:60
+            obj.setSrcAddressRT(new ExpressPos(306, 241));  // x:108 y:85
+            obj.setSrcName(new ExpressPos(241, 244));       // x:85 y:86
 
-            obj.setDstAddressLB(new ExpressPos(10, 10));
-            obj.setDstAddressRT(new ExpressPos(10, 10));
-            obj.setDstName(new ExpressPos(493, 241));
+            obj.setDstAddressLB(new ExpressPos(320, 170));  // x:113 y:60
+            obj.setDstAddressRT(new ExpressPos(578, 241));  // x:204 y:85
+            obj.setDstName(new ExpressPos(510, 244));       // x:180 y:86
             break;
 
         case 1: // 申通
@@ -69,20 +69,20 @@ public class ExpressService {
         case 2: // 圆通
             obj.setDateFormat("yy   MM   dd");
             obj.setSize(new ExpressPos(658, 360));
-            obj.setDate(new ExpressPos(215, 65));
-            obj.setSrcPhone(new ExpressPos(102, 130));
+            obj.setDate(new ExpressPos(179, 57));           // x:63 y:20
+            obj.setSrcPhone(new ExpressPos(71, 136));       // x:25 y:48
             obj.setSrcPostCode(null);
-            obj.setDstPhone1(new ExpressPos(306, 91));
-            obj.setDstPhone2(new ExpressPos(414, 91));
+            obj.setDstPhone1(new ExpressPos(275, 94));      // x:97 y:33
+            obj.setDstPhone2(new ExpressPos(383, 94));      // x:135 y:33
             obj.setDstPostCode(null);
 
-            obj.setSrcAddressLB(new ExpressPos(10, 10));
-            obj.setSrcAddressRT(new ExpressPos(10, 10));
-            obj.setSrcName(new ExpressPos(108, 264));
+            obj.setSrcAddressLB(new ExpressPos(51, 153));   // x:18 y:54
+            obj.setSrcAddressRT(new ExpressPos(255, 221));  // x:90 y:78
+            obj.setSrcName(new ExpressPos(77, 261));        // x:27 y:92
 
-            obj.setDstAddressLB(new ExpressPos(10, 10));
-            obj.setDstAddressRT(new ExpressPos(10, 10));
-            obj.setDstName(new ExpressPos(317, 230));
+            obj.setDstAddressLB(new ExpressPos(255, 111));  // x:90 y:39
+            obj.setDstAddressRT(new ExpressPos(459, 187));  // x:162 y:66
+            obj.setDstName(new ExpressPos(289, 232));       // x:102 y:82
             break;
 
         case 3: // 中通
