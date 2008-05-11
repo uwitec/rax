@@ -40,6 +40,7 @@ public class ExpressAction implements Action {
     private String senderAddress;
     private String senderPostCode;
     Map dateSel;
+    Map expressSel;
 
     public InputStream getInputStream() throws Exception {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
@@ -164,6 +165,8 @@ public class ExpressAction implements Action {
     public String input() throws Exception {
         if (sellId > 0) {
             sell = sellService.getSellById(sellId);
+            expressSel = expressService.getExpressSel();
+            logger.info("sell.expressId:" + sell.getExpressId());
             dateSel = new HashMap();
             dateSel.put(0, "今天");
             dateSel.put(1, "明天");
@@ -191,13 +194,15 @@ public class ExpressAction implements Action {
                     || false == sell.getCustomerPhone2().equals(
                             s.getCustomerPhone2())
                     || false == sell.getCustomerPostCode().equals(
-                            s.getCustomerPostCode())) {
+                            s.getCustomerPostCode())
+                    || sell.getExpressId() != s.getExpressId()) {
                 s.setCommentExpress(sell.getCommentExpress());
                 s.setCustomerName(sell.getCustomerName());
                 s.setCustomerAddress(sell.getCustomerAddress());
                 s.setCustomerPhone1(sell.getCustomerPhone1());
                 s.setCustomerPhone2(sell.getCustomerPhone2());
                 s.setCustomerPostCode(sell.getCustomerPostCode());
+                s.setExpressId(sell.getExpressId());
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 s.setSendDate(df.parse(date));
                 sellService.updateSell(s);
@@ -291,6 +296,14 @@ public class ExpressAction implements Action {
 
     public void setExpressService(ExpressService expressService) {
         this.expressService = expressService;
+    }
+
+    public Map getExpressSel() {
+        return expressSel;
+    }
+
+    public void setExpressSel(Map expressSel) {
+        this.expressSel = expressSel;
     }
 
 }

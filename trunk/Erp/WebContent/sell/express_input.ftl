@@ -36,6 +36,7 @@ window.onload = function() {
     <@s.textfield label="日期" name="date"/>
     <@s.radio name="dateSel" list="dateSel" onclick="javascript:setDate(this.value)"/>
     <@s.radio name="dateSel1" list="{'今天':0, '明天':1, '后天':2}" />
+    <@s.radio label="快递" name="sell.expressId" list="expressSel"/>
     <@s.textarea label="快递单备注" name="sell.commentExpress" cols="80" rows="3"/>
     <@s.textfield label="发件人" name="sender"/>
     <@s.textfield label="发件人电话" name="senderPhone"/>
