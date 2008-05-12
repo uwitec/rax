@@ -61,8 +61,7 @@
 			<result name="error" type="redirect-action">sell</result>
 			<result name="success" type="redirect-action">
 				<param name="actionName">sell_list</param>
-				<param name="page">${page}</param>
-				<param name="status">${status}</param>				
+				<param name="page">${page}</param>			
 			</result>
 		</action>
 		<action name="sell_delete" class="SellAction" method="delete">

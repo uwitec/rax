@@ -52,7 +52,6 @@ public class ExpressAction implements Action {
                     "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
             BaseFont bfEnglish = BaseFont.createFont(BaseFont.HELVETICA,
                     BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-            Font cf = new Font(bfChinese, 12, Font.NORMAL);
 
             Document doc = new Document();
             doc.setPageSize(tpl.getSize().toRectangle());
@@ -64,7 +63,7 @@ public class ExpressAction implements Action {
             cb.beginText();
 
             // 英文字体
-            cb.setFontAndSize(bfEnglish, 12);
+            cb.setFontAndSize(bfEnglish, 10);
 
             // 发件日期
             pos = tpl.getDate();
@@ -105,16 +104,14 @@ public class ExpressAction implements Action {
                 cb.showText(sell.getCustomerPostCode());
             }
 
-            // 中文字体
-
             // 发件人姓名
-            cb.setFontAndSize(bfChinese, 12);
+            cb.setFontAndSize(bfChinese, 11);
             pos = tpl.getSrcName();
             cb.setTextMatrix(pos.X, pos.Y);
             cb.showText(sender);
 
             // 收件人姓名
-            cb.setFontAndSize(bfChinese, 13);
+            cb.setFontAndSize(bfChinese, 12);
             pos = tpl.getDstName();
             cb.setTextMatrix(pos.X, pos.Y);
             cb.showText(sell.getCustomerName());
@@ -128,6 +125,7 @@ public class ExpressAction implements Action {
                 recvAddress.append("\n");
                 recvAddress.append(sell.getCommentExpress());
             }
+            Font cf = new Font(bfChinese, 11, Font.NORMAL);
             Phrase srcAddress = new Phrase(senderAddress, cf);
             Phrase dstAddress = new Phrase(recvAddress.toString(), cf);
             ExpressPos posLB;
