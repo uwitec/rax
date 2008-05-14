@@ -9,9 +9,9 @@
 <@s.url id="urlAdd" action="sell">
 	<@s.param name="page" value="page"/>
 </@s.url>
-<a href="index.htm">返回</a>
-<a href="sell_list.action?page=${page}">列未处理</a>
-<a href="sell_listAll.action?page=${page}">列出所有</a>
+<a href="index.htm">返回首页</a>
+<a href="sell_list.action?page=${page}">待处理发货单</a>
+<a href="sell_listAll.action?page=${page}">所有发货单</a>
 <br /><br />
 <a href="${urlAdd}">添加新出库单</a>
 <a href="sell_import.action">从淘宝地址导入出库单</a><br /><br />
@@ -35,7 +35,9 @@
 <div>
 旺旺:${sell.customerWangwang}<br />
 姓名:${sell.customerName}<br />
+<#if status = -1>
 日期:${sell.createDate?string("yyyy-MM-dd")}<br />
+</#if>
 地址:${sell.customerAddress}<br />
 <a href="sell.action?id=${sell.id}">查看/编辑</a>
 <a href="sell_item.action?sellId=${sell.id}">添加购买的宝贝</a>

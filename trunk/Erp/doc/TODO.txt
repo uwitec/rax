@@ -1,7 +1,8 @@
-��ӡ��ݵ�
-һ���ύ�����������
-ͳ����Ϣ
-����ϵͳ
-
-��ӡ֮���Զ�����Ѵ���
-�˷�ģ��
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+导入时连带运费,快递信息
+一次提交多个卖出宝贝
+统计信息
+订单系统
+表单模板
+打印之后自动设成已处理
+运费模板
