@@ -16,9 +16,11 @@ public interface WareDao {
 
     public int delete(Ware persistentObject) throws DataAccessException;
 
-    public int count() throws DataAccessException;
+    public int count(int status) throws DataAccessException;
 
-    public List<Ware> list(int index, int num) throws DataAccessException;
+    public List<Ware> list(int status, int index, int num) throws DataAccessException;
+    
+    public List<Ware> listLimited(int status) throws DataAccessException;
 
     public List<Ware> findByBarcode(String barcode) throws DataAccessException;
 

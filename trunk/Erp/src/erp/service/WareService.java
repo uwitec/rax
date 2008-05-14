@@ -39,14 +39,18 @@ public class WareService {
         return true;
     }
 
-    public int getCount() {
-        return wareDao.count();
+    public int getCount(int status) {
+        return wareDao.count(status);
     }
 
-    public List<Ware> list(int index, int num) {
-        return wareDao.list(index, num);
+    public List<Ware> list(int status, int index, int num) {
+        return wareDao.list(status, index, num);
     }
-
+    
+    public List<Ware> listLimited(int status) {
+        return wareDao.listLimited(status);
+    }
+    
     public List<Ware> listByCategory(WareCategory category) {
         return wareGroupingDao.listWareByCategoryId(category.getId());
     }

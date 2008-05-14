@@ -53,16 +53,26 @@ public class WareDaoImpl extends SqlMapClientDaoSupport implements WareDao {
     }
 
     @Override
-    public int count() throws DataAccessException {
-        return (Integer) getSqlMapClientTemplate().queryForObject("Ware.count");
+    public int count(int status) throws DataAccessException {
+        Map param = new HashMap();
+        param.put("status", status);
+        return (Integer) getSqlMapClientTemplate().queryForObject("Ware.count", param);
     }
 
     @Override
-    public List<Ware> list(int index, int num) throws DataAccessException {
+    public List<Ware> list(int status, int index, int num) throws DataAccessException {
         Map param = new HashMap();
         param.put("index", index);
         param.put("number", num);
+        param.put("status", status);
         return getSqlMapClientTemplate().queryForList("Ware.list", param);
     }
-
+    
+    @Override
+    public List<Ware> listLimited(int status) throws DataAccessException {
+        Map param = new HashMap();
+        param.put("status", status);
+        return getSqlMapClientTemplate().queryForList("Ware.listLimited", param);
+    }
+    
 }

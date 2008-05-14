@@ -10,8 +10,8 @@
 
 	<insert id="create" parameterClass="Ware">
 		<![CDATA[
-		INSERT INTO erp.ware (name,cost,price,barcode,number) 
-		VALUES (#name#, #cost#, #price#, #barcode#, #number#)
+		INSERT INTO erp.ware (name,cost,price,barcode,number,status) 
+		VALUES (#name#,#cost#,#price#,#barcode#,#number#,#status#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
@@ -22,7 +22,7 @@
 
 	<select id="read" parameterClass="int" resultClass="Ware">
 		<![CDATA[
-		SELECT id,name,cost,price,barcode,number
+		SELECT id,name,cost,price,barcode,number,status
 		FROM erp.ware
 		WHERE id=#id#
 		]]>
@@ -30,7 +30,8 @@
 
 	<update id="update" parameterClass="Ware">
 		<![CDATA[
-		UPDATE erp.ware SET name=#name#, cost=#cost#, price=#price#, barcode=#barcode#, number=#number#
+		UPDATE erp.ware SET name=#name#,cost=#cost#,price=#price#, 
+		barcode=#barcode#,number=#number#,status=#status#
 		WHERE id=#id#
 		]]>
 	</update>
@@ -41,25 +42,43 @@
 		]]>
 	</delete>
 
-	<select id="count" resultClass="int">
-		<![CDATA[
+	<select id="count" parameterClass="map" resultClass="int">
 		SELECT COUNT(*) AS NUM FROM erp.ware
-		]]>
+		<dynamic>
+			<isGreaterThan prepend="WHERE" property="status" compareValue="-1">
+				status=#status#
+			</isGreaterThan>
+		</dynamic>
 	</select>
 
 	<select id="list" parameterClass="map" resultClass="Ware">
-		<![CDATA[
-		SELECT id,name,cost,price,barcode,number
+		SELECT id,name,cost,price,barcode,number,status
 		FROM erp.ware
-		ORDER BY id
+		<dynamic>
+			<isGreaterThan prepend="WHERE" property="status" compareValue="-1">
+				status=#status#
+			</isGreaterThan>
+		</dynamic>
+		ORDER BY name
 		LIMIT #number# OFFSET #index#
-		]]>
+	</select>
+
+	<select id="listLimited" parameterClass="map" resultClass="Ware">
+		SELECT id,name,cost,price,barcode,number,status
+		FROM erp.ware
+		WHERE (price=0 OR cost=0 OR number=0 OR barcode='')
+		<dynamic>
+			<isGreaterThan prepend="AND" property="status" compareValue="-1">
+				status=#status#
+			</isGreaterThan>
+		</dynamic>
+		ORDER BY name
 	</select>
 
 	<select id="findByBarcode" parameterClass="string"
 		resultClass="Ware">
 		<![CDATA[
-		SELECT id,name,cost,price,barcode,number
+		SELECT id,name,cost,price,barcode,number,status
 		FROM erp.ware
 		WHERE barcode=#barcode#
 		]]>
@@ -68,7 +87,7 @@
 	<select id="findByKeywords" parameterClass="list"
 		resultClass="Ware">
 		<![CDATA[
-		SELECT id,name,cost,price,barcode,number
+		SELECT id,name,cost,price,barcode,number,status
 		FROM erp.ware
 		]]>
 		<dynamic prepend="WHERE">

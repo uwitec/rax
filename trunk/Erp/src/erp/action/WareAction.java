@@ -23,18 +23,25 @@ public class WareAction extends ActionSupport {
     private String price;
     private String barcode;
     private String number;
-
+    private int status = 0;
+    
     private List<Ware> wareList;
     private int page = 1;
     private int pagePer = 30;
     private int count;
 
     public String list() throws Exception {
-        count = wareService.getCount();
-        wareList = wareService.list((page - 1) * pagePer, pagePer);
+        count = wareService.getCount(status);
+        wareList = wareService.list(status, (page - 1) * pagePer, pagePer);
         return SUCCESS;
     }
-
+    
+    public String listLimited() throws Exception {
+        wareList = wareService.listLimited(status);
+        count = wareList.size();
+        return SUCCESS;
+    }
+    
     public String get() throws Exception {
         try {
             DecimalFormat f = new DecimalFormat("###0.00");
@@ -45,6 +52,7 @@ public class WareAction extends ActionSupport {
                 cost = f.format(w.getCost());
                 price = f.format(w.getPrice());
                 number = String.valueOf(w.getNumber());
+                status = w.getStatus();
             }
         } catch (Exception ex) {
             logger.error(ex.toString());
@@ -69,6 +77,7 @@ public class WareAction extends ActionSupport {
         obj.setId(id);
         obj.setName(name.trim());
         obj.setBarcode(barcode.trim());
+        obj.setStatus(status);
         if (cost.isEmpty() == false)
             obj.setCost(Double.parseDouble(cost));
         if (number.isEmpty() == false)
@@ -161,6 +170,14 @@ public class WareAction extends ActionSupport {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
 }

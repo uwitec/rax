@@ -8,6 +8,7 @@ public class Ware {
     private double price;
     private String barcode;
     private int number;
+    private int status;
     
     public Ware() {
         name = "";
@@ -15,6 +16,7 @@ public class Ware {
         price = 0;
         barcode = "";
         number = 0;
+        status = 0;
     }
     
     public int getId() {
@@ -65,5 +67,12 @@ public class Ware {
         this.number = number;
     }
 
+    public int getStatus() {
+        return status;
+    }
 
+    public void setStatus(int status) {
+        this.status = status;
+    }
+    
 }

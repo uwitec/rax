@@ -9,32 +9,26 @@
 <@s.url id="urlAdd" action="ware">
 	<@s.param name="page" value="page" />
 </@s.url>
-<@s.url id="urlLimited" action="ware_list_limited">
+<@s.url id="urlList" action="ware_list">
 	<@s.param name="page" value="page" />
 </@s.url>
-<a href="index.htm">返回首页</a> 
-<a href="${urlLimited}">列出需处理宝贝</a>
-<a href="${urlAdd}">添加新的宝贝</a>
+<a href="index.htm">返回首页</a>
+<a href="${urlList}">返回宝贝列表</a>
 <br /><br />
 <div>总数:${count}</div><br />
-
-<#assign pages=(count + pagePer - 1) / pagePer>
-<#list 1..pages as i>
-<#if i == page>
-[${i}] 
-<#else>
-<a href="ware_list.action?page=${i}">[${i}]</a>  
-</#if>
-</#list><br /><br />
 
 <#if wareList??>
 <#list wareList as ware>
 <div>
+<#if ware.barcode?length = 0>#<#else>&nbsp;</#if>
+<#if ware.cost = 0>$<#else>&nbsp;</#if>
+<#if ware.price = 0>*<#else>&nbsp;</#if>
+<#if ware.number = 0>o<#else>&nbsp;</#if>
 <@s.url id="url" action="ware">
 	<@s.param name="id" value="#{ware.id}"/>
 	<@s.param name="page" value="page"/>
 </@s.url>
-<a href="${url}">${ware.name}</a> 
+<a href="${url}">${ware.name}</a>
 </div>
 </#list>
 </#if>

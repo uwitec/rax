@@ -16,6 +16,9 @@
 		<action name="ware_list" class="WareAction" method="list">
 			<result name="success">/ware/list.ftl</result>
 		</action>
+		<action name="ware_list_limited" class="WareAction" method="listLimited">
+			<result name="success">/ware/list_limited.ftl</result>
+		</action>
 		<action name="ware" class="WareAction" method="get">
 			<result name="success">/ware/property.ftl</result>
 		</action>
