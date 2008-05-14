@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<package name="default" extends="struts-default">
+
+		<result-types>
+			<result-type name="freemarker"
+				class="org.apache.struts2.views.freemarker.FreemarkerResult"
+				default="true" />
+		</result-types>
+
+		<action name="ware_list" class="WareAction" method="list">
+			<result name="success">/ware/list.ftl</result>
+		</action>
+		<action name="ware" class="WareAction" method="get">
+			<result name="success">/ware/property.ftl</result>
+		</action>
+		<action name="ware_save" class="WareAction">
+			<result name="input" type="redirect-action">ware</result>
+			<result name="error" type="redirect-action">ware</result>
+			<result name="success" type="redirect-action">
+				ware_list
+			</result>
+		</action>
+		<action name="ware_delete" class="WareAction" method="delete">
+			<result name="success" type="redirect-action">
+				ware_list
+			</result>
+		</action>
+		<action name="ware_find" class="WareFindAction">
+			<result name="success">/ware/find.ftl</result>
+		</action>
+
+		<action name="sell_list" class="SellAction" method="list">
+			<result name="success">/sell/list.ftl</result>
+		</action>
+		<action name="sell_listAll" class="SellAction" method="list">
+			<param name="status">-1</param>
+			<result name="success">/sell/list.ftl</result>
+		</action>
+		<action name="sell" class="SellAction" method="get">
+			<result name="success">/sell/property.ftl</result>
+		</action>
+		<action name="sell_save" class="SellAction">
+			<result name="input" type="redirect-action">sell</result>
+			<result name="error" type="redirect-action">sell</result>
+			<result name="success" type="redirect-action">
+				sell_list
+			</result>
+		</action>
+		<action name="sell_status" class="SellAction" method="status">
+			<result name="error" type="redirect-action">sell</result>
+			<result name="success" type="redirect-action">
+				<param name="actionName">sell_list</param>
+				<param name="page">${page}</param>			
+			</result>
+		</action>
+		<action name="sell_delete" class="SellAction" method="delete">
+			<result name="success" type="redirect-action">
+				sell_list
+			</result>
+		</action>
+
+		<action name="sell_item" class="SellItemAction" method="get">
+			<result name="success">/sell/item_property.ftl</result>
+		</action>
+		<action name="sell_item_save" class="SellItemAction">
+			<result name="input" type="redirect-action">
+				<param name="actionName">sell_item</param>
+				<param name="sellId">${sellId}</param>
+			</result>
+			<result name="error" type="redirect-action">
+				<param name="actionName">sell</param>
+				<param name="id">${sellId}</param>
+			</result>
+			<result name="success" type="redirect-action">
+				<param name="actionName">sell_item</param>
+				<param name="sellId">${sellId}</param>
+			</result>
+		</action>
+		<action name="sell_item_delete" class="SellItemAction"
+			method="delete">
+			<result name="success" type="redirect-action">
+				<param name="actionName">sell</param>
+				<param name="id">${sellId}</param>
+			</result>
+		</action>
+
+		<action name="sell_import" class="SellImportAction">
+			<result name="input">/sell/import.ftl</result>
+			<result name="error" type="redirect-action">
+				sell_list
+			</result>
+			<result name="success" type="redirect-action">
+				sell_list
+			</result>
+		</action>
+
+		<action name="invoice_input" class="InvoiceAction" method="input">
+			<result name="success">/sell/invoice_input.ftl</result>
+			<result name="error" type="redirect-action">
+				<param name="actionName">sell</param>
+				<param name="id">${sellId}</param>
+			</result>
+		</action>
+		<action name="invoice" class="InvoiceAction">
+			<result name="success">/sell/invoice.ftl</result>
+			<result name="error" type="redirect-action">
+				<param name="actionName">sell</param>
+				<param name="id">${sellId}</param>
+			</result>
+		</action>
+
+		<action name="express_input" class="ExpressAction" method="input">
+			<result name="success">/sell/express_input.ftl</result>
+			<result name="error" type="redirect-action">
+				<param name="actionName">sell</param>
+				<param name="id">${sellId}</param>
+			</result>
+		</action>
+
+		<action name="express" class="ExpressAction">
+			<result name="success" type="stream">
+				<param name="contentType">application/pdf</param>
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">
+					filename=express.pdf
+					<!-- attachment;filename=index.htm -->
+				</param>
+				<param name="bufferSize">4096</param>
+			</result>
+			<result name="error" type="redirect-action">
+				<param name="actionName">sell</param>
+				<param name="id">${sellId}</param>
+			</result>
+		</action>
+	</package>
+
+</struts>
