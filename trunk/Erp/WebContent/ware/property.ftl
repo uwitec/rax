@@ -20,7 +20,6 @@
     <@s.textfield label="数量" name="number"/>
     <@s.hidden name="id"/>
     <@s.submit value=" 提 交 "/>
-    <@s.reset value=" 重 置 "/>
 </@s.form>
 </div>
 

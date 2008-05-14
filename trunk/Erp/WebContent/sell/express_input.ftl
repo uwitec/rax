@@ -45,7 +45,6 @@ window.onload = function() {
     <@s.hidden name="sell.expressId"/>
     <@s.hidden name="sellId"/>
     <@s.submit value=" 提 交 "/>
-    <@s.reset value=" 重 置 "/>
 </@s.form>
 </div>
 

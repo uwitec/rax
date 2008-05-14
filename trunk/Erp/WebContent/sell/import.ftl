@@ -58,7 +58,6 @@ window.onload = function() {
     <@s.textfield label="发件人" name="sender"/>
     <@s.hidden name="sellId"/>
     <@s.submit value=" 提 交 "/>
-    <@s.reset value=" 重 置 "/>
 </@s.form>
 </div>
 

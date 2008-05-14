@@ -112,7 +112,9 @@ dojo.addOnLoad(function (){
 <@s.url id="url" action="sell">
 	<@s.param name="id" value="sellId"/>
 </@s.url>
-<a href="${url}">返回</a><br /><br />
+<a href="${url}">返回</a>
+<a href="sell_item_delete.action?id=${id}&sellId=${sellId}" onclick="return confirm('确实要删除这项么？')">删除</a>
+<br /><br />
 
 <div>
 <@s.form action="sell_item_save">
@@ -122,7 +124,6 @@ dojo.addOnLoad(function (){
     <@s.hidden name="id"/>
     <@s.hidden name="sellId"/>
     <@s.submit value=" 提 交 "/>
-    <@s.reset value=" 重 置 "/>
 </@s.form>
 </div>
 

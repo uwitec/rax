@@ -65,7 +65,6 @@ window.onload = function() {
     <@s.textfield label="发件人" name="sender"/>
     <@s.hidden name="id"/>
     <@s.submit value=" 提 交 "/>
-    <@s.reset value=" 重 置 "/>
 </@s.form>
 </div>
 
@@ -75,12 +74,9 @@ window.onload = function() {
 <#if sellItemList??>
 <#list sellItemList as item>
 <div>
-宝贝编号:${item.wareId}
-价格:${item.price}
-数量:${(item.number)}
-<a href="sell_item.action?id=${item.id}">查看/编辑</a>
-<a href="sell_item_delete.action?id=${item.id}&sellId=${id}" onclick="return confirm('确实要删除这项么？')">删除</a>
-名称:${item.ware.name}
+<a href="sell_item.action?id=${item.id}" title="${item.price} * ${(item.number)}">
+${item.ware.name} * ${(item.number)} 
+</a>
 </div>
 </#list>
 </#if>
