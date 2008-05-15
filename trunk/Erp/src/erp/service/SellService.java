@@ -20,7 +20,16 @@ public class SellService {
         return sellDao.create(obj);
     }
 
-    public boolean deleteSell(int id) {
+    public boolean deleteSell(Sell obj) {
+        boolean ret = false;
+        if (null != obj) {
+            sellDao.delete(obj);
+            ret = true;
+        }
+        return ret;
+    }
+    
+    public boolean deleteSellById(int id) {
         boolean ret = false;
         Sell obj = sellDao.read(id);
         if (null != obj) {

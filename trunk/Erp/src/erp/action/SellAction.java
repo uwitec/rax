@@ -87,7 +87,12 @@ public class SellAction extends ActionSupport {
 
     public String delete() throws Exception {
         try {
-            sellService.deleteSell(id);
+            Sell s = sellService.getSellById(id);
+            sellItemList = sellItemService.listBySell(s);
+            for (SellItem item : sellItemList) {
+                sellItemService.deleteSellItem(item.getId());
+            }
+            sellService.deleteSell(s);
         } catch (Exception ex) {
             logger.error(ex.toString());
             return ERROR;
