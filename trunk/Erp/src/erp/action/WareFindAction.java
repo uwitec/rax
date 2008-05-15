@@ -18,6 +18,7 @@ public class WareFindAction extends ActionSupport {
     private String keyword;
     private String barcode;
     private List<Ware> wareList;
+    private int count;
     
     @Override
     public String execute() throws Exception {
@@ -28,6 +29,7 @@ public class WareFindAction extends ActionSupport {
             logger.info("findByKeywords:" + keyword);
             wareList = wareService.findByKeywords(keyword);
         }
+        count = wareList.size();
         return SUCCESS;
     }
 
@@ -45,6 +47,18 @@ public class WareFindAction extends ActionSupport {
 
     public List<Ware> getWareList() {
         return wareList;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public int getCount() {
+        return count;
     }
 
 }

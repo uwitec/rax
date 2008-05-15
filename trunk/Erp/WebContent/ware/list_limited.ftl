@@ -23,7 +23,7 @@
 <#if ware.barcode?length = 0>#<#else>&nbsp;</#if>
 <#if ware.cost = 0>$<#else>&nbsp;</#if>
 <#if ware.price = 0>*<#else>&nbsp;</#if>
-<#if ware.number = 0>o<#else>&nbsp;</#if>
+<#if ware.number <= 0>o<#else>&nbsp;</#if>
 <@s.url id="url" action="ware">
 	<@s.param name="id" value="#{ware.id}"/>
 	<@s.param name="page" value="page"/>

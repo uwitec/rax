@@ -64,15 +64,19 @@
 	</select>
 
 	<select id="listLimited" parameterClass="map" resultClass="Ware">
+		<![CDATA[
 		SELECT id,name,cost,price,barcode,number,status
 		FROM erp.ware
-		WHERE (price=0 OR cost=0 OR number=0 OR barcode='')
+		WHERE (price=0 OR cost=0 OR number<=0 OR barcode='')
+		]]>
 		<dynamic>
 			<isGreaterThan prepend="AND" property="status" compareValue="-1">
 				status=#status#
 			</isGreaterThan>
 		</dynamic>
+		<![CDATA[
 		ORDER BY name
+		]]>
 	</select>
 
 	<select id="findByBarcode" parameterClass="string"

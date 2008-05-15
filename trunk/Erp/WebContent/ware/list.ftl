@@ -40,5 +40,11 @@
 </#if>
 <br />
 
+<@s.form action="ware_search" target="_blank">
+    <@s.textfield label="关键字" name="keyword"/>
+    <@s.submit value=" 提 交 "/>
+</@s.form>
+<br />
+
 </body>
 </html>

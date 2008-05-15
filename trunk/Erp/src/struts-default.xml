@@ -34,7 +34,7 @@
 				ware_list
 			</result>
 		</action>
-		<action name="ware_find" class="WareFindAction">
+		<action name="ware_search" class="WareFindAction">
 			<result name="success">/ware/find.ftl</result>
 		</action>
 
