@@ -3,12 +3,15 @@ package erp.service;
 import java.util.List;
 
 import erp.dao.SellItemDao;
+import erp.dao.WareDao;
 import erp.model.Sell;
 import erp.model.SellItem;
+import erp.model.Ware;
 
 public class SellItemService {
     
     private SellItemDao sellItemDao;
+    private WareDao wareDao;
 
     public SellItemService() {
     }
@@ -18,6 +21,9 @@ public class SellItemService {
     }
 
     public int createSellItem(SellItem obj) {
+        Ware ware = wareDao.read(obj.getWareId());
+        ware.setNumber(ware.getNumber() - obj.getNumber());
+        wareDao.update(ware);
         return sellItemDao.create(obj);
     }
 
@@ -25,6 +31,9 @@ public class SellItemService {
         boolean ret = false;
         SellItem obj = sellItemDao.read(id);
         if (null != obj) {
+            Ware ware = wareDao.read(obj.getWareId());
+            ware.setNumber(ware.getNumber() + obj.getNumber());
+            wareDao.update(ware);
             sellItemDao.delete(obj);
             ret = true;
         }
@@ -32,6 +41,10 @@ public class SellItemService {
     }
 
     public boolean updateSellItem(SellItem obj) {
+        SellItem item = sellItemDao.read(obj.getId());
+        Ware ware = wareDao.read(obj.getWareId());
+        ware.setNumber(ware.getNumber() + item.getNumber() - obj.getNumber());
+        wareDao.update(ware);        
         sellItemDao.update(obj);
         return true;
     }
@@ -42,6 +55,10 @@ public class SellItemService {
     
     public void setSellItemDao(SellItemDao dao) {
         sellItemDao = dao;
+    }
+
+    public void setWareDao(WareDao wareDao) {
+        this.wareDao = wareDao;
     }
     
 }

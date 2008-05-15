@@ -11,14 +11,15 @@
 	<bean id="OrderItemService" class="erp.service.OrderItemService">
 		<property name="orderItemDao" ref="OrderItemDao" />
 	</bean>
-	
+
 	<bean id="SellService" class="erp.service.SellService">
 		<property name="sellDao" ref="SellDao" />
 	</bean>
 	<bean id="SellItemService" class="erp.service.SellItemService">
 		<property name="sellItemDao" ref="SellItemDao" />
+		<property name="wareDao" ref="WareDao" />
 	</bean>
-	
+
 	<bean id="WareCategoryService"
 		class="erp.service.WareCategoryService">
 		<property name="wareCategoryDao" ref="WareCategoryDao" />
@@ -27,5 +28,5 @@
 		<property name="wareDao" ref="WareDao" />
 		<property name="wareGroupingDao" ref="WareGroupingDao" />
 	</bean>
-	<bean id="ExpressService" class="erp.service.ExpressService"/>
+	<bean id="ExpressService" class="erp.service.ExpressService" />
 </beans>

@@ -114,7 +114,9 @@ dojo.addOnLoad(function (){
 </@s.url>
 <a href="sell_list.action">返回发货单列表</a>
 <a href="${url}">返回发货信息</a>
+<#if id != 0>
 <a href="sell_item_delete.action?id=${id}&sellId=${sellId}" onclick="return confirm('确实要删除这项么？')">删除</a>
+</#if>
 <br /><br />
 
 <div>
