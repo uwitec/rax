@@ -31,7 +31,7 @@ dojo.addOnLoad(function (){
 	<@s.param name="id" value="#{ware.id}"/>
 	<@s.param name="page" value="page"/>
 </@s.url>
-<a href="${url}">${ware.name}</a> 
+<a href="${url}">${ware.name} - (${ware.number})</a>
 </div>
 </#list>
 </#if>

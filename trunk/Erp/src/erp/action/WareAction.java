@@ -63,7 +63,10 @@ public class WareAction extends ActionSupport {
 
     public String delete() throws Exception {
         try {
-            wareService.deleteWare(id);
+            Ware ware = wareService.getWareById(id);
+            ware.setStatus(1);
+            wareService.updateWare(ware);
+            //wareService.deleteWare(id);
         } catch (Exception ex) {
             logger.error(ex.toString());
             return ERROR;

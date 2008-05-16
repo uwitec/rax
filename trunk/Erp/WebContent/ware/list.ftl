@@ -34,7 +34,7 @@
 	<@s.param name="id" value="#{ware.id}"/>
 	<@s.param name="page" value="page"/>
 </@s.url>
-<a href="${url}">${ware.name} ${ware.number} ${ware.price} ${ware.cost}</a>
+<a href="${url}">${ware.name} - (${ware.number})</a>
 </div>
 </#list>
 </#if>
