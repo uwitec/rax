@@ -22,7 +22,7 @@ dojo.addOnLoad(function (){
 </@s.url>
 <a href="${urlList}">返回宝贝列表</a>
 <br /><br />
-<div>总数:${count}</div><br />
+<div>总数:${(wareList.count)?default(0)}</div><br />
 
 <#if wareList??>
 <#list wareList as ware>

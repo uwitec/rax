@@ -12,7 +12,7 @@
 <@s.url id="urlLimited" action="ware_list_limited">
 	<@s.param name="page" value="page" />
 </@s.url>
-<a href="index.htm">返回首页</a> 
+<a href="index.htm">返回首页</a>
 <a href="${urlLimited}">列出需处理宝贝</a>
 <a href="${urlAdd}">添加新的宝贝</a>
 <br /><br />
@@ -21,9 +21,9 @@
 <#assign pages=(count + pagePer - 1) / pagePer>
 <#list 1..pages as i>
 <#if i == page>
-[${i}] 
+[${i}]
 <#else>
-<a href="ware_list.action?page=${i}">[${i}]</a>  
+<a href="ware_list.action?page=${i}">[${i}]</a>
 </#if>
 </#list><br /><br />
 
@@ -34,7 +34,7 @@
 	<@s.param name="id" value="#{ware.id}"/>
 	<@s.param name="page" value="page"/>
 </@s.url>
-<a href="${url}">${ware.name}</a> 
+<a href="${url}">${ware.name} ${ware.number} ${ware.price} ${ware.cost}</a>
 </div>
 </#list>
 </#if>

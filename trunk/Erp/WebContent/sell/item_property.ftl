@@ -53,22 +53,21 @@ function doSearch(keyword) {
       var ware = null;
       for (var i = 0; i < json.wareList.length; i++) {
         ware = json.wareList[i];
-        console.debug(ware);
+        // console.debug(ware);
         if (false == ("flag" in ware)) {
           addOption(obj, ware.name, ware.id);
         }
       }
       wareList = json.wareList;
     } catch(e) { console.debug(e.toString()); } },
-    error: function(response) { alert("Error"); }
+    error: function(response) { console.debug(response.status); }
   });
 }
 
-var keyCount = 0;
 function onKeyIn(event) {
-  if (++keyCount > 2) {
+  if (dojo.trim(this.value).length > 1) {
     doSearch(this.value);
-    console.debug(this.value);
+    // console.debug(this.value);
   }
 }
 
