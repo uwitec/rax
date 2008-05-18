@@ -1,4 +1,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+发件日期应能被取出显示
 导入时连带运费,快递信息
 一次提交多个卖出宝贝
 统计信息

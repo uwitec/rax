@@ -90,8 +90,9 @@ public class WareAction extends ActionSupport {
         try {
             if (id > 0) {
                 wareService.updateWare(obj);
-            } else
+            } else {
                 wareService.createWare(obj);
+            }
         } catch (Exception ex) {
             logger.error(ex.toString());
             return ERROR;

@@ -102,8 +102,13 @@ public class SellAction extends ActionSupport {
 
     @Override
     public String execute() throws Exception {
-        Sell obj = new Sell();
-        obj.setId(id);
+        Sell obj;
+        if (id > 0) {
+            obj = sellService.getSellById(id);
+        } else {
+            obj = new Sell();
+            obj.setId(id);
+        }
         obj.setCustomerName(customerName.trim());
         obj.setCustomerAddress(customerAddress.trim());
         obj.setCustomerPhone1(customerPhone1.trim());
@@ -121,8 +126,9 @@ public class SellAction extends ActionSupport {
         try {
             if (id > 0) {
                 sellService.updateSell(obj);
-            } else
+            } else {
                 sellService.createSell(obj);
+            }
         } catch (Exception ex) {
             logger.error(ex.toString());
             return ERROR;

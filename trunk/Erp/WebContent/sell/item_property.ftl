@@ -101,6 +101,7 @@ dojo.addOnLoad(function (){
   dojo.connect(obj, "onkeyup", obj, onKeyIn);
   obj.focus();
 });
+
 </script>
 <style type="text/css">
 #search_result { width:380px; }

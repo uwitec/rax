@@ -4,8 +4,10 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -39,7 +41,7 @@ public class ExpressAction implements Action {
     private String senderPhone;
     private String senderAddress;
     private String senderPostCode;
-    Map dateSel;
+    List dateSel;
     Map expressSel;
 
     public InputStream getInputStream() throws Exception {
@@ -163,16 +165,47 @@ public class ExpressAction implements Action {
     public String input() throws Exception {
         if (sellId > 0) {
             sell = sellService.getSellById(sellId);
-            expressSel = expressService.getExpressSel();
+
             logger.info("sell.expressId:" + sell.getExpressId());
-            dateSel = new HashMap();
-            dateSel.put(0, "今天");
-            dateSel.put(1, "明天");
-            dateSel.put(2, "后天");
+            logger.info("sell.sendDate:" + sell.getSendDate());
+
+            Date d = new Date();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar c = Calendar.getInstance();
+            c.setTime(d);
+
+            logger.info("Calendar.YEAR:" + c.get(Calendar.YEAR));
+            logger.info("Calendar.MONTH:" + c.get(Calendar.MONTH));
+            logger.info("Calendar.DATE:" + c.get(Calendar.DATE));
+            logger.info("Calendar.HOUR_OF_DAY:" + c.get(Calendar.HOUR_OF_DAY));
+            logger.info("Calendar.MINUTE:" + c.get(Calendar.MINUTE));
+
+            if (sell.getSendDate() != null) {
+                d = sell.getSendDate();
+            } else if (c.get(Calendar.HOUR_OF_DAY) > 18) {
+                c.setTimeInMillis(d.getTime() + 86400000);
+                d = c.getTime();
+            }
+            date = df.format(d);
+            logger.info("d3:" + date);
+
+            Date d1 = new Date();
+            c.setTimeInMillis(d1.getTime() + 86400000);
+            Date d2 = c.getTime();
+            c.setTimeInMillis(d2.getTime() + 86400000);
+            Date d3 = c.getTime();
+
+            dateSel = new ArrayList();
+            dateSel.add(df.format(d1));
+            dateSel.add(df.format(d2));
+            dateSel.add(df.format(d3));
+
             sender = "李立林";
             senderAddress = "浙江省杭州市滨江区\n请确认商品无缺损后签收\n签收后申述缺损,恕我们无法负责";
             senderPhone = "0571-85790698";
             senderPostCode = "310053";
+
+            expressSel = expressService.getExpressSel();
             return SUCCESS;
         }
         return ERROR;
@@ -182,38 +215,23 @@ public class ExpressAction implements Action {
     public String execute() throws Exception {
         if (sellId > 0) {
             Sell s = sellService.getSellById(sellId);
-            if (false == sell.getCommentExpress().equals(s.getCommentExpress())
-                    || false == sell.getCustomerName().equals(
-                            s.getCustomerName())
-                    || false == sell.getCustomerAddress().equals(
-                            s.getCustomerAddress())
-                    || false == sell.getCustomerPhone1().equals(
-                            s.getCustomerPhone1())
-                    || false == sell.getCustomerPhone2().equals(
-                            s.getCustomerPhone2())
-                    || false == sell.getCustomerPostCode().equals(
-                            s.getCustomerPostCode())
-                    || sell.getExpressId() != s.getExpressId()) {
-                s.setCommentExpress(sell.getCommentExpress());
-                s.setCustomerName(sell.getCustomerName());
-                s.setCustomerAddress(sell.getCustomerAddress());
-                s.setCustomerPhone1(sell.getCustomerPhone1());
-                s.setCustomerPhone2(sell.getCustomerPhone2());
-                s.setCustomerPostCode(sell.getCustomerPostCode());
-                s.setExpressId(sell.getExpressId());
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                s.setSendDate(df.parse(date));
-                sellService.updateSell(s);
-            }
+
+            s.setCommentExpress(sell.getCommentExpress());
+            s.setCustomerName(sell.getCustomerName());
+            s.setCustomerAddress(sell.getCustomerAddress());
+            s.setCustomerPhone1(sell.getCustomerPhone1());
+            s.setCustomerPhone2(sell.getCustomerPhone2());
+            s.setCustomerPostCode(sell.getCustomerPostCode());
+            s.setExpressId(sell.getExpressId());
+
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            s.setSendDate(df.parse(date));
+
+            sellService.updateSell(s);
             sell = s;
             return SUCCESS;
         }
         return ERROR;
-    }
-
-    public static void main(String[] args) throws Exception {
-        // OutputStream os = new FileBufferWriter("demo.pdf");
-        // os.write(getInputStream().;
     }
 
     public void setSellService(SellService sellService) {
@@ -232,8 +250,12 @@ public class ExpressAction implements Action {
         this.sell = sell;
     }
 
-    public void setDateSel(Map dateSel) {
+    public void setDateSel(List dateSel) {
         this.dateSel = dateSel;
+    }
+
+    public List getDateSel() {
+        return dateSel;
     }
 
     public void setSellId(int sellId) {
@@ -250,10 +272,6 @@ public class ExpressAction implements Action {
 
     public Sell getSell() {
         return sell;
-    }
-
-    public Map getDateSel() {
-        return dateSel;
     }
 
     public String getSender() {

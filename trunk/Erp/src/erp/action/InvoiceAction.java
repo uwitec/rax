@@ -28,8 +28,9 @@ public class InvoiceAction extends ActionSupport {
     public String input() throws Exception {
         if (sellId > 0) {
             sell = sellService.getSellById(sellId);
-            if (sell.getSender().isEmpty())
+            if (sell.getSender().isEmpty()) {
                 sell.setSender("冰心抹茶");
+            }
             return SUCCESS;
         }
         return ERROR;
@@ -39,9 +40,13 @@ public class InvoiceAction extends ActionSupport {
     public String execute() throws Exception {
         if (sellId > 0) {
             Sell s = sellService.getSellById(sellId);
-            if (false == sell.getCommentInvoice().equals(s.getCommentInvoice()) 
+            if (false == sell.getCommentInvoice().equals(s.getCommentInvoice())
                     || false == sell.getSender().equals(s.getSender())) {
-                s.setSender(sell.getSender());
+                if (sell.getSender().equals("冰心抹茶")) {
+                    s.setSender("");
+                } else {
+                    s.setSender(sell.getSender());
+                }
                 s.setCommentInvoice(sell.getCommentInvoice());
                 sellService.updateSell(s);
             }
