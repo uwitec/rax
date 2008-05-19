@@ -10,8 +10,8 @@
 
 	<insert id="create" parameterClass="Order">
 		<![CDATA[
-		INSERT INTO erp.order (create_date, status, fee) 
-		VALUES (#createDate#, #status#, #fee#)
+		INSERT INTO erp.order (create_date, status, fee, comment) 
+		VALUES (#createDate#, #status#, #fee#, #comment#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
@@ -23,7 +23,7 @@
 	<select id="read" parameterClass="int"
 		resultClass="Order">
 		<![CDATA[
-		SELECT id,create_date AS createDate,status,fee
+		SELECT id,create_date AS createDate,status,fee,comment
 		FROM erp.order
 		WHERE id=#id#
 		]]>
@@ -31,7 +31,7 @@
 
 	<update id="update" parameterClass="Order">
 		<![CDATA[
-		UPDATE erp.order SET create_date=#createDate#, status=#status#, fee=#fee#
+		UPDATE erp.order SET create_date=#createDate#,status=#status#,fee=#fee#,comment=#comment#
 		WHERE id=#id#
 		]]>
 	</update>
@@ -51,9 +51,9 @@
 	<select id="list" parameterClass="map"
 		resultClass="Order">
 		<![CDATA[
-		SELECT id,create_date AS createDate,status,fee
+		SELECT id,create_date AS createDate,status,fee,comment
 		FROM erp.order
-		ORDER BY id
+		ORDER BY create_date DESC
 		LIMIT #number# OFFSET #index#
 		]]>
 	</select>

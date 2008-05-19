@@ -44,7 +44,9 @@ window.onload = function() {
 <a href="${url}">返回发货单列表</a>
 <a href="express_input.action?sellId=${id}" target="_balnk">打印快递单</a>
 <a href="sell_import.action?sellId=${id}">从淘宝地址导入出库单</a>
+<#if id != 0>
 <a href="sell_delete.action?id=${id}" onclick="return confirm('确实要删除这笔交易么？')">删除</a><br />
+</#if>
 <br />
 
 <div>

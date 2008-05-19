@@ -39,6 +39,32 @@ public class WareService {
         return true;
     }
 
+    public void check(Ware obj, boolean flag, int chkNumber, double chkCost,
+            double fee) {
+        int oldNumber;
+        int newNumber;
+        double newCost;
+        if (flag) {
+            oldNumber = (obj.getNumber() < 0) ? 0 : obj.getNumber();
+            newNumber = obj.getNumber() + chkNumber;
+            newCost = (obj.getCost() * oldNumber + (chkCost + fee) * chkNumber)
+                    / (oldNumber + chkNumber);
+        } else {
+            oldNumber = obj.getNumber();
+            newNumber = oldNumber - chkNumber;
+            if (newNumber < 0) {
+                newCost = obj.getCost();
+            } else {
+                newCost = (obj.getCost() * oldNumber - (chkCost + fee)
+                        * chkNumber)
+                        / newNumber;
+            }
+        }
+        obj.setCost(newCost);
+        obj.setNumber(newNumber);
+        wareDao.update(obj);
+    }
+
     public int getCount(int status) {
         return wareDao.count(status);
     }
@@ -46,11 +72,11 @@ public class WareService {
     public List<Ware> list(int status, int index, int num) {
         return wareDao.list(status, index, num);
     }
-    
+
     public List<Ware> listLimited(int status) {
         return wareDao.listLimited(status);
     }
-    
+
     public List<Ware> listByCategory(WareCategory category) {
         return wareGroupingDao.listWareByCategoryId(category.getId());
     }

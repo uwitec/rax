@@ -20,7 +20,16 @@ public class OrderService {
         return orderDao.create(obj);
     }
 
-    public boolean deleteOrder(int id) {
+    public boolean deleteOrder(Order obj) {
+        boolean ret = false;
+        if (null != obj) {
+            orderDao.delete(obj);
+            ret = true;
+        }
+        return ret;
+    }
+    
+    public boolean deleteOrderById(int id) {
         boolean ret = false;
         Order obj = orderDao.read(id);
         if (null != obj) {

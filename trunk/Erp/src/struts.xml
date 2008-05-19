@@ -12,5 +12,6 @@
 
 	<include file="struts-default.xml" />
 	<include file="struts-json.xml" />
-	
+	<include file="struts-order.xml" />
+		
 </struts>

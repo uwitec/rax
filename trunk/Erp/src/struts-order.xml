@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<package name="order" extends="struts-default">
+		<result-types>
+			<result-type name="freemarker"
+				class="org.apache.struts2.views.freemarker.FreemarkerResult"
+				default="true" />
+		</result-types>
+
+		<action name="order_list" class="OrderAction" method="list">
+			<result name="success">/order/list.ftl</result>
+		</action>
+		
+		<action name="order_listAll" class="OrderAction" method="list">
+			<param name="status">-1</param>
+			<result name="success">/order/list.ftl</result>
+		</action>
+		
+		<action name="order" class="OrderAction" method="get">
+			<result name="success">/order/property.ftl</result>
+		</action>
+		
+		<action name="order_save" class="OrderAction">
+			<result name="input" type="redirect-action">order/order</result>
+			<result name="error" type="redirect-action">order/order</result>
+			<result name="success" type="redirect-action">
+				order/order_list
+			</result>
+		</action>
+		
+		<action name="order_status" class="OrderAction" method="status">
+			<result name="error" type="redirect-action">order/order</result>
+			<result name="success" type="redirect-action">
+				<param name="actionName">order/order_list</param>
+				<param name="page">${page}</param>
+			</result>
+		</action>
+		
+		<action name="order_delete" class="OrderAction" method="delete">
+			<result name="success" type="redirect-action">
+				order/order_list
+			</result>
+		</action>
+
+		<action name="order_item" class="OrderItemAction" method="get">
+			<result name="success">/order/item_property.ftl</result>
+		</action>
+		
+		<action name="order_item_save" class="OrderItemAction">
+			<result name="input" type="redirect-action">
+				<param name="actionName">order/order_item</param>
+				<param name="orderId">${orderId}</param>
+			</result>
+			<result name="error" type="redirect-action">
+				<param name="actionName">order/order</param>
+				<param name="id">${orderId}</param>
+			</result>
+			<result name="success" type="redirect-action">
+				<param name="actionName">order/order_item</param>
+				<param name="orderId">${orderId}</param>
+			</result>
+		</action>
+		
+		<action name="order_item_delete" class="OrderItemAction"
+			method="delete">
+			<result name="success" type="redirect-action">
+				<param name="actionName">order/order</param>
+				<param name="id">${orderId}</param>
+			</result>
+		</action>
+		 
+	</package>
+
+</struts>

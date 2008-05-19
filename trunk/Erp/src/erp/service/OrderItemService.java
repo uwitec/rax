@@ -3,6 +3,7 @@ package erp.service;
 import java.util.List;
 
 import erp.dao.OrderItemDao;
+import erp.model.Order;
 import erp.model.OrderItem;
 
 public class OrderItemService {
@@ -20,7 +21,16 @@ public class OrderItemService {
         return orderItemDao.create(obj);
     }
 
-    public boolean deleteOrderItem(int id) {
+    public boolean deleteOrderItem(OrderItem obj) {
+        boolean ret = false;
+        if (null != obj) {
+            orderItemDao.delete(obj);
+            ret = true;
+        }
+        return ret;
+    }
+
+    public boolean deleteOrderItemById(int id) {
         boolean ret = false;
         OrderItem obj = orderItemDao.read(id);
         if (null != obj) {
@@ -35,8 +45,12 @@ public class OrderItemService {
         return true;
     }
 
-    public List<OrderItem> list() {
-        return orderItemDao.list();
+    public List<OrderItem> listByOrder(Order order) {
+        return orderItemDao.listByOrderId(order.getId());
+    }
+
+    public List<OrderItem> listByOrderId(int orderId) {
+        return orderItemDao.listByOrderId(orderId);
     }
 
     public void setOrderItemDao(OrderItemDao dao) {

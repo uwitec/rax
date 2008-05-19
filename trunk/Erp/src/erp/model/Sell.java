@@ -91,6 +91,9 @@ public class Sell {
     }
 
     public void setCustomerPostCode(String customerPostCode) {
+        if (customerPostCode.length() > 6) {
+            customerPostCode = customerPostCode.substring(0, 6);
+        }
         this.customerPostCode = customerPostCode;
     }
 

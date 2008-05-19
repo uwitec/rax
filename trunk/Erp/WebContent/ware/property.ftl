@@ -27,7 +27,9 @@
 	<@s.param name="id" value="id"/>
 	<@s.param name="page" value="page"/>
 </@s.url>
+<#if id != 0>
 <a href="${urlDelete}" onclick="return confirm('确实要删除这个宝贝么？')">删除</a>
+</#if>
 
 </body>
 </html>

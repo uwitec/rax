@@ -8,11 +8,13 @@ public class Order {
     private Date createDate;
     private int status;
     private double fee;
+    private String comment;
 
     public Order() {
         createDate = new Date();
         status = 0;
         fee = 0;
+        comment = "";
     }
     
     public Date getCreateDate() {
@@ -45,6 +47,14 @@ public class Order {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
 }
