@@ -37,6 +37,9 @@ window.onload = function() {
 	//alert("onload");
 }
 </script>
+<style type="text/css">
+label { cursor:pointer; }
+</style>
 </head>
 
 <body>
