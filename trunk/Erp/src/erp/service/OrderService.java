@@ -44,12 +44,12 @@ public class OrderService {
         return true;
     }
 
-    public int getCount() {
-        return orderDao.count();
+    public int getCount(int status) {
+        return orderDao.count(status);
     }
 
-    public List<Order> list(int index, int num) {
-        return orderDao.list(index, num);
+    public List<Order> list(int status, int index, int num) {
+        return orderDao.list(status, index, num);
     }
     
     public void setOrderDao(OrderDao dao) {

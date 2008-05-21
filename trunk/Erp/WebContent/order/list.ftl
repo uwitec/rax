@@ -17,8 +17,7 @@
 <br /><br />
 <div>总数:${count}</div><br />
 
-<#assign pages=(count + pagePer - 1) / pagePer>
-<#list 1..pages as i>
+<#list 1..pageNum as i>
 <#if i == page>
 [${i}] 
 <#else>

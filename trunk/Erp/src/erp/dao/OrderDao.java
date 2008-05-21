@@ -16,8 +16,8 @@ public interface OrderDao {
 
     public int delete(Order persistentObject) throws DataAccessException;
 
-    public int count() throws DataAccessException;
+    public int count(int status) throws DataAccessException;
 
-    public List<Order> list(int index, int num) throws DataAccessException;
+    public List<Order> list(int status, int index, int num) throws DataAccessException;
 
 }

@@ -46,10 +46,13 @@ public class SellAction extends ActionSupport {
     private List<SellItem> sellItemList;
     private int page = 1;
     private int pagePer = 12;
+    private int pageNum = 0;
     private int count;
 
     public String list() throws Exception {
         count = sellService.getCount(status);
+        pageNum = (count + pagePer - 1) / pagePer;
+        pageNum = pageNum > 0 ? pageNum : 1;
         sellList = sellService.list((page - 1) * pagePer, pagePer, status);
         return SUCCESS;
     }
@@ -336,6 +339,14 @@ public class SellAction extends ActionSupport {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
     }
 
 }

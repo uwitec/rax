@@ -32,11 +32,14 @@ public class OrderAction extends ActionSupport {
 
     private int page = 1;
     private int pagePer = 12;
+    private int pageNum = 0;
     private int count;
 
     public String list() throws Exception {
-        count = orderService.getCount();
-        orderList = orderService.list((page - 1) * pagePer, pagePer);
+        count = orderService.getCount(status);
+        pageNum = (count + pagePer - 1) / pagePer;
+        pageNum = pageNum > 0 ? pageNum : 1;
+        orderList = orderService.list(status, (page - 1) * pagePer, pagePer);
         return SUCCESS;
     }
 
@@ -214,6 +217,14 @@ public class OrderAction extends ActionSupport {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
     }
 
 }

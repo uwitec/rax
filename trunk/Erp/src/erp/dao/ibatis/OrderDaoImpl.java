@@ -38,16 +38,21 @@ public class OrderDaoImpl extends SqlMapClientDaoSupport implements OrderDao {
     }
 
     @Override
-    public int count() throws DataAccessException {
+    public int count(int status) throws DataAccessException {
+        Map param = new HashMap();
+        param.put("status", status);
         return (Integer) getSqlMapClientTemplate()
-                .queryForObject("Order.count");
+                .queryForObject("Order.count", param);
     }
 
     @Override
-    public List<Order> list(int index, int num) throws DataAccessException {
+    public List<Order> list(int status, int index, int num) throws DataAccessException {
         Map param = new HashMap();
         param.put("index", index);
         param.put("number", num);
+        if (status >= 0) {
+            param.put("status", status);
+        }
         return getSqlMapClientTemplate().queryForList("Order.list", param);
     }
 

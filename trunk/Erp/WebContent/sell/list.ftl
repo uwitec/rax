@@ -17,8 +17,8 @@
 <a href="sell_import.action">从淘宝地址导入出库单</a><br /><br />
 <div>总数:${count}</div><br />
 
-<#assign pages=(count + pagePer - 1) / pagePer>
-<#list 1..pages as i>
+
+<#list 1..pageNum as i>
 <#if i == page>
 [${i}] 
 <#else>

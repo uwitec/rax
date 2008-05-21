@@ -28,10 +28,13 @@ public class WareAction extends ActionSupport {
     private List<Ware> wareList;
     private int page = 1;
     private int pagePer = 30;
+    private int pageNum = 0;
     private int count;
 
     public String list() throws Exception {
         count = wareService.getCount(status);
+        pageNum = (count + pagePer - 1) / pagePer;
+        pageNum = pageNum > 0 ? pageNum : 1;
         wareList = wareService.list(status, (page - 1) * pagePer, pagePer);
         return SUCCESS;
     }
@@ -182,6 +185,26 @@ public class WareAction extends ActionSupport {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public WareService getWareService() {
+        return wareService;
+    }
+
+    public void setWareList(List<Ware> wareList) {
+        this.wareList = wareList;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
 }

@@ -20,8 +20,7 @@
 		</selectKey>
 	</insert>
 
-	<select id="read" parameterClass="int"
-		resultClass="Order">
+	<select id="read" parameterClass="int" resultClass="Order">
 		<![CDATA[
 		SELECT id,create_date AS createDate,status,fee,comment
 		FROM erp.order
@@ -42,17 +41,29 @@
 		]]>
 	</delete>
 
-	<select id="count" resultClass="int">
+	<select id="count" parameterClass="map" resultClass="int">
 		<![CDATA[
 		SELECT COUNT(*) AS NUM FROM erp.order
 		]]>
+		<dynamic>
+			<isGreaterThan prepend="WHERE" property="status"
+				compareValue="-1">
+				status=#status#
+			</isGreaterThan>
+		</dynamic>
 	</select>
 
-	<select id="list" parameterClass="map"
-		resultClass="Order">
+	<select id="list" parameterClass="map" resultClass="Order">
 		<![CDATA[
 		SELECT id,create_date AS createDate,status,fee,comment
 		FROM erp.order
+		]]>
+		<dynamic>
+			<isNotEmpty prepend="WHERE" property="status">
+				status=#status#
+			</isNotEmpty>
+		</dynamic>
+		<![CDATA[
 		ORDER BY create_date DESC
 		LIMIT #number# OFFSET #index#
 		]]>
