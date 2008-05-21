@@ -35,11 +35,12 @@ window.onload = function() {
 </#if>
 </#if>
 <br />
-<br />
 
 <div>
 <@s.form action="order_save">
+    <#if order??>
 	<@s.label label="创建" value="${order.createDate?string('yyyy-MM-dd')}"/>
+	</#if>
     <@s.textfield label="备注" name="order.comment"/>
     <@s.textfield label="运费" name="order.fee" onkeyup="javascript:onFeeChange(this.value)"/>
     <@s.radio name="feeSel" list="{0, 5, 10, 12, 15, 20, 25}" onclick="javascript:setFee(this.value)"/>

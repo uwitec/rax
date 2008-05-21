@@ -42,10 +42,11 @@
 		]]>
 	</delete>
 
-	<select id="list" resultClass="OrderItem">
+	<select id="list" parameterClass="int" resultClass="OrderItem">
 		<![CDATA[
 		SELECT id, order_id AS orderId, ware_id AS wareId, cost, number
 		FROM erp.order_item
+		WHERE order_id=#id#
 		ORDER BY id
 		]]>
 	</select>
