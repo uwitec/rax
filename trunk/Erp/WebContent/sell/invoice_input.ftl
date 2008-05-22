@@ -3,6 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>检查买家订购列表</title>
+<style type="text/css">
+label { cursor:pointer; }
+</style>
 </head>
 
 <body>

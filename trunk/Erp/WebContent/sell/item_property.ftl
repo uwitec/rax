@@ -13,12 +13,12 @@ function addOption(objSelect, text, value) {
   var obj			= objSelect.appendChild(objOption);
   objOption.text	= text;
   objOption.value	= value;
-  console.debug("AddOption:" + objOption.text + "," + objOption.value);
+  //console.debug("AddOption:" + objOption.text + "," + objOption.value);
 }
 
 function delOption(objSelect, idx) {
   try {
-    console.debug("DelOption:" + objSelect.options[idx].text + "," + objSelect.options[idx].value);
+    //console.debug("DelOption:" + objSelect.options[idx].text + "," + objSelect.options[idx].value);
 	objSelect.remove(idx);
   } catch (ex) { alert(ex.description); }
 }
@@ -74,7 +74,7 @@ function onKeyIn(event) {
 function onSelect(event) {
   if (this.selectedIndex < 0) return;
   var obj = this.options[this.selectedIndex];
-  console.debug(obj.text + ":" + obj.value);
+  //console.debug(obj.text + ":" + obj.value);
 
   var objId		= dojo.byId("sell_item_save_wareId");
   var objPrice	= dojo.byId("sell_item_save_price");
@@ -105,6 +105,7 @@ dojo.addOnLoad(function (){
 </script>
 <style type="text/css">
 #search_result { width:380px; }
+label { cursor:pointer; }
 </style>
 </head>
 

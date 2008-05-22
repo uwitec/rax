@@ -7,7 +7,7 @@
 <script language="javascript" type="text/javascript">
 
 function setDate(value) {
-	var obj		= document.getElementById("express_date");
+	var obj		= dojo.byId("express_date");
 	obj.value	= value;
 }
 
@@ -25,6 +25,9 @@ dojo.addOnLoad(function (){
 });
 
 </script>
+<style type="text/css">
+label { cursor:pointer; }
+</style>
 </head>
 
 <body>

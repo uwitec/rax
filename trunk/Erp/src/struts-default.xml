@@ -16,7 +16,8 @@
 		<action name="ware_list" class="WareAction" method="list">
 			<result name="success">/ware/list.ftl</result>
 		</action>
-		<action name="ware_list_limited" class="WareAction" method="listLimited">
+		<action name="ware_list_limited" class="WareAction"
+			method="listLimited">
 			<result name="success">/ware/list_limited.ftl</result>
 		</action>
 		<action name="ware" class="WareAction" method="get">
@@ -59,7 +60,7 @@
 			<result name="error" type="redirect-action">sell</result>
 			<result name="success" type="redirect-action">
 				<param name="actionName">sell_list</param>
-				<param name="page">${page}</param>			
+				<param name="page">${page}</param>
 			</result>
 		</action>
 		<action name="sell_delete" class="SellAction" method="delete">
@@ -93,8 +94,15 @@
 			</result>
 		</action>
 
+		<action name="sell_import_input" class="SellImportAction"
+			method="input">
+			<result name="success">/sell/import.ftl</result>
+			<result name="error" type="redirect-action">
+				sell_list
+			</result>
+		</action>
+
 		<action name="sell_import" class="SellImportAction">
-			<result name="input">/sell/import.ftl</result>
 			<result name="error" type="redirect-action">
 				sell_list
 			</result>
@@ -103,7 +111,8 @@
 			</result>
 		</action>
 
-		<action name="invoice_input" class="InvoiceAction" method="input">
+		<action name="invoice_input" class="InvoiceAction"
+			method="input">
 			<result name="success">/sell/invoice_input.ftl</result>
 			<result name="error" type="redirect-action">
 				<param name="actionName">sell</param>
@@ -118,7 +127,8 @@
 			</result>
 		</action>
 
-		<action name="express_input" class="ExpressAction" method="input">
+		<action name="express_input" class="ExpressAction"
+			method="input">
 			<result name="success">/sell/express_input.ftl</result>
 			<result name="error" type="redirect-action">
 				<param name="actionName">sell</param>

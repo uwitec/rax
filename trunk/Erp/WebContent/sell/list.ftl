@@ -14,9 +14,8 @@
 <a href="sell_listAll.action?page=${page}">所有发货单</a>
 <br /><br />
 <a href="${urlAdd}">添加新出库单</a>
-<a href="sell_import.action">从淘宝地址导入出库单</a><br /><br />
+<a href="sell_import_input.action">从淘宝地址导入出库单</a><br /><br />
 <div>总数:${count}</div><br />
-
 
 <#list 1..pageNum as i>
 <#if i == page>

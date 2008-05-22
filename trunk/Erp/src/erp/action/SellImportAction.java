@@ -1,5 +1,10 @@
 package erp.action;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -18,7 +23,7 @@ public class SellImportAction extends ActionSupport {
 
     private SellService sellService = null;
     private ExpressService expressService = null;
-    
+
     private int sellId;
     private String content;
     private String wangwang;
@@ -28,25 +33,55 @@ public class SellImportAction extends ActionSupport {
     private String commentExpress;
     private String commentInvoice;
     private String sender;
+    private String date;
 
+    List dateSel;
     Map<Integer, String> expressSel;
-    
-    @Override
-    public String execute() throws Exception {
-        if (content == null || content.isEmpty()) {
+
+    public String input() throws Exception {
+        try {
+            Date d = new Date();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar c = Calendar.getInstance();
+            c.setTime(d);
+
+            if (c.get(Calendar.HOUR_OF_DAY) > 18) {
+                c.setTimeInMillis(d.getTime() + 86400000);
+                d = c.getTime();
+            }
+            date = df.format(d);
+
+            Date d1 = new Date();
+            c.setTimeInMillis(d1.getTime() + 86400000);
+            Date d2 = c.getTime();
+            c.setTimeInMillis(d2.getTime() + 86400000);
+            Date d3 = c.getTime();
+
+            dateSel = new ArrayList();
+            dateSel.add(df.format(d1));
+            dateSel.add(df.format(d2));
+            dateSel.add(df.format(d3));
+
             fee = "5";
             feeReal = "4";
             expressId = 0;
             expressSel = expressService.getExpressSel();
-            return INPUT;
+        } catch (Exception ex) {
+            logger.error(ex.toString());
+            return ERROR;
         }
-        
+        return SUCCESS;
+    }
+
+    @Override
+    public String execute() throws Exception {
         try {
             Sell obj;
-            if (sellId > 0)
+            if (sellId > 0) {
                 obj = sellService.getSellById(sellId);
-            else
+            } else {
                 obj = new Sell();
+            }
 
             String[] info = content.split("，");
             obj.setCustomerName(info[0].trim());
@@ -64,10 +99,15 @@ public class SellImportAction extends ActionSupport {
             obj.setCommentExpress(commentExpress);
             obj.setCommentInvoice(commentInvoice);
             obj.setSender(sender);
-            if (fee.isEmpty() == false)
+            if (fee.isEmpty() == false) {
                 obj.setFee(Double.parseDouble(fee));
-            if (feeReal.isEmpty() == false)
+            }
+            if (feeReal.isEmpty() == false) {
                 obj.setFeeReal(Double.parseDouble(feeReal));
+            }
+
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            obj.setSendDate(df.parse(date));
 
             logger.info("Name:" + obj.getCustomerName());
             logger.info("Phone1:" + obj.getCustomerPhone1());
@@ -75,11 +115,11 @@ public class SellImportAction extends ActionSupport {
             logger.info("Address:" + obj.getCustomerAddress());
             logger.info("PostCode:" + obj.getCustomerPostCode());
 
-            if (sellId > 0)
+            if (sellId > 0) {
                 sellService.updateSell(obj);
-            else
+            } else {
                 sellService.createSell(obj);
-
+            }
         } catch (Exception ex) {
             logger.error(ex.toString());
             return ERROR;
@@ -142,7 +182,7 @@ public class SellImportAction extends ActionSupport {
     public void setSender(String sender) {
         this.sender = sender;
     }
-    
+
     public Map<Integer, String> getExpressSel() {
         return expressSel;
     }
@@ -177,5 +217,21 @@ public class SellImportAction extends ActionSupport {
 
     public void setCommentInvoice(String commentInvoice) {
         this.commentInvoice = commentInvoice;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public List getDateSel() {
+        return dateSel;
+    }
+
+    public void setDateSel(List dateSel) {
+        this.dateSel = dateSel;
     }
 }

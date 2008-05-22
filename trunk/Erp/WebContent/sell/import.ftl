@@ -3,39 +3,117 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>导入买家收货信息</title>
-<script type="text/javascript" language="javascript">
-function setFee(value) {
-	var obj = document.getElementById("sell_import_fee");
+<script language="javascript" type="text/javascript" src="js/dojo/dojo.js" djConfig="isDebug:false,usePlainJson:true,bindEncoding:'UTF-8'"></script>
+<script language="javascript" type="text/javascript">
+function setFee(event) {
+	var value = isNaN(event) ? this.value : event;
+	var obj = dojo.byId("sell_import_fee");
 	obj.value = value;
 }
-function setFeeReal(value) {
-	var obj = document.getElementById("sell_import_feeReal");
+function setFeeReal(event) {
+	var value = isNaN(event) ? this.value : event;
+	var obj = dojo.byId("sell_import_feeReal");
 	obj.value = value;
 }
-function onFeeChange(value) {
+function setDate(event) {
+	var obj		= dojo.byId("sell_import_date");
+	obj.value	= this.value;
+}
+function onFeeChange(event) {
+	var value = isNaN(event) ? this.value : event;
 	var objs = document.getElementsByName("feeSel");
-	//alert("onFeeChange:" + value);
 	for (var i = 0; i < objs.length; i++) {
 		if (Math.floor(objs[i].value) == value) objs[i].checked = true
 		else objs[i].checked = false;
 	}
 }
-function onFeeRealChange(value) {
+function onFeeRealChange(event) {
+	var value = isNaN(event) ? this.value : event;
 	var objs = document.getElementsByName("feeRealSel");
-	//alert("onFeeRealChange:" + value);
 	for (var i = 0; i < objs.length; i++) {
 		if (Math.floor(objs[i].value) == value) objs[i].checked = true;
 		else objs[i].checked = false;
 	}
 }
-window.onload = function() {
-	var obj;
-	obj = document.getElementById("sell_import_fee");
-	onFeeChange(obj.value);
-	obj = document.getElementById("sell_import_feeReal");
-	onFeeRealChange(obj.value);
-	//alert("onload");
+function onImportContent(event) {
+	var addr = this.value;
+	var addrs;
+	addrs = addr.split("，");
+	addr = addrs[2];
+	if (addrs.length > 4) {
+		addr = addrs[3];
+	}
+	addrs = dojo.trim(addr).split(" ");
+	switch (addrs[0]) {
+		case "浙江省":
+		case "江苏省":
+		case "上海市":
+		case "上海":
+			fee = 5;
+			feeReal = 4;
+			break;
+		case "安徽省":
+		case "山东省":
+		case "广东省":
+		case "福建省":
+		case "北京":
+		case "北京市":
+		case "天津":
+		case "天津市":
+			fee = 10;
+			feeReal = 8;
+			break;	
+		default:
+			fee = 10;
+			feeReal = 10;
+			if (addrs[0] == "四川省" && addrs[1] == "成都市") {
+				feeReal = 8;
+			}
+	}
+	//console.debug("addr:" + addr + " fee:" + fee + " feeReal:" + feeReal);
+	
+	setFee(fee);
+	onFeeChange.call(null, fee);
+	
+	setFeeReal(feeReal);
+	onFeeRealChange.call(null, feeReal);
 }
+dojo.addOnLoad(function (){
+	var obj;
+	var sels;
+	
+	obj	= dojo.byId("sell_import_date");
+	sels = document.getElementsByName("sel");
+	for (var i = 0; i < sels.length; i++) {
+		dojo.connect(sels[i], "onclick", sels[i], setDate);
+		if (sels[i].value == obj.value) {
+			sels[i].checked = true;
+			break;
+		}
+	}
+	
+	obj	= dojo.byId("sell_import_fee");
+	dojo.connect(obj, "onkeyup", obj, onFeeChange);
+	sels = document.getElementsByName("feeSel");
+	for (var i = 0; i < sels.length; i++) {
+		dojo.connect(sels[i], "onclick", sels[i], setFee);
+		if (Math.floor(sels[i].value) == obj.value) sels[i].checked = true;
+		else sels[i].checked = false;
+	}
+	
+	obj	= dojo.byId("sell_import_feeReal");
+    dojo.connect(obj, "onkeyup", obj, onFeeRealChange);
+	sels = document.getElementsByName("feeRealSel");
+	for (var i = 0; i < sels.length; i++) {
+		dojo.connect(sels[i], "onclick", sels[i], setFeeReal);
+		if (Math.floor(sels[i].value) == obj.value) sels[i].checked = true;
+		else sels[i].checked = false;
+	}
+	
+	obj = dojo.byId("sell_import_content");
+	dojo.connect(obj, "onchange", obj, onImportContent);
+	dojo.connect(obj, "onfocus", obj, obj.select);
+});
 </script>
 <style type="text/css">
 label { cursor:pointer; }
@@ -51,10 +129,12 @@ label { cursor:pointer; }
 <@s.form action="sell_import">
     <@s.textarea label="地址" name="content" cols="80" rows="3"/>
     <@s.textfield label="旺旺" name="wangwang"/>
-    <@s.textfield label="收取运费" name="fee" onkeyup="javascript:onFeeChange(this.value)"/>
-    <@s.radio name="feeSel" list="{0, 5, 10, 12, 15, 20, 25}" onclick="javascript:setFee(this.value)"/>
-    <@s.textfield label="实际运费" name="feeReal" onkeyup="javascript:onFeeRealChange(this.value)"/>
-    <@s.radio name="feeRealSel" list="{0, 4, 5, 8, 10, 12, 15, 20, 25}" onclick="javascript:setFeeReal(this.value)"/>
+    <@s.textfield label="日期" name="date"/>
+    <@s.radio name="sel" list="dateSel" onclick="javascript:setDate(this.value)"/>
+    <@s.textfield label="收取运费" name="fee"/>
+    <@s.radio name="feeSel" list="{0, 5, 10, 12, 15, 20, 25}"/>
+    <@s.textfield label="实际运费" name="feeReal"/>
+    <@s.radio name="feeRealSel" list="{0, 4, 5, 8, 10, 12, 15, 20, 25}"/>
     <@s.radio label="快递" name="expressId" list="expressSel"/>
     <@s.textfield label="快递单备注" name="commentExpress"/>
     <@s.textfield label="发货单备注" name="commentInvoice"/>
