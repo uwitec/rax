@@ -1,5 +1,7 @@
 package erp.action;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -22,6 +24,8 @@ public class SellItemAction extends ActionSupport {
     private int wareId;
     private double price;
     private int number;
+    
+    private List<SellItem> sellItemList;
 
     public String get() throws Exception {
         try {
@@ -66,7 +70,7 @@ public class SellItemAction extends ActionSupport {
             if (id > 0) {
                 sellItemService.updateSellItem(obj);
             } else {
-                sellItemService.createSellItem(obj);
+                id = sellItemService.createSellItem(obj);
             }
         } catch (Exception ex) {
             logger.error(ex.toString());
@@ -129,6 +133,14 @@ public class SellItemAction extends ActionSupport {
 
     public void setSellService(SellService sellService) {
         this.sellService = sellService;
+    }
+
+    public List<SellItem> getSellItemList() {
+        return sellItemList;
+    }
+
+    public void setSellItemList(List<SellItem> sellItemList) {
+        this.sellItemList = sellItemList;
     }
 
 }

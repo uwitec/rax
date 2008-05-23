@@ -53,6 +53,10 @@ public class SellItemService {
         return sellItemDao.listBySellId(s.getId());
     }
     
+    public List<SellItem> listBySellId(int sellId) {
+        return sellItemDao.listBySellId(sellId);
+    }
+    
     public void setSellItemDao(SellItemDao dao) {
         sellItemDao = dao;
     }

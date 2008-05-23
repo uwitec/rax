@@ -8,6 +8,9 @@
 	<package name="json" extends="json-default">
 		<action name="ware_find" class="WareFindAction">
 			<result type="json" />
+		</action>		
+		<action name="sell_item_add" class="SellItemAction">
+			<result type="json" />
 		</action>
 	</package>
 
