@@ -28,7 +28,7 @@ body { font-size:16px; }
   <#assign total=total + item.price * item.number/>
   <tr>
     <td>${item.ware.name}</td>
-	<td>&nbsp;</td>	
+	<td>&nbsp;</td>
     <td>${item.number}</td>
     <td>#{(item.price);m2M2}</td>
     <td>#{(item.price * item.number);m2M2}</td>

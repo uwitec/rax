@@ -58,8 +58,11 @@ label { cursor:pointer; }
 </#if>
 
 <#if orderItemList??>
+<#assign num=0/>
 <#list orderItemList as item>
 <div>
+<#assign num = num + 1/>
+${num}
 <a href="order_item.action?id=${item.id}&orderId=${id}" title="${item.cost} * ${(item.number)}">
 ${item.ware.name} * ${(item.number)} 
 </a>

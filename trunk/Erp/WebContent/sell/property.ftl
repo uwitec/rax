@@ -77,11 +77,14 @@ label { cursor:pointer; }
 <a href="invoice_input.action?sellId=${id}" target="_balnk">打印发货单</a><br /><br />
 
 <#if sellItemList??>
+<#assign num=0/>
 <#list sellItemList as item>
 <div>
+<#assign num = num + 1/>
+${num}
+<a href="sell_item_delete.action?id=${item.id}&sellId=${id}" onclick="return confirm('确实要删除这项么？')">删</a>
 <a href="sell_item.action?id=${item.id}" title="${item.price} * ${(item.number)}">
-${item.ware.name} * ${(item.number)} 
-</a>
+${item.ware.name} * ${(item.number)}</a>
 </div>
 </#list>
 </#if>
