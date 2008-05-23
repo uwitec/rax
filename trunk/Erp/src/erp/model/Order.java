@@ -11,6 +11,7 @@ public class Order {
     private String comment;
 
     public Order() {
+        id = 0;
         createDate = new Date();
         status = 0;
         fee = 0;

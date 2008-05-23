@@ -22,6 +22,7 @@ public class Sell {
     private int status;
 
     public Sell() {
+        id = 0;
         customerName = "";
         customerAddress = "";
         customerPhone1 = "";

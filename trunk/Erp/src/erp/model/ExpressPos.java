@@ -3,6 +3,7 @@ package erp.model;
 import com.lowagie.text.Rectangle;
 
 public class ExpressPos {
+    
     public int X;
     public int Y;
 

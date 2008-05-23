@@ -10,8 +10,8 @@
 
 	<insert id="create" parameterClass="Ware">
 		<![CDATA[
-		INSERT INTO erp.ware (name,cost,price,barcode,number,status) 
-		VALUES (#name#,#cost#,#price#,#barcode#,#number#,#status#)
+		INSERT INTO erp.ware (name,cost,price,barcode,number,status,last_cost) 
+		VALUES (#name#,#cost#,#price#,#barcode#,#number#,#status#,#lastCost#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
@@ -22,7 +22,7 @@
 
 	<select id="read" parameterClass="int" resultClass="Ware">
 		<![CDATA[
-		SELECT id,name,cost,price,barcode,number,status
+		SELECT id,name,cost,price,barcode,number,status,last_cost AS lastCost
 		FROM erp.ware
 		WHERE id=#id#
 		]]>
@@ -31,7 +31,7 @@
 	<update id="update" parameterClass="Ware">
 		<![CDATA[
 		UPDATE erp.ware SET name=#name#,cost=#cost#,price=#price#, 
-		barcode=#barcode#,number=#number#,status=#status#
+		barcode=#barcode#,number=#number#,status=#status#,last_cost=#lastCost#
 		WHERE id=#id#
 		]]>
 	</update>
@@ -52,7 +52,7 @@
 	</select>
 
 	<select id="list" parameterClass="map" resultClass="Ware">
-		SELECT id,name,cost,price,barcode,number,status
+		SELECT id,name,cost,price,barcode,number,status,last_cost AS lastCost
 		FROM erp.ware
 		<dynamic>
 			<isGreaterThan prepend="WHERE" property="status" compareValue="-1">
@@ -65,7 +65,7 @@
 
 	<select id="listLimited" parameterClass="map" resultClass="Ware">
 		<![CDATA[
-		SELECT id,name,cost,price,barcode,number,status
+		SELECT id,name,cost,price,barcode,number,status,last_cost AS lastCost
 		FROM erp.ware
 		WHERE (price=0 OR cost=0 OR number<=0 OR barcode='')
 		]]>
@@ -82,7 +82,7 @@
 	<select id="findByBarcode" parameterClass="string"
 		resultClass="Ware">
 		<![CDATA[
-		SELECT id,name,cost,price,barcode,number,status
+		SELECT id,name,cost,price,barcode,number,status,last_cost AS lastCost
 		FROM erp.ware
 		WHERE barcode=#barcode#
 		]]>
@@ -91,7 +91,7 @@
 	<select id="findByKeywords" parameterClass="list"
 		resultClass="Ware">
 		<![CDATA[
-		SELECT id,name,cost,price,barcode,number,status
+		SELECT id,name,cost,price,barcode,number,status,last_cost AS lastCost
 		FROM erp.ware
 		]]>
 		<dynamic prepend="WHERE">

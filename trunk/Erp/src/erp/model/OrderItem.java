@@ -11,6 +11,7 @@ public class OrderItem {
     private Ware ware;
     
     public OrderItem() {
+        id = 0;
         orderId = 0;
         wareId = 0;
         cost = 0;

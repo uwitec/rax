@@ -44,22 +44,26 @@ public class OrderItemAction extends ActionSupport {
 
     @Override
     public String execute() throws Exception {
-        //try {
+        try {
             if (orderId == 0) {
                 Order order = new Order();
                 orderId = orderService.createOrder(order);
             }
-            orderItem.setId(id);
-            orderItem.setOrderId(orderId);
+            OrderItem newItem = (id > 0) ? orderItemService
+                    .getOrderItemById(id) : new OrderItem();
+            newItem.setOrderId(orderId);
+            newItem.setWareId(orderItem.getWareId());
+            newItem.setCost(orderItem.getCost());
+            newItem.setNumber(orderItem.getNumber());
             if (id > 0) {
                 orderItemService.updateOrderItem(orderItem);
             } else {
                 orderItemService.createOrderItem(orderItem);
             }
-        //} catch (Exception ex) {
-        //    logger.error(ex.toString());
-        //    return ERROR;
-        //}
+        } catch (Exception ex) {
+            logger.error(ex.toString());
+            return ERROR;
+        }
         return SUCCESS;
     }
 

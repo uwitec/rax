@@ -10,6 +10,7 @@ public class SellItem {
     private int number;
     
     public SellItem() {
+        id = 0;
         sellId = 0;
         wareId = 0;
         price = 0;

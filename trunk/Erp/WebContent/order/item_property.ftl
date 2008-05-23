@@ -83,7 +83,7 @@ function onSelect(event) {
     ware = wareList[i];
   	if (obj.value == ware.id) {
   	  objId.value		= ware.id;
-  	  objCost.value		= ware.cost;
+  	  objCost.value		= ware.lastCost;
   	  objNum.value		= 1;
   	  break;
   	}

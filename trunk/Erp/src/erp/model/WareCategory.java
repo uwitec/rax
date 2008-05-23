@@ -6,6 +6,7 @@ public class WareCategory {
     private String name;
     
     public WareCategory() {
+        id = 0;
         name = "";
     }
 
