@@ -79,13 +79,7 @@ public class OrderAction extends ActionSupport {
     @Override
     public String execute() throws Exception {
         try {
-            Order obj;
-            if (id > 0) {
-                obj = orderService.getOrderById(id);
-            } else {
-                obj = new Order();
-                obj.setId(id);
-            }
+            Order obj = (id > 0) ? orderService.getOrderById(id) : new Order();
             if (obj.getStatus() == 0) {
                 obj.setFee(order.getFee());
             }

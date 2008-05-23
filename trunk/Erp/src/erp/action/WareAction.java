@@ -24,7 +24,7 @@ public class WareAction extends ActionSupport {
     private String barcode;
     private String number;
     private int status = 0;
-    
+
     private List<Ware> wareList;
     private int page = 1;
     private int pagePer = 30;
@@ -38,13 +38,13 @@ public class WareAction extends ActionSupport {
         wareList = wareService.list(status, (page - 1) * pagePer, pagePer);
         return SUCCESS;
     }
-    
+
     public String listLimited() throws Exception {
         wareList = wareService.listLimited(status);
         count = wareList.size();
         return SUCCESS;
     }
-    
+
     public String get() throws Exception {
         try {
             DecimalFormat f = new DecimalFormat("###0.00");
@@ -69,7 +69,7 @@ public class WareAction extends ActionSupport {
             Ware ware = wareService.getWareById(id);
             ware.setStatus(1);
             wareService.updateWare(ware);
-            //wareService.deleteWare(id);
+            // wareService.deleteWare(id);
         } catch (Exception ex) {
             logger.error(ex.toString());
             return ERROR;
@@ -79,18 +79,21 @@ public class WareAction extends ActionSupport {
 
     @Override
     public String execute() throws Exception {
-        Ware obj = new Ware();
-        obj.setId(id);
-        obj.setName(name.trim());
-        obj.setBarcode(barcode.trim());
-        obj.setStatus(status);
-        if (cost.isEmpty() == false)
-            obj.setCost(Double.parseDouble(cost));
-        if (number.isEmpty() == false)
-            obj.setNumber(Integer.parseInt(number));
-        if (price.isEmpty() == false)
-            obj.setPrice(Double.parseDouble(price));
         try {
+            Ware obj = (id > 0) ? wareService.getWareById(id) : new Ware();
+            obj.setName(name.trim());
+            obj.setBarcode(barcode.trim());
+            obj.setStatus(status);
+            if (cost.isEmpty() == false) {
+                obj.setCost(Double.parseDouble(cost));
+            }
+            if (number.isEmpty() == false) {
+                obj.setNumber(Integer.parseInt(number));
+            }
+            if (price.isEmpty() == false) {
+                obj.setPrice(Double.parseDouble(price));
+            }
+            
             if (id > 0) {
                 wareService.updateWare(obj);
             } else {

@@ -57,16 +57,17 @@ public class SellItemAction extends ActionSupport {
                 Sell sell = new Sell();
                 sellId = sellService.createSell(sell);
             }
-            SellItem obj = new SellItem();
-            obj.setId(id);
+            SellItem obj = (id > 0) ? sellItemService.getSellItemById(id)
+                    : new SellItem();
             obj.setSellId(sellId);
             obj.setWareId(wareId);
             obj.setPrice(price);
             obj.setNumber(number);
-            if (id > 0)
+            if (id > 0) {
                 sellItemService.updateSellItem(obj);
-            else
+            } else {
                 sellItemService.createSellItem(obj);
+            }
         } catch (Exception ex) {
             logger.error(ex.toString());
             return ERROR;

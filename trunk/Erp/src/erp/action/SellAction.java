@@ -39,9 +39,9 @@ public class SellAction extends ActionSupport {
     private String commentInvoice;
     private String sender;
     private int status = 0;
-    
+
     Map<Integer, String> expressSel;
-    
+
     private List<Sell> sellList;
     private List<SellItem> sellItemList;
     private int page = 1;
@@ -105,28 +105,23 @@ public class SellAction extends ActionSupport {
 
     @Override
     public String execute() throws Exception {
-        Sell obj;
-        if (id > 0) {
-            obj = sellService.getSellById(id);
-        } else {
-            obj = new Sell();
-            obj.setId(id);
-        }
-        obj.setCustomerName(customerName.trim());
-        obj.setCustomerAddress(customerAddress.trim());
-        obj.setCustomerPhone1(customerPhone1.trim());
-        obj.setCustomerPhone2(customerPhone2.trim());
-        obj.setCustomerPostCode(customerPostCode.trim());
-        obj.setCustomerWangwang(customerWangwang.trim());
-        obj.setExpressId(expressId);
-        obj.setCommentExpress(commentExpress.trim());
-        obj.setCommentInvoice(commentInvoice.trim());
-        obj.setSender(sender.trim());
-        if (fee.isEmpty() == false)
-            obj.setFee(Double.parseDouble(fee));
-        if (feeReal.isEmpty() == false)
-            obj.setFeeReal(Double.parseDouble(feeReal));
         try {
+            Sell obj = (id > 0) ? sellService.getSellById(id) : new Sell();
+            obj.setCustomerName(customerName.trim());
+            obj.setCustomerAddress(customerAddress.trim());
+            obj.setCustomerPhone1(customerPhone1.trim());
+            obj.setCustomerPhone2(customerPhone2.trim());
+            obj.setCustomerPostCode(customerPostCode.trim());
+            obj.setCustomerWangwang(customerWangwang.trim());
+            obj.setExpressId(expressId);
+            obj.setCommentExpress(commentExpress.trim());
+            obj.setCommentInvoice(commentInvoice.trim());
+            obj.setSender(sender.trim());
+            if (fee.isEmpty() == false)
+                obj.setFee(Double.parseDouble(fee));
+            if (feeReal.isEmpty() == false)
+                obj.setFeeReal(Double.parseDouble(feeReal));
+
             if (id > 0) {
                 sellService.updateSell(obj);
             } else {
@@ -138,7 +133,7 @@ public class SellAction extends ActionSupport {
         }
         return SUCCESS;
     }
-    
+
     public String status() throws Exception {
         try {
             if (id > 0) {

@@ -76,12 +76,8 @@ public class SellImportAction extends ActionSupport {
     @Override
     public String execute() throws Exception {
         try {
-            Sell obj;
-            if (sellId > 0) {
-                obj = sellService.getSellById(sellId);
-            } else {
-                obj = new Sell();
-            }
+            Sell obj = (sellId > 0) ? sellService.getSellById(sellId)
+                    : new Sell();
 
             String[] info = content.split("，");
             obj.setCustomerName(info[0].trim());
