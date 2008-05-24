@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>宝贝列表</title>
+<title>被隐藏的宝贝列表</title>
 </head>
 
 <body>
@@ -17,10 +17,6 @@
 <#if wareList??>
 <#list wareList as ware>
 <div>
-<#if ware.barcode?length = 0>#<#else>&nbsp;</#if>
-<#if ware.cost = 0>$<#else>&nbsp;</#if>
-<#if ware.price = 0>*<#else>&nbsp;</#if>
-<#if ware.number <= 0>o<#else>&nbsp;</#if>
 <@s.url id="url" action="ware">
 	<@s.param name="id" value="#{ware.id}"/>
 	<@s.param name="page" value="page"/>

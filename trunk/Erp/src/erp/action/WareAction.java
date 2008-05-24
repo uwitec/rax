@@ -44,6 +44,12 @@ public class WareAction extends ActionSupport {
         count = wareList.size();
         return SUCCESS;
     }
+    
+    public String listHided() throws Exception {
+        count = wareService.getCount(status);
+        wareList = wareService.list(status, 0, count);
+        return SUCCESS;
+    }
 
     public String get() throws Exception {
         try {
@@ -69,7 +75,6 @@ public class WareAction extends ActionSupport {
             Ware ware = wareService.getWareById(id);
             ware.setStatus(1);
             wareService.updateWare(ware);
-            // wareService.deleteWare(id);
         } catch (Exception ex) {
             logger.error(ex.toString());
             return ERROR;

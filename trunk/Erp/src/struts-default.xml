@@ -16,6 +16,11 @@
 		<action name="ware_list" class="WareAction" method="list">
 			<result name="success">/ware/list.ftl</result>
 		</action>
+		<action name="ware_list_hid" class="WareAction"
+			method="listHided">
+			<param name="status">1</param>
+			<result name="success">/ware/list_hid.ftl</result>
+		</action>
 		<action name="ware_list_limited" class="WareAction"
 			method="listLimited">
 			<result name="success">/ware/list_limited.ftl</result>

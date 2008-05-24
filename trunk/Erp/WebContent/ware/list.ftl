@@ -13,6 +13,7 @@
 	<@s.param name="page" value="page" />
 </@s.url>
 <a href="index.htm">返回首页</a>
+<a href="ware_list_hid.action?page=${page}">列出隐藏的宝贝</a>
 <a href="${urlLimited}">列出需处理宝贝</a>
 <a href="${urlAdd}">添加新的宝贝</a>
 <br /><br />
