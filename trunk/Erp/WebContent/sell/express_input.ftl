@@ -8,19 +8,25 @@
 
 function setDate(value) {
 	var obj		= dojo.byId("express_date");
-	obj.value	= value;
+	obj.value	= this.value;
+}
+
+function onDateChange(event) {
+	var objs = document.getElementsByName("sel");
+	for (var i = 0; i < objs.length; i++) {
+		objs[i].checked = (objs[i].value == this.value) ? true : false;
+	}
 }
 
 dojo.addOnLoad(function (){
 	var obj		= dojo.byId("express_date");
 	var sels	= document.getElementsByName("sel");
 	var sel;
+	dojo.connect(obj, "onchange", obj, onDateChange);
 	for (var i = 0; i < sels.length; i++) {
 		sel	= sels[i];
-		if (sel.value == obj.value) {
-			sel.checked = true;
-			break;
-		}
+		dojo.connect(sel, "onclick", sel, setDate);
+		if (sel.value == obj.value) sel.checked = true;
 	}
 });
 
@@ -39,7 +45,7 @@ label { cursor:pointer; }
     <@s.textfield label="电话2" name="sell.customerPhone2"/>
     <@s.textfield label="邮编" name="sell.customerPostCode"/>
     <@s.textfield label="日期" name="date"/>
-    <@s.radio name="sel" list="dateSel" onclick="javascript:setDate(this.value)"/>
+    <@s.radio name="sel" list="dateSel"/>
     <@s.radio label="快递" name="sell.expressId" list="expressSel"/>
     <@s.textarea label="快递单备注" name="sell.commentExpress" cols="80" rows="3"/>
     <@s.textfield label="发件人" name="sender"/>

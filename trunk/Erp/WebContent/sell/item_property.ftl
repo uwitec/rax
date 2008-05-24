@@ -111,17 +111,19 @@ function onSubmit() {
 				var objNum		= dojo.byId("sell_item_save_number");
 				var objResult	= dojo.byId("addList");
 				var ware;
-				for (var i = 0; i < wareList.length; i++) {
-					ware = wareList[i];
-					if (objId.value == ware.id) {
-						addOption(objResult, ware.name + " * " + objNum.value, null, true);
-						break;
+				if (wareList != null) {
+					for (var i = 0; i < wareList.length; i++) {
+						ware = wareList[i];
+						if (objId.value == ware.id) {
+							addOption(objResult, ware.name + " * " + objNum.value, null, true);
+							break;
+						}
 					}
+					objId.value		= "";
+					objPrice.value	= "";
+					objNum.value	= "";
 				}
-				objId.value		= "";
-				objPrice.value	= "";
-				objNum.value	= "";
-				ret				= true;							
+				ret	= true;							
 			}
 			this.onResponse(ret);
 		},

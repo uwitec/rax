@@ -108,11 +108,8 @@ dojo.addOnLoad(function (){
 </head>
 
 <body>
-<@s.url id="url" action="order/order">
-	<@s.param name="id" value="orderId"/>
-</@s.url>
 <a href="order_list.action">返回进货单列表</a>
-<a href="${url}">返回进货信息</a>
+<a href="order.action?id=${orderId}">返回进货信息</a>
 <#if id != 0>
 <a href="order_item_delete.action?id=${id}&orderId=${orderId}" onclick="return confirm('确实要删除这项么？')">删除</a>
 </#if>

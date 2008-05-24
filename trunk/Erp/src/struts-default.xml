@@ -73,17 +73,13 @@
 			<result name="success">/sell/item_property.ftl</result>
 		</action>
 		<action name="sell_item_save" class="SellItemAction">
-			<result name="input" type="redirect-action">
-				<param name="actionName">sell_item</param>
-				<param name="sellId">${sellId}</param>
-			</result>
 			<result name="error" type="redirect-action">
 				<param name="actionName">sell</param>
 				<param name="id">${sellId}</param>
 			</result>
 			<result name="success" type="redirect-action">
-				<param name="actionName">sell_item</param>
-				<param name="sellId">${sellId}</param>
+				<param name="actionName">sell</param>
+				<param name="id">${sellId}</param>
 			</result>
 		</action>
 		<action name="sell_item_delete" class="SellItemAction"

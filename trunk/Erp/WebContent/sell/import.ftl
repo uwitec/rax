@@ -35,6 +35,12 @@ function onFeeRealChange(event) {
 		else objs[i].checked = false;
 	}
 }
+function onDateChange(event) {
+	var objs = document.getElementsByName("sel");
+	for (var i = 0; i < objs.length; i++) {
+		objs[i].checked = (objs[i].value == this.value) ? true : false;
+	}
+}
 function onImportContent(event) {
 	var addr = this.value;
 	var addrs;
@@ -81,14 +87,16 @@ function onImportContent(event) {
 dojo.addOnLoad(function (){
 	var obj;
 	var sels;
+	var sel;
 	
 	obj	= dojo.byId("sell_import_date");
+	dojo.connect(obj, "onchange", obj, onDateChange);
 	sels = document.getElementsByName("sel");
 	for (var i = 0; i < sels.length; i++) {
-		dojo.connect(sels[i], "onclick", sels[i], setDate);
-		if (sels[i].value == obj.value) {
-			sels[i].checked = true;
-			break;
+		sel = sels[i];
+		dojo.connect(sel, "onclick", sel, setDate);
+		if (sel.value == obj.value) {
+			sel.checked = true;
 		}
 	}
 	
@@ -130,7 +138,7 @@ label { cursor:pointer; }
     <@s.textarea label="地址" name="content" cols="80" rows="3"/>
     <@s.textfield label="旺旺" name="wangwang"/>
     <@s.textfield label="日期" name="date"/>
-    <@s.radio name="sel" list="dateSel" onclick="javascript:setDate(this.value)"/>
+    <@s.radio name="sel" list="dateSel"/>
     <@s.textfield label="收取运费" name="fee"/>
     <@s.radio name="feeSel" list="{0, 5, 10, 12, 15, 20, 25}"/>
     <@s.textfield label="实际运费" name="feeReal"/>

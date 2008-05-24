@@ -52,17 +52,13 @@
 		</action>
 		
 		<action name="order_item_save" class="OrderItemAction">
-			<result name="input" type="redirect-action">
-				<param name="actionName">order/order_item</param>
-				<param name="orderId">${orderId}</param>
-			</result>
 			<result name="error" type="redirect-action">
 				<param name="actionName">order/order</param>
 				<param name="id">${orderId}</param>
 			</result>
 			<result name="success" type="redirect-action">
-				<param name="actionName">order/order_item</param>
-				<param name="orderId">${orderId}</param>
+				<param name="actionName">order/order</param>
+				<param name="id">${orderId}</param>		
 			</result>
 		</action>
 		
