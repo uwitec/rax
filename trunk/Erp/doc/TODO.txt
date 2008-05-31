@@ -1,7 +1,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 表单格式化
+宝贝分类
+竖分页
 打印之后自动设成已处理
 
 导入售出宝贝
+全文索引
+
 统计信息

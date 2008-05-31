@@ -32,6 +32,7 @@ public class Sell {
         fee = 0;
         feeReal = 0;
         createDate = new Date();
+        sendDate = new Date();
         expressId = 0;
         commentExpress = "";
         commentInvoice = "";

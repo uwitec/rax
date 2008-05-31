@@ -13,5 +13,6 @@
 	<include file="struts-default.xml" />
 	<include file="struts-json.xml" />
 	<include file="struts-order.xml" />
-		
+	<include file="struts-stat.xml" />
+			
 </struts>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Stat">
+
+	<typeAlias alias="Stat" type="erp.model.Stat" />
+
+	<select id="storeAmount" resultClass="double">
+		<![CDATA[
+		select sum(cost * number) from erp.ware
+		]]>
+	</select>
+
+	<select id="profitByDay" parameterClass="map" resultClass="Stat">
+		<![CDATA[
+		SELECT s.send_date AS statDate, SUM((i.price - w.cost) * i.number) AS profit, SUM(i.number * i.price) AS amount
+		FROM sell_item AS i LEFT JOIN sell AS s ON (i.sell_id=s.id) 
+		LEFT JOIN ware AS w ON (i.ware_id=w.id) 
+		GROUP BY s.send_date
+		ORDER BY s.send_date DESC
+		LIMIT #number# OFFSET #index#
+		]]>
+	</select>
+
+	<select id="countByDay" parameterClass="map" resultClass="Stat">
+		<![CDATA[
+		SELECT send_date AS statDate, COUNT(id) AS number 
+		FROM sell
+		GROUP BY send_date
+		ORDER BY send_date DESC
+		LIMIT #number# OFFSET #index#
+		]]>
+	</select>
+
+</sqlMap>

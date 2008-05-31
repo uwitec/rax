@@ -17,5 +17,6 @@
 	<sqlMap resource="erp/dao/ibatis/maps/WareCategory.xml" />
 	<sqlMap resource="erp/dao/ibatis/maps/Ware.xml" />
 	<sqlMap resource="erp/dao/ibatis/maps/WareGrouping.xml" />
+	<sqlMap resource="erp/dao/ibatis/maps/Stat.xml" />
 	
 </sqlMapConfig>

@@ -58,4 +58,8 @@
 		<property name="orderService" ref="OrderService" />
 		<property name="orderItemService" ref="OrderItemService" />
 	</bean>
+	<bean id="StatAction" class="erp.action.StatAction"
+		scope="prototype">
+		<property name="statService" ref="StatService" />
+	</bean>
 </beans>
