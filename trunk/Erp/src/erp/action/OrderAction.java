@@ -87,7 +87,7 @@ public class OrderAction extends ActionSupport {
             if (id > 0) {
                 orderService.updateOrder(obj);
             } else {
-                orderService.createOrder(obj);
+                id = orderService.createOrder(obj);
             }
         } catch (Exception ex) {
             logger.error(ex.toString());

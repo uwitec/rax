@@ -63,6 +63,7 @@ label { cursor:pointer; }
 <div>
 <#assign num = num + 1/>
 ${num}
+<a href="order_item_delete.action?id=${item.id}&orderId=${id}" onclick="return confirm('确实要删除这项么？')">删</a>
 <a href="order_item.action?id=${item.id}&orderId=${id}" title="${item.cost} * ${(item.number)}">
 ${item.ware.name} * ${(item.number)} 
 </a>

@@ -125,7 +125,7 @@ public class SellAction extends ActionSupport {
             if (id > 0) {
                 sellService.updateSell(obj);
             } else {
-                sellService.createSell(obj);
+                id = sellService.createSell(obj);
             }
         } catch (Exception ex) {
             logger.error(ex.toString());

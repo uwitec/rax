@@ -181,15 +181,15 @@ label { cursor:pointer; }
     <@s.hidden name="id"/>
     <@s.hidden name="sellId"/>
 </@s.form>
-<input type="button" id="submitBtn" value=" AJAX 提 交 "/>
+<input type="button" id="submitBtn" value=" 提 交 "/>
 <span id="submitStatus"></span>
 </div>
 <br />
 
 <div>
-<@s.textfield label="搜索" name="search"/> <a href="ware.action" target="_blank">添加新的宝贝</a><br />
-<@s.select name="search_result" size="16"/>
-<br />
+<@s.textfield label="搜索" name="search"/>
+<a href="ware.action" target="_blank">添加新的宝贝</a><br />
+<@s.select name="search_result" size="16"/><br />
 <@s.select name="addList"/>
 </div>
 

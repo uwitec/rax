@@ -114,7 +114,7 @@ public class SellImportAction extends ActionSupport {
             if (sellId > 0) {
                 sellService.updateSell(obj);
             } else {
-                sellService.createSell(obj);
+                sellId = sellService.createSell(obj);
             }
         } catch (Exception ex) {
             logger.error(ex.toString());

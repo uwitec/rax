@@ -102,7 +102,7 @@ public class WareAction extends ActionSupport {
             if (id > 0) {
                 wareService.updateWare(obj);
             } else {
-                wareService.createWare(obj);
+                id = wareService.createWare(obj);
             }
         } catch (Exception ex) {
             logger.error(ex.toString());

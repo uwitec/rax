@@ -20,7 +20,7 @@
 <div>包裹数</div>
 <#if weekProfitList??>
 <#list weekProfitList as profit>
-<div class="float">${profit.statDate?string("yyyy-MM-dd")}</div>
+<div class="float">${profit.statDate?string("yy-MM-dd")}</div>
 <div class="float">${profit.profit}</div>
 <div class="float">${profit.amount}</div> 
 <div>${profit.number}</div>

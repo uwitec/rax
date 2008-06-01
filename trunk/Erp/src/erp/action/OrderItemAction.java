@@ -58,7 +58,7 @@ public class OrderItemAction extends ActionSupport {
             if (id > 0) {
                 orderItemService.updateOrderItem(newItem);
             } else {
-                orderItemService.createOrderItem(newItem);
+                id = orderItemService.createOrderItem(newItem);
             }
         } catch (Exception ex) {
             logger.error(ex.toString());
