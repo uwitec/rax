@@ -18,12 +18,14 @@ public class StatAction extends ActionSupport {
 
     private double restore;
     private List<Stat> weekProfitList;
-
+    private List<Stat> monthProfitList;
+    
     @Override
     public String execute() throws Exception {
         try {
             restore = statService.getRestore();
             weekProfitList = statService.listStatByDay(0, 7);
+            monthProfitList = statService.listStatByMonth(3);
         } catch (Exception ex) {
             logger.error(ex.toString());
             return ERROR;
@@ -53,6 +55,14 @@ public class StatAction extends ActionSupport {
 
     public void setWeekProfitList(List<Stat> weekProfitList) {
         this.weekProfitList = weekProfitList;
+    }
+
+    public List<Stat> getMonthProfitList() {
+        return monthProfitList;
+    }
+
+    public void setMonthProfitList(List<Stat> monthProfitList) {
+        this.monthProfitList = monthProfitList;
     }
 
 }

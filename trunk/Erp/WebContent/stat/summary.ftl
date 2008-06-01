@@ -18,9 +18,26 @@
 <div class="float">利润</div>
 <div class="float">营业额</div> 
 <div>包裹数</div>
+<div>
 <#if weekProfitList??>
 <#list weekProfitList as profit>
 <div class="float">${profit.statDate?string("yy-MM-dd")}</div>
+<div class="float">${profit.profit}</div>
+<div class="float">${profit.amount}</div> 
+<div>${profit.number}</div>
+</#list>
+</#if>
+</div>
+<br />
+
+<div class="float">月份</div>
+<div class="float">利润</div>
+<div class="float">营业额</div> 
+<div>包裹数</div>
+<div>
+<#if monthProfitList??>
+<#list monthProfitList as profit>
+<div class="float">${profit.statDate?string("yy-MM")}</div>
 <div class="float">${profit.profit}</div>
 <div class="float">${profit.amount}</div> 
 <div>${profit.number}</div>
