@@ -104,4 +104,15 @@
 		]]>
 	</select>
 
+	<select id="fullTextSearch" parameterClass="string"
+		resultClass="Ware">
+		<![CDATA[
+		SELECT id,name,cost,price,barcode,number,status,last_cost AS lastCost
+		FROM erp.ware, to_tsquery(erp.querycharseg(#content#, 1)) q
+		WHERE idx_name @@ q
+		ORDER BY ts_rank (idx_name, q) DESC
+		LIMIT 12
+		]]>
+	</select>
+
 </sqlMap>

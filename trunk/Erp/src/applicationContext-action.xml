@@ -62,9 +62,12 @@
 		scope="prototype">
 		<property name="statService" ref="StatService" />
 	</bean>
-	
-	<bean id="InvoiceImportAction" class="erp.action.InvoiceImportAction"
-		scope="prototype">
+
+	<bean id="SellItemImportAction"
+		class="erp.action.SellItemImportAction" scope="prototype">
+		<!--
+		<property name="wareService" ref="WareService" />
+		-->
 	</bean>
-	
+
 </beans>

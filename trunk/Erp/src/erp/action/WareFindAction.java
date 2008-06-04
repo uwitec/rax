@@ -30,6 +30,12 @@ public class WareFindAction extends ActionSupport {
         }
         return SUCCESS;
     }
+    
+    public String search() throws Exception {
+        logger.info("fullTextSearch:" + keyword);
+        wareList = wareService.fullTextSearch(keyword);
+        return SUCCESS;
+    }
 
     public void setWareService(WareService service) {
         wareService = service;

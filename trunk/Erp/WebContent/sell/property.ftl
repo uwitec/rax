@@ -39,6 +39,7 @@ window.onload = function() {
 </script>
 <style type="text/css">
 label { cursor:pointer; }
+.float { float:left; margin-right:12px; width:40px; }
 </style>
 </head>
 
@@ -72,19 +73,24 @@ label { cursor:pointer; }
 </@s.form>
 </div>
 
-<a href="sell_item.action?sellId=${id}">添加新项目</a>
+<a href="sell_item.action?sellId=${id}">添加购买的宝贝</a>
+<a href="sell_item_import_input.action?sellId=${id}">从淘宝导入售出记录</a>
 <a href="invoice_input.action?sellId=${id}" target="_balnk">打印发货单</a><br /><br />
 
+<div class="float">编号</div>
+<div class="float">操作</div>
+<div class="float">数量</div>
+<div class="float">价格</div>
+<div>宝贝名称</div>
 <#if sellItemList??>
 <#assign num=0/>
 <#list sellItemList as item>
-<div>
 <#assign num = num + 1/>
-${num}
-<a href="sell_item_delete.action?id=${item.id}&sellId=${id}" onclick="return confirm('确实要删除这项么？')">删</a>
-<a href="sell_item.action?id=${item.id}" title="${item.price} * ${(item.number)}">
-${item.ware.name} * ${(item.number)}</a>
-</div>
+<div class="float">${num}</div>
+<div class="float"><a href="sell_item_delete.action?id=${item.id}&sellId=${id}" onclick="return confirm('确实要删除这项么？')">删</a></div>
+<div class="float">${item.number}</div>
+<div class="float">${item.price}</div>
+<div><a href="sell_item.action?id=${item.id}">${item.ware.name}</a></div>
 </#list>
 </#if>
 

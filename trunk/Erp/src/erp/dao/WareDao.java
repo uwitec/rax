@@ -26,4 +26,5 @@ public interface WareDao {
 
     public List<Ware> findByKeywords(List<String> keywordList) throws DataAccessException;
 
+    public List<Ware> fullTextSearch(String content) throws DataAccessException;
 }

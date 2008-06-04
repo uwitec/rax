@@ -94,6 +94,10 @@ public class WareService {
         return wareDao.findByKeywords(keywordList);
     }
 
+    public List<Ware> fullTextSearch(String content) {
+        return wareDao.fullTextSearch(content);
+    }
+    
     public void setWareDao(WareDao dao) {
         wareDao = dao;
     }

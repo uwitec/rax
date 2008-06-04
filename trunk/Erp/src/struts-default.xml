@@ -40,7 +40,11 @@
 				ware_list
 			</result>
 		</action>
-		<action name="ware_search" class="WareFindAction">
+		<action name="ware_find_xml" class="WareFindAction">
+			<result name="success">/ware/find.ftl</result>
+		</action>
+		<action name="ware_search_xml" class="WareFindAction"
+			method="search">
 			<result name="success">/ware/find.ftl</result>
 		</action>
 
@@ -110,6 +114,11 @@
 			<result name="success" type="redirect-action">
 				sell_list
 			</result>
+		</action>
+
+		<action name="sell_item_import_input"
+			class="SellItemImportAction" method="input">
+			<result name="success">/sell/item_import.ftl</result>
 		</action>
 
 		<action name="invoice_input" class="InvoiceAction"
