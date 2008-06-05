@@ -83,7 +83,7 @@ function doSearch(keyword, id) {
 		keyword:keyword
 	}
 	dojo.xhrGet({
-		url: "/erp/json/ware_search.action",
+		url: "/erp/json/ware_find_ft.action",
 		content: params,
 		preventCache: true,
 		handleAs: "json",

@@ -9,7 +9,7 @@
 		<action name="ware_find" class="WareFindAction">
 			<result type="json" />
 		</action>
-		<action name="ware_search" class="WareFindAction" method="search">
+		<action name="ware_find_ft" class="WareFindAction" method="search">
 			<result type="json" />
 		</action>
 		<action name="sell_item_add" class="SellItemAction">
