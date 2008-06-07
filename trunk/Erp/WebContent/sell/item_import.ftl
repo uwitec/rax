@@ -44,7 +44,8 @@ function onImport(event) {
 
 function doParse(content) {
 	var params = {
-		sellContent:content
+		sellContent:content,
+		sellId:sellId
 	}
 	dojo.xhrGet({
 		url: "/erp/json/sell_item_import.action",

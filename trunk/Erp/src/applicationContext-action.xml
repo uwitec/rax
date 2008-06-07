@@ -65,9 +65,7 @@
 
 	<bean id="SellItemImportAction"
 		class="erp.action.SellItemImportAction" scope="prototype">
-		<!--
-		<property name="wareService" ref="WareService" />
-		-->
+		<property name="sellService" ref="SellService" />
 	</bean>
 
 </beans>

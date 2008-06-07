@@ -136,7 +136,6 @@ label { cursor:pointer; }
 <div>
 <@s.form action="sell_import">
     <@s.textarea label="地址" name="content" cols="80" rows="3"/>
-    <@s.textfield label="旺旺" name="wangwang"/>
     <@s.textfield label="日期" name="date"/>
     <@s.radio name="sel" list="dateSel"/>
     <@s.textfield label="收取运费" name="fee"/>

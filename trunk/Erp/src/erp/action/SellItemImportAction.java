@@ -14,6 +14,8 @@ import org.apache.log4j.Logger;
 import com.opensymphony.xwork2.ActionSupport;
 
 import erp.model.InvoiceItem;
+import erp.model.Sell;
+import erp.service.SellService;
 
 public class SellItemImportAction extends ActionSupport {
 
@@ -21,6 +23,8 @@ public class SellItemImportAction extends ActionSupport {
     private final static Logger logger = Logger
             .getLogger(SellItemImportAction.class);
 
+    private SellService sellService;
+    
     private int sellId;
     private String sellContent;
     private List<InvoiceItem> itemList;
@@ -34,7 +38,7 @@ public class SellItemImportAction extends ActionSupport {
     public String execute() throws Exception {
         try {
             itemList = new ArrayList<InvoiceItem>();
-            InvoiceItem item;
+            InvoiceItem item = null;
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
             String numStr = "\\(([0-9]*) 件\\)";
             String dateStr = "[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}";
@@ -98,6 +102,11 @@ public class SellItemImportAction extends ActionSupport {
                             + " 买家姓名:" + byerName);
                 }
             }
+            if (sellId > 0 && item != null) {
+                Sell obj = sellService.getSellById(sellId);
+                obj.setCustomerWangwang(item.getByerId());
+                sellService.updateSell(obj);
+            }
         } catch (Exception ex) {
             logger.error(ex.toString());
         }
@@ -120,7 +129,11 @@ public class SellItemImportAction extends ActionSupport {
         action.sellContent = buf.toString();
         action.execute();
     }
-
+    
+    public void setSellService(SellService sellService) {
+        this.sellService = sellService;
+    }
+    
     public String getSellContent() {
         return sellContent;
     }

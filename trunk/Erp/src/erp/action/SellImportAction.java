@@ -28,7 +28,6 @@ public class SellImportAction extends ActionSupport {
 
     private int sellId;
     private String content;
-    private String wangwang;
     private String fee;
     private String feeReal;
     private int expressId;
@@ -92,7 +91,6 @@ public class SellImportAction extends ActionSupport {
                 obj.setCustomerAddress(info[2].trim());
                 obj.setCustomerPostCode(info[3].trim());
             }
-            obj.setCustomerWangwang(wangwang);
             obj.setExpressId(expressId);
             obj.setCommentExpress(commentExpress);
             obj.setCommentInvoice(commentInvoice);
@@ -207,14 +205,6 @@ public class SellImportAction extends ActionSupport {
 
     public void setExpressService(ExpressService expressService) {
         this.expressService = expressService;
-    }
-
-    public String getWangwang() {
-        return wangwang;
-    }
-
-    public void setWangwang(String wangwang) {
-        this.wangwang = wangwang;
     }
 
     public String getCommentExpress() {
