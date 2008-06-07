@@ -1,5 +1,7 @@
 package erp.action;
 
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -113,7 +115,7 @@ public class SellImportAction extends ActionSupport {
 
             if (sellId > 0) {
                 sellService.updateSell(obj);
-            } else {
+            } else if (sellId == 0) {
                 sellId = sellService.createSell(obj);
             }
         } catch (Exception ex) {
@@ -121,6 +123,22 @@ public class SellImportAction extends ActionSupport {
             return ERROR;
         }
         return SUCCESS;
+    }
+
+    public static void main(String[] args) throws Exception {
+        char[] cbuf = new char[1024];
+        StringBuffer buf = new StringBuffer();
+        InputStreamReader is = new InputStreamReader(new FileInputStream(
+                "D:/address.txt"));
+        int size;
+        while ((size = is.read(cbuf)) != -1) {
+            buf.append(cbuf, 0, size);
+        }
+
+        SellImportAction action = new SellImportAction();
+        action.content = buf.toString();
+        action.sellId = -1;
+        action.execute();
     }
 
     public SellService getSellService() {

@@ -30,6 +30,18 @@ function delOption(objSelect, idx, expend) {
 	} catch (ex) { alert(ex.description); }
 }
 
+function onImport(event) {
+	var obj = dojo.byId("sellContent");
+	if (dojo.trim(obj.value).length > 1) {
+		doParse(obj.value);
+		//console.debug(obj.value);
+	}
+	obj = dojo.byId("importLayer");
+	obj.style.display = "none";
+	obj = dojo.byId("searchLayer");
+	obj.style.display = "block";
+}
+
 function doParse(content) {
 	var params = {
 		sellContent:content
@@ -57,22 +69,10 @@ function doParse(content) {
 	});
 }
 
-function onImport(event) {
-	var obj = dojo.byId("sellContent");
-	if (dojo.trim(obj.value).length > 1) {
-		doParse(obj.value);
-		//console.debug(obj.value);
-	}
-	obj = dojo.byId("importLayer");
-	obj.style.display = "none";
-	obj = dojo.byId("searchLayer");
-	obj.style.display = "block";	
-}
-
 function onConfirm(event) {
 	if (this.selectedIndex < 0) return;
 	var obj = this.options[this.selectedIndex];
-	console.debug(obj.text + obj.value);
+	//console.debug(obj.text + obj.value);
 	importIdx = obj.value;
 	delOption(this, this.selectedIndex, true);
 	doSearch(obj.text);
@@ -94,7 +94,7 @@ function doSearch(keyword, id) {
 			while (obj.options.length > 0) {
 				obj.remove(0);
 			}
-			
+
 			var ware = null;
 			for (var i = 0; i < json.wareList.length; i++) {
 				ware = json.wareList[i];
@@ -118,27 +118,27 @@ function onSelect(event) {
 	var itemName;
 	var itemPrice;
 	var itemNum;
-	
+
 	try {
 		var item = importList[importIdx];
-		itemPrice = item.price;
 		itemNum = item.number;
 	} catch(ex) {
 		console.debug(ex.toString());
 	}
-	
+
 	var ware;
 	for (var i = 0; i < wareList.length; i++) {
 		ware = wareList[i];
 		if (obj.value == ware.id) {
 			itemName = ware.name;
+			itemPrice = ware.price;
 			itemId = ware.id;
 			break;
 		}
 	}
-	
+
 	if (confirm("名称:" + itemName + "\n数量:" + itemNum + "\n单价:" + itemPrice)) {
-		console.debug("id:" + itemId + " num:" + itemNum + " price:" + itemPrice);
+		//console.debug("id:" + itemId + " num:" + itemNum + " price:" + itemPrice);
 		while (this.options.length > 0) {
 			this.remove(0);
 		}
@@ -151,12 +151,8 @@ function onSubmit(itemId, itemPrice, itemNum) {
 		wareId:itemId,
 		price:itemPrice,
 		number:itemNum,
-		sellId:sellId,
+		sellId:sellId
 	}
-	
-	//console.debug(params);
-	//return;
-	
 	dojo.xhrPost({
 		url: "/erp/json/sell_item_add.action",
 		content: params,
@@ -175,13 +171,13 @@ function onSubmit(itemId, itemPrice, itemNum) {
 						}
 					}
 				}
-				ret	= true;							
+				ret	= true;
 			}
 			this.onResponse(ret);
 		},
 		error: function(response) { this.onResponse(false); },
 		onResponse: function(flag) {
-			var text		= flag ? "提交成功" : "提交失败"; 
+			var text		= flag ? "提交成功" : "提交失败";
 			var obj			= dojo.byId("submitStatus");
 			obj.innerHTML	= text;
 			setTimeout(dojo.hitch(this, "onFinish"), 3000);
@@ -197,17 +193,17 @@ dojo.addOnLoad(function (){
 	var obj;
 	obj = dojo.byId("sellId");
 	sellId = obj.value;
-	
+
 	obj = dojo.byId("importSubmitBtn");
 	dojo.connect(obj, "onclick", obj, onImport);
-	
+
 	obj = dojo.byId("importResult");
 	dojo.connect(obj, "ondblclick", obj, onConfirm);
-	
+
 	obj = dojo.byId("search_result");
 	dojo.connect(obj, "ondblclick", obj, onSelect);
-	
-	
+
+
 	obj = dojo.byId("importLayer");
 	obj.style.display = "block";
 	obj = dojo.byId("searchLayer");

@@ -35,81 +35,68 @@ public class SellItemImportAction extends ActionSupport {
         try {
             itemList = new ArrayList<InvoiceItem>();
             InvoiceItem item;
-
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            String numStr = "([0-9]*)件";
-            String dateStr = "^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$";
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+            String numStr = "\\(([0-9]*) 件\\)";
+            String dateStr = "[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}";
             String[] details;
-            String[] infos = sellContent.split("定位");
-            for (String info : infos) {
+
+            String info = "";
+            String[] infos = sellContent.split("\n");
+            Pattern pattern = Pattern.compile(dateStr);
+            Matcher matcher;
+            for (int i = 0; i < infos.length; i++) {
 
                 Date date = new Date();
-                int num = 0;
+                int num = 1;
                 String name = "";
                 String byerId = "";
                 String byerName = "";
-                double price = 0;
 
-                details = info.trim().split(" ");
-                if (details.length < 15) {
-                    continue;
-                }
-                
-                for (int i = 0; i < details.length; i++) {
-                    if (details[i].matches(dateStr)) {
-                        date = formatter.parse(details[i]);
-                        //logger.info("date:" + formatter.format(date));
-                        
-                        int pos = i;
-                        num = 1;
-                        Pattern numPattern = Pattern.compile(numStr);
-                        Matcher numMatcher = numPattern.matcher(details[i - 1]);
-                        if (numMatcher.find()) {
-                            num = Integer.parseInt(numMatcher.group(numMatcher
-                                    .groupCount()));
-                            pos = i - 1;
-                            //logger.info("num:" + num + " pos:" + pos);
-                        }
+                info = infos[i].trim();
+                // logger.info("info:" + info);
+                matcher = pattern.matcher(info);
+                if (matcher.find()) {
+                    details = info.split(" ");
+                    date = formatter.parse(details[0]);
+                    // logger.info("date:" + formatter.format(date));
 
-                        StringBuffer nameBuffer = new StringBuffer();
-                        for (int j = 0; j < pos; j++) {
-                            if (details[j].equals("\n") || details[j].equals("\r\n")) {
-                                nameBuffer = new StringBuffer();
-                                continue;
-                            }
-                            nameBuffer.append(details[j]);
-                            nameBuffer.append(" ");
-                        }
-                        name = nameBuffer.toString().trim();
-                        //logger.info("name:" + name);
-                        
-                        String[] byers = details[i + 2].trim().split("\n");
-                        byerId = byers[0].trim();
-                        byerName = byers[1].trim();
-                        //logger.info("byerId:" + byerId);
-                        //logger.info("byerName:" + byerName);
+                    info = infos[i - 3].trim();
+                    details = info.split(" ");
+                    int pos = details.length - 1;
+                    byerId = details[pos].trim();
+                    byerName = infos[i - 2].trim();
+                    // logger.info("byerId:" + byerId + " byerName:" +
+                    // byerName);
 
-                        String[] prices = details[i + 4].trim().split("\n");
-                        price = Double.parseDouble(prices[0]);
-                        //logger.info("price:" + price);
-                        
-                        break;
+                    StringBuffer nameBuffer = new StringBuffer();
+                    for (int j = 0; j < pos; j++) {
+                        nameBuffer.append(details[j]);
+                        nameBuffer.append(" ");
                     }
+                    name = nameBuffer.toString().trim();
+                    // logger.info("name:" + name);
+
+                    Pattern numPattern = Pattern.compile(numStr);
+                    Matcher numMatcher = numPattern.matcher(name);
+                    if (numMatcher.find()) {
+                        name = name.replace(numMatcher.group(0), "").trim();
+                        num = Integer.parseInt(numMatcher.group(1));
+                        // logger.info("num:" + num );
+                    }
+
+                    item = new InvoiceItem();
+                    item.setName(name);
+                    item.setDate(date);
+                    item.setByerId(byerId);
+                    item.setNumber(num);
+                    item.setByerName(byerName);
+
+                    itemList.add(item);
+
+                    logger.info("日期:" + formatter.format(date) + " 宝贝名称:"
+                            + name + " 数量:" + num + " 买家ID:" + byerId
+                            + " 买家姓名:" + byerName);
                 }
-
-                item = new InvoiceItem();
-                item.setName(name);
-                item.setDate(date);
-                item.setByerId(byerId);
-                item.setByerName(byerName);
-                item.setNumber(num);
-                item.setPrice(price);
-
-                itemList.add(item);
-
-                logger.info("日期:" + formatter.format(date) + " 宝贝名称:" + name + " 数量:"
-                        + num + " 买家ID:" + byerId + " 买家姓名:" + byerName
-                        + " 价格:" + price);
             }
         } catch (Exception ex) {
             logger.error(ex.toString());
