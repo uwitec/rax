@@ -75,7 +75,6 @@ function onConfirm(event) {
 	var obj = this.options[this.selectedIndex];
 	//console.debug(obj.text + obj.value);
 	importIdx = obj.value;
-	delOption(this, this.selectedIndex, true);
 	doSearch(obj.text);
 }
 
@@ -143,6 +142,15 @@ function onSelect(event) {
 		while (this.options.length > 0) {
 			this.remove(0);
 		}
+		
+		var obj = dojo.byId("importResult");
+		for (var i = 0; i < obj.options.length; i++) {
+			if (obj.options[i].value == importIdx) {
+         		delOption(obj, i);
+         		break;
+			}
+		}
+		
 		onSubmit(itemId, itemPrice, itemNum);
 	}
 }
@@ -233,7 +241,7 @@ label { cursor:pointer; }
 </div>
 
 <div id="searchLayer">
-<@s.select name="importResult"/><br />
+<@s.select name="importResult" size="2"/><br />
 <@s.select name="search_result" size="12"/><br />
 <@s.select name="addList"/>
 <span id="submitStatus"></span>

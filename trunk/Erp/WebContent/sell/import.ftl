@@ -50,6 +50,7 @@ function onImportContent(event) {
 		addr = addrs[3];
 	}
 	addrs = dojo.trim(addr).split(" ");
+	console.debug("addrs:" + addrs);
 	switch (addrs[0]) {
 		case "浙江省":
 		case "江苏省":
@@ -119,7 +120,7 @@ dojo.addOnLoad(function (){
 	}
 	
 	obj = dojo.byId("sell_import_content");
-	dojo.connect(obj, "onchange", obj, onImportContent);
+	dojo.connect(obj, "onkeyup", obj, onImportContent);
 	dojo.connect(obj, "onfocus", obj, obj.select);
 });
 </script>
