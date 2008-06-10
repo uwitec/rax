@@ -31,7 +31,7 @@ function doSearch(keyword) {
 	var params = {
 		keyword:keyword
 	}
-	dojo.xhrGet({
+	dojo.xhrPost({
 		url: "/erp/json/ware_find.action",
 		content: params,
 		preventCache: true,

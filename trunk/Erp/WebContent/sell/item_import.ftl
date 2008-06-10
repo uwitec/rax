@@ -47,7 +47,7 @@ function doParse(content) {
 		sellContent:content,
 		sellId:sellId
 	}
-	dojo.xhrGet({
+	dojo.xhrPost({
 		url: "/erp/json/sell_item_import.action",
 		content: params,
 		preventCache: true,
@@ -66,7 +66,7 @@ function doParse(content) {
 			importList = json.itemList;
 			//console.debug(importList);
 		} catch(e) { console.debug(e.toString()); } },
-		error: function(response) { console.debug(response.status); }
+		error: function(response) { console.debug(response.status);	}
 	});
 }
 
@@ -82,7 +82,7 @@ function doSearch(keyword, id) {
 	var params = {
 		keyword:keyword
 	}
-	dojo.xhrGet({
+	dojo.xhrPost({
 		url: "/erp/json/ware_find_ft.action",
 		content: params,
 		preventCache: true,
