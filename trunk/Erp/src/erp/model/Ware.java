@@ -3,6 +3,7 @@ package erp.model;
 public class Ware {
 
     private int id;
+    private int categoryId;
     private String name;
     private double cost;
     private double lastCost;
@@ -13,6 +14,7 @@ public class Ware {
     
     public Ware() {
         id = 0;
+        categoryId = 0;
         name = "";
         cost = 0;
         lastCost = 0;
@@ -28,6 +30,14 @@ public class Ware {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getName() {

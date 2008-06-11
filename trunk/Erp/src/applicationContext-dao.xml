@@ -28,11 +28,7 @@
 	<bean id="WareCategoryDao" class="erp.dao.ibatis.WareCategoryDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
-	
-	<bean id="WareGroupingDao" class="erp.dao.ibatis.WareGroupingDaoImpl">
-		<property name="sqlMapClient" ref="sqlMapClient" />
-	</bean>
-	
+		
 	<bean id="StatDao" class="erp.dao.ibatis.StatDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>

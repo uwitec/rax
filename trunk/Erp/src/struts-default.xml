@@ -48,6 +48,32 @@
 			<result name="success">/ware/find.ftl</result>
 		</action>
 
+		<action name="ware_category_list" class="WareCategoryAction"
+			method="list">
+			<result name="success">/ware/category_list.ftl</result>
+		</action>
+		<action name="ware_category" class="WareCategoryAction"
+			method="get">
+			<result name="success">/ware/category_property.ftl</result>
+		</action>
+		<action name="ware_category_save" class="WareCategoryAction">
+			<result name="input" type="redirect-action">
+				ware_category
+			</result>
+			<result name="error" type="redirect-action">
+				ware_category
+			</result>
+			<result name="success" type="redirect-action">
+				ware_category_list
+			</result>
+		</action>
+		<action name="ware_category_delete" class="WareCategoryAction"
+			method="delete">
+			<result name="success" type="redirect-action">
+				ware_category_list
+			</result>
+		</action>
+
 		<action name="sell_list" class="SellAction" method="list">
 			<result name="success">/sell/list.ftl</result>
 		</action>

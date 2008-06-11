@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import erp.dao.WareDao;
-import erp.dao.WareGroupingDao;
 import erp.model.Ware;
 import erp.model.WareCategory;
 
 public class WareService {
 
     private WareDao wareDao;
-    private WareGroupingDao wareGroupingDao;
 
     public WareService() {
     }
@@ -77,8 +75,8 @@ public class WareService {
         return wareDao.listLimited(status);
     }
 
-    public List<Ware> listByCategory(WareCategory category) {
-        return wareGroupingDao.listWareByCategoryId(category.getId());
+    public List<Ware> listByCategory(WareCategory category, int status) {
+        return wareDao.listByCategoryId(category.getId(), status);
     }
 
     public List<Ware> findByBarcode(String barcode) {
@@ -97,13 +95,9 @@ public class WareService {
     public List<Ware> fullTextSearch(String content) {
         return wareDao.fullTextSearch(content);
     }
-    
+
     public void setWareDao(WareDao dao) {
         wareDao = dao;
-    }
-
-    public void setWareGroupingDao(WareGroupingDao wareGroupingDao) {
-        this.wareGroupingDao = wareGroupingDao;
     }
 
 }

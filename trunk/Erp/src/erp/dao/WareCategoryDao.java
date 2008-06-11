@@ -18,6 +18,6 @@ public interface WareCategoryDao {
 
     public int count() throws DataAccessException;
 
-    public List<WareCategory> list(int index, int num) throws DataAccessException;
+    public List<WareCategory> list() throws DataAccessException;
 
 }

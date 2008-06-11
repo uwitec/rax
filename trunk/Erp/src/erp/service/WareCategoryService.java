@@ -12,15 +12,15 @@ public class WareCategoryService {
     public WareCategoryService() {
     }
 
-    public WareCategory getWareById(int id) {
+    public WareCategory getWareCategoryById(int id) {
         return wareCategoryDao.read(id);
     }
 
-    public int createWare(WareCategory obj) {
+    public int createWareCagegory(WareCategory obj) {
         return wareCategoryDao.create(obj);
     }
 
-    public boolean deleteWare(int id) {
+    public boolean deleteWareCategoryById(int id) {
         boolean ret = false;
         WareCategory obj = wareCategoryDao.read(id);
         if (null != obj) {
@@ -30,7 +30,16 @@ public class WareCategoryService {
         return ret;
     }
 
-    public boolean updateWare(WareCategory obj) {
+    public boolean deleteWareCategory(WareCategory obj) {
+        boolean ret = false;
+        if (null != obj) {
+            wareCategoryDao.delete(obj);
+            ret = true;
+        }
+        return ret;
+    }
+
+    public boolean updateWareCategory(WareCategory obj) {
         wareCategoryDao.update(obj);
         return true;
     }
@@ -39,8 +48,8 @@ public class WareCategoryService {
         return wareCategoryDao.count();
     }
 
-    public List<WareCategory> list(int index, int num) {
-        return wareCategoryDao.list(index, num);
+    public List<WareCategory> list() {
+        return wareCategoryDao.list();
     }
 
     public void setWareCategoryDao(WareCategoryDao wareCategoryDao) {

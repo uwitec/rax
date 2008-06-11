@@ -19,6 +19,8 @@ public interface WareDao {
     public int count(int status) throws DataAccessException;
 
     public List<Ware> list(int status, int index, int num) throws DataAccessException;
+
+    public List<Ware> listByCategoryId(int id, int status) throws DataAccessException;
     
     public List<Ware> listLimited(int status) throws DataAccessException;
 

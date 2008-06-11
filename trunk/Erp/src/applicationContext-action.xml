@@ -14,6 +14,11 @@
 		scope="prototype">
 		<property name="wareService" ref="WareService" />
 	</bean>
+	<bean id="WareCategoryAction" class="erp.action.WareCategoryAction"
+		scope="prototype">
+		<property name="wareCategoryService" ref="WareCategoryService" />
+		<property name="wareService" ref="WareService" />
+	</bean>
 	<bean id="WareFindAction" class="erp.action.WareFindAction"
 		scope="prototype">
 		<property name="wareService" ref="WareService" />

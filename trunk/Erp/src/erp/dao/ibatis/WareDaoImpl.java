@@ -77,6 +77,15 @@ public class WareDaoImpl extends SqlMapClientDaoSupport implements WareDao {
     }
 
     @Override
+    public List<Ware> listByCategoryId(int id, int status)
+            throws DataAccessException {
+        Map param = new HashMap();
+        param.put("id", id);
+        param.put("status", status);
+        return getSqlMapClientTemplate().queryForList("Ware.listByCategoryId", param);
+    }
+
+    @Override
     public List<Ware> listLimited(int status) throws DataAccessException {
         Map param = new HashMap();
         param.put("status", status);
