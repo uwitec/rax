@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>出库单</title>
 <style type="text/css">
-body { font-size:16px; }
+body { font-size:16px; margin:0px; }
 </style>
 </head>
 

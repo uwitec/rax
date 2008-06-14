@@ -77,21 +77,27 @@ label { cursor:pointer; }
 <a href="sell_item_import_input.action?sellId=${id}">从淘宝导入售出记录</a>
 <a href="invoice_input.action?sellId=${id}" target="_balnk">打印发货单</a><br /><br />
 
-<div class="float">编号</div>
-<div class="float">操作</div>
-<div class="float">数量</div>
-<div class="float">价格</div>
-<div>宝贝名称</div>
+<table>
+<tr>
+<td>编号</td>
+<td>操作</td>
+<td>数量</td>
+<td>价格</td>
+<td>宝贝名称</td>
+</tr>
 <#if sellItemList??>
 <#assign num=0/>
 <#list sellItemList as item>
 <#assign num = num + 1/>
-<div class="float">${num}</div>
-<div class="float"><a href="sell_item_delete.action?id=${item.id}&sellId=${id}" onclick="return confirm('确实要删除这项么？')">删</a></div>
-<div class="float">${item.number}</div>
-<div class="float">${item.price}</div>
-<div><a href="sell_item.action?id=${item.id}">${item.ware.name}</a></div>
+<tr>
+<td>${num}</td>
+<td><a href="sell_item_delete.action?id=${item.id}&sellId=${id}" onclick="return confirm('确实要删除这项么？')">删</a></td>
+<td>${item.number}</td>
+<td>${item.price}</td>
+<td><a href="sell_item.action?id=${item.id}">${item.ware.name}</a></td>
+</tr>
 </#list>
+</table>
 </#if>
 
 </body>
