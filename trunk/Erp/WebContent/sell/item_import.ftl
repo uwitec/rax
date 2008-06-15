@@ -142,7 +142,7 @@ function onSelect(event) {
 		while (this.options.length > 0) {
 			this.remove(0);
 		}
-		
+
 		var obj = dojo.byId("importResult");
 		for (var i = 0; i < obj.options.length; i++) {
 			if (obj.options[i].value == importIdx) {
@@ -150,7 +150,7 @@ function onSelect(event) {
          		break;
 			}
 		}
-		
+
 		onSubmit(itemId, itemPrice, itemNum);
 	}
 }

@@ -9,6 +9,7 @@ public class InvoiceItem {
     private String name;
     private String byerId;
     private String byerName;
+    double price;
      
     public InvoiceItem() {
         number = 0;
@@ -16,6 +17,7 @@ public class InvoiceItem {
         name = "";
         byerId = "";
         byerName = "";
+        price = 0;
     }
 
     public int getNumber() {
@@ -56,6 +58,14 @@ public class InvoiceItem {
 
     public void setByerName(String byerName) {
         this.byerName = byerName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
 }

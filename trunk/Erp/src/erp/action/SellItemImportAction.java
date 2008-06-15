@@ -24,7 +24,7 @@ public class SellItemImportAction extends ActionSupport {
             .getLogger(SellItemImportAction.class);
 
     private SellService sellService;
-    
+
     private int sellId;
     private String sellContent;
     private List<InvoiceItem> itemList;
@@ -55,6 +55,10 @@ public class SellItemImportAction extends ActionSupport {
                 String name = "";
                 String byerId = "";
                 String byerName = "";
+                double price = 0;
+                /*
+                 * Price 目前是含了邮费以及乘过数量的总价, 没什么用处
+                 */
 
                 info = infos[i].trim();
                 // logger.info("info:" + info);
@@ -63,6 +67,11 @@ public class SellItemImportAction extends ActionSupport {
                     details = info.split(" ");
                     date = formatter.parse(details[0]);
                     // logger.info("date:" + formatter.format(date));
+
+                    info = infos[i - 1].trim();
+                    details = info.split(" ");
+                    price = Double.parseDouble(details[1]);
+                    // logger.info("price:" + price);
 
                     info = infos[i - 3].trim();
                     details = info.split(" ");
@@ -98,8 +107,8 @@ public class SellItemImportAction extends ActionSupport {
                     itemList.add(item);
 
                     logger.info("日期:" + formatter.format(date) + " 宝贝名称:"
-                            + name + " 数量:" + num + " 买家ID:" + byerId
-                            + " 买家姓名:" + byerName);
+                            + name + " 数量:" + num + "总价:" + price + " 买家ID:"
+                            + byerId + " 买家姓名:" + byerName);
                 }
             }
             if (sellId > 0 && item != null) {
@@ -110,7 +119,7 @@ public class SellItemImportAction extends ActionSupport {
         } catch (Exception ex) {
             logger.error(ex.toString());
         }
-
+        
         return SUCCESS;
 
     }
@@ -129,11 +138,11 @@ public class SellItemImportAction extends ActionSupport {
         action.sellContent = buf.toString();
         action.execute();
     }
-    
+
     public void setSellService(SellService sellService) {
         this.sellService = sellService;
     }
-    
+
     public String getSellContent() {
         return sellContent;
     }
