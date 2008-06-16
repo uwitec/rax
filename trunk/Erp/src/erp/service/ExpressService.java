@@ -18,7 +18,8 @@ public class ExpressService {
         ret.put(5, "顺丰");
         ret.put(6, "CCES");
         ret.put(7, "彪记");
-        ret.put(8, "其他");
+        ret.put(8, "宅急送");
+        ret.put(9, "其他");
         ret.put(-1, "无");
         return ret;
     }
@@ -181,6 +182,25 @@ public class ExpressService {
             obj.setDstAddressRT(new ExpressPos(485, 173));  // x:171 y:61
             break;
             
+        case 8: // 宅急送
+            obj.setDateFormat("MM dd");
+            obj.setSize(new ExpressPos(658, 397));          // x:232 y:140
+            obj.setDate(new ExpressPos(85, 43));          // x:30 y:15
+            obj.setSrcPhone(new ExpressPos(85, 198));       // x:30 y:70
+            obj.setSrcPostCode(null);
+            obj.setDstPhone1(new ExpressPos(354, 198));      // x:125 y:70
+            obj.setDstPhone2(new ExpressPos(510, 198));      // x:180 y:70
+            obj.setDstPostCode(null);
+
+            obj.setSrcName(new ExpressPos(119, 283));        // x:42 y:100
+            obj.setDstName(new ExpressPos(397, 283));        // x:140 y:100
+
+            obj.setSrcAddressLB(new ExpressPos(91, 213));    // x:32 y:75
+            obj.setSrcAddressRT(new ExpressPos(312, 278));  // x:110 y:98
+            obj.setDstAddressLB(new ExpressPos(360, 213));  // x:127 y:75
+            obj.setDstAddressRT(new ExpressPos(575, 278));  // x:203 y:98
+            break;
+
         }
         return obj;
     }

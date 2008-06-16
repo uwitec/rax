@@ -55,9 +55,7 @@ public class ExpressAction implements Action {
             BaseFont bfEnglish = BaseFont.createFont(BaseFont.HELVETICA,
                     BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 
-            Document doc = new Document();
-            doc.setPageSize(tpl.getSize().toRectangle());
-
+            Document doc = new Document(tpl.getSize().toRectangle());
             PdfWriter writer = PdfWriter.getInstance(doc, buf);
             doc.open();
 
@@ -233,7 +231,7 @@ public class ExpressAction implements Action {
         }
         return ERROR;
     }
-    
+
     public void setSellService(SellService sellService) {
         this.sellService = sellService;
     }
