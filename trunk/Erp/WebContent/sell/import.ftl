@@ -73,9 +73,7 @@ function onImportContent(event) {
 		default:
 			fee = 10;
 			feeReal = 10;
-			if (addrs[0] == "四川省" && addrs[1] == "成都市") {
-				feeReal = 8;
-			}
+			//if (addrs[0] == "四川省" && addrs[1] == "成都市") feeReal = 8;
 	}
 	//console.debug("addr:" + addr + " fee:" + fee + " feeReal:" + feeReal);
 	

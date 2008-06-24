@@ -97,8 +97,8 @@ label { cursor:pointer; }
 <td><a href="sell_item.action?id=${item.id}">${item.ware.name}</a></td>
 </tr>
 </#list>
-</table>
 </#if>
+</table>
 
 </body>
 </html>

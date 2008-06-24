@@ -66,6 +66,7 @@
 	<bean id="StatAction" class="erp.action.StatAction"
 		scope="prototype">
 		<property name="statService" ref="StatService" />
+		<property name="expressService" ref="ExpressService" />		
 	</bean>
 
 	<bean id="SellItemImportAction"

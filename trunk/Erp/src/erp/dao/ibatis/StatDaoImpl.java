@@ -10,11 +10,12 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import erp.dao.StatDao;
 import erp.model.Stat;
+import erp.model.StatFee;
 
 public class StatDaoImpl extends SqlMapClientDaoSupport implements StatDao {
 
     @Override
-    public double storeAmount() throws DataAccessException {
+    public double getStoreAmount() throws DataAccessException {
         return (Double) getSqlMapClientTemplate().queryForObject(
                 "Stat.storeAmount");
     }
@@ -58,4 +59,12 @@ public class StatDaoImpl extends SqlMapClientDaoSupport implements StatDao {
                 param);
     }
 
+    @Override
+    public List<StatFee> listFeeByDay(Date from, Date to)
+            throws DataAccessException {
+        Map param = new HashMap();
+        param.put("from", from);
+        param.put("to", to);
+        return getSqlMapClientTemplate().queryForList("Stat.feeByDate", param);
+    }
 }

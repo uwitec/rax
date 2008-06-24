@@ -1,12 +1,17 @@
 package erp.action;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import erp.model.Stat;
+import erp.model.StatFee;
+import erp.service.ExpressService;
 import erp.service.StatService;
 
 public class StatAction extends ActionSupport {
@@ -15,15 +20,20 @@ public class StatAction extends ActionSupport {
     private final static Logger logger = Logger.getLogger(StatAction.class);
 
     private StatService statService = null;
+    private ExpressService expressService = null;
 
-    private double restore;
+    private double storeAmount;
     private List<Stat> weekProfitList;
     private List<Stat> monthProfitList;
-    
+
+    private String startDate;
+    private String endDate;
+    private List<StatFee> feeList;
+
     @Override
     public String execute() throws Exception {
         try {
-            restore = statService.getRestore();
+            storeAmount = statService.getStoreAmount();
             weekProfitList = statService.listStatByDay(0, 7);
             monthProfitList = statService.listStatByMonth(3);
         } catch (Exception ex) {
@@ -33,20 +43,42 @@ public class StatAction extends ActionSupport {
         return SUCCESS;
     }
 
-    public StatService getStatService() {
-        return statService;
+    public String statFee() throws Exception {
+        try {
+            Date from;
+            Date to;
+            Map<Integer, String> expressMap;
+
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            from = df.parse(startDate);
+            to = df.parse(endDate);
+ 
+            feeList = statService.listFeeByDay(from, to);
+            expressMap = expressService.getExpressSel();
+            for (StatFee st : feeList) {
+                st.setExpressName(expressMap.get(st.getExpressId()));
+            }
+        } catch (Exception ex) {
+            logger.error(ex.toString());
+            return ERROR;
+        }
+        return SUCCESS;
     }
 
     public void setStatService(StatService statService) {
         this.statService = statService;
     }
 
-    public double getRestore() {
-        return restore;
+    public void setExpressService(ExpressService expressService) {
+        this.expressService = expressService;
     }
 
-    public void setRestore(double restore) {
-        this.restore = restore;
+    public double getStoreAmount() {
+        return storeAmount;
+    }
+
+    public void setStoreAmount(double storeAmount) {
+        this.storeAmount = storeAmount;
     }
 
     public List<Stat> getWeekProfitList() {
@@ -63,6 +95,18 @@ public class StatAction extends ActionSupport {
 
     public void setMonthProfitList(List<Stat> monthProfitList) {
         this.monthProfitList = monthProfitList;
+    }
+
+    public List<StatFee> getFeeList() {
+        return feeList;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
 }

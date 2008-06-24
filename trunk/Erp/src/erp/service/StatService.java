@@ -9,9 +9,10 @@ import org.apache.log4j.Logger;
 
 import erp.dao.StatDao;
 import erp.model.Stat;
+import erp.model.StatFee;
 
 public class StatService {
-    
+
     private final static Logger logger = Logger.getLogger(StatService.class);
 
     private StatDao statDao;
@@ -19,13 +20,17 @@ public class StatService {
     public StatService() {
     }
 
-    public double getRestore() {
-        return statDao.storeAmount();
+    public double getStoreAmount() {
+        return statDao.getStoreAmount();
+    }
+
+    public List<StatFee> listFeeByDay(Date from, Date to) {
+        return statDao.listFeeByDay(from, to);
     }
 
     public List<Stat> listStatByDay(int index, int num) {
         List<Stat> lstProfit = statDao.listProfitByDay(index, num);
-        List<Stat> lstCount = statDao.listCountByDay(index, num); 
+        List<Stat> lstCount = statDao.listCountByDay(index, num);
         for (Stat st : lstCount) {
             for (Stat t : lstProfit) {
                 if (st.getStatDate().equals(t.getStatDate())) {
@@ -36,33 +41,33 @@ public class StatService {
         }
         return lstProfit;
     }
-    
+
     public List<Stat> listStatByMonth(int num) {
-        
+
         Date start = new Date();
         Date end = new Date();
-        
+
         Calendar c = Calendar.getInstance();
         c.setTime(start);
 
-        //logger.info("Calendar.YEAR:" + c.get(Calendar.YEAR));
-        //logger.info("Calendar.MONTH:" + c.get(Calendar.MONTH));
-        //logger.info("Calendar.DATE:" + c.get(Calendar.DATE));
+        // logger.info("Calendar.YEAR:" + c.get(Calendar.YEAR));
+        // logger.info("Calendar.MONTH:" + c.get(Calendar.MONTH));
+        // logger.info("Calendar.DATE:" + c.get(Calendar.DATE));
 
         c.add(Calendar.MONTH, 1);
         c.set(Calendar.DATE, 1);
         end = c.getTime();
-        
-        c.add(Calendar.MONTH, - num);
+
+        c.add(Calendar.MONTH, -num);
         start = c.getTime();
-        
+
         logger.info("start:" + start.toString() + " end:" + end.toString());
 
         List<Stat> lstRet = new ArrayList<Stat>();
         List<Stat> lstProfit = statDao.listProfitByMonth(start, end);
         List<Stat> lstCount = statDao.listCountByMonth(start, end);
         boolean flag;
-        
+
         for (Stat st : lstProfit) {
             c.setTime(st.getStatDate());
             c.set(Calendar.DATE, 1);
@@ -83,7 +88,7 @@ public class StatService {
                 lstRet.add(s);
             }
         }
-        
+
         for (Stat st : lstCount) {
             c.setTime(st.getStatDate());
             c.set(Calendar.DATE, 1);
@@ -102,7 +107,7 @@ public class StatService {
                 lstRet.add(s);
             }
         }
-        
+
         return lstRet;
     }
 

@@ -6,10 +6,11 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 import erp.model.Stat;
+import erp.model.StatFee;
 
 public interface StatDao {
 
-    public double storeAmount() throws DataAccessException;
+    public double getStoreAmount() throws DataAccessException;
 
     public List<Stat> listProfitByDay(int index, int num)
             throws DataAccessException;
@@ -23,4 +24,7 @@ public interface StatDao {
     public List<Stat> listCountByMonth(Date from, Date to)
             throws DataAccessException;
 
+    public List<StatFee> listFeeByDay(Date from, Date to)
+            throws DataAccessException;
+    
 }

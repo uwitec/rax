@@ -7,6 +7,7 @@
 <sqlMap namespace="Stat">
 
 	<typeAlias alias="Stat" type="erp.model.Stat" />
+	<typeAlias alias="StatFee" type="erp.model.StatFee" />
 
 	<select id="storeAmount" resultClass="double">
 		<![CDATA[
@@ -35,7 +36,8 @@
 		]]>
 	</select>
 
-	<select id="profitByMonth" parameterClass="map" resultClass="Stat">
+	<select id="profitByMonth" parameterClass="map"
+		resultClass="Stat">
 		<![CDATA[
 		SELECT s.send_date AS statDate, SUM((i.price - w.cost) * i.number) AS profit, SUM(i.number * i.price) AS amount
 		FROM sell_item AS i LEFT JOIN sell AS s ON (i.sell_id=s.id) 
@@ -53,6 +55,15 @@
 		WHERE send_date BETWEEN #from# AND #to#
 		GROUP BY send_date
 		ORDER BY send_date DESC
+		]]>
+	</select>
+
+	<select id="feeByDate" parameterClass="map" resultClass="StatFee">
+		<![CDATA[
+		SELECT COUNT(id) AS number, SUM(fee_real) AS amount, express_id AS expressId
+		FROM erp.sell
+		WHERE send_date BETWEEN #from# AND #to#
+		GROUP BY express_id
 		]]>
 	</select>
 
