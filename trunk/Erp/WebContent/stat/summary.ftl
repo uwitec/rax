@@ -7,16 +7,12 @@
 <script language="javascript" type="text/javascript">
 
 function onSubmit() {
-	var obj;
-	obj = dojo.byId("startDate");
-	var start = obj.value;
-	obj = dojo.byId("endDate");
-	var end = obj.value;
+	var startObj = dojo.byId("startDate");
+	var endObj = dojo.byId("endDate");
 	var params = {
-		startDate:start,
-		endDate:end
+		startDate:startObj.value,
+		endDate:endObj.value
 	}
-	console.log(params);
 	dojo.xhrPost({
 		url: "/erp/json/fee_stat.action",
 		content: params,
@@ -26,6 +22,7 @@ function onSubmit() {
 			var objDiv;
 			var statFee;
 			
+			obj.innerHTML = "";		
 			for (var i = 0; i < json.feeList.length; i++) {
 				statFee = json.feeList[i];
 				objDiv = document.createElement("DIV");
