@@ -91,10 +91,10 @@ label { cursor:pointer; }
 <#assign num = num + 1/>
 <tr>
 <td>${num}</td>
-<td><a href="sell_item_delete.action?id=${item.id}&sellId=${id}" onclick="return confirm('确实要删除这项么？')">删</a></td>
+<td><a href="sell_item_delete.action?id=${item.id?c}&sellId=${id?c}" onclick="return confirm('确实要删除这项么？')">删</a></td>
 <td>${item.number}</td>
 <td>${item.price}</td>
-<td><a href="sell_item.action?id=${item.id}">${item.ware.name}</a></td>
+<td><a href="sell_item.action?id=${item.id?c}">${item.ware.name}</a></td>
 </tr>
 </#list>
 </#if>

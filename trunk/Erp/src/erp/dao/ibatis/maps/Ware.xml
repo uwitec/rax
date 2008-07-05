@@ -80,7 +80,7 @@
 		<![CDATA[
 		SELECT id,category_id AS categoryId,name,cost,price,barcode,number,status,last_cost AS lastCost
 		FROM erp.ware
-		WHERE (price=0 OR cost=0 OR number<=0 OR barcode='')
+		WHERE (price=0 OR cost=0 OR number<=1 OR barcode='')
 		]]>
 		<dynamic>
 			<isGreaterThan prepend="AND" property="status"
