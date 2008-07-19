@@ -33,10 +33,10 @@
 <#list orderList as order>
 <div>
 ${order.createDate?string("yyyy-MM-dd")} ${order.comment}<br />
-<a href="order.action?id=${order.id}">查看/编辑</a>
-<a href="order_item.action?orderId=${order.id}">添加购买的宝贝</a>
+<a href="order.action?id=${order.id?c}">查看/编辑</a>
+<a href="order_item.action?orderId=${order.id?c}">添加购买的宝贝</a>
 <#if order.status = 0>
-<a href="order_status.action?id=${order.id}&status=1">设为已处理</a>
+<a href="order_status.action?id=${order.id?c}&status=1">设为已处理</a>
 </#if>
 </div>
 <br />

@@ -38,12 +38,12 @@
 日期:${sell.createDate?string("yyyy-MM-dd")}<br />
 </#if>
 地址:${sell.customerAddress}<br />
-<a href="sell.action?id=${sell.id}">查看/编辑</a>
-<a href="sell_item_import_input.action?sellId=${sell.id}">从淘宝导入售出记录</a>
-<a href="express_input.action?sellId=${sell.id}" target="_balnk">打印快递单</a>
-<a href="invoice_input.action?sellId=${sell.id}" target="_balnk">打印发货单</a>
+<a href="sell.action?id=${sell.id?c}">查看/编辑</a>
+<a href="sell_item_import_input.action?sellId=${sell.id?c}">从淘宝导入售出记录</a>
+<a href="express_input.action?sellId=${sell.id?c}" target="_balnk">打印快递单</a>
+<a href="invoice_input.action?sellId=${sell.id?c}" target="_balnk">打印发货单</a>
 <#if sell.status = 0>
-<a href="sell_status.action?id=${sell.id}&status=1">设为已处理</a>
+<a href="sell_status.action?id=${sell.id?c}&status=1">设为已处理</a>
 </#if>
 </div>
 <br />
