@@ -24,6 +24,12 @@ dojo.addOnLoad(function (){
 <br /><br />
 <div>总数:<#if wareList??>${wareList.size()}</#if></div><br />
 
+<@s.form action="ware_search" theme="simple">
+    <@s.textfield label="关键字" name="keyword"/>
+    <@s.submit value=" 提 交 "/>
+</@s.form>
+<br />
+
 <#if wareList??>
 <#list wareList as ware>
 <div>
@@ -37,11 +43,7 @@ dojo.addOnLoad(function (){
 </#if>
 <br />
 
-<@s.form action="ware_search">
-    <@s.textfield label="关键字" name="keyword"/>
-    <@s.submit value=" 提 交 "/>
-</@s.form>
-<br />
+
 
 </body>
 </html>

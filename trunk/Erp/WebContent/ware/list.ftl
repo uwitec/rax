@@ -19,13 +19,11 @@
 <br /><br />
 <div>总数:${count}</div><br />
 
-<#list 1..pageNum as i>
-<#if i == page>
-[${i}]
-<#else>
-<a href="ware_list.action?page=${i}">[${i}]</a>
-</#if>
-</#list><br /><br />
+<@s.form action="ware_search" target="_blank" theme="simple">
+    <@s.textfield label="关键字" name="keyword"/>
+    <@s.submit value=" 提 交 "/>
+</@s.form>
+<br />
 
 <#if wareList??>
 <#list wareList as ware>
@@ -40,11 +38,13 @@
 </#if>
 <br />
 
-<@s.form action="ware_search" target="_blank">
-    <@s.textfield label="关键字" name="keyword"/>
-    <@s.submit value=" 提 交 "/>
-</@s.form>
-<br />
+<#list 1..pageNum as i>
+<#if i == page>
+[${i}]
+<#else>
+<a href="ware_list.action?page=${i}">[${i}]</a>
+</#if>
+</#list>
 
 </body>
 </html>
