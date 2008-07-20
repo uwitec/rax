@@ -41,11 +41,11 @@ public class ExpressService {
             obj.setDstPostCode(new ExpressPos(496, 159));   // x:175 y:56
             
             obj.setSrcName(new ExpressPos(241, 244));       // x:85 y:86
-            obj.setDstName(new ExpressPos(482, 244));       // x:170 y:86
+            obj.setDstName(new ExpressPos(482, 238));       // x:170 y:84
             
             obj.setSrcAddressLB(new ExpressPos(57, 170));   // x:20 y:60
             obj.setSrcAddressRT(new ExpressPos(306, 241));  // x:108 y:85
-            obj.setDstAddressLB(new ExpressPos(320, 170));  // x:113 y:60
+            obj.setDstAddressLB(new ExpressPos(326, 170));  // x:115 y:60
             obj.setDstAddressRT(new ExpressPos(570, 241));  // x:201 y:85
             break;
 
