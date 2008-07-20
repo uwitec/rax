@@ -5,11 +5,13 @@ public class WareCategory {
     private int id;
     private String name;
     private boolean hide;
+    private int num;
     
     public WareCategory() {
         id = 0;
         name = "";
         hide = false;
+        num = 0;
     }
 
     public int getId() {
@@ -34,6 +36,14 @@ public class WareCategory {
 
     public void setHide(boolean hide) {
         this.hide = hide;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
 }

@@ -2,12 +2,15 @@ package erp.action;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import erp.model.Ware;
+import erp.model.WareCategory;
+import erp.service.WareCategoryService;
 import erp.service.WareService;
 
 public class WareAction extends ActionSupport {
@@ -16,8 +19,10 @@ public class WareAction extends ActionSupport {
     private final static Logger logger = Logger.getLogger(WareAction.class);
 
     private WareService wareService = null;
+    private WareCategoryService wareCategoryService = null;
 
     private int id;
+    private int categoryId;
     private String name;
     private String cost;
     private String price;
@@ -26,6 +31,8 @@ public class WareAction extends ActionSupport {
     private int status = 0;
 
     private List<Ware> wareList;
+    private Map<Integer, String> categoryMap;
+    private List<WareCategory> categoryList;
     private int page = 1;
     private int pagePer = 30;
     private int pageNum = 0;
@@ -39,12 +46,27 @@ public class WareAction extends ActionSupport {
         return SUCCESS;
     }
 
+    public String listByCategory() throws Exception {
+        WareCategory category;
+        categoryList = wareCategoryService.list();
+        category = new WareCategory();
+        category.setName("无分组");
+        categoryList.add(category);
+        category = wareCategoryService.getWareCategoryById(categoryId);
+        if (category != null) {
+            wareList = wareService.listByCategory(category, -1);
+        } else {
+            wareList = wareService.listByCategory(new WareCategory(), -1);
+        }
+        return SUCCESS;
+    }
+
     public String listLimited() throws Exception {
         wareList = wareService.listLimited(status);
         count = wareList.size();
         return SUCCESS;
     }
-    
+
     public String listHided() throws Exception {
         count = wareService.getCount(status);
         wareList = wareService.list(status, 0, count);
@@ -55,7 +77,9 @@ public class WareAction extends ActionSupport {
         try {
             DecimalFormat f = new DecimalFormat("###0.00");
             Ware w = wareService.getWareById(id);
+            categoryMap = wareCategoryService.getMap();
             if (w != null) {
+                categoryId = w.getCategoryId();
                 name = w.getName();
                 barcode = w.getBarcode();
                 cost = f.format(w.getCost());
@@ -86,6 +110,7 @@ public class WareAction extends ActionSupport {
     public String execute() throws Exception {
         try {
             Ware obj = (id > 0) ? wareService.getWareById(id) : new Ware();
+            obj.setCategoryId(categoryId);
             obj.setName(name.trim());
             obj.setBarcode(barcode.trim());
             obj.setStatus(status);
@@ -98,7 +123,7 @@ public class WareAction extends ActionSupport {
             if (price.isEmpty() == false) {
                 obj.setPrice(Double.parseDouble(price));
             }
-            
+
             if (id > 0) {
                 wareService.updateWare(obj);
             } else {
@@ -113,6 +138,10 @@ public class WareAction extends ActionSupport {
 
     public void setWareService(WareService service) {
         wareService = service;
+    }
+
+    public void setWareCategoryService(WareCategoryService wareCategoryService) {
+        this.wareCategoryService = wareCategoryService;
     }
 
     public String getName() {
@@ -187,6 +216,14 @@ public class WareAction extends ActionSupport {
         this.id = id;
     }
 
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public int getStatus() {
         return status;
     }
@@ -213,6 +250,14 @@ public class WareAction extends ActionSupport {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public Map<Integer, String> getCategoryMap() {
+        return categoryMap;
+    }
+
+    public List<WareCategory> getCategoryList() {
+        return categoryList;
     }
 
 }

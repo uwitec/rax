@@ -13,6 +13,7 @@
 	<bean id="WareAction" class="erp.action.WareAction"
 		scope="prototype">
 		<property name="wareService" ref="WareService" />
+		<property name="wareCategoryService" ref="WareCategoryService" />
 	</bean>
 	<bean id="WareCategoryAction" class="erp.action.WareCategoryAction"
 		scope="prototype">
@@ -66,7 +67,7 @@
 	<bean id="StatAction" class="erp.action.StatAction"
 		scope="prototype">
 		<property name="statService" ref="StatService" />
-		<property name="expressService" ref="ExpressService" />		
+		<property name="expressService" ref="ExpressService" />
 	</bean>
 
 	<bean id="SellItemImportAction"

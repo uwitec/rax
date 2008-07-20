@@ -16,6 +16,9 @@
 		<action name="ware_list" class="WareAction" method="list">
 			<result name="success">/ware/list.ftl</result>
 		</action>
+		<action name="ware_list_grouped" class="WareAction" method="listByCategory">
+			<result name="success">/ware/list_grouped.ftl</result>
+		</action>
 		<action name="ware_list_hid" class="WareAction"
 			method="listHided">
 			<param name="status">1</param>

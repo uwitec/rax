@@ -1,6 +1,8 @@
 package erp.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import erp.dao.WareCategoryDao;
 import erp.model.WareCategory;
@@ -50,6 +52,17 @@ public class WareCategoryService {
 
     public List<WareCategory> list() {
         return wareCategoryDao.list();
+    }
+
+    public Map<Integer, String> getMap() {
+        HashMap<Integer, String> map = new HashMap<Integer, String>();
+        List<WareCategory> list = wareCategoryDao.list();
+        
+        map.put(0, "无分类");
+        for (WareCategory category : list) {
+            map.put(category.getId(), category.getName());
+        }
+        return map;
     }
 
     public void setWareCategoryDao(WareCategoryDao wareCategoryDao) {

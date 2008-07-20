@@ -18,6 +18,7 @@
     <@s.textfield label="成本" name="cost"/>
     <@s.textfield label="价格" name="price"/>
     <@s.textfield label="数量" name="number"/>
+    <@s.select label="分类" name="categoryId" list="categoryMap"/>
     <@s.hidden name="id"/>
     <@s.submit value=" 提 交 "/>
 </@s.form>
