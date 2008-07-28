@@ -4,6 +4,7 @@ public class Ware {
 
     private int id;
     private int categoryId;
+    private int categoryIdOld;
     private String name;
     private double cost;
     private double lastCost;
@@ -11,10 +12,11 @@ public class Ware {
     private String barcode;
     private int number;
     private int status;
-    
+
     public Ware() {
         id = 0;
         categoryId = 0;
+        categoryIdOld = 0;
         name = "";
         cost = 0;
         lastCost = 0;
@@ -23,7 +25,7 @@ public class Ware {
         number = 0;
         status = 0;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -37,6 +39,7 @@ public class Ware {
     }
 
     public void setCategoryId(int categoryId) {
+        this.categoryIdOld = this.categoryId;
         this.categoryId = categoryId;
     }
 
@@ -95,5 +98,9 @@ public class Ware {
     public void setStatus(int status) {
         this.status = status;
     }
-    
+
+    public int getCategoryIdOld() {
+        return categoryIdOld;
+    }
+
 }

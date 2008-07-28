@@ -10,7 +10,7 @@
 
 	<insert id="create" parameterClass="WareCategory">
 		<![CDATA[
-		INSERT INTO erp.ware_category (name,hide) VALUES (#name#,#hide#)
+		INSERT INTO erp.ware_category (name,num) VALUES (#name#,#num#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
@@ -21,7 +21,7 @@
 
 	<select id="read" parameterClass="int" resultClass="WareCategory">
 		<![CDATA[
-		SELECT id,name,hide
+		SELECT id,name,num
 		FROM erp.ware_category
 		WHERE id=#id#
 		]]>
@@ -29,7 +29,7 @@
 
 	<update id="update" parameterClass="WareCategory">
 		<![CDATA[
-		UPDATE erp.ware_category SET name=#name#,hide=#hide#
+		UPDATE erp.ware_category SET name=#name#,num=#num#
 		WHERE id=#id#
 		]]>
 	</update>
@@ -48,7 +48,7 @@
 
 	<select id="list" resultClass="WareCategory">
 		<![CDATA[
-		SELECT id,name,hide
+		SELECT id,name,num
 		FROM erp.ware_category
 		ORDER BY name
 		]]>

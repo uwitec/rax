@@ -43,7 +43,7 @@ public class WareCategoryService {
         }
         return ret;
     }
-
+    
     public boolean updateWareCategory(WareCategory obj) {
         wareCategoryDao.update(obj);
         return true;

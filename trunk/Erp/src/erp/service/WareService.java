@@ -3,6 +3,7 @@ package erp.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import erp.dao.WareCategoryDao;
 import erp.dao.WareDao;
 import erp.model.Ware;
 import erp.model.WareCategory;
@@ -10,6 +11,7 @@ import erp.model.WareCategory;
 public class WareService {
 
     private WareDao wareDao;
+    private WareCategoryDao wareCategoryDao;
 
     public WareService() {
     }
@@ -19,6 +21,9 @@ public class WareService {
     }
 
     public int createWare(Ware obj) {
+        if (obj.getCategoryId() > 0) {
+            incCategoryNumById(obj.getCategoryId());
+        }
         return wareDao.create(obj);
     }
 
@@ -26,6 +31,9 @@ public class WareService {
         boolean ret = false;
         Ware obj = wareDao.read(id);
         if (null != obj) {
+            if (obj.getCategoryId() > 0) {
+                decCategoryNumById(obj.getCategoryId());
+            }
             wareDao.delete(obj);
             ret = true;
         }
@@ -34,6 +42,14 @@ public class WareService {
 
     public boolean updateWare(Ware obj) {
         wareDao.update(obj);
+        if (obj.getCategoryId() != obj.getCategoryIdOld()) {
+            if (obj.getCategoryIdOld() > 0) {
+                decCategoryNumById(obj.getCategoryIdOld());
+            }
+            if (obj.getCategoryId() > 0) {
+                incCategoryNumById(obj.getCategoryId());
+            }
+        }
         return true;
     }
 
@@ -96,8 +112,29 @@ public class WareService {
         return wareDao.fullTextSearch(content);
     }
 
+    private boolean incCategoryNumById(int id) {
+        WareCategory category = wareCategoryDao.read(id);
+        if (category != null) {
+            category.setNum(category.getNum() + 1);
+            wareCategoryDao.update(category);
+        }
+        return true;
+    }
+
+    private boolean decCategoryNumById(int id) {
+        WareCategory category = wareCategoryDao.read(id);
+        if (category != null) {
+            category.setNum(category.getNum() - 1);
+            wareCategoryDao.update(category);
+        }
+        return true;
+    }
+
     public void setWareDao(WareDao dao) {
         wareDao = dao;
     }
 
+    public void setWareCategoryDao(WareCategoryDao wareCategoryDao) {
+        this.wareCategoryDao = wareCategoryDao;
+    }
 }

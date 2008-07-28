@@ -17,7 +17,7 @@
 <a href="ware.action">添加新的宝贝</a>
 <br /><br />
 
-<div>总数:${count}</div>
+<div>当前分类宝贝数:<#if wareList??>${wareList.size()}<#else>0</#if></div>
 <br />
 
 <@s.form action="ware_search" target="_blank" theme="simple">
@@ -29,7 +29,7 @@
 <div class="categoryList">
 <#if categoryList??>
 <#list categoryList as category>
-<a href='?categoryId=${category.id}'>${category.name}</a> 
+<a href="?categoryId=${category.id}" title="${category.num}">${category.name}</a> 
 </#list>
 </#if>
 </div>
