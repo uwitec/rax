@@ -40,9 +40,7 @@ public class WareCategoryAction extends ActionSupport {
 
     public String delete() throws Exception {
         try {
-            WareCategory obj = wareCategoryService.getWareCategoryById(id);
-            obj.setHide(true);
-            wareCategoryService.updateWareCategory(obj);
+            wareCategoryService.deleteWareCategoryById(id);
         } catch (Exception ex) {
             logger.error(ex.toString());
             return ERROR;

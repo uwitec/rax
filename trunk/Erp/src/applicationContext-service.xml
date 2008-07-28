@@ -23,15 +23,16 @@
 	<bean id="WareCategoryService"
 		class="erp.service.WareCategoryService">
 		<property name="wareCategoryDao" ref="WareCategoryDao" />
+		<property name="wareDao" ref="WareDao" />
 	</bean>
-	
+
 	<bean id="WareService" class="erp.service.WareService">
 		<property name="wareDao" ref="WareDao" />
 	</bean>
-	
+
 	<bean id="StatService" class="erp.service.StatService">
 		<property name="statDao" ref="StatDao" />
 	</bean>
-	
+
 	<bean id="ExpressService" class="erp.service.ExpressService" />
 </beans>

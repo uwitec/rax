@@ -5,11 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import erp.dao.WareCategoryDao;
+import erp.dao.WareDao;
+import erp.model.Ware;
 import erp.model.WareCategory;
 
 public class WareCategoryService {
 
     private WareCategoryDao wareCategoryDao;
+    private WareDao wareDao;
 
     public WareCategoryService() {
     }
@@ -23,18 +26,18 @@ public class WareCategoryService {
     }
 
     public boolean deleteWareCategoryById(int id) {
-        boolean ret = false;
         WareCategory obj = wareCategoryDao.read(id);
-        if (null != obj) {
-            wareCategoryDao.delete(obj);
-            ret = true;
-        }
-        return ret;
+        return deleteWareCategory(obj);
     }
 
     public boolean deleteWareCategory(WareCategory obj) {
         boolean ret = false;
         if (null != obj) {
+            List<Ware> wareList = wareDao.listByCategoryId(obj.getId(), -1);
+            for (Ware w : wareList) {
+                w.setCategoryId(0);
+                wareDao.update(w);
+            }
             wareCategoryDao.delete(obj);
             ret = true;
         }
@@ -57,7 +60,7 @@ public class WareCategoryService {
     public Map<Integer, String> getMap() {
         HashMap<Integer, String> map = new HashMap<Integer, String>();
         List<WareCategory> list = wareCategoryDao.list();
-        
+
         map.put(0, "无分类");
         for (WareCategory category : list) {
             map.put(category.getId(), category.getName());
@@ -67,6 +70,10 @@ public class WareCategoryService {
 
     public void setWareCategoryDao(WareCategoryDao wareCategoryDao) {
         this.wareCategoryDao = wareCategoryDao;
+    }
+
+    public void setWareDao(WareDao wareDao) {
+        this.wareDao = wareDao;
     }
 
 }

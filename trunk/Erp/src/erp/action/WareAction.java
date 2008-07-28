@@ -38,7 +38,7 @@ public class WareAction extends ActionSupport {
     private int pageNum = 0;
     private int count;
 
-    public String list() throws Exception {
+    public String listAll() throws Exception {
         count = wareService.getCount(status);
         pageNum = (count + pagePer - 1) / pagePer;
         pageNum = pageNum > 0 ? pageNum : 1;

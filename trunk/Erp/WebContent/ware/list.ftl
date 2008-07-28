@@ -2,27 +2,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>宝贝列表</title>
+<title>分组宝贝列表</title>
+<style type="text/css">
+.categoryList ul{ list-style:none; }
+.categoryList li{ float:left; margin-right:20px; } 
+</style>
 </head>
 
 <body>
-<@s.url id="urlAdd" action="ware">
-	<@s.param name="page" value="page" />
-</@s.url>
-<@s.url id="urlLimited" action="ware_list_limited">
-	<@s.param name="page" value="page" />
-</@s.url>
 <a href="index.htm">返回首页</a>
-<a href="ware_list_hid.action?page=${page}">列出隐藏的宝贝</a>
-<a href="${urlLimited}">列出需处理宝贝</a>
-<a href="${urlAdd}">添加新的宝贝</a>
+<a href="ware_list_hid.action">列出隐藏的宝贝</a>
+<a href="ware_list_limited.action">列出需处理宝贝</a>
+<a href="ware_list_all.action">列出所有宝贝</a>
+<a href="ware.action">添加新的宝贝</a>
 <br /><br />
-<div>总数:${count}</div><br />
+
+<div>总数:${count}</div>
+<br />
 
 <@s.form action="ware_search" target="_blank" theme="simple">
     <@s.textfield label="关键字" name="keyword"/>
     <@s.submit value=" 提 交 "/>
 </@s.form>
+<br />
+
+<div class="categoryList">
+<#if categoryList??>
+<#list categoryList as category>
+<a href='?categoryId=${category.id}'>${category.name}</a> 
+</#list>
+</#if>
+</div>
 <br />
 
 <#if wareList??>
@@ -37,14 +47,6 @@
 </#list>
 </#if>
 <br />
-
-<#list 1..pageNum as i>
-<#if i == page>
-[${i}]
-<#else>
-<a href="ware_list.action?page=${i}">[${i}]</a>
-</#if>
-</#list>
 
 </body>
 </html>

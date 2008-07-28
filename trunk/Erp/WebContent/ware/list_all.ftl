@@ -6,16 +6,7 @@
 </head>
 
 <body>
-<@s.url id="urlAdd" action="ware">
-	<@s.param name="page" value="page" />
-</@s.url>
-<@s.url id="urlLimited" action="ware_list_limited">
-	<@s.param name="page" value="page" />
-</@s.url>
 <a href="index.htm">返回首页</a>
-<a href="ware_list_hid.action?page=${page}">列出隐藏的宝贝</a>
-<a href="${urlLimited}">列出需处理宝贝</a>
-<a href="${urlAdd}">添加新的宝贝</a>
 <br /><br />
 <div>总数:${count}</div><br />
 
