@@ -54,9 +54,9 @@ public class WareAction extends ActionSupport {
         categoryList.add(category);
         category = wareCategoryService.getWareCategoryById(categoryId);
         if (category != null) {
-            wareList = wareService.listByCategory(category, -1);
+            wareList = wareService.listByCategory(category, status);
         } else {
-            wareList = wareService.listByCategory(new WareCategory(), -1);
+            wareList = wareService.listByCategory(new WareCategory(), status);
         }
         return SUCCESS;
     }
