@@ -12,6 +12,7 @@
 <a href="index.htm">返回首页</a>
 <a href="sell_list.action?page=${page}">待处理发货单</a>
 <a href="sell_listAll.action?page=${page}">所有发货单</a>
+<a href="sell_search.action" target="_blank">搜索发货单</a>
 <br /><br />
 <a href="${urlAdd}">添加新出库单</a>
 <a href="sell_import_input.action">从淘宝地址导入出库单</a><br /><br />

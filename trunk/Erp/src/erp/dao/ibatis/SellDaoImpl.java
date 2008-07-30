@@ -54,4 +54,10 @@ public class SellDaoImpl extends SqlMapClientDaoSupport implements SellDao {
         }
         return getSqlMapClientTemplate().queryForList("Sell.list", param);
     }
+
+    @Override
+    public List<Sell> findByKeyword(String keyword) throws DataAccessException {
+        return getSqlMapClientTemplate().queryForList("Sell.findByKeyword",
+                keyword);
+    }
 }

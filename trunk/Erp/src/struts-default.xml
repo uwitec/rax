@@ -87,6 +87,9 @@
 		<action name="sell" class="SellAction" method="get">
 			<result name="success">/sell/property.ftl</result>
 		</action>
+		<action name="sell_search" class="SellFindAction">
+			<result name="success">/sell/search.ftl</result>
+		</action>
 		<action name="sell_save" class="SellAction">
 			<result name="input" type="redirect-action">sell</result>
 			<result name="error" type="redirect-action">sell</result>

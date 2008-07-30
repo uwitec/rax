@@ -31,6 +31,10 @@
 		<property name="wareService" ref="WareService" />
 		<property name="expressService" ref="ExpressService" />
 	</bean>
+	<bean id="SellFindAction" class="erp.action.SellFindAction"
+		scope="prototype">
+		<property name="sellService" ref="SellService" />
+	</bean>
 	<bean id="SellItemAction" class="erp.action.SellItemAction"
 		scope="prototype">
 		<property name="sellService" ref="SellService" />

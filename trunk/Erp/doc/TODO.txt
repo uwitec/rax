@@ -1,7 +1,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-搜索卖出记录
-搜索宝贝
+搜索宝贝, 从库存数量
+
+导入时过滤已完成或已关闭交易
+滑动分页
 
 表单格式化
 竖分页

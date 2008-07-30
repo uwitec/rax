@@ -90,5 +90,23 @@
 		LIMIT #number# OFFSET #index#
 		]]>
 	</select>
-
+	
+	<select id="findByKeyword" parameterClass="string"
+		resultClass="Sell">
+		<![CDATA[
+		SELECT id,customer_name AS customerName,customer_address AS customerAddress,
+		customer_phone1 AS customerPhone1,customer_phone2 AS customerPhone2,
+		customer_postcode AS customerPostCode,customer_wangwang AS customerWangwang,
+		fee, fee_real AS feeReal,create_date AS createDate,send_date AS sendDate,
+		express_id AS expressId,
+		comment_express AS commentExpress,comment_invoice AS commentInvoice,
+		sender,status
+		FROM erp.sell
+		WHERE strpos(customer_wangwang, #keyword#) > 0 
+		OR strpos(customer_name, #keyword#) > 0
+		OR strpos(customer_address, #keyword#) > 0
+		ORDER BY create_date DESC
+		LIMIT 24
+		]]>
+	</select>
 </sqlMap>

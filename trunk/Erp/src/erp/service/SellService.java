@@ -28,7 +28,7 @@ public class SellService {
         }
         return ret;
     }
-    
+
     public boolean deleteSellById(int id) {
         boolean ret = false;
         Sell obj = sellDao.read(id);
@@ -51,9 +51,13 @@ public class SellService {
     public List<Sell> list(int index, int num, int status) {
         return sellDao.list(index, num, status);
     }
-    
+
+    public List<Sell> findByKeyword(String keyword) {
+        return sellDao.findByKeyword(keyword);
+    }
+
     public void setSellDao(SellDao dao) {
         sellDao = dao;
     }
-    
+
 }

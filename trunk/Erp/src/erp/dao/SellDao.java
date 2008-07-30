@@ -21,4 +21,7 @@ public interface SellDao {
     public List<Sell> list(int index, int num, int status)
             throws DataAccessException;
 
+    public List<Sell> findByKeyword(String keyword)
+            throws DataAccessException;
+
 }

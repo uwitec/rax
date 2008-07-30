@@ -22,7 +22,7 @@ dojo.addOnLoad(function (){
 </@s.url>
 <a href="${urlList}">返回宝贝列表</a>
 <br /><br />
-<div>总数:<#if wareList??>${wareList.size()}</#if></div><br />
+<div>总数:<#if wareList??>${wareList.size()}<#else>0</#if></div><br />
 
 <@s.form action="ware_search" theme="simple">
     <@s.textfield label="关键字" name="keyword"/>
