@@ -41,7 +41,7 @@ public class SellItemImportAction extends ActionSupport {
             InvoiceItem item = null;
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
             String numStr = "\\(([0-9]*) 件\\)";
-            String dateStr = "[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}";
+            String dateStr = "([0-9]{4}/[0-9]{1,2}/[0-9]{1,2})";
             String[] details;
 
             String info = "";
@@ -61,33 +61,25 @@ public class SellItemImportAction extends ActionSupport {
                 String name = "";
                 String byerId = "";
                 String byerName = "";
-                double price = 0;
-                /*
-                 * Price 目前是含了邮费以及乘过数量的总价, 没什么用处
-                 */
 
                 info = infoArray.get(i).trim();
-                //logger.info("info:" + info);
+                //logger.info("info[" + i + "]:" + info);
 
                 matcher = pattern.matcher(info);
                 if (matcher.find()) {
-                    details = info.split(" ");
-                    date = formatter.parse(details[0].equals("修改") ? details[1]
-                            : details[0]);
-                    // logger.info("date:" + formatter.format(date));
+                    date = formatter.parse(matcher.group(0));
+                    //logger.info("date:" + formatter.format(date));
+                    
+                    details = info.split("  ");
+                    int pos = details[0].equals("修改") ? i - 1 : i;
 
-                    info = infoArray.get(i - 1);
-                    details = info.split(" ");
-                    price = Double.parseDouble(details[1]);
-                    // logger.info("price:" + price);
-
-                    info = infoArray.get(i - 3);
-                    details = info.split(" ");
-                    int pos = details.length - 1;
+                    byerName = infoArray.get(pos - 1);
+                    //logger.info("byerName:" + byerName);
+                    
+                    details = infoArray.get(pos - 2).split("  ");
+                    pos = details.length - 1;
                     byerId = details[pos].trim();
-                    byerName = infoArray.get(i - 2);
-                    // logger.info("byerId:" + byerId + " byerName:" +
-                    // byerName);
+                    //logger.info("byerId:" + byerId);
 
                     StringBuffer nameBuffer = new StringBuffer();
                     for (int j = 0; j < pos; j++) {
@@ -95,7 +87,7 @@ public class SellItemImportAction extends ActionSupport {
                         nameBuffer.append(" ");
                     }
                     name = nameBuffer.toString().trim();
-                    // logger.info("name:" + name);
+                    //logger.info("name:" + name);
 
                     Pattern numPattern = Pattern.compile(numStr);
                     Matcher numMatcher = numPattern.matcher(name);
@@ -115,8 +107,8 @@ public class SellItemImportAction extends ActionSupport {
                     itemList.add(item);
 
                     logger.info("日期:" + formatter.format(date) + " 宝贝名称:"
-                            + name + "数量:" + num + "总价:" + price + " 买家ID:"
-                            + byerId + " 买家姓名:" + byerName);
+                            + name + " 数量:" + num + " 买家ID:" + byerId + " 买家姓名:"
+                            + byerName);
                 }
 
             }

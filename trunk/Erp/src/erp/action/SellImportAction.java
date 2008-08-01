@@ -81,29 +81,31 @@ public class SellImportAction extends ActionSupport {
                     : new Sell();
 
             String[] info = content.split("，");
+            for (int i = 0; i < info.length; i++) {
+                logger.info("info[" + i + "]:" + info[i]);
+            }
+
             obj.setCustomerName(info[0].trim());
             obj.setCustomerPhone1(info[1].trim());
-            if (info.length > 4) {
-                obj.setCustomerPhone2(info[2].trim());
-                obj.setCustomerAddress(info[3].trim());
-                obj.setCustomerPostCode(info[4].trim());
-            } else {
-                obj.setCustomerAddress(info[2].trim());
-                obj.setCustomerPostCode(info[3].trim());
-            }
+            obj.setCustomerPhone2(info[2].trim());
+            obj.setCustomerAddress(info[3].trim());
+            obj.setCustomerPostCode(info[4].trim());
             obj.setExpressId(expressId);
             obj.setCommentExpress(commentExpress);
             obj.setCommentInvoice(commentInvoice);
             obj.setSender(sender);
-            if (fee.isEmpty() == false) {
+
+            if (fee != null && fee.isEmpty() == false) {
                 obj.setFee(Double.parseDouble(fee));
             }
-            if (feeReal.isEmpty() == false) {
+            if (feeReal != null && feeReal.isEmpty() == false) {
                 obj.setFeeReal(Double.parseDouble(feeReal));
             }
 
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            obj.setSendDate(df.parse(date));
+            if (date != null) {
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                obj.setSendDate(df.parse(date));
+            }
 
             logger.info("Name:" + obj.getCustomerName());
             logger.info("Phone1:" + obj.getCustomerPhone1());
