@@ -39,9 +39,9 @@ public class SellItemImportAction extends ActionSupport {
         try {
             itemList = new ArrayList<InvoiceItem>();
             InvoiceItem item = null;
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             String numStr = "\\(([0-9]*) 件\\)";
-            String dateStr = "([0-9]{4}/[0-9]{1,2}/[0-9]{1,2})";
+            String dateStr = "([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})";
             String[] details;
 
             String info = "";
