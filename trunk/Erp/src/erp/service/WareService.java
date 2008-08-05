@@ -99,7 +99,7 @@ public class WareService {
         List<String> keywordList = new ArrayList<String>();
         String[] list = keywords.split(" ");
         for (int i = 0; i < list.length; i++) {
-            keywordList.add(list[i]);
+            keywordList.add(list[i].toLowerCase());
         }
         return (min > 0 | max > 0) ? wareDao
                 .findAdvanced(keywordList, min, max) : wareDao

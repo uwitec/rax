@@ -102,9 +102,9 @@
 		comment_express AS commentExpress,comment_invoice AS commentInvoice,
 		sender,status
 		FROM erp.sell
-		WHERE strpos(customer_wangwang, #keyword#) > 0 
-		OR strpos(customer_name, #keyword#) > 0
-		OR strpos(customer_address, #keyword#) > 0
+		WHERE strpos(lower(customer_wangwang), #keyword#) > 0 
+		OR strpos(lower(customer_name), #keyword#) > 0
+		OR strpos(lower(customer_address), #keyword#) > 0
 		ORDER BY create_date DESC
 		LIMIT 24
 		]]>

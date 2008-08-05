@@ -53,7 +53,7 @@ public class SellService {
     }
 
     public List<Sell> findByKeyword(String keyword) {
-        return sellDao.findByKeyword(keyword);
+        return sellDao.findByKeyword(keyword.toLowerCase());
     }
 
     public void setSellDao(SellDao dao) {

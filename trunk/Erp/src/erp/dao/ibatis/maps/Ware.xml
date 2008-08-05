@@ -96,7 +96,7 @@
 		]]>
 		<dynamic prepend="WHERE">
 			<iterate open="(" close=")" conjunction="AND">
-				strpos(name, #keywordList[]#) > 0
+				strpos(lower(name), #keywordList[]#) > 0
 			</iterate>
 		</dynamic>
 		<![CDATA[
@@ -112,7 +112,7 @@
 		]]>
 		<dynamic>
 			<iterate open="(" close=")" conjunction="AND" property="keywords">
-				strpos(name, #keywords[]#) > 0
+				strpos(lower(name), #keywords[]#) > 0
 			</iterate>
 		</dynamic>
 		<dynamic prepend="AND">
