@@ -24,9 +24,10 @@ dojo.addOnLoad(function (){
 <br /><br />
 <div>总数:<#if wareList??>${wareList.size()}<#else>0</#if></div><br />
 
-<@s.form action="ware_search" theme="simple">
-    <@s.textfield label="关键字" name="keyword"/>
-    <@s.submit value=" 提 交 "/>
+<@s.form action="ware_search" target="_blank" theme="simple">
+    搜索关键字:<@s.textfield label="关键字" name="keyword"/><br />
+    搜索库存量:<@s.textfield label="库存" name="min" size="2"/> - <@s.textfield name="max" size="2"/>
+	<@s.submit value=" 提 交 "/>
 </@s.form>
 <br />
 

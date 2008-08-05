@@ -77,23 +77,6 @@
 		ORDER BY name
 	</select>
 
-	<select id="listLimited" parameterClass="map" resultClass="Ware">
-		<![CDATA[
-		SELECT id,category_id AS categoryId,name,cost,price,barcode,number,status,last_cost AS lastCost
-		FROM erp.ware
-		WHERE (price=0 OR cost=0 OR number<=1 OR barcode='')
-		]]>
-		<dynamic>
-			<isGreaterThan prepend="AND" property="status"
-				compareValue="-1">
-				status=#status#
-			</isGreaterThan>
-		</dynamic>
-		<![CDATA[
-		ORDER BY name
-		]]>
-	</select>
-
 	<select id="findByBarcode" parameterClass="string"
 		resultClass="Ware">
 		<![CDATA[
@@ -118,7 +101,16 @@
 		ORDER BY name
 		]]>
 	</select>
-
+	
+	<select id="findByNum" parameterClass="map"
+		resultClass="Ware">
+		<![CDATA[
+		SELECT id,category_id AS categoryId,name,cost,price,barcode,number,status,last_cost AS lastCost
+		FROM erp.ware
+		WHERE number BETWEEN #min# AND #max#
+		]]>
+	</select>
+	
 	<select id="fullTextSearch" parameterClass="string"
 		resultClass="Ware">
 		<![CDATA[

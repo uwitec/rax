@@ -12,7 +12,6 @@
 <body>
 <a href="index.htm">返回首页</a>
 <a href="ware_list_hid.action">列出隐藏的宝贝</a>
-<a href="ware_list_limited.action">列出需处理宝贝</a>
 <a href="ware_list_all.action">列出所有宝贝</a>
 <a href="ware.action">添加新的宝贝</a>
 <br /><br />
@@ -21,8 +20,9 @@
 <br />
 
 <@s.form action="ware_search" target="_blank" theme="simple">
-    <@s.textfield label="关键字" name="keyword"/>
-    <@s.submit value=" 提 交 "/>
+    搜索关键字:<@s.textfield label="关键字" name="keyword"/><br />
+    搜索库存量:<@s.textfield label="库存" name="min" size="2"/> - <@s.textfield name="max" size="2"/>
+	<@s.submit value=" 提 交 "/>
 </@s.form>
 <br />
 

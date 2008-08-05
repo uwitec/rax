@@ -17,8 +17,11 @@ public class WareFindAction extends ActionSupport {
     private WareService wareService = null;
     private String keyword;
     private String barcode;
+    private int min;
+    private int max;
+
     private List<Ware> wareList;
-    
+
     @Override
     public String execute() throws Exception {
         if ((barcode != null) && (barcode.isEmpty() == false)) {
@@ -27,11 +30,18 @@ public class WareFindAction extends ActionSupport {
         } else if ((keyword != null) && keyword.isEmpty() == false) {
             logger.info("findByKeywords:" + keyword);
             wareList = wareService.findByKeywords(keyword);
+        } else if (min > 0 || max > 0) {
+            logger.info("findByNumber:(" + min + "," + max + ")");
+            try {
+                wareList = wareService.findByNum(min, max);
+            } catch (NumberFormatException ex) {
+                logger.error("Search from num error:" + ex.toString());
+            }
         }
         return SUCCESS;
     }
-    
-    public String search() throws Exception {
+
+    public String fulltext_search() throws Exception {
         logger.info("fullTextSearch:" + keyword);
         wareList = wareService.fullTextSearch(keyword);
         return SUCCESS;
@@ -59,6 +69,22 @@ public class WareFindAction extends ActionSupport {
 
     public String getBarcode() {
         return barcode;
+    }
+
+    public int getMin() {
+        return min;
+    }
+
+    public void setMin(int min) {
+        this.min = min;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
     }
 
 }

@@ -61,12 +61,6 @@ public class WareAction extends ActionSupport {
         return SUCCESS;
     }
 
-    public String listLimited() throws Exception {
-        wareList = wareService.listLimited(status);
-        count = wareList.size();
-        return SUCCESS;
-    }
-
     public String listHided() throws Exception {
         count = wareService.getCount(status);
         wareList = wareService.list(status, 0, count);

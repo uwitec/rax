@@ -11,8 +11,9 @@
 <div>总数:${count}</div><br />
 
 <@s.form action="ware_search" target="_blank" theme="simple">
-    <@s.textfield label="关键字" name="keyword"/>
-    <@s.submit value=" 提 交 "/>
+    搜索关键字:<@s.textfield label="关键字" name="keyword"/><br />
+    搜索库存量:<@s.textfield label="库存" name="min" size="2"/> - <@s.textfield name="max" size="2"/>
+	<@s.submit value=" 提 交 "/>
 </@s.form>
 <br />
 

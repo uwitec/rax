@@ -13,20 +13,18 @@
 				default="true" />
 		</result-types>
 
-		<action name="ware_list_all" class="WareAction" method="listAll">
+		<action name="ware_list_all" class="WareAction"
+			method="listAll">
 			<result name="success">/ware/list_all.ftl</result>
 		</action>
-		<action name="ware_list" class="WareAction" method="listByCategory">
+		<action name="ware_list" class="WareAction"
+			method="listByCategory">
 			<result name="success">/ware/list.ftl</result>
 		</action>
 		<action name="ware_list_hid" class="WareAction"
 			method="listHided">
 			<param name="status">1</param>
 			<result name="success">/ware/list_hid.ftl</result>
-		</action>
-		<action name="ware_list_limited" class="WareAction"
-			method="listLimited">
-			<result name="success">/ware/list_limited.ftl</result>
 		</action>
 		<action name="ware" class="WareAction" method="get">
 			<result name="success">/ware/property.ftl</result>
@@ -44,10 +42,6 @@
 			</result>
 		</action>
 		<action name="ware_search" class="WareFindAction">
-			<result name="success">/ware/find.ftl</result>
-		</action>
-		<action name="ware_search_xml" class="WareFindAction"
-			method="search">
 			<result name="success">/ware/find.ftl</result>
 		</action>
 

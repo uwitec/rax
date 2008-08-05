@@ -87,10 +87,6 @@ public class WareService {
         return wareDao.list(status, index, num);
     }
 
-    public List<Ware> listLimited(int status) {
-        return wareDao.listLimited(status);
-    }
-
     public List<Ware> listByCategory(WareCategory category, int status) {
         return wareDao.listByCategoryId(category.getId(), status);
     }
@@ -108,9 +104,13 @@ public class WareService {
         return wareDao.findByKeywords(keywordList);
     }
 
+    public List<Ware> findByNum(int min, int max) {
+        return wareDao.findByNum(min, max);
+    }
+    
     public List<Ware> fullTextSearch(String content) {
         return wareDao.fullTextSearch(content);
-    }
+    }   
 
     private boolean incCategoryNumById(int id) {
         WareCategory category = wareCategoryDao.read(id);
