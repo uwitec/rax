@@ -28,14 +28,21 @@ public class WareDaoImpl extends SqlMapClientDaoSupport implements WareDao {
     @Override
     public List<Ware> findByKeywords(List<String> keywordList)
             throws DataAccessException {
-        /*
-         * System.out.print("Keywords : "); for (String k : keywordList) {
-         * System.out.print(k + " "); } System.out.println();
-         */
         return getSqlMapClientTemplate().queryForList("Ware.findByKeywords",
                 keywordList);
     }
 
+    @Override
+    public List<Ware> findAdvanced(List<String> keywordList, int min, int max)
+            throws DataAccessException {
+        Map param = new HashMap();
+        param.put("keywords", keywordList);
+        param.put("min", min);
+        param.put("max", max);
+        return getSqlMapClientTemplate().queryForList("Ware.findAdvanced",
+                param);
+    }
+    
     @Override
     public List<Ware> findByNum(int min, int max) throws DataAccessException {
         Map param = new HashMap();

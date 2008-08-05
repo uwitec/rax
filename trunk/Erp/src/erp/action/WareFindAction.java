@@ -28,8 +28,9 @@ public class WareFindAction extends ActionSupport {
             logger.info("findByBarcode:" + barcode);
             wareList = wareService.findByBarcode(barcode);
         } else if ((keyword != null) && keyword.isEmpty() == false) {
-            logger.info("findByKeywords:" + keyword);
-            wareList = wareService.findByKeywords(keyword);
+            logger.info("findByKeywords:" + keyword + " between(" + min + ","
+                    + max + ")");
+            wareList = wareService.findByKeywords(keyword, min, max);
         } else if (min > 0 || max > 0) {
             logger.info("findByNumber:(" + min + "," + max + ")");
             try {

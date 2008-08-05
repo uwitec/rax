@@ -1,6 +1,5 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-组合名字和数量一起搜索
 搜索忽略大小写
 滑动分页
 

@@ -95,22 +95,24 @@ public class WareService {
         return wareDao.findByBarcode(barcode);
     }
 
-    public List<Ware> findByKeywords(String keywords) {
+    public List<Ware> findByKeywords(String keywords, int min, int max) {
         List<String> keywordList = new ArrayList<String>();
         String[] list = keywords.split(" ");
         for (int i = 0; i < list.length; i++) {
             keywordList.add(list[i]);
         }
-        return wareDao.findByKeywords(keywordList);
+        return (min > 0 | max > 0) ? wareDao
+                .findAdvanced(keywordList, min, max) : wareDao
+                .findByKeywords(keywordList);
     }
 
     public List<Ware> findByNum(int min, int max) {
         return wareDao.findByNum(min, max);
     }
-    
+
     public List<Ware> fullTextSearch(String content) {
         return wareDao.fullTextSearch(content);
-    }   
+    }
 
     private boolean incCategoryNumById(int id) {
         WareCategory category = wareCategoryDao.read(id);

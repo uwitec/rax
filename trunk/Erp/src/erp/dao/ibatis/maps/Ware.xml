@@ -53,7 +53,8 @@
 	</select>
 
 	<select id="list" parameterClass="map" resultClass="Ware">
-		SELECT id,category_id AS categoryId,name,cost,price,barcode,number,status,last_cost AS
+		SELECT id,category_id AS
+		categoryId,name,cost,price,barcode,number,status,last_cost AS
 		lastCost FROM erp.ware
 		<dynamic>
 			<isGreaterThan prepend="WHERE" property="status"
@@ -64,10 +65,11 @@
 		ORDER BY name LIMIT #number# OFFSET #index#
 	</select>
 
-	<select id="listByCategoryId" parameterClass="map" resultClass="Ware">
-		SELECT id,category_id AS categoryId,name,cost,price,barcode,number,status,last_cost AS
-		lastCost FROM erp.ware
-		WHERE category_id=#id#
+	<select id="listByCategoryId" parameterClass="map"
+		resultClass="Ware">
+		SELECT id,category_id AS
+		categoryId,name,cost,price,barcode,number,status,last_cost AS
+		lastCost FROM erp.ware WHERE category_id=#id#
 		<dynamic>
 			<isGreaterThan prepend="AND" property="status"
 				compareValue="-1">
@@ -101,16 +103,34 @@
 		ORDER BY name
 		]]>
 	</select>
-	
-	<select id="findByNum" parameterClass="map"
-		resultClass="Ware">
+
+	<select id="findAdvanced" parameterClass="map" resultClass="Ware">
+		<![CDATA[
+		SELECT id,category_id AS categoryId,name,cost,price,barcode,number,status,last_cost AS lastCost
+		FROM erp.ware
+		WHERE
+		]]>
+		<dynamic>
+			<iterate open="(" close=")" conjunction="AND" property="keywords">
+				strpos(name, #keywords[]#) > 0
+			</iterate>
+		</dynamic>
+		<dynamic prepend="AND">
+			number BETWEEN #min# AND #max#
+		</dynamic>
+		<![CDATA[
+		ORDER BY name
+		]]>
+	</select>
+
+	<select id="findByNum" parameterClass="map" resultClass="Ware">
 		<![CDATA[
 		SELECT id,category_id AS categoryId,name,cost,price,barcode,number,status,last_cost AS lastCost
 		FROM erp.ware
 		WHERE number BETWEEN #min# AND #max#
 		]]>
 	</select>
-	
+
 	<select id="fullTextSearch" parameterClass="string"
 		resultClass="Ware">
 		<![CDATA[
