@@ -124,24 +124,24 @@ public class ExpressService {
             obj.setDstAddressLB(new ExpressPos(323, 173));  // x:114 y:61
             obj.setDstAddressRT(new ExpressPos(573, 207));  // x:202 y:73
             break;
-
+            
         case 5: // 顺丰
             obj.setDateFormat("MM    dd");
             obj.setSize(new ExpressPos(615, 397));
-            obj.setDate(new ExpressPos(315, 57));           // x:111 y:20
-            obj.setSrcPhone(new ExpressPos(207, 193));      // x:73 y:68
+            obj.setDate(new ExpressPos(448, 113));           // x:158 y:40
+            obj.setSrcPhone(new ExpressPos(170, 221));       // x:60 y:78
             obj.setSrcPostCode(null);
-            obj.setDstPhone1(new ExpressPos(468, 193));     // x:165 y:68
-            obj.setDstPhone2(new ExpressPos(468, 206));     // x:165 y:+13pt
+            obj.setDstPhone1(new ExpressPos(170, 99));       // x:60 y:35
+            obj.setDstPhone2(new ExpressPos(43, 99));        // x:15 y:35
             obj.setDstPostCode(null);
 
-            obj.setSrcName(new ExpressPos(252, 281));       // x:89 y:99
-            obj.setDstName(new ExpressPos(519, 281));       // x:183 y:99       
+            obj.setSrcName(new ExpressPos(227, 289));        // x:80 y:102
+            obj.setDstName(new ExpressPos(227, 198));        // x:80 y:70       
             
-            obj.setSrcAddressLB(new ExpressPos(43, 215));   // x:15 y:76
-            obj.setSrcAddressRT(new ExpressPos(309, 261));  // x:109 y:92
-            obj.setDstAddressLB(new ExpressPos(312, 215));  // x:110 y:76
-            obj.setDstAddressRT(new ExpressPos(575, 261));  // x:203 y:92
+            obj.setSrcAddressLB(new ExpressPos(71, 241));    // x:25 y:85
+            obj.setSrcAddressRT(new ExpressPos(275, 283));   // x:97 y:100
+            obj.setDstAddressLB(new ExpressPos(71, 122));    // x:25 y:43
+            obj.setDstAddressRT(new ExpressPos(275, 187));   // x:97 y:66
             break;
             
         case 6: // CCES
@@ -181,7 +181,7 @@ public class ExpressService {
             obj.setDstAddressLB(new ExpressPos(266, 108));  // x:94 y:38
             obj.setDstAddressRT(new ExpressPos(485, 173));  // x:171 y:61
             break;
-            
+         
         case 8: // 宅急送
             obj.setDateFormat("MM dd");
             obj.setSize(new ExpressPos(658, 397));          // x:232 y:140
@@ -199,8 +199,8 @@ public class ExpressService {
             obj.setSrcAddressRT(new ExpressPos(312, 278));  // x:110 y:98
             obj.setDstAddressLB(new ExpressPos(360, 213));  // x:127 y:75
             obj.setDstAddressRT(new ExpressPos(575, 278));  // x:203 y:98
-            break;
-
+            break;        
+            
         }
         return obj;
     }
