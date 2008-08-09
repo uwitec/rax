@@ -131,8 +131,8 @@ public class ExpressService {
             obj.setDate(new ExpressPos(448, 113));           // x:158 y:40
             obj.setSrcPhone(new ExpressPos(170, 221));       // x:60 y:78
             obj.setSrcPostCode(null);
-            obj.setDstPhone1(new ExpressPos(170, 99));       // x:60 y:35
-            obj.setDstPhone2(new ExpressPos(43, 99));        // x:15 y:35
+            obj.setDstPhone1(new ExpressPos(170, 105));      // x:60 y:37
+            obj.setDstPhone2(new ExpressPos(43, 105));       // x:15 y:37
             obj.setDstPostCode(null);
 
             obj.setSrcName(new ExpressPos(227, 289));        // x:80 y:102
