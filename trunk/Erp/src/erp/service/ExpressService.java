@@ -31,17 +31,17 @@ public class ExpressService {
         switch (expressId) {
         default:
         case 0: // 韵达
-            obj.setDateFormat("yy   MM   dd");
+            obj.setDateFormat("yy　　MM　　dd");
             obj.setSize(new ExpressPos(658, 360));
-            obj.setDate(new ExpressPos(108, 266));          // x:38 y:94
+            obj.setDate(new ExpressPos(102, 261));          // x:36 y:92
             obj.setSrcPhone(new ExpressPos(85, 159));       // x:30 y:56
             obj.setSrcPostCode(new ExpressPos(241, 159));   // x:85 y:56
             obj.setDstPhone1(new ExpressPos(354, 159));     // x:125 y:56
             obj.setDstPhone2(new ExpressPos(354, 172));     // x:125 y:+13pt
             obj.setDstPostCode(new ExpressPos(496, 159));   // x:175 y:56
             
-            obj.setSrcName(new ExpressPos(241, 244));       // x:85 y:86
-            obj.setDstName(new ExpressPos(482, 238));       // x:170 y:84
+            obj.setSrcName(new ExpressPos(184, 241));       // x:65 y:85
+            obj.setDstName(new ExpressPos(468, 241));       // x:165 y:85
             
             obj.setSrcAddressLB(new ExpressPos(57, 170));   // x:20 y:60
             obj.setSrcAddressRT(new ExpressPos(306, 241));  // x:108 y:85
