@@ -12,6 +12,7 @@ import erp.model.Ware;
 import erp.model.WareCategory;
 import erp.service.WareCategoryService;
 import erp.service.WareService;
+import erp.util.Pager;
 
 public class WareAction extends ActionSupport {
 
@@ -33,16 +34,15 @@ public class WareAction extends ActionSupport {
     private List<Ware> wareList;
     private Map<Integer, String> categoryMap;
     private List<WareCategory> categoryList;
-    private int page = 1;
-    private int pagePer = 30;
-    private int pageNum = 0;
-    private int count;
+    private Pager pager;
 
     public String listAll() throws Exception {
-        count = wareService.getCount(status);
-        pageNum = (count + pagePer - 1) / pagePer;
-        pageNum = pageNum > 0 ? pageNum : 1;
-        wareList = wareService.list(status, (page - 1) * pagePer, pagePer);
+        pager.setPerPage(24);
+        pager.setAction("ware_list_all.action");
+        pager.setTotalItems(wareService.getCount(status));
+        pager.generatePageData();
+        wareList = wareService.list(status, pager.getOffsetItems(), pager
+                .getPerPage());
         return SUCCESS;
     }
 
@@ -62,8 +62,8 @@ public class WareAction extends ActionSupport {
     }
 
     public String listHided() throws Exception {
-        count = wareService.getCount(status);
-        wareList = wareService.list(status, 0, count);
+        pager.setTotalItems(wareService.getCount(status));
+        wareList = wareService.list(status, 0, pager.getTotalItems());
         return SUCCESS;
     }
 
@@ -182,26 +182,6 @@ public class WareAction extends ActionSupport {
         return wareList;
     }
 
-    public int getPage() {
-        return page;
-    }
-
-    public int getPagePer() {
-        return pagePer;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    public void setPagePer(int pagePer) {
-        this.pagePer = pagePer;
-    }
-
     public int getId() {
         return id;
     }
@@ -226,14 +206,6 @@ public class WareAction extends ActionSupport {
         this.status = status;
     }
 
-    public int getPageNum() {
-        return pageNum;
-    }
-
-    public void setPageNum(int pageNum) {
-        this.pageNum = pageNum;
-    }
-
     public WareService getWareService() {
         return wareService;
     }
@@ -242,16 +214,28 @@ public class WareAction extends ActionSupport {
         this.wareList = wareList;
     }
 
-    public void setCount(int count) {
-        this.count = count;
-    }
-
     public Map<Integer, String> getCategoryMap() {
         return categoryMap;
     }
 
     public List<WareCategory> getCategoryList() {
         return categoryList;
+    }
+
+    public Pager getPager() {
+        return pager;
+    }
+
+    public void setPager(Pager pager) {
+        this.pager = pager;
+    }
+
+    public int getCurrentPage() {
+        return pager.getCurrentPage();
+    }
+
+    public void setCurrentPage(int page) {
+        pager.setCurrentPage(page);
     }
 
 }

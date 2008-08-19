@@ -12,7 +12,7 @@
 <a href="index.htm">返回首页</a>
 <a href="${urlList}">返回宝贝列表</a>
 <br /><br />
-<div>总数:${count}</div><br />
+<div>总数:${pager.totalItems}</div><br />
 
 <#if wareList??>
 <#list wareList as ware>

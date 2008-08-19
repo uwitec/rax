@@ -16,9 +16,6 @@
 <a href="ware.action">添加新的宝贝</a>
 <br /><br />
 
-<div>当前分类宝贝数:<#if wareList??>${wareList.size()}<#else>0</#if></div>
-<br />
-
 <@s.form action="ware_search" target="ware_search_result" theme="simple">
     搜索关键字:<@s.textfield label="关键字" name="keyword"/><br />
     搜索库存量:<@s.textfield label="库存" name="min" size="2"/> - <@s.textfield name="max" size="2"/>
@@ -26,10 +23,15 @@
 </@s.form>
 <br />
 
+<div>当前分类宝贝数:<#if wareList??>${wareList.size()}<#else>0</#if></div>
 <div class="categoryList">
 <#if categoryList??>
 <#list categoryList as category>
+<#if category.id = categoryId>
+[ ${category.name} ]
+<#else>
 <a href="?categoryId=${category.id}" title="${category.num}">${category.name}</a> 
+</#if>
 </#list>
 </#if>
 </div>

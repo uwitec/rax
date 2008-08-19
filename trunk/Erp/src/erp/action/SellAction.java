@@ -14,6 +14,7 @@ import erp.service.ExpressService;
 import erp.service.SellItemService;
 import erp.service.SellService;
 import erp.service.WareService;
+import erp.util.Pager;
 
 public class SellAction extends ActionSupport {
 
@@ -44,16 +45,17 @@ public class SellAction extends ActionSupport {
 
     private List<Sell> sellList;
     private List<SellItem> sellItemList;
-    private int page = 1;
-    private int pagePer = 12;
-    private int pageNum = 0;
-    private int count;
+    private Pager pager;
 
     public String list() throws Exception {
-        count = sellService.getCount(status);
-        pageNum = (count + pagePer - 1) / pagePer;
-        pageNum = pageNum > 0 ? pageNum : 1;
-        sellList = sellService.list((page - 1) * pagePer, pagePer, status);
+        pager.setAction("sell_list.action?status=" + String.valueOf(status));
+        pager.setTotalItems(sellService.getCount(status));
+        pager.generatePageData();
+        sellList = sellService.list(pager.getOffsetItems(), pager.getPerPage(),
+                status);
+
+        logger.info(pager.getCurrentPage() + "/" + pager.getTotalPage());
+
         return SUCCESS;
     }
 
@@ -248,36 +250,12 @@ public class SellAction extends ActionSupport {
         this.sellList = sellList;
     }
 
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-
     public WareService getWareService() {
         return wareService;
     }
 
     public void setWareService(WareService wareService) {
         this.wareService = wareService;
-    }
-
-    public int getPagePer() {
-        return pagePer;
-    }
-
-    public void setPagePer(int pagePer) {
-        this.pagePer = pagePer;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
     }
 
     public SellItemService getSellItemService() {
@@ -336,12 +314,20 @@ public class SellAction extends ActionSupport {
         this.status = status;
     }
 
-    public int getPageNum() {
-        return pageNum;
+    public Pager getPager() {
+        return pager;
     }
 
-    public void setPageNum(int pageNum) {
-        this.pageNum = pageNum;
+    public void setPager(Pager pager) {
+        this.pager = pager;
+    }
+
+    public int getCurrentPage() {
+        return pager.getCurrentPage();
+    }
+
+    public void setCurrentPage(int page) {
+        pager.setCurrentPage(page);
     }
 
 }

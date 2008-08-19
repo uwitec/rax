@@ -10,25 +10,23 @@
 	<@s.param name="page" value="page"/>
 </@s.url>
 <a href="index.htm">返回首页</a>
-<a href="sell_list.action?page=${page}">待处理发货单</a>
-<a href="sell_listAll.action?page=${page}">所有发货单</a>
+<a href="sell_list.action?currentPage=${pager.currentPage}">待处理发货单</a>
+<a href="sell_listAll.action?currentPage=${pager.currentPage}">所有发货单</a>
 <a href="sell_search.action" target="_blank">搜索发货单</a>
 <br /><br />
 <a href="${urlAdd}">添加新出库单</a>
 <a href="sell_import_input.action">从淘宝地址导入出库单</a><br /><br />
-<div>总数:${count}</div><br />
 
-<#list 1..pageNum as i>
-<#if i == page>
-[${i}] 
-<#else>
-<@s.url id="urlPage" action="sell_list">
-	<@s.param name="page" value="#{i}"/>
-	<@s.param name="status" value="status"/>
-</@s.url>
-<a href="${urlPage}">[${i}]</a>  
-</#if>
-</#list><br /><br />
+<div>
+<span>页数:${pager.currentPage}/${pager.totalPage}</span>&nbsp;&nbsp;
+<span>${pager.getPreviousSlide()}</span>
+<span>${pager.getBackLink()}</span>
+<span>${pager.getPageLinks()}</span>
+<span>${pager.getNextLink()}</span>
+<span>${pager.getNextSlide()}</span>&nbsp;&nbsp;
+<span>总数:${pager.totalItems}</span>
+<div>
+<br /><br />
 
 <#if sellList??>
 <#list sellList as sell>

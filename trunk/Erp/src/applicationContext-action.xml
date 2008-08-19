@@ -14,6 +14,7 @@
 		scope="prototype">
 		<property name="wareService" ref="WareService" />
 		<property name="wareCategoryService" ref="WareCategoryService" />
+		<property name="pager" ref="Pager" />
 	</bean>
 	<bean id="WareCategoryAction" class="erp.action.WareCategoryAction"
 		scope="prototype">
@@ -30,6 +31,7 @@
 		<property name="sellItemService" ref="SellItemService" />
 		<property name="wareService" ref="WareService" />
 		<property name="expressService" ref="ExpressService" />
+		<property name="pager" ref="Pager" />
 	</bean>
 	<bean id="SellFindAction" class="erp.action.SellFindAction"
 		scope="prototype">
