@@ -19,6 +19,9 @@ function addOption(objSelect, text, value, expend) {
 	//console.debug("AddOption:" + objOption.text + "," + objOption.value + "," + expend);
 	if (expend == true && objSelect.options.length > objSelect.size) {
   		objSelect.size = objSelect.options.length;
+		if (objSelect.selectedIndex > 0) {
+  			objSelect.options[objSelect.selectedIndex].selected = false;
+  		}
   	}
 }
 

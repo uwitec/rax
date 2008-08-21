@@ -16,7 +16,9 @@ function addOption(objSelect, text, value, expend) {
 	console.debug("AddOption:" + objOption.text + "," + objOption.value + "," + expend);
   	if (expend == true && objSelect.options.length > objSelect.size) {
   		objSelect.size = objSelect.options.length;
-  		objSelect.options[objSelect.selectedIndex].selected = false;
+  		if (objSelect.selectedIndex > 0) {
+  			objSelect.options[objSelect.selectedIndex].selected = false;
+  		}
   	}
 }
 
@@ -77,7 +79,7 @@ function onSelect(event) {
 	if (this.selectedIndex < 0) return;
 	var obj = this.options[this.selectedIndex];
 	//console.debug(obj.text + ":" + obj.value);
-	
+
 	var objId	= dojo.byId("order_item_save_orderItem_wareId");
 	var objCost	= dojo.byId("order_item_save_orderItem_cost");
 	var objNum	= dojo.byId("order_item_save_orderItem_number");
@@ -98,7 +100,7 @@ function onSelect(event) {
 function onSubmit() {
 	var obj = dojo.byId("order_item_save_orderItem_wareId");
 	if (obj.value <= 0) return;
-	
+
 	dojo.xhrPost({
 		url: "/erp/json/order_item_add.action",
 		form: dojo.byId("order_item_save"),
@@ -129,7 +131,7 @@ function onSubmit() {
 		},
 		error: function(response) { this.onResponse(false); },
 		onResponse: function(flag) {
-			var text		= flag ? "提交成功" : "提交失败"; 
+			var text		= flag ? "提交成功" : "提交失败";
 			var color		= flag ? "#00FF00" : "#FF0000";
 			var obj			= dojo.byId("submitStatus");
 			obj.innerHTML	= text;
