@@ -1,11 +1,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-滑动分页
-
 表单格式化
 竖分页
 打印之后自动设成已处理
 表索引优化
 
-发货单列表按日期列
-宝贝列表按类别列
+黑名单

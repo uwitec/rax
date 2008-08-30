@@ -33,7 +33,7 @@ public class ExpressService {
         case 0: // 韵达
             obj.setDateFormat("yy    MM    dd");
             obj.setSize(new ExpressPos(658, 360));
-            obj.setDate(new ExpressPos(108, 261));          // x:38 y:92
+            obj.setDate(new ExpressPos(102, 261));          // x:36 y:92
             obj.setSrcPhone(new ExpressPos(85, 159));       // x:30 y:56
             obj.setSrcPostCode(new ExpressPos(241, 159));   // x:85 y:56
             obj.setDstPhone1(new ExpressPos(354, 159));     // x:125 y:56

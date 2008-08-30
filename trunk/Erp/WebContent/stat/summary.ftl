@@ -2,11 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>宝贝列表</title>
-<script language="javascript" type="text/javascript" src="../js/dojo/dojo.js" djConfig="isDebug:false,usePlainJson:true,bindEncoding:'UTF-8'"></script>
+<title>统计数据</title>
+<script language="javascript" type="text/javascript" src="../js/dojo/dojo.js" djConfig="isDebug:false,usePlainJson:true,bindEncoding:'UTF-8',parseOnLoad:true"></script>
 <script language="javascript" type="text/javascript">
 
-function onSubmit() {
+dojo.require("dijit.form.DateTextBox");
+dojo.require("dojo.parser");
+
+dojo.addOnLoad(function (){
+	var obj;
+	obj = dojo.byId("feeButton");
+	dojo.connect(obj, "onclick", obj, onCompute);
+
+});
+
+function onCompute() {
 	var startObj = dojo.byId("startDate");
 	var endObj = dojo.byId("endDate");
 	var params = {
@@ -55,20 +65,15 @@ function onSubmit() {
 	});
 }
 
-dojo.addOnLoad(function (){
-	var obj;
-	obj = dojo.byId("feeButton");
-	dojo.connect(obj, "onclick", obj, onSubmit);
-
-});
 </script>
 <style type="text/css">
-.float { float:left; margin-right:12px; width:80px; }
+@import "../js/dijit/themes/tundra/tundra.css";
+.float { float:left; margin-right:12px; width:80px; }		
 </style>
 
 </head>
 
-<body>
+<body  class="tundra">
 <a href="../index.htm">返回首页</a>
 <br /><br />
 
@@ -108,8 +113,10 @@ dojo.addOnLoad(function (){
 
 <div>
 <div>
-<@s.textfield label="起始日期" name="startDate"/>
-<@s.textfield label="结算日期" name="endDate"/>
+<label for="startDate">起始日期</label>
+<input type="text" id="startDate" name="startDate" dojoType="dijit.form.DateTextBox" length="20"/>
+<label for="startDate">结算日期</label>
+<input type="text" id="endDate" name="endDate" dojoType="dijit.form.DateTextBox" length="20"/>
 <input type="button" id="feeButton" value=" 计 算 " />
 <span id="submitStatus"></span>
 </div><br />

@@ -11,6 +11,26 @@ var wareList;
 var importList;
 var importIdx = 0;
 
+dojo.addOnLoad(function (){
+	var obj;
+	obj = dojo.byId("sellId");
+	sellId = obj.value;
+
+	obj = dojo.byId("importSubmitBtn");
+	dojo.connect(obj, "onclick", obj, onImport);
+
+	obj = dojo.byId("importResult");
+	dojo.connect(obj, "ondblclick", obj, onConfirm);
+
+	obj = dojo.byId("searchResult");
+	dojo.connect(obj, "ondblclick", obj, onSelect);
+
+	obj = dojo.byId("importLayer");
+	obj.style.display = "block";
+	obj = dojo.byId("searchLayer");
+	obj.style.display = "none";
+});
+
 function addOption(objSelect, text, value, expend) {
 	var objOption	= document.createElement("OPTION");
 	var obj			= objSelect.appendChild(objOption);
@@ -93,7 +113,7 @@ function doSearch(keyword, id) {
 		load: function(json) { try {
 			var idx = 0;
 			var opt = null;
-			var obj = dojo.byId("search_result");
+			var obj = dojo.byId("searchResult");
 			while (obj.options.length > 0) {
 				obj.remove(0);
 			}
@@ -201,27 +221,6 @@ function onSubmit(itemId, itemPrice, itemNum) {
 	});
 }
 
-dojo.addOnLoad(function (){
-	var obj;
-	obj = dojo.byId("sellId");
-	sellId = obj.value;
-
-	obj = dojo.byId("importSubmitBtn");
-	dojo.connect(obj, "onclick", obj, onImport);
-
-	obj = dojo.byId("importResult");
-	dojo.connect(obj, "ondblclick", obj, onConfirm);
-
-	obj = dojo.byId("search_result");
-	dojo.connect(obj, "ondblclick", obj, onSelect);
-
-
-	obj = dojo.byId("importLayer");
-	obj.style.display = "block";
-	obj = dojo.byId("searchLayer");
-	obj.style.display = "none";
-});
-
 </script>
 <style type="text/css">
 select { width:380px; }
@@ -230,25 +229,21 @@ label { cursor:pointer; }
 </head>
 
 <body>
-<@s.url id="url" action="sell">
-	<@s.param name="id" value="sellId"/>
-</@s.url>
 <a href="sell_list.action">返回发货单列表</a>
-<a href="${url}">返回发货信息</a>
+<a href="sell.action?id=${sellId?c}">返回发货信息</a>
 <br /><br />
-<@s.hidden name="sellId"/>
 
 <div id="importLayer">
-<@s.textarea name="sellContent" cols="80" rows="8"/><br />
+<textarea id="sellContent" name="sellContent" cols="80" rows="8"></textarea><br />
 <input type="button" id="importSubmitBtn" value=" 提 交 "/>
 </div>
-
 <div id="searchLayer">
-<@s.select name="importResult" size="2"/><br />
-<@s.select name="search_result" size="12"/><br />
-<@s.select name="addList"/>
+<select id="importResult" size="2"></select><br />
+<select id="searchResult" size="12"></select><br />
+<select id="addList"></select>
 <span id="submitStatus"></span>
 </div>
 
+<input type="hidden" id="sellId" name="sellId" value="${sellId?c}" />
 </body>
 </html>
