@@ -2,18 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>出库单列表</title>
+<title>进货单列表</title>
 </head>
 
 <body>
-<@s.url id="urlAdd" action="order/order">
-	<@s.param name="page" value="page"/>
-</@s.url>
 <a href="../index.htm">返回首页</a>
 <a href="order_list.action?page=${page}">待处理进货单</a>
 <a href="order_listAll.action?page=${page}">所有进货单</a>
 <br /><br />
-<a href="${urlAdd}">添加新进货单</a>
+<a href="order.action?page=${page}">添加新进货单</a>
 <br /><br />
 <div>总数:${count}</div><br />
 

@@ -1,6 +1,10 @@
 package erp.action;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -39,8 +43,10 @@ public class SellAction extends ActionSupport {
     private String commentExpress;
     private String commentInvoice;
     private String sender;
+    private String date;
     private int status = 0;
 
+    List<String> dateSel;
     Map<Integer, String> expressSel;
 
     private List<Sell> sellList;
@@ -61,6 +67,8 @@ public class SellAction extends ActionSupport {
 
     public String get() throws Exception {
         expressSel = expressService.getExpressSel();
+        date = genDate();
+        dateSel = genDateSel();
         try {
             DecimalFormat f = new DecimalFormat("###0.00");
             Sell s = sellService.getSellById(id);
@@ -77,6 +85,8 @@ public class SellAction extends ActionSupport {
                 commentExpress = s.getCommentExpress();
                 commentInvoice = s.getCommentInvoice();
                 sender = s.getSender();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                date = df.format(s.getSendDate());
 
                 sellItemList = sellItemService.listBySell(s);
                 for (SellItem item : sellItemList) {
@@ -119,10 +129,16 @@ public class SellAction extends ActionSupport {
             obj.setCommentExpress(commentExpress.trim());
             obj.setCommentInvoice(commentInvoice.trim());
             obj.setSender(sender.trim());
-            if (fee.isEmpty() == false)
+            if (fee.isEmpty() == false) {
                 obj.setFee(Double.parseDouble(fee));
-            if (feeReal.isEmpty() == false)
+            }
+            if (feeReal.isEmpty() == false) {
                 obj.setFeeReal(Double.parseDouble(feeReal));
+            }
+            if (date != null) {
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                obj.setSendDate(df.parse(date));
+            }
 
             if (id > 0) {
                 sellService.updateSell(obj);
@@ -148,6 +164,46 @@ public class SellAction extends ActionSupport {
             return ERROR;
         }
         return SUCCESS;
+    }
+
+    private String genDate() throws Exception {
+        String sendDate = "";
+        try {
+            Date d = new Date();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar c = Calendar.getInstance();
+            c.setTime(d);
+
+            if (c.get(Calendar.HOUR_OF_DAY) > 18) {
+                c.setTimeInMillis(d.getTime() + 86400000);
+                d = c.getTime();
+            }
+            sendDate = df.format(d);
+        } catch (Exception ex) {
+            logger.error(ex.toString());
+        }
+        return sendDate;
+    }
+
+    private List<String> genDateSel() {
+        List<String> dateSel = new ArrayList<String>();
+        try {
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar c = Calendar.getInstance();
+
+            Date d1 = new Date();
+            c.setTimeInMillis(d1.getTime() + 86400000);
+            Date d2 = c.getTime();
+            c.setTimeInMillis(d2.getTime() + 86400000);
+            Date d3 = c.getTime();
+
+            dateSel.add(df.format(d1));
+            dateSel.add(df.format(d2));
+            dateSel.add(df.format(d3));
+        } catch (Exception ex) {
+            logger.error(ex.toString());
+        }
+        return dateSel;
     }
 
     public SellService getSellService() {
@@ -328,6 +384,14 @@ public class SellAction extends ActionSupport {
 
     public void setCurrentPage(int page) {
         pager.setCurrentPage(page);
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public List<String> getDateSel() {
+        return dateSel;
     }
 
 }

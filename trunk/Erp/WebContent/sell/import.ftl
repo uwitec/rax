@@ -128,8 +128,7 @@ label { cursor:pointer; }
 </head>
 
 <body>
-<@s.url id="url" action="sell_list"/>
-<a href="${url}">返回</a>
+<a href="sell_list.action">返回</a>
 <br />
 
 <div>

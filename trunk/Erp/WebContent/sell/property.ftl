@@ -3,7 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>发货单详情</title>
-<script type="text/javascript" language="javascript">
+<script language="javascript" type="text/javascript" src="js/dojo/dojo.js" djConfig="isDebug:false,usePlainJson:true,bindEncoding:'UTF-8'"></script>
+<script language="javascript" type="text/javascript">
 function setFee(value) {
 	var obj = document.getElementById("sell_save_fee");
 	obj.value = value;
@@ -28,14 +29,38 @@ function onFeeRealChange(value) {
 		else objs[i].checked = false;
 	}
 }
-window.onload = function() {
-	var obj;
-	obj = document.getElementById("sell_save_fee");
-	onFeeChange(obj.value);
-	obj = document.getElementById("sell_save_feeReal");
-	onFeeRealChange(obj.value);
-	//alert("onload");
+function setDate(event) {
+	var obj		= dojo.byId("sell_save_date");
+	obj.value	= this.value;
 }
+function onDateChange(event) {
+	var objs = document.getElementsByName("sel");
+	for (var i = 0; i < objs.length; i++) {
+		objs[i].checked = (objs[i].value == this.value) ? true : false;
+	}
+}
+dojo.addOnLoad(function (){
+	var obj;
+	var sels;
+	var sel;
+	
+	obj = dojo.byId("sell_save_fee");
+	onFeeChange(obj.value);
+	
+	obj = dojo.byId("sell_save_feeReal");
+	onFeeRealChange(obj.value);
+	
+	obj	= dojo.byId("sell_save_date");
+	dojo.connect(obj, "onchange", obj, onDateChange);
+	sels = document.getElementsByName("sel");
+	for (var i = 0; i < sels.length; i++) {
+		sel = sels[i];
+		dojo.connect(sel, "onclick", sel, setDate);
+		if (sel.value == obj.value) {
+			sel.checked = true;
+		}
+	}
+});
 </script>
 <style type="text/css">
 label { cursor:pointer; }
@@ -44,8 +69,7 @@ label { cursor:pointer; }
 </head>
 
 <body>
-<@s.url id="url" action="sell_list"/>
-<a href="${url}">返回发货单列表</a>
+<a href="sell_list.action">返回发货单列表</a>
 <a href="express_input.action?sellId=${id?c}" target="_balnk">打印快递单</a>
 <#if id != 0>
 <a href="sell_delete.action?id=${id?c}" onclick="return confirm('确实要删除这笔交易么？')">删除</a><br />
@@ -57,6 +81,8 @@ label { cursor:pointer; }
     <@s.textfield label="旺旺" name="customerWangwang"/>
     <@s.textfield label="姓名" name="customerName"/>
     <@s.textarea label="地址" name="customerAddress" cols="80" rows="3"/>
+    <@s.textfield label="日期" name="date"/>
+    <@s.radio name="sel" list="dateSel"/>
     <@s.textfield label="电话1" name="customerPhone1"/>
     <@s.textfield label="电话2" name="customerPhone2"/>
     <@s.textfield label="邮编" name="customerPostCode"/>

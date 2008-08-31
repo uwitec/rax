@@ -3,11 +3,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>进货单详情</title>
-<script type="text/javascript" language="javascript">
+<script language="javascript" type="text/javascript" src="../js/dojo/dojo.js" djConfig="isDebug:false,usePlainJson:true,bindEncoding:'UTF-8'"></script>
+<script language="javascript" type="text/javascript">
+
+dojo.addOnLoad(function (){
+	var obj;
+	obj = dojo.byId("order_save_order_fee");
+	onFeeChange(obj.value);
+});
+
 function setFee(value) {
 	var obj = document.getElementById("order_save_order_fee");
 	obj.value = value;
 }
+
 function onFeeChange(value) {
 	var objs = document.getElementsByName("feeSel");
 	for (var i = 0; i < objs.length; i++) {
@@ -15,11 +24,7 @@ function onFeeChange(value) {
 		else objs[i].checked = false;
 	}
 }
-window.onload = function() {
-	var obj;
-	obj = document.getElementById("order_save_order_fee");
-	onFeeChange(obj.value);
-}
+
 </script>
 <style type="text/css">
 label { cursor:pointer; }
@@ -37,7 +42,7 @@ label { cursor:pointer; }
 <a href="order_status.action?id=${id?c}&status=0">撤除订单</a>
 </#if>
 </#if>
-<br />
+<br /><br />
 
 <div>
 <@s.form action="order_save">

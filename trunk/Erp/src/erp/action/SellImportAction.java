@@ -36,7 +36,7 @@ public class SellImportAction extends ActionSupport {
     private String sender;
     private String date;
 
-    List dateSel;
+    List<String> dateSel;
     Map<Integer, String> expressSel;
 
     public String input() throws Exception {
@@ -58,7 +58,7 @@ public class SellImportAction extends ActionSupport {
             c.setTimeInMillis(d2.getTime() + 86400000);
             Date d3 = c.getTime();
 
-            dateSel = new ArrayList();
+            dateSel = new ArrayList<String>();
             dateSel.add(df.format(d1));
             dateSel.add(df.format(d2));
             dateSel.add(df.format(d3));

@@ -165,11 +165,8 @@ label { cursor:pointer; }
 </head>
 
 <body>
-<@s.url id="url" action="sell">
-	<@s.param name="id" value="sellId"/>
-</@s.url>
 <a href="sell_list.action">返回发货单列表</a>
-<a href="${url}">返回发货信息</a>
+<a href="sell.action?id=${sellId?c}">返回发货信息</a>
 <#if id != 0>
 <a href="sell_item_delete.action?id=${id?c}&sellId=${sellId?c}" onclick="return confirm('确实要删除这项么？')">删除</a>
 </#if>
