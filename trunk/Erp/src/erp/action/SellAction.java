@@ -386,6 +386,10 @@ public class SellAction extends ActionSupport {
         pager.setCurrentPage(page);
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public String getDate() {
         return date;
     }
