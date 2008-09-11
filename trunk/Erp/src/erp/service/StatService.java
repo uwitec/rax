@@ -35,6 +35,10 @@ public class StatService {
             for (Stat t : lstProfit) {
                 if (st.getStatDate().equals(t.getStatDate())) {
                     t.setNumber(st.getNumber());
+                    t.setFee(st.getFee());
+                    t.setFeeReal(st.getFeeReal());
+                    // logger.info("Fee:" + String.valueOf(t.getFee()) + "
+                    // FeeReal:" + String.valueOf(t.getFeeReal()));
                     break;
                 }
             }
@@ -96,6 +100,8 @@ public class StatService {
             for (Stat t : lstRet) {
                 if (c.getTime().equals(t.getStatDate())) {
                     t.setNumber(t.getNumber() + st.getNumber());
+                    t.setFee(t.getFee() + st.getFee());
+                    t.setFeeReal(t.getFeeReal() + st.getFeeReal());
                     flag = true;
                     break;
                 }
@@ -104,6 +110,8 @@ public class StatService {
                 Stat s = new Stat();
                 s.setStatDate(c.getTime());
                 s.setNumber(st.getNumber());
+                s.setFee(st.getFee());
+                s.setFeeReal(st.getFeeReal());
                 lstRet.add(s);
             }
         }

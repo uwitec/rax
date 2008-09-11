@@ -82,6 +82,7 @@ function onCompute() {
 <div class="float">日期</div>
 <div class="float">利润</div>
 <div class="float">营业额</div> 
+<div class="float">运费盈余</div> 
 <div>包裹数</div>
 <div>
 <#if weekProfitList??>
@@ -89,6 +90,7 @@ function onCompute() {
 <div class="float">${profit.statDate?string("yy-MM-dd")}</div>
 <div class="float">${profit.profit}</div>
 <div class="float">${profit.amount}</div> 
+<div class="float">${profit.fee - profit.feeReal}</div> 
 <div>${profit.number}</div>
 </#list>
 </#if>
@@ -98,6 +100,7 @@ function onCompute() {
 <div class="float">月份</div>
 <div class="float">利润</div>
 <div class="float">营业额</div> 
+<div class="float">运费盈余</div> 
 <div>包裹数</div>
 <div>
 <#if monthProfitList??>
@@ -105,6 +108,7 @@ function onCompute() {
 <div class="float">${profit.statDate?string("yy-MM")}</div>
 <div class="float">${profit.profit}</div>
 <div class="float">${profit.amount}</div> 
+<div class="float">${profit.fee - profit.feeReal}</div> 
 <div>${profit.number}</div>
 </#list>
 </#if>
