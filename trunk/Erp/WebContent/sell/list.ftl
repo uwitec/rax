@@ -28,7 +28,7 @@
 <#if sellList??>
 <#list sellList as sell>
 <div>
-旺旺:${sell.customerWangwang}<br />
+${imTypeSel.get(sell.customerIMType)}:${sell.customerIM}<br />
 姓名:${sell.customerName}<br />
 <#if status = -1>
 日期:${sell.createDate?string("yyyy-MM-dd")}<br />

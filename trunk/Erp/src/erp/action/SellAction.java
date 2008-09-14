@@ -36,7 +36,9 @@ public class SellAction extends ActionSupport {
     private String customerPhone1;
     private String customerPhone2;
     private String customerPostCode;
-    private String customerWangwang;
+    private String customerIM;
+    private int customerIMType;
+    private String customerIMComment;
     private String fee;
     private String feeReal;
     private int expressId;
@@ -48,12 +50,15 @@ public class SellAction extends ActionSupport {
 
     List<String> dateSel;
     Map<Integer, String> expressSel;
+    Map<Integer, String> imTypeSel;
 
     private List<Sell> sellList;
     private List<SellItem> sellItemList;
     private Pager pager;
 
     public String list() throws Exception {
+        imTypeSel = sellService.getIMTypeSel();
+        
         pager.setAction("sell_list.action?status=" + String.valueOf(status));
         pager.setTotalItems(sellService.getCount(status));
         pager.generatePageData();
@@ -67,6 +72,7 @@ public class SellAction extends ActionSupport {
 
     public String get() throws Exception {
         expressSel = expressService.getExpressSel();
+        imTypeSel = sellService.getIMTypeSel();
         date = genDate();
         dateSel = genDateSel();
         try {
@@ -78,7 +84,9 @@ public class SellAction extends ActionSupport {
                 customerPhone1 = s.getCustomerPhone1();
                 customerPhone2 = s.getCustomerPhone2();
                 customerPostCode = s.getCustomerPostCode();
-                customerWangwang = s.getCustomerWangwang();
+                customerIM = s.getCustomerIM();
+                customerIMType = s.getCustomerIMType();
+                customerIMComment = s.getCustomerIMComment();
                 fee = f.format(s.getFee());
                 feeReal = f.format(s.getFeeReal());
                 expressId = s.getExpressId();
@@ -124,7 +132,9 @@ public class SellAction extends ActionSupport {
             obj.setCustomerPhone1(customerPhone1.trim());
             obj.setCustomerPhone2(customerPhone2.trim());
             obj.setCustomerPostCode(customerPostCode.trim());
-            obj.setCustomerWangwang(customerWangwang.trim());
+            obj.setCustomerIM(customerIM.trim());
+            obj.setCustomerIMType(customerIMType);
+            obj.setCustomerIMComment(customerIMComment.trim());
             obj.setExpressId(expressId);
             obj.setCommentExpress(commentExpress.trim());
             obj.setCommentInvoice(commentInvoice.trim());
@@ -262,14 +272,6 @@ public class SellAction extends ActionSupport {
         this.customerPostCode = customerPostCode;
     }
 
-    public String getCustomerWangwang() {
-        return customerWangwang;
-    }
-
-    public void setCustomerWangwang(String customerWangwang) {
-        this.customerWangwang = customerWangwang;
-    }
-
     public String getFee() {
         return fee;
     }
@@ -396,6 +398,34 @@ public class SellAction extends ActionSupport {
 
     public List<String> getDateSel() {
         return dateSel;
+    }
+
+    public String getCustomerIM() {
+        return customerIM;
+    }
+
+    public void setCustomerIM(String customerIM) {
+        this.customerIM = customerIM;
+    }
+
+    public int getCustomerIMType() {
+        return customerIMType;
+    }
+
+    public void setCustomerIMType(int customerIMType) {
+        this.customerIMType = customerIMType;
+    }
+
+    public String getCustomerIMComment() {
+        return customerIMComment;
+    }
+
+    public void setCustomerIMComment(String customerIMComment) {
+        this.customerIMComment = customerIMComment;
+    }
+
+    public Map<Integer, String> getImTypeSel() {
+        return imTypeSel;
     }
 
 }

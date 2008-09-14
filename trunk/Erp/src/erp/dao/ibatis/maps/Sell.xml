@@ -11,11 +11,13 @@
 	<insert id="create" parameterClass="Sell">
 		<![CDATA[
 		INSERT INTO erp.sell (customer_name,customer_address,
-		customer_phone1,customer_phone2,customer_postcode,customer_wangwang,
+		customer_phone1,customer_phone2,customer_postcode,
+		customer_im,customer_im_type,customer_im_comment,
 		fee,fee_real,create_date,send_date,express_id,
 		comment_express,comment_invoice,sender,status)
 		VALUES (#customerName#,#customerAddress#, 
-		#customerPhone1#,#customerPhone2#,#customerPostCode#,#customerWangwang#, 
+		#customerPhone1#,#customerPhone2#,#customerPostCode#,
+		#customerIM#,#customerIMType#,#customerIMComment#,
 		#fee#,#feeReal#,#createDate#,#sendDate#,#expressId#,
 		#commentExpress#,#commentInvoice#,#sender#,#status#)
 		]]>
@@ -30,7 +32,8 @@
 		<![CDATA[
 		SELECT id,customer_name AS customerName,customer_address AS customerAddress,
 		customer_phone1 AS customerPhone1,customer_phone2 AS customerPhone2,
-		customer_postcode AS customerPostCode,customer_wangwang AS customerWangwang,
+		customer_postcode AS customerPostCode,
+		customer_im AS customerIM, customer_im_type AS customerIM, customer_im_comment AS customerIMComment,
 		fee, fee_real AS feeReal,create_date AS createDate,send_date AS sendDate,
 		express_id AS expressId,
 		comment_express AS commentExpress,comment_invoice AS commentInvoice,
@@ -44,7 +47,8 @@
 		<![CDATA[
 		UPDATE erp.sell SET customer_name=#customerName#,customer_address=#customerAddress#,
 		customer_phone1=#customerPhone1#,customer_phone2=#customerPhone2#,
-		customer_postcode=#customerPostCode#,customer_wangwang=#customerWangwang#,
+		customer_postcode=#customerPostCode#,
+		customer_im=#customerIM#,customer_im_type=#customerIMType#,customer_im_comment=#customerIMComment#,
 		fee=#fee#,fee_real=#feeReal#,create_date=#createDate#,send_date=#sendDate#,
 		express_id=#expressId#,comment_express=#commentExpress#,comment_invoice=#commentInvoice#,
 		sender=#sender#,status=#status#
@@ -63,7 +67,8 @@
 		SELECT COUNT(*) AS NUM FROM erp.sell
 		]]>
 		<dynamic>
-			<isGreaterThan prepend="WHERE" property="status" compareValue="-1">
+			<isGreaterThan prepend="WHERE" property="status"
+				compareValue="-1">
 				status=#status#
 			</isGreaterThan>
 		</dynamic>
@@ -73,7 +78,8 @@
 		<![CDATA[
 		SELECT id,customer_name AS customerName,customer_address AS customerAddress,
 		customer_phone1 AS customerPhone1,customer_phone2 AS customerPhone2,
-		customer_postcode AS customerPostCode,customer_wangwang AS customerWangwang,
+		customer_postcode AS customerPostCode,
+		customer_im AS customerIM, customer_im_type AS customerIM, customer_im_comment AS customerIMComment,
 		fee, fee_real AS feeReal,create_date AS createDate,send_date AS sendDate,
 		express_id AS expressId,
 		comment_express AS commentExpress,comment_invoice AS commentInvoice,
@@ -90,19 +96,20 @@
 		LIMIT #number# OFFSET #index#
 		]]>
 	</select>
-	
+
 	<select id="findByKeyword" parameterClass="string"
 		resultClass="Sell">
 		<![CDATA[
 		SELECT id,customer_name AS customerName,customer_address AS customerAddress,
 		customer_phone1 AS customerPhone1,customer_phone2 AS customerPhone2,
-		customer_postcode AS customerPostCode,customer_wangwang AS customerWangwang,
+		customer_postcode AS customerPostCode,
+		customer_im AS customerIM, customer_im_type AS customerIM, customer_im_comment AS customerIMComment,
 		fee, fee_real AS feeReal,create_date AS createDate,send_date AS sendDate,
 		express_id AS expressId,
 		comment_express AS commentExpress,comment_invoice AS commentInvoice,
 		sender,status
 		FROM erp.sell
-		WHERE strpos(lower(customer_wangwang), #keyword#) > 0 
+		WHERE strpos(lower(customer_im), #keyword#) > 0 
 		OR strpos(lower(customer_name), #keyword#) > 0
 		OR strpos(lower(customer_address), #keyword#) > 0
 		ORDER BY create_date DESC

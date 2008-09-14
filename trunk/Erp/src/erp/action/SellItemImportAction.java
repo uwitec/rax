@@ -114,7 +114,7 @@ public class SellItemImportAction extends ActionSupport {
             }
             if (sellId > 0 && item != null) {
                 Sell obj = sellService.getSellById(sellId);
-                obj.setCustomerWangwang(item.getByerId());
+                obj.setCustomerIM(item.getByerId());
                 sellService.updateSell(obj);
             }
         } catch (Exception ex) {

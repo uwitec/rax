@@ -1,6 +1,8 @@
 package erp.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import erp.dao.SellDao;
 import erp.model.Sell;
@@ -11,7 +13,17 @@ public class SellService {
 
     public SellService() {
     }
-
+    
+    public Map<Integer, String> getIMTypeSel() {
+        Map<Integer, String> ret = new HashMap<Integer, String>();
+        ret.put(0, "旺旺");
+        ret.put(1, "QQ");
+        ret.put(2, "易趣通");
+        ret.put(3, "MSN");
+        ret.put(-1, "其他");
+        return ret;
+    }
+    
     public Sell getSellById(int id) {
         return sellDao.read(id);
     }

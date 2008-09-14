@@ -78,7 +78,9 @@ label { cursor:pointer; }
 
 <div>
 <@s.form action="sell_save">
-    <@s.textfield label="旺旺" name="customerWangwang"/>
+    <@s.textfield label="IM" name="customerIM"/>
+    <@s.radio label="类型" name="customerIMType" list="imTypeSel"/>
+    <@s.textfield label="备注" name="customerIMComment"/>
     <@s.textfield label="姓名" name="customerName"/>
     <@s.textarea label="地址" name="customerAddress" cols="80" rows="3"/>
     <@s.textfield label="日期" name="date"/>

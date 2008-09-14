@@ -1,6 +1,7 @@
 package erp.action;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -17,14 +18,20 @@ public class SellFindAction extends ActionSupport {
     private SellService sellService = null;
     private String keyword;
     private List<Sell> sellList;
-
+    Map<Integer, String> imTypeSel;
+    
     @Override
     public String execute() throws Exception {
         if ((keyword != null) && keyword.isEmpty() == false) {
             logger.info("findByKeyword:" + keyword);
+            imTypeSel = sellService.getIMTypeSel();
             sellList = sellService.findByKeyword(keyword);
         }
         return SUCCESS;
+    }
+
+    public Map<Integer, String> getImTypeSel() {
+        return imTypeSel;
     }
 
     public void setKeyword(String keyword) {

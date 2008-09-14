@@ -10,7 +10,9 @@ public class Sell {
     private String customerPhone1;
     private String customerPhone2;
     private String customerPostCode;
-    private String customerWangwang;
+    private String customerIM;
+    private int customerIMType;
+    private String customerIMComment;
     private double fee;
     private double feeReal;
     private Date createDate;
@@ -28,7 +30,9 @@ public class Sell {
         customerPhone1 = "";
         customerPhone2 = "";
         customerPostCode = "";
-        customerWangwang = "";
+        customerIM = "";
+        customerIMType = 0;
+        customerIMComment = "";
         fee = 0;
         feeReal = 0;
         createDate = new Date();
@@ -38,6 +42,30 @@ public class Sell {
         commentInvoice = "";
         sender = "";
         status = 0;
+    }
+
+    public String getCustomerIM() {
+        return customerIM;
+    }
+
+    public void setCustomerIM(String customerIM) {
+        this.customerIM = customerIM;
+    }
+
+    public int getCustomerIMType() {
+        return customerIMType;
+    }
+
+    public void setCustomerIMType(int customerIMType) {
+        this.customerIMType = customerIMType;
+    }
+
+    public String getCustomerIMComment() {
+        return customerIMComment;
+    }
+
+    public void setCustomerIMComment(String customerIMComment) {
+        this.customerIMComment = customerIMComment;
     }
 
     public String getCommentExpress() {
@@ -97,14 +125,6 @@ public class Sell {
             customerPostCode = customerPostCode.substring(0, 6);
         }
         this.customerPostCode = customerPostCode;
-    }
-
-    public String getCustomerWangwang() {
-        return customerWangwang;
-    }
-
-    public void setCustomerWangwang(String customerWangwang) {
-        this.customerWangwang = customerWangwang;
     }
 
     public int getExpressId() {
