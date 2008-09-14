@@ -11,7 +11,7 @@ body { font-size:16px; margin:0px; }
 <body>
 <table border="0">
   <tr>
-    <td colspan="5" align="center"> 购 物 清 单 - ${sell.customerName}(${sell.customerWangwang})</td>
+    <td colspan="5" align="center"> 购 物 清 单 - ${sell.customerName}(${sell.customerIM})</td>
   </tr>
   <tr>
     <td height="8" colspan="5" align="center"></td>

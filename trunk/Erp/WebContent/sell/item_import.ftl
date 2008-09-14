@@ -207,7 +207,10 @@ function onSubmit(itemId, itemPrice, itemNum) {
 			}
 			this.onResponse(ret);
 		},
-		error: function(response) { this.onResponse(false); },
+		error: function(response) { 
+			console.debug("onError:" + response);
+			this.onResponse(false);
+		},
 		onResponse: function(flag) {
 			var text		= flag ? "提交成功" : "提交失败";
 			var obj			= dojo.byId("submitStatus");

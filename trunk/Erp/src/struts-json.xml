@@ -14,7 +14,9 @@
 			<result type="json" />
 		</action>
 		<action name="sell_item_add" class="SellItemAction">
-			<result type="json" />
+			<result type="json">
+				<param name="includeProperties">id</param>
+			</result>
 		</action>
 		<action name="order_item_add" class="OrderItemAction">
 			<result type="json" />
@@ -28,7 +30,6 @@
 				<param name="excludeProperties">
 					storeAmount, weekProfitList, monthProfitList
 				</param>
-
 			</result>
 		</action>
 
