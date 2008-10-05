@@ -36,4 +36,8 @@
 	</bean>
 
 	<bean id="ExpressService" class="erp.service.ExpressService" />
+	
+	<bean id="UtilService" class="erp.service.UtilService">
+		<property name="utilDao" ref="UtilDao" />
+	</bean>
 </beans>

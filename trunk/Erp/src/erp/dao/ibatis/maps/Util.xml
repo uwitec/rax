@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Util">
+
+	<typeAlias alias="Util" type="erp.model.Util" />
+
+	<insert id="create" parameterClass="Util">
+		<![CDATA[
+		INSERT INTO erp.util (key,value)
+		VALUES (#key#,#value#)
+		]]>
+	</insert>
+
+	<select id="read" resultClass="Util">
+		<![CDATA[
+		SELECT * FROM erp.util WHERE key=#key#
+		]]>
+	</select>
+
+	<update id="update" parameterClass="Util">
+		<![CDATA[
+		UPDATE erp.util SET value=#value#
+		WHERE key=#key#
+		]]>
+	</update>
+
+	<delete id="delete" parameterClass="string">
+		<![CDATA[
+		DELETE FROM erp.util WHERE key=#key#
+		]]>
+	</delete>
+
+</sqlMap>

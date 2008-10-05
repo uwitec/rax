@@ -8,29 +8,33 @@
 	<bean id="OrderDao" class="erp.dao.ibatis.OrderDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
-	
+
 	<bean id="OrderItemDao" class="erp.dao.ibatis.OrderItemDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
-	
+
 	<bean id="SellDao" class="erp.dao.ibatis.SellDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
-	
+
 	<bean id="SellItemDao" class="erp.dao.ibatis.SellItemDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
-	
+
 	<bean id="WareDao" class="erp.dao.ibatis.WareDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
-	
-	<bean id="WareCategoryDao" class="erp.dao.ibatis.WareCategoryDaoImpl">
+
+	<bean id="WareCategoryDao"
+		class="erp.dao.ibatis.WareCategoryDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
-		
+
 	<bean id="StatDao" class="erp.dao.ibatis.StatDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
-	
+
+	<bean id="UtilDao" class="erp.dao.ibatis.UtilDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
 </beans>

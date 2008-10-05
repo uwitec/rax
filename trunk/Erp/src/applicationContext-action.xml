@@ -74,6 +74,7 @@
 		scope="prototype">
 		<property name="statService" ref="StatService" />
 		<property name="expressService" ref="ExpressService" />
+		<property name="utilService" ref="UtilService" />		
 	</bean>
 
 	<bean id="SellItemImportAction"

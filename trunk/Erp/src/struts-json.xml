@@ -32,7 +32,13 @@
 				</param>
 			</result>
 		</action>
-
+		
+		<action name="save_fee_stat_date" class="StatAction" method="saveFeeStatDate">
+			<result type="json">
+				<param name="includeProperties">endDate</param>
+			</result>
+		</action>
+		
 	</package>
 
 </struts>
