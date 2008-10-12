@@ -49,7 +49,7 @@ label { cursor:pointer; }
     <#if order??>
 	<@s.label label="创建" value="${order.createDate?string('yyyy-MM-dd')}"/>
 	</#if>
-    <@s.textarea label="备注" name="order.comment" cols="80" rows="3"/>
+    <@s.textarea label="备注" name="order.comment" cols="80" rows="2"/>
     <@s.textfield label="运费" name="order.fee" onkeyup="javascript:onFeeChange(this.value)"/>
     <@s.radio name="feeSel" list="{0, 5, 10, 12, 15, 20, 25}" onclick="javascript:setFee(this.value)"/>
     <@s.hidden name="id"/>

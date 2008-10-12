@@ -10,6 +10,8 @@ var sellId;
 var wareList;
 var importList;
 var importIdx = 0;
+var sellFee = ${sell.fee?c};
+var priceDiff = 0;
 
 dojo.addOnLoad(function (){
 	var obj;
@@ -29,7 +31,45 @@ dojo.addOnLoad(function (){
 	obj.style.display = "block";
 	obj = dojo.byId("searchLayer");
 	obj.style.display = "none";
+	
 });
+
+function addRow(objTable, cells) {
+	var row;
+	var cell;
+	
+	try {
+		row = objTable.insertRow(objTable.rows.length);
+		for (var i = 0; i < cells.length; i++) {
+			cell = row.insertCell(row.cells.length);
+			cell.innerHTML = cells[i];
+		}
+	} catch (ex) { alert(ex.description); }
+	return;
+	
+	try {
+		row = document.createElement("TR");
+		for (var i = 0; i < cells.length; i++) {
+			cell = document.createElement("TD");
+			cell.innerHTML = cells[i];
+			row.appendChild(cell);
+		}
+		var hasTbody = false;
+		var tbody = document.createElement("TBODY");
+		if (objTable.hasChildNodes ) {
+			for (var i = 0; i < objTable.childNodes.length; i++) {
+				node = objTable.childNodes[i];
+				if (node.nodeType == 1) {
+					hasTbody = true;
+					tbody = node;
+					break;
+				}
+			}
+		}
+		tbody.appendChild(row);
+		if (hasTbody == false) objTable.appendChild(tbody);
+	} catch (ex) { alert(ex.desription); }
+}
 
 function addOption(objSelect, text, value, expend) {
 	var objOption	= document.createElement("OPTION");
@@ -141,10 +181,12 @@ function onSelect(event) {
 	var itemName;
 	var itemPrice;
 	var itemNum;
+	var itemImportPrice;
 
 	try {
 		var item = importList[importIdx];
 		itemNum = item.number;
+		itemImportPrice = item.price;
 	} catch(ex) {
 		console.debug(ex.toString());
 	}
@@ -161,7 +203,7 @@ function onSelect(event) {
 	}
 
 	if (confirm("名称:" + itemName + "\n数量:" + itemNum + "\n单价:" + itemPrice)) {
-		//console.debug("id:" + itemId + " num:" + itemNum + " price:" + itemPrice);
+		console.debug("id:" + itemId + " num:"  + itemNum + " itemName:" + itemName + " price:" + itemPrice + " importPrice:" + itemImportPrice);
 		while (this.options.length > 0) {
 			this.remove(0);
 		}
@@ -174,6 +216,10 @@ function onSelect(event) {
 			}
 		}
 
+		priceDiff += itemImportPrice - itemPrice;
+		obj = dojo.byId("checkingPrompt");
+		obj.style.display = (priceDiff == sellFee) ? "none" : "block";
+		
 		onSubmit(itemId, itemPrice, itemNum);
 	}
 }
@@ -192,13 +238,13 @@ function onSubmit(itemId, itemPrice, itemNum) {
 		load: function(json) {
 			var ret = false;
 			if (json.id > 0) {
-				var objResult = dojo.byId("addList");
+				var objItems = dojo.byId("itemsTable");
 				var ware;
 				if (wareList != null) {
 					for (var i = 0; i < wareList.length; i++) {
 						ware = wareList[i];
 						if (itemId == ware.id) {
-							addOption(objResult, ware.name + " * " + itemNum, null, true);
+							addRow(objItems, [itemNum, itemPrice, ware.name]);
 							break;
 						}
 					}
@@ -228,6 +274,7 @@ function onSubmit(itemId, itemPrice, itemNum) {
 <style type="text/css">
 select { width:380px; }
 label { cursor:pointer; }
+#checkingPrompt { color:red; display:none; }
 </style>
 </head>
 
@@ -243,7 +290,31 @@ label { cursor:pointer; }
 <div id="searchLayer">
 <select id="importResult" size="2"></select><br />
 <select id="searchResult" size="12"></select><br />
-<select id="addList"></select>
+</div>
+<br />
+
+<div id="checkingPrompt">系统出库价格与淘宝数据不相符, 请检查邮费及是否有其他优惠</div>
+<br/>
+
+<table id="itemsTable">
+<tr>
+<td>数量</td>
+<td>价格</td>
+<td>宝贝名称</td>
+</tr>
+<#if sellItemList??>
+<#list sellItemList as item>
+<tr>
+<td>${item.number}</td>
+<td>${item.price}</td>
+<td>${item.ware.name}</td>
+</tr>
+</#list>
+</#if>
+</table>
+<br />
+
+<div>
 <span id="submitStatus"></span>
 </div>
 

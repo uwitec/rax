@@ -15,7 +15,10 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import erp.model.InvoiceItem;
 import erp.model.Sell;
+import erp.model.SellItem;
+import erp.service.SellItemService;
 import erp.service.SellService;
+import erp.service.WareService;
 
 public class SellItemImportAction extends ActionSupport {
 
@@ -24,13 +27,24 @@ public class SellItemImportAction extends ActionSupport {
             .getLogger(SellItemImportAction.class);
 
     private SellService sellService;
+    private SellItemService sellItemService;
+    private WareService wareService;
 
     private int sellId;
+    private Sell sell;
     private String sellContent;
     private List<InvoiceItem> itemList;
+    private List<SellItem> sellItemList;
 
     @Override
     public String input() throws Exception {
+        sell = sellService.getSellById(sellId);
+        if (sell != null) {
+            sellItemList = sellItemService.listBySell(sell);
+            for (SellItem item : sellItemList) {
+                item.setWare(wareService.getWareById(item.getWareId()));
+            }
+        }
         return SUCCESS;
     }
 
@@ -41,7 +55,7 @@ public class SellItemImportAction extends ActionSupport {
             InvoiceItem item = null;
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             String numStr = "\\(([0-9]*) 件\\)";
-            String dateStr = "([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})";
+            String dateStr = "([0-9.]+)\\s+([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})";
             String[] details;
 
             String info = "";
@@ -61,25 +75,34 @@ public class SellItemImportAction extends ActionSupport {
                 String name = "";
                 String byerId = "";
                 String byerName = "";
+                double price = 0;
 
-                info = infoArray.get(i).trim();
-                //logger.info("info[" + i + "]:" + info);
+                info = infoArray.get(i);
+                // logger.info("info[" + i + "]:" + info);
 
                 matcher = pattern.matcher(info);
                 if (matcher.find()) {
-                    date = formatter.parse(matcher.group(0));
-                    //logger.info("date:" + formatter.format(date));
-                    
+                    // logger.info("datePattern:");
+                    // for (int j = 0; j <= matcher.groupCount(); j++) {
+                    // logger.info(matcher.group(j));
+                    // }
+
+                    price = Double.parseDouble(matcher.group(1));
+                    // logger.info("price:" + String.valueOf(price));
+
+                    date = formatter.parse(matcher.group(2));
+                    // logger.info("date:" + formatter.format(date));
+
                     details = info.split("  ");
                     int pos = details[0].equals("修改") ? i - 1 : i;
 
                     byerName = infoArray.get(pos - 1);
-                    //logger.info("byerName:" + byerName);
-                    
+                    // logger.info("byerName:" + byerName);
+
                     details = infoArray.get(pos - 2).split("  ");
                     pos = details.length - 1;
                     byerId = details[pos].trim();
-                    //logger.info("byerId:" + byerId);
+                    // logger.info("byerId:" + byerId);
 
                     StringBuffer nameBuffer = new StringBuffer();
                     for (int j = 0; j < pos; j++) {
@@ -87,7 +110,7 @@ public class SellItemImportAction extends ActionSupport {
                         nameBuffer.append(" ");
                     }
                     name = nameBuffer.toString().trim();
-                    //logger.info("name:" + name);
+                    // logger.info("name:" + name);
 
                     Pattern numPattern = Pattern.compile(numStr);
                     Matcher numMatcher = numPattern.matcher(name);
@@ -103,12 +126,13 @@ public class SellItemImportAction extends ActionSupport {
                     item.setByerId(byerId);
                     item.setNumber(num);
                     item.setByerName(byerName);
+                    item.setPrice(price);
 
                     itemList.add(item);
 
                     logger.info("日期:" + formatter.format(date) + " 宝贝名称:"
-                            + name + " 数量:" + num + " 买家ID:" + byerId + " 买家姓名:"
-                            + byerName);
+                            + name + " 数量:" + num + " 价格:" + price + " 买家ID:"
+                            + byerId + " 买家姓名:" + byerName);
                 }
 
             }
@@ -166,6 +190,22 @@ public class SellItemImportAction extends ActionSupport {
 
     public void setSellId(int sellId) {
         this.sellId = sellId;
+    }
+
+    public void setSellItemService(SellItemService sellItemService) {
+        this.sellItemService = sellItemService;
+    }
+
+    public void setWareService(WareService wareService) {
+        this.wareService = wareService;
+    }
+
+    public Sell getSell() {
+        return sell;
+    }
+
+    public List<SellItem> getSellItemList() {
+        return sellItemList;
     }
 
 }

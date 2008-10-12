@@ -22,7 +22,7 @@
 			<result type="json" />
 		</action>
 		<action name="sell_item_import" class="SellItemImportAction">
-			<result type="json" />
+			<result type="json"/>
 		</action>
 
 		<action name="fee_stat" class="StatAction" method="statFee">

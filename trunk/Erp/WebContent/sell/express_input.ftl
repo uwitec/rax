@@ -40,17 +40,17 @@ label { cursor:pointer; }
 <div>
 <@s.form action="express">
     <@s.textfield label="姓名" name="sell.customerName"/>
-    <@s.textarea label="地址" name="sell.customerAddress" cols="80" rows="3"/>
+    <@s.textarea label="地址" name="sell.customerAddress" cols="80" rows="2"/>
     <@s.textfield label="电话1" name="sell.customerPhone1"/>
     <@s.textfield label="电话2" name="sell.customerPhone2"/>
     <@s.textfield label="邮编" name="sell.customerPostCode"/>
     <@s.textfield label="日期" name="date"/>
     <@s.radio name="sel" list="dateSel"/>
     <@s.radio label="快递" name="sell.expressId" list="expressSel"/>
-    <@s.textarea label="快递单备注" name="sell.commentExpress" cols="80" rows="3"/>
+    <@s.textarea label="快递单备注" name="sell.commentExpress" cols="80" rows="2"/>
     <@s.textfield label="发件人" name="sender"/>
     <@s.textfield label="发件人电话" name="senderPhone"/>
-    <@s.textarea label="发件人地址" name="senderAddress" cols="80" rows="3"/>
+    <@s.textarea label="发件人地址" name="senderAddress" cols="80" rows="2"/>
     <@s.textfield label="发件人邮编" name="senderPostCode"/>
     <@s.hidden name="sell.expressId"/>
     <@s.hidden name="sellId"/>

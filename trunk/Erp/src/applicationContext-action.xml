@@ -74,12 +74,14 @@
 		scope="prototype">
 		<property name="statService" ref="StatService" />
 		<property name="expressService" ref="ExpressService" />
-		<property name="utilService" ref="UtilService" />		
+		<property name="utilService" ref="UtilService" />
 	</bean>
 
 	<bean id="SellItemImportAction"
 		class="erp.action.SellItemImportAction" scope="prototype">
 		<property name="sellService" ref="SellService" />
+		<property name="sellItemService" ref="SellItemService" />
+		<property name="wareService" ref="WareService" />
 	</bean>
 
 </beans>

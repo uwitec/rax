@@ -82,7 +82,7 @@ label { cursor:pointer; }
     <@s.radio label="类型" name="customerIMType" list="imTypeSel"/>
     <@s.textfield label="备注" name="customerIMComment"/>
     <@s.textfield label="姓名" name="customerName"/>
-    <@s.textarea label="地址" name="customerAddress" cols="80" rows="3"/>
+    <@s.textarea label="地址" name="customerAddress" cols="80" rows="2"/>
     <@s.textfield label="日期" name="date"/>
     <@s.radio name="sel" list="dateSel"/>
     <@s.textfield label="电话1" name="customerPhone1"/>
