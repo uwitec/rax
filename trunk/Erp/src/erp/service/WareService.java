@@ -3,12 +3,16 @@ package erp.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import erp.dao.WareCategoryDao;
 import erp.dao.WareDao;
 import erp.model.Ware;
 import erp.model.WareCategory;
 
 public class WareService {
+
+    private final static Logger logger = Logger.getLogger(WareService.class);
 
     private WareDao wareDao;
     private WareCategoryDao wareCategoryDao;
@@ -58,22 +62,26 @@ public class WareService {
         int oldNumber;
         int newNumber;
         double newCost;
+        logger.debug(obj.getName() + " flag:" + String.valueOf(flag)
+                + " chkNumber:" + String.valueOf(chkNumber) + " chkCost:"
+                + String.valueOf(chkCost) + " fee:" + String.valueOf(fee));
         if (flag) {
             oldNumber = (obj.getNumber() < 0) ? 0 : obj.getNumber();
             newNumber = obj.getNumber() + chkNumber;
-            newCost = (obj.getCost() * oldNumber + (chkCost + fee) * chkNumber)
-                    / (oldNumber + chkNumber);
+            newCost = ((oldNumber + chkNumber) > 0) ? (obj.getCost()
+                    * oldNumber + (chkCost + fee) * chkNumber)
+                    / (oldNumber + chkNumber) : 0;
         } else {
             oldNumber = obj.getNumber();
             newNumber = oldNumber - chkNumber;
-            if (newNumber < 0) {
-                newCost = obj.getCost();
-            } else {
-                newCost = (obj.getCost() * oldNumber - (chkCost + fee)
-                        * chkNumber)
-                        / newNumber;
-            }
+            newCost = (newNumber > 0) ? (obj.getCost() * oldNumber - (chkCost + fee)
+                    * chkNumber)
+                    / newNumber
+                    : obj.getCost();
         }
+        logger.debug("oldNumber:" + String.valueOf(oldNumber) + " newNumber:"
+                + String.valueOf(newNumber) + " newCost:"
+                + String.valueOf(newCost));
         obj.setCost(newCost);
         obj.setNumber(newNumber);
         wareDao.update(obj);
