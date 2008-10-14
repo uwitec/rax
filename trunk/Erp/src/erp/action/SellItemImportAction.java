@@ -55,7 +55,7 @@ public class SellItemImportAction extends ActionSupport {
             InvoiceItem item = null;
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             String numStr = "\\(([0-9]*) 件\\)";
-            String dateStr = "([0-9.]+)\\s+([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})";
+            String dateStr = "([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})";
             String[] details;
 
             String info = "";
@@ -87,14 +87,15 @@ public class SellItemImportAction extends ActionSupport {
                     // logger.info(matcher.group(j));
                     // }
 
-                    price = Double.parseDouble(matcher.group(1));
-                    // logger.info("price:" + String.valueOf(price));
-
-                    date = formatter.parse(matcher.group(2));
+                    date = formatter.parse(matcher.group(1));
                     // logger.info("date:" + formatter.format(date));
 
                     details = info.split("  ");
                     int pos = details[0].equals("修改") ? i - 1 : i;
+
+                    details = infoArray.get(pos).split(" ");
+                    price = Double.parseDouble(details[1]);
+                    // logger.info("price:" + String.valueOf(price));
 
                     byerName = infoArray.get(pos - 1);
                     // logger.info("byerName:" + byerName);
