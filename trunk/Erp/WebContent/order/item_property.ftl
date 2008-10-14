@@ -167,7 +167,7 @@ label { cursor:pointer; }
 <body>
 <a href="order_list.action">返回进货单列表</a>
 <a href="order.action?id=${orderId?c}">返回进货信息</a>
-<#if id != 0>
+<#if id != 0 && orderId == 0>
 <a href="order_item_delete.action?id=${id?c}&orderId=${orderId?c}" onclick="return confirm('确实要删除这项么？')">删除</a>
 </#if>
 <br /><br />

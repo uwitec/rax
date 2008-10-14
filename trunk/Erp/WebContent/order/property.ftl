@@ -35,8 +35,8 @@ label { cursor:pointer; }
 <a href="order_list.action">返回进货单列表</a>
 <br /><br />
 <#if id != 0>
-<a href="order_delete.action?id=${id?c}" onclick="return confirm('确实要删除这笔订单么？')">删除</a>
 <#if order.status == 0>
+<a href="order_delete.action?id=${id?c}" onclick="return confirm('确实要删除这笔订单么？')">删除</a>
 <a href="order_status.action?id=${id?c}&status=1">确认到货</a>
 <#else>
 <a href="order_status.action?id=${id?c}&status=0">撤除订单</a>
@@ -62,17 +62,27 @@ label { cursor:pointer; }
 <br /><br />
 </#if>
 
+<table>
+<tr>
+<td>编号</td>
+<#if order.status == 0>
+<td>操作</td>
+</#if>
+<td>数量</td>
+<td>宝贝名称</td>
+</tr>
 <#if orderItemList??>
 <#assign num=0/>
 <#list orderItemList as item>
-<div>
 <#assign num = num + 1/>
-${num}
-<a href="order_item_delete.action?id=${item.id?c}&orderId=${id?c}" onclick="return confirm('确实要删除这项么？')">删</a>
-<a href="order_item.action?id=${item.id?c}&orderId=${id?c}" title="${item.cost} * ${item.number}">
-${item.ware.name} * ${item.number} 
-</a>
-</div>
+<tr>
+<td>${num}</td>
+<#if order.status == 0>
+<td><a href="order_item_delete.action?id=${item.id?c}&orderId=${id?c}" onclick="return confirm('确实要删除这项么？')">删</a></td>
+</#if>
+<td>${item.number}</td>
+<td><a href="order_item.action?id=${item.id?c}&orderId=${id?c}" title="${item.cost} * ${item.number}">${item.ware.name}</a></td>
+</tr>
 </#list>
 </#if>
 

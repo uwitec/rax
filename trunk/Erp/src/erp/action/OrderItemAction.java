@@ -20,11 +20,13 @@ public class OrderItemAction extends ActionSupport {
 
     private int id;
     private int orderId;
+    private int orderStatus;
     private OrderItem orderItem;
 
     public String get() throws Exception {
         try {
             orderItem = orderItemService.getOrderItemById(id);
+            orderStatus = orderService.getOrderById(orderId).getStatus();
         } catch (Exception ex) {
             logger.error(ex.toString());
             return ERROR;
@@ -75,16 +77,8 @@ public class OrderItemAction extends ActionSupport {
         this.id = id;
     }
 
-    public OrderService getOrderService() {
-        return orderService;
-    }
-
     public void setOrderService(OrderService orderService) {
         this.orderService = orderService;
-    }
-
-    public OrderItemService getOrderItemService() {
-        return orderItemService;
     }
 
     public void setOrderItemService(OrderItemService orderItemService) {
@@ -105,6 +99,14 @@ public class OrderItemAction extends ActionSupport {
 
     public void setOrderItem(OrderItem orderItem) {
         this.orderItem = orderItem;
+    }
+
+    public int getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(int orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
 }
