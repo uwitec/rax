@@ -69,6 +69,7 @@ label { cursor:pointer; }
 <td>操作</td>
 </#if>
 <td>数量</td>
+<td>价格</td>
 <td>宝贝名称</td>
 </tr>
 <#if orderItemList??>
@@ -81,6 +82,7 @@ label { cursor:pointer; }
 <td><a href="order_item_delete.action?id=${item.id?c}&orderId=${id?c}" onclick="return confirm('确实要删除这项么？')">删</a></td>
 </#if>
 <td>${item.number}</td>
+<td>${item.cost}</td>
 <td><a href="order_item.action?id=${item.id?c}&orderId=${id?c}" title="${item.cost} * ${item.number}">${item.ware.name}</a></td>
 </tr>
 </#list>
