@@ -1,10 +1,8 @@
 ﻿<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-进货单添加项目, 出库单添加项目 里面列表显示, 从select -> table 页面优化
+进货单添加项目, 出库单添加项目 优化模块显示, 从select -> table
+打印之后变色
 
 表单格式化
 竖分页
-打印之后自动设成已处理
-表索引优化
-
 黑名单
