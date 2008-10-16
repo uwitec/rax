@@ -6,6 +6,9 @@
 <style type="text/css">
 label { cursor:pointer; }
 </style>
+<style media="print">
+body { display: none; }  
+</style>
 </head>
 
 <body>
