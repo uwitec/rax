@@ -65,8 +65,10 @@ label { cursor:pointer; }
 <table>
 <tr>
 <td>编号</td>
+<#if order??>
 <#if order.status == 0>
 <td>操作</td>
+</#if>
 </#if>
 <td>数量</td>
 <td>价格</td>
@@ -78,8 +80,10 @@ label { cursor:pointer; }
 <#assign num = num + 1/>
 <tr>
 <td>${num}</td>
+<#if order??>
 <#if order.status == 0>
 <td><a href="order_item_delete.action?id=${item.id?c}&orderId=${id?c}" onclick="return confirm('确实要删除这项么？')">删</a></td>
+</#if>
 </#if>
 <td>${item.number}</td>
 <td>${item.cost}</td>
