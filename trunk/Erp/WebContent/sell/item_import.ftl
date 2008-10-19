@@ -215,8 +215,10 @@ function onSelect(event) {
          		break;
 			}
 		}
-
-		priceDiff += itemImportPrice - itemPrice;
+				
+		priceDiff += itemImportPrice - itemPrice * itemNum;
+		console.debug("sellFee:" + sellFee + " priceDiff:" + priceDiff + " itemImportPrice:"  + itemImportPrice + " itemPrice * itemNum:" + itemPrice * itemNum);
+		
 		obj = dojo.byId("checkingPrompt");
 		obj.style.display = (priceDiff == sellFee) ? "none" : "block";
 		
