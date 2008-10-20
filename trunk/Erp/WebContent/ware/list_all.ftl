@@ -15,17 +15,27 @@
 </@s.form>
 <br />
 
+
+<table>
+<tr>
+<td>数量</td>
+<td>成本</td>
+<td>宝贝名称</td>
+</tr>
 <#if wareList??>
 <#list wareList as ware>
-<div>
+<tr>
 <@s.url id="url" action="ware">
 	<@s.param name="id" value="#{ware.id}"/>
 	<@s.param name="page" value="page"/>
 </@s.url>
-<a href="${url}">${ware.name} - (${ware.number})</a>
-</div>
+<td>${ware.number}</td>
+<td>#{ware.cost;m2M2}</td>
+<td><a href="${url}">${ware.name}</a></td>
+</tr>
 </#list>
 </#if>
+</table>
 <br />
 
 <div>

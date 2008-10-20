@@ -91,6 +91,7 @@ label { cursor:pointer; }
 </tr>
 </#list>
 </#if>
+</table>
 
 </body>
 </html>
