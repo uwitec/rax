@@ -34,8 +34,8 @@ function onCompute() {
 			var obj = dojo.byId("feeLayer");
 			var objDiv;
 			var statFee;
-			
-			obj.innerHTML = "";		
+
+			obj.innerHTML = "";
 			for (var i = 0; i < json.feeList.length; i++) {
 				statFee = json.feeList[i];
 				objDiv = document.createElement("DIV");
@@ -74,7 +74,7 @@ function onCompute() {
 
 function onSave() {
 	if (false == confirm('确定将当前结算日期保存么？')) return;
-	
+
 	var endObj = dojo.byId("endDate");
 	var params = {
 		endDate:endObj.value
@@ -123,16 +123,14 @@ function onSave() {
 
 <div class="float">日期</div>
 <div class="float">利润</div>
-<div class="float">营业额</div> 
-<div class="float">运费盈余</div> 
+<div class="float">营业额</div>
 <div>包裹数</div>
 <div>
 <#if weekProfitList??>
 <#list weekProfitList as profit>
 <div class="float">${profit.statDate?string("yy-MM-dd")}</div>
-<div class="float">${profit.profit}</div>
-<div class="float">${profit.amount}</div> 
-<div class="float">${profit.fee - profit.feeReal}</div> 
+<div class="float">${profit.profit + profit.fee - profit.feeReal}</div>
+<div class="float">${profit.amount + profit.fee}</div>
 <div>${profit.number}</div>
 </#list>
 </#if>
@@ -141,16 +139,14 @@ function onSave() {
 
 <div class="float">月份</div>
 <div class="float">利润</div>
-<div class="float">营业额</div> 
-<div class="float">运费盈余</div> 
+<div class="float">营业额</div>
 <div>包裹数</div>
 <div>
 <#if monthProfitList??>
 <#list monthProfitList as profit>
 <div class="float">${profit.statDate?string("yy-MM")}</div>
-<div class="float">${profit.profit}</div>
-<div class="float">${profit.amount}</div> 
-<div class="float">${profit.fee - profit.feeReal}</div> 
+<div class="float">${profit.profit + profit.fee - profit.feeReal}</div>
+<div class="float">${profit.amount + profit.fee}</div>
 <div>${profit.number}</div>
 </#list>
 </#if>
@@ -170,7 +166,7 @@ function onSave() {
 
 <div>
 <div class="float">快递</div>
-<div class="float">数量</div> 
+<div class="float">数量</div>
 <div>费用</div>
 <div id="feeLayer">
 </div>
