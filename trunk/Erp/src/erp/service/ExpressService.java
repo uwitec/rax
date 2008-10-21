@@ -19,13 +19,35 @@ public class ExpressService {
         ret.put(6, "CCES");
         ret.put(7, "彪记");
         ret.put(8, "宅急送");
-        ret.put(9, "其他");
+        ret.put(9, "EMS");
+        ret.put(99, "其他");
         ret.put(-1, "无");
         return ret;
     }
 
     public ExpressTemplate getExpress(int expressId) {
 
+        /*
+         * 坐标系X向右, Y向上, 测量单位为毫米, 可以用index.html上的输入框换算为pt
+         * 如设置ExpressPos 对象为null, 可不打印该项
+         * 英文/数字内容使用10号字体
+         * 普通汉字内容使用11号字体
+         * 收件人姓名使用12号字体
+         * 
+         * Size         标准快递单尺寸 232 * 127
+         * Date         发件日期
+         * SrcPhone     发件人电话
+         * SrcPostCode  发件人邮编
+         * DstPhone1    收件人电话1, 移动电话
+         * DstPhone2    收件人电话2, 固定电话, 两个电话上下排开行高取13pt
+         * DstPostCode  收件人邮编
+         * SrcName      发件人姓名
+         * DstName      收件人姓名
+         * SrcAddressLB 发件人地址框左下角
+         * SrcAddressRT 发件人地址框右上角
+         * DstAddressLB 收件人地址框左下角, 备注会换行打印在收件人地址后面
+         * DstAddressRT 收件人地址框右上角
+         */
         ExpressTemplate obj = new ExpressTemplate();
 
         switch (expressId) {
@@ -185,22 +207,40 @@ public class ExpressService {
         case 8: // 宅急送
             obj.setDateFormat("MM dd");
             obj.setSize(new ExpressPos(658, 397));          // x:232 y:140
-            obj.setDate(new ExpressPos(85, 43));          // x:30 y:15
+            obj.setDate(new ExpressPos(85, 43));            // x:30 y:15
             obj.setSrcPhone(new ExpressPos(85, 198));       // x:30 y:70
             obj.setSrcPostCode(null);
-            obj.setDstPhone1(new ExpressPos(354, 198));      // x:125 y:70
-            obj.setDstPhone2(new ExpressPos(510, 198));      // x:180 y:70
+            obj.setDstPhone1(new ExpressPos(354, 198));     // x:125 y:70
+            obj.setDstPhone2(new ExpressPos(510, 198));     // x:180 y:70
             obj.setDstPostCode(null);
 
-            obj.setSrcName(new ExpressPos(119, 283));        // x:42 y:100
-            obj.setDstName(new ExpressPos(397, 283));        // x:140 y:100
+            obj.setSrcName(new ExpressPos(119, 283));       // x:42 y:100
+            obj.setDstName(new ExpressPos(397, 283));       // x:140 y:100
 
-            obj.setSrcAddressLB(new ExpressPos(91, 213));    // x:32 y:75
+            obj.setSrcAddressLB(new ExpressPos(91, 213));   // x:32 y:75
             obj.setSrcAddressRT(new ExpressPos(312, 278));  // x:110 y:98
             obj.setDstAddressLB(new ExpressPos(360, 213));  // x:127 y:75
             obj.setDstAddressRT(new ExpressPos(575, 278));  // x:203 y:98
-            break;        
+            break;
             
+        case 9: // EMS
+            obj.setDateFormat("yyyy-MM-dd");
+            obj.setSize(new ExpressPos(655, 360));          // x:231 y:127
+            obj.setDate(new ExpressPos(213, 269));          // x:75 y:95
+            obj.setSrcPhone(new ExpressPos(227, 258));      // x:80 y:91
+            obj.setSrcPostCode(new ExpressPos(241, 164));   // x:85 y:58
+            obj.setDstPhone1(new ExpressPos(496, 258));     // x:175 y:91
+            obj.setDstPhone2(new ExpressPos(496, 245));     // x:175 y:-13pt
+            obj.setDstPostCode(new ExpressPos(505, 164));   // x:178 y:58
+
+            obj.setSrcName(new ExpressPos(102, 252));       // x:36 y:89
+            obj.setDstName(new ExpressPos(369, 252));       // x:130 y:89
+            
+            obj.setSrcAddressLB(new ExpressPos(57, 176));   // x:20 y:62
+            obj.setSrcAddressRT(new ExpressPos(306, 218));  // x:108 y:77
+            obj.setDstAddressLB(new ExpressPos(320, 176));  // x:113 y:62
+            obj.setDstAddressRT(new ExpressPos(590, 218));  // x:208 y:77
+            break; 
         }
         return obj;
     }
