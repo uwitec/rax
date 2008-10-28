@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2008-05-23 21:09:54
+-- Started on 2008-10-28 19:20:48
 
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = off;
@@ -17,8 +17,8 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- TOC entry 1484 (class 1259 OID 16406)
--- Dependencies: 7
+-- TOC entry 1487 (class 1259 OID 16517)
+-- Dependencies: 6
 -- Name: order; Type: TABLE; Schema: erp; Owner: erp; Tablespace: 
 --
 
@@ -34,8 +34,8 @@ CREATE TABLE "order" (
 ALTER TABLE erp."order" OWNER TO erp;
 
 --
--- TOC entry 1491 (class 1259 OID 16430)
--- Dependencies: 1484 7
+-- TOC entry 1494 (class 1259 OID 16554)
+-- Dependencies: 1487 6
 -- Name: order_id_seq; Type: SEQUENCE; Schema: erp; Owner: erp
 --
 
@@ -49,8 +49,8 @@ CREATE SEQUENCE order_id_seq
 ALTER TABLE erp.order_id_seq OWNER TO erp;
 
 --
--- TOC entry 1769 (class 0 OID 0)
--- Dependencies: 1491
+-- TOC entry 1773 (class 0 OID 0)
+-- Dependencies: 1494
 -- Name: order_id_seq; Type: SEQUENCE OWNED BY; Schema: erp; Owner: erp
 --
 
@@ -58,8 +58,8 @@ ALTER SEQUENCE order_id_seq OWNED BY "order".id;
 
 
 --
--- TOC entry 1764 (class 2604 OID 16465)
--- Dependencies: 1491 1484
+-- TOC entry 1766 (class 2604 OID 16566)
+-- Dependencies: 1494 1487
 -- Name: id; Type: DEFAULT; Schema: erp; Owner: erp
 --
 
@@ -67,8 +67,8 @@ ALTER TABLE "order" ALTER COLUMN id SET DEFAULT nextval('order_id_seq'::regclass
 
 
 --
--- TOC entry 1766 (class 2606 OID 16454)
--- Dependencies: 1484 1484
+-- TOC entry 1769 (class 2606 OID 16575)
+-- Dependencies: 1487 1487
 -- Name: order_p_key; Type: CONSTRAINT; Schema: erp; Owner: erp; Tablespace: 
 --
 
@@ -76,7 +76,25 @@ ALTER TABLE ONLY "order"
     ADD CONSTRAINT order_p_key PRIMARY KEY (id);
 
 
--- Completed on 2008-05-23 21:09:55
+--
+-- TOC entry 1767 (class 1259 OID 16586)
+-- Dependencies: 1487
+-- Name: order_crdate_index; Type: INDEX; Schema: erp; Owner: erp; Tablespace: 
+--
+
+CREATE INDEX order_crdate_index ON "order" USING btree (create_date);
+
+
+--
+-- TOC entry 1770 (class 1259 OID 16587)
+-- Dependencies: 1487
+-- Name: order_status_index; Type: INDEX; Schema: erp; Owner: erp; Tablespace: 
+--
+
+CREATE INDEX order_status_index ON "order" USING btree (status);
+
+
+-- Completed on 2008-10-28 19:20:49
 
 --
 -- PostgreSQL database dump complete

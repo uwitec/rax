@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2008-10-05 18:16:00
+-- Started on 2008-10-28 19:20:09
 
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = off;
@@ -17,8 +17,8 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- TOC entry 1499 (class 1259 OID 16510)
--- Dependencies: 7
+-- TOC entry 1491 (class 1259 OID 16534)
+-- Dependencies: 6
 -- Name: util; Type: TABLE; Schema: erp; Owner: erp; Tablespace: 
 --
 
@@ -31,18 +31,8 @@ CREATE TABLE util (
 ALTER TABLE erp.util OWNER TO erp;
 
 --
--- TOC entry 1768 (class 0 OID 16510)
--- Dependencies: 1499
--- Data for Name: util; Type: TABLE DATA; Schema: erp; Owner: erp
---
-
-COPY util (key, value) FROM stdin;
-\.
-
-
---
--- TOC entry 1767 (class 2606 OID 16519)
--- Dependencies: 1499 1499
+-- TOC entry 1767 (class 2606 OID 16581)
+-- Dependencies: 1491 1491
 -- Name: util_p_key; Type: CONSTRAINT; Schema: erp; Owner: erp; Tablespace: 
 --
 
@@ -50,7 +40,7 @@ ALTER TABLE ONLY util
     ADD CONSTRAINT util_p_key PRIMARY KEY (key);
 
 
--- Completed on 2008-10-05 18:16:01
+-- Completed on 2008-10-28 19:20:10
 
 --
 -- PostgreSQL database dump complete

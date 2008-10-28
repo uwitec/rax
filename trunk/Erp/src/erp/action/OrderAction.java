@@ -114,7 +114,9 @@ public class OrderAction extends ActionSupport {
                 fee = order.getFee() / total;
                 for (OrderItem item : orderItemList) {
                     ware = wareService.getWareById(item.getWareId());
-                    ware.setLastCost(item.getCost());
+                    if (item.getCost() < ware.getLowestCost()) {
+                        ware.setLowestCost(item.getCost());
+                    }
                     ware.setStatus(0);
                     wareService.check(ware, status > oldStatus, item
                             .getNumber(), item.getCost(), fee);

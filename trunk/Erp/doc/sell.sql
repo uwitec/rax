@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2008-09-14 11:34:03
+-- Started on 2008-10-28 19:20:30
 
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = off;
@@ -17,8 +17,8 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- TOC entry 1487 (class 1259 OID 16412)
--- Dependencies: 1764 7
+-- TOC entry 1489 (class 1259 OID 16523)
+-- Dependencies: 1766 6
 -- Name: sell; Type: TABLE; Schema: erp; Owner: erp; Tablespace: 
 --
 
@@ -47,8 +47,8 @@ CREATE TABLE sell (
 ALTER TABLE erp.sell OWNER TO erp;
 
 --
--- TOC entry 1493 (class 1259 OID 16434)
--- Dependencies: 1487 7
+-- TOC entry 1496 (class 1259 OID 16558)
+-- Dependencies: 6 1489
 -- Name: sell_id_seq; Type: SEQUENCE; Schema: erp; Owner: erp
 --
 
@@ -62,8 +62,8 @@ CREATE SEQUENCE sell_id_seq
 ALTER TABLE erp.sell_id_seq OWNER TO erp;
 
 --
--- TOC entry 1771 (class 0 OID 0)
--- Dependencies: 1493
+-- TOC entry 1774 (class 0 OID 0)
+-- Dependencies: 1496
 -- Name: sell_id_seq; Type: SEQUENCE OWNED BY; Schema: erp; Owner: erp
 --
 
@@ -71,8 +71,8 @@ ALTER SEQUENCE sell_id_seq OWNED BY sell.id;
 
 
 --
--- TOC entry 1763 (class 2604 OID 16467)
--- Dependencies: 1493 1487
+-- TOC entry 1767 (class 2604 OID 16568)
+-- Dependencies: 1496 1489
 -- Name: id; Type: DEFAULT; Schema: erp; Owner: erp
 --
 
@@ -80,8 +80,8 @@ ALTER TABLE sell ALTER COLUMN id SET DEFAULT nextval('sell_id_seq'::regclass);
 
 
 --
--- TOC entry 1767 (class 2606 OID 16458)
--- Dependencies: 1487 1487
+-- TOC entry 1770 (class 2606 OID 16579)
+-- Dependencies: 1489 1489
 -- Name: sell_p_key; Type: CONSTRAINT; Schema: erp; Owner: erp; Tablespace: 
 --
 
@@ -90,8 +90,8 @@ ALTER TABLE ONLY sell
 
 
 --
--- TOC entry 1765 (class 1259 OID 16472)
--- Dependencies: 1487
+-- TOC entry 1768 (class 1259 OID 16589)
+-- Dependencies: 1489
 -- Name: sell_date; Type: INDEX; Schema: erp; Owner: erp; Tablespace: 
 --
 
@@ -99,15 +99,15 @@ CREATE INDEX sell_date ON sell USING btree (create_date);
 
 
 --
--- TOC entry 1768 (class 1259 OID 16473)
--- Dependencies: 1487
+-- TOC entry 1771 (class 1259 OID 16591)
+-- Dependencies: 1489
 -- Name: sell_status; Type: INDEX; Schema: erp; Owner: erp; Tablespace: 
 --
 
 CREATE INDEX sell_status ON sell USING btree (status);
 
 
--- Completed on 2008-09-14 11:34:03
+-- Completed on 2008-10-28 19:20:31
 
 --
 -- PostgreSQL database dump complete

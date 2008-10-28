@@ -7,7 +7,7 @@ public class Ware {
     private int categoryIdOld;
     private String name;
     private double cost;
-    private double lastCost;
+    private double lowestCost;
     private double price;
     private String barcode;
     private int number;
@@ -19,7 +19,7 @@ public class Ware {
         categoryIdOld = 0;
         name = "";
         cost = 0;
-        lastCost = 0;
+        lowestCost = 0;
         price = 0;
         barcode = "";
         number = 0;
@@ -59,14 +59,6 @@ public class Ware {
         this.cost = cost;
     }
 
-    public double getLastCost() {
-        return lastCost;
-    }
-
-    public void setLastCost(double lastCost) {
-        this.lastCost = lastCost;
-    }
-
     public double getPrice() {
         return price;
     }
@@ -101,6 +93,14 @@ public class Ware {
 
     public int getCategoryIdOld() {
         return categoryIdOld;
+    }
+
+    public double getLowestCost() {
+        return lowestCost;
+    }
+
+    public void setLowestCost(double lowestCost) {
+        this.lowestCost = lowestCost;
     }
 
 }

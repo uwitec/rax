@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2008-05-23 21:10:57
+-- Started on 2008-10-28 19:19:58
 
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = off;
@@ -17,27 +17,27 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- TOC entry 1489 (class 1259 OID 16424)
--- Dependencies: 7
+-- TOC entry 1493 (class 1259 OID 16547)
+-- Dependencies: 1766 6
 -- Name: ware_category; Type: TABLE; Schema: erp; Owner: erp; Tablespace: 
 --
 
 CREATE TABLE ware_category (
     id integer NOT NULL,
-    name character varying(64) NOT NULL
+    name character varying(64) NOT NULL,
+    num integer DEFAULT 0 NOT NULL
 );
 
 
 ALTER TABLE erp.ware_category OWNER TO erp;
 
 --
--- TOC entry 1495 (class 1259 OID 16438)
--- Dependencies: 7 1489
+-- TOC entry 1498 (class 1259 OID 16562)
+-- Dependencies: 1493 6
 -- Name: ware_category_id_seq; Type: SEQUENCE; Schema: erp; Owner: erp
 --
 
 CREATE SEQUENCE ware_category_id_seq
-    START WITH 1
     INCREMENT BY 1
     NO MAXVALUE
     NO MINVALUE
@@ -47,8 +47,8 @@ CREATE SEQUENCE ware_category_id_seq
 ALTER TABLE erp.ware_category_id_seq OWNER TO erp;
 
 --
--- TOC entry 1769 (class 0 OID 0)
--- Dependencies: 1495
+-- TOC entry 1772 (class 0 OID 0)
+-- Dependencies: 1498
 -- Name: ware_category_id_seq; Type: SEQUENCE OWNED BY; Schema: erp; Owner: erp
 --
 
@@ -56,8 +56,8 @@ ALTER SEQUENCE ware_category_id_seq OWNED BY ware_category.id;
 
 
 --
--- TOC entry 1764 (class 2604 OID 16470)
--- Dependencies: 1495 1489
+-- TOC entry 1767 (class 2604 OID 16571)
+-- Dependencies: 1498 1493
 -- Name: id; Type: DEFAULT; Schema: erp; Owner: erp
 --
 
@@ -65,8 +65,8 @@ ALTER TABLE ware_category ALTER COLUMN id SET DEFAULT nextval('ware_category_id_
 
 
 --
--- TOC entry 1766 (class 2606 OID 16460)
--- Dependencies: 1489 1489
+-- TOC entry 1769 (class 2606 OID 16583)
+-- Dependencies: 1493 1493
 -- Name: ware_category_p_key; Type: CONSTRAINT; Schema: erp; Owner: erp; Tablespace: 
 --
 
@@ -74,7 +74,7 @@ ALTER TABLE ONLY ware_category
     ADD CONSTRAINT ware_category_p_key PRIMARY KEY (id);
 
 
--- Completed on 2008-05-23 21:10:57
+-- Completed on 2008-10-28 19:19:59
 
 --
 -- PostgreSQL database dump complete
