@@ -109,7 +109,8 @@ function onSave() {
 </script>
 <style type="text/css">
 @import "../js/dijit/themes/tundra/tundra.css";
-.float { float:left; margin-right:12px; width:80px; }
+.float { float:left; margin-right:12px; width:80px; text-align:right; }
+.row { clear:both; }
 #saveButton { display: none; }
 </style>
 
@@ -119,39 +120,44 @@ function onSave() {
 <a href="../index.htm">返回首页</a>
 <br /><br />
 
-<div>库存数:${storeAmount}</div><br />
+<div>库存数:#{storeAmount;m2M2}</div><br />
 
+<div>
 <div class="float">日期</div>
 <div class="float">利润</div>
 <div class="float">营业额</div>
-<div>包裹数</div>
-<div>
+<div class="float">包裹数</div>
+</div>
 <#if weekProfitList??>
 <#list weekProfitList as profit>
+<div class="row">
 <div class="float">${profit.statDate?string("yy-MM-dd")}</div>
-<div class="float">${profit.profit + profit.fee - profit.feeReal}</div>
-<div class="float">${profit.amount + profit.fee}</div>
-<div>${profit.number}</div>
+<div class="float">#{(profit.profit + profit.fee - profit.feeReal);m2M2}</div>
+<div class="float">#{(profit.amount + profit.fee);m2M2}</div>
+<div class="float">${profit.number}</div>
+</div>
 </#list>
 </#if>
-</div>
-<br />
+<br /><br />
 
+<div>
 <div class="float">月份</div>
 <div class="float">利润</div>
 <div class="float">营业额</div>
-<div>包裹数</div>
-<div>
+<div class="float">包裹数</div>
+</div>
 <#if monthProfitList??>
 <#list monthProfitList as profit>
+<div class="row">
 <div class="float">${profit.statDate?string("yy-MM")}</div>
-<div class="float">${profit.profit + profit.fee - profit.feeReal}</div>
-<div class="float">${profit.amount + profit.fee}</div>
-<div>${profit.number}</div>
+<div class="float">#{(profit.profit + profit.fee - profit.feeReal);m2M2}</div>
+<div class="float">#{(profit.amount + profit.fee);m2M2}</div>
+<div class="float">${profit.number}</div>
+</div>
 </#list>
 </#if>
 </div>
-<br /><br />
+<br /><br /><br />
 
 <div>
 <div>

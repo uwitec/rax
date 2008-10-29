@@ -30,7 +30,7 @@ body { font-size:16px; margin:0px; }
     <td>${item.ware.name}</td>
 	<td>&nbsp;</td>
     <td>${item.number}</td>
-    <td>#{(item.price);m2M2}</td>
+    <td>#{item.price;m2M2}</td>
     <td>#{(item.price * item.number);m2M2}</td>
   </tr>
   </#list>
@@ -40,7 +40,7 @@ body { font-size:16px; margin:0px; }
   <tr>
     <td colspan="3"><#if sell.commentInvoice?length gt 0>备注: ${sell.commentInvoice}</#if></td>
     <td>邮费</td>
-    <td>#{(sell.fee);m2M2}</td>
+    <td>#{sell.fee;m2M2}</td>
   </tr>
   <tr>
     <td><#if sell.sender?length gt 0>${sell.sender}<#else>冰心抹茶</#if> 祝您购物愉快!</td>
