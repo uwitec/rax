@@ -58,7 +58,8 @@ label { cursor:pointer; }
 </div>
 
 <#if id != 0>
-<a href="order_item.action?orderId=${id?c}">添加新项目</a>
+<a href="order_item.action?id=${id?c}">添加新项目</a>
+<a href="order_export.action?orderId=${id?c}" target="_blank">导出XLS档</a>
 <br /><br />
 </#if>
 

@@ -47,7 +47,7 @@ public class WareFindAction extends ActionSupport {
         wareList = wareService.fullTextSearch(keyword);
         return SUCCESS;
     }
-
+    
     public void setWareService(WareService service) {
         wareService = service;
     }

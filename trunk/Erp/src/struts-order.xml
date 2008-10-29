@@ -15,42 +15,52 @@
 		<action name="order_list" class="OrderAction" method="list">
 			<result name="success">/order/list.ftl</result>
 		</action>
-		
-		<action name="order_listAll" class="OrderAction" method="list">
+
+		<action name="order_listAll" class="OrderAction"
+			method="list">
 			<param name="status">-1</param>
 			<result name="success">/order/list.ftl</result>
 		</action>
-		
+
 		<action name="order" class="OrderAction" method="get">
 			<result name="success">/order/property.ftl</result>
 		</action>
-		
+
 		<action name="order_save" class="OrderAction">
-			<result name="input" type="redirect-action">order/order</result>
-			<result name="error" type="redirect-action">order/order</result>
-			<result name="success" type="redirect-action">
-				order/order_list
+			<result name="input" type="redirect-action">
+				order/order
 			</result>
-		</action>
-		
-		<action name="order_status" class="OrderAction" method="status">
-			<result name="error" type="redirect-action">order/order</result>
-			<result name="success" type="redirect-action">
-				<param name="actionName">order/order_list</param>
-				<param name="page">${page}</param>
+			<result name="error" type="redirect-action">
+				order/order
 			</result>
-		</action>
-		
-		<action name="order_delete" class="OrderAction" method="delete">
 			<result name="success" type="redirect-action">
 				order/order_list
 			</result>
 		</action>
 
-		<action name="order_item" class="OrderItemAction" method="get">
+		<action name="order_status" class="OrderAction"
+			method="status">
+			<result name="error" type="redirect-action">
+				order/order
+			</result>
+			<result name="success" type="redirect-action">
+				<param name="actionName">order/order_list</param>
+				<param name="page">${page}</param>
+			</result>
+		</action>
+
+		<action name="order_delete" class="OrderAction"
+			method="delete">
+			<result name="success" type="redirect-action">
+				order/order_list
+			</result>
+		</action>
+
+		<action name="order_item" class="OrderItemAction"
+			method="get">
 			<result name="success">/order/item_property.ftl</result>
 		</action>
-		
+
 		<action name="order_item_save" class="OrderItemAction">
 			<result name="error" type="redirect-action">
 				<param name="actionName">order/order</param>
@@ -58,10 +68,10 @@
 			</result>
 			<result name="success" type="redirect-action">
 				<param name="actionName">order/order</param>
-				<param name="id">${orderId}</param>		
+				<param name="id">${orderId}</param>
 			</result>
 		</action>
-		
+
 		<action name="order_item_delete" class="OrderItemAction"
 			method="delete">
 			<result name="success" type="redirect-action">
@@ -69,7 +79,21 @@
 				<param name="id">${orderId}</param>
 			</result>
 		</action>
-		 
+
+		<action name="order_export" class="OrderAction"
+			method="export">
+			<result name="success" type="stream">
+				<param name="contentType">
+					application/vnd.ms-excel
+				</param>
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">
+					attachment; filename="${fileName}.xls"
+				</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+
 	</package>
 
 </struts>

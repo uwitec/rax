@@ -1,5 +1,9 @@
 package erp.action;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -34,6 +38,8 @@ public class OrderAction extends ActionSupport {
     private int pagePer = 12;
     private int pageNum = 0;
     private int count;
+
+    private String fileName = "";
 
     public String list() throws Exception {
         count = orderService.getCount(status);
@@ -114,7 +120,8 @@ public class OrderAction extends ActionSupport {
                 fee = order.getFee() / total;
                 for (OrderItem item : orderItemList) {
                     ware = wareService.getWareById(item.getWareId());
-                    if (item.getCost() < ware.getLowestCost()) {
+                    if (ware.getLowestCost() == 0
+                            || item.getCost() < ware.getLowestCost()) {
                         ware.setLowestCost(item.getCost());
                     }
                     ware.setStatus(0);
@@ -127,6 +134,63 @@ public class OrderAction extends ActionSupport {
             return ERROR;
         }
         return SUCCESS;
+    }
+
+    public String export() throws Exception {
+        order = orderService.getOrderById(id);
+        if (order != null) {
+            orderItemList = orderItemService.listByOrder(order);
+            for (OrderItem item : orderItemList) {
+                item.setWare(wareService.getWareById(item.getWareId()));
+            }
+            fileName = order.getComment()
+                    + "-"
+                    + new SimpleDateFormat("yyyyMMdd").format(order
+                            .getCreateDate());
+        }
+        return SUCCESS;
+    }
+
+    public InputStream getInputStream() throws Exception {
+        StringBuffer buf = new StringBuffer();
+        buf.append("序号\t产品名称\t数量\t单价\t总价\t\n");
+        DecimalFormat df = new DecimalFormat("####.00");
+        try {
+            int totalNumber = 0;
+            double totalAmount = order.getFee();
+            int i = 1;
+            Ware ware = null;
+            for (OrderItem item : orderItemList) {
+                double sum = 0;
+                ware = item.getWare();
+                sum = item.getCost() * item.getNumber();
+                totalNumber += item.getNumber();
+                totalAmount += sum;
+                buf.append(String.valueOf(i++) + "\t");
+                buf.append(ware.getName() + "\t");
+
+                buf.append(String.valueOf(item.getNumber()) + "\t");
+                buf.append(df.format(item.getCost()) + "\t");
+                buf.append(df.format(sum) + "\t");
+                buf.append("\n");
+            }
+            buf.append("\t");
+            buf.append("总数\t");
+            buf.append(String.valueOf(totalNumber) + "\t");
+            buf.append("运费\t");
+            buf.append(df.format(order.getFee()) + "\t");
+            buf.append("\n");
+
+            buf.append("\t");
+            buf.append("\t");
+            buf.append("\t");
+            buf.append("总额\t");
+            buf.append(df.format(totalAmount) + "\t");
+            buf.append("\n");
+        } catch (Exception ex) {
+            logger.error(ex.toString());
+        }
+        return new ByteArrayInputStream(buf.toString().getBytes());
     }
 
     public OrderService getOrderService() {
@@ -225,4 +289,13 @@ public class OrderAction extends ActionSupport {
         this.pageNum = pageNum;
     }
 
+    public String getFileName() {
+        String ret = fileName;
+        try {
+            ret = new String(fileName.getBytes(), "ISO8859-1");
+        } catch (Exception ex) {
+            logger.error(ex.toString());
+        }
+        return ret;
+    }
 }

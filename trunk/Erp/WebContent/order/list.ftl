@@ -29,7 +29,9 @@
 <#if orderList??>
 <#list orderList as order>
 <div>
-${order.createDate?string("yyyy-MM-dd")} ${order.comment}<br />
+日期:${order.createDate?string("yyyy-MM-dd")}<br />
+备注:${order.comment}<br />
+<a href="order_export.action?id=${order.id?c}" target="_blank">导出XLS档</a>
 <a href="order.action?id=${order.id?c}">查看/编辑</a>
 <a href="order_item.action?orderId=${order.id?c}">添加购买的宝贝</a>
 <#if order.status = 0>
