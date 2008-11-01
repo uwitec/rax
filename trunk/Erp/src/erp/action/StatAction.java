@@ -36,7 +36,7 @@ public class StatAction extends ActionSupport {
     public String execute() throws Exception {
         try {
             storeAmount = statService.getStoreAmount();
-            weekProfitList = statService.listStatByDay(0, 7);
+            weekProfitList = statService.listStatByDay(7);
             monthProfitList = statService.listStatByMonth(3);
             startDate = utilService.getLastFeeDateStr();
             endDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());

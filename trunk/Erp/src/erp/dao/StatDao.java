@@ -12,10 +12,10 @@ public interface StatDao {
 
     public double getStoreAmount() throws DataAccessException;
 
-    public List<Stat> listProfitByDay(int index, int num)
+    public List<Stat> listProfitByDay(Date from, Date to)
             throws DataAccessException;
 
-    public List<Stat> listCountByDay(int index, int num)
+    public List<Stat> listCountByDay(Date from, Date to)
             throws DataAccessException;
 
     public List<Stat> listProfitByMonth(Date from, Date to)

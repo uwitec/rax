@@ -2,7 +2,7 @@ package erp.model;
 
 import java.util.Date;
 
-public class Stat {
+public class Stat implements Comparable<Stat> {
 
     private Date statDate;
     private double amount;
@@ -18,6 +18,10 @@ public class Stat {
         number = 0;
         fee = 0;
         feeReal = 0;
+    }
+
+    public int compareTo(Stat o) {
+        return -statDate.compareTo(o.getStatDate());
     }
 
     public double getFee() {

@@ -21,21 +21,21 @@ public class StatDaoImpl extends SqlMapClientDaoSupport implements StatDao {
     }
 
     @Override
-    public List<Stat> listProfitByDay(int index, int num)
+    public List<Stat> listProfitByDay(Date from, Date to)
             throws DataAccessException {
         Map param = new HashMap();
-        param.put("index", index);
-        param.put("number", num);
+        param.put("from", from);
+        param.put("to", to);
         return getSqlMapClientTemplate()
                 .queryForList("Stat.profitByDay", param);
     }
 
     @Override
-    public List<Stat> listCountByDay(int index, int num)
+    public List<Stat> listCountByDay(Date from, Date to)
             throws DataAccessException {
         Map param = new HashMap();
-        param.put("index", index);
-        param.put("number", num);
+        param.put("from", from);
+        param.put("to", to);
         return getSqlMapClientTemplate().queryForList("Stat.countByDay", param);
     }
 

@@ -3,6 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>出库单列表</title>
+<style media="print">
+body { display: none; }
+</style>
 </head>
 
 <body>

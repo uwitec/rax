@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Collections;
 
 import org.apache.log4j.Logger;
 
@@ -28,9 +29,26 @@ public class StatService {
         return statDao.listFeeByDay(from, to);
     }
 
-    public List<Stat> listStatByDay(int index, int num) {
-        List<Stat> lstProfit = statDao.listProfitByDay(index, num);
-        List<Stat> lstCount = statDao.listCountByDay(index, num);
+    public List<Stat> listStatByDay(int num) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        Date end = c.getTime();
+        c.add(Calendar.DATE, 1 - num);
+        Date start = c.getTime();
+        // Only date info will be used, so do not need set hour or minute
+        
+        logger.info("ListStatByDay " + String.valueOf(num) + " start:"
+                + start.toString() + " end:" + end.toString());
+
+        c.add(Calendar.DATE, num + num);
+        end = c.getTime();
+        
+        List<Stat> lstProfit = statDao.listProfitByDay(start, end);
+        List<Stat> lstCount = statDao.listCountByDay(start, end);
+
+        logger.info("Count:" + String.valueOf(lstCount.size())
+                + " ProfitCount:" + String.valueOf(lstProfit.size()));
+
         for (Stat st : lstCount) {
             for (Stat t : lstProfit) {
                 if (st.getStatDate().equals(t.getStatDate())) {
@@ -43,6 +61,33 @@ public class StatService {
                 }
             }
         }
+
+        Date tt;
+        boolean found;
+        c.setTime(new Date());       
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        for (int i = 1; i < num; i++) {
+            c.add(Calendar.DATE, -1);
+            tt = c.getTime();
+            found = false;
+            for (Stat t : lstProfit) {
+                Date sd = t.getStatDate();
+                if (tt.compareTo(sd) == 0) {
+                    found = true;
+                    break;
+                }
+            }
+            if (false == found) {
+                Stat s = new Stat();
+                s.setStatDate(tt);
+                lstProfit.add(s);
+            }
+        }
+        Collections.sort(lstProfit);
+
         return lstProfit;
     }
 
@@ -65,7 +110,8 @@ public class StatService {
         c.add(Calendar.MONTH, -num);
         start = c.getTime();
 
-        logger.info("start:" + start.toString() + " end:" + end.toString());
+        logger.info("listStatByMonth " + String.valueOf(num) + " start:"
+                + start.toString() + " end:" + end.toString());
 
         List<Stat> lstRet = new ArrayList<Stat>();
         List<Stat> lstProfit = statDao.listProfitByMonth(start, end);
