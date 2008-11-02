@@ -1,9 +1,8 @@
 ﻿<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-把上次进货价修改成记录最低进货价
+打印之后提供按钮设置已打印, 列表显示时, 可根据状态, 设置颜色
+分词算法改进
 进货单添加项目, 出库单添加项目 优化模块显示, 从select -> table
-打印之后变色
-统计页面区分毛利纯利净利
 
 表单格式化
 竖分页
