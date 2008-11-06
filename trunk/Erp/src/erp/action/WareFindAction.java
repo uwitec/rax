@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import com.opensymphony.xwork2.ActionSupport;
 
 import erp.model.Ware;
+import erp.service.KeywordService;
 import erp.service.WareService;
 
 public class WareFindAction extends ActionSupport {
@@ -15,6 +16,8 @@ public class WareFindAction extends ActionSupport {
     private final static Logger logger = Logger.getLogger(WareFindAction.class);
 
     private WareService wareService = null;
+    private KeywordService keywordService = null;
+
     private String keyword;
     private String barcode;
     private int min;
@@ -42,12 +45,22 @@ public class WareFindAction extends ActionSupport {
         return SUCCESS;
     }
 
-    public String fulltext_search() throws Exception {
+    public String fullTextSearch() throws Exception {
         logger.info("fullTextSearch:" + keyword);
-        wareList = wareService.fullTextSearch(keyword);
+        List<String> tokenList = keywordService.parseToken(keyword);
+        StringBuffer tokenBuf = new StringBuffer();
+        boolean skipFirstToken = true;
+        for (String token : tokenList) {
+            if (skipFirstToken == false) {
+                tokenBuf.append("|");
+            }
+            tokenBuf.append(token);
+            skipFirstToken = false;
+        }
+        wareList = wareService.fullTextSearch(tokenBuf.toString().trim());
         return SUCCESS;
     }
-    
+
     public void setWareService(WareService service) {
         wareService = service;
     }
@@ -86,6 +99,10 @@ public class WareFindAction extends ActionSupport {
 
     public void setMax(int max) {
         this.max = max;
+    }
+
+    public void setKeywordService(KeywordService keywordService) {
+        this.keywordService = keywordService;
     }
 
 }

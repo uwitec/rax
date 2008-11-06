@@ -36,7 +36,12 @@
 	</bean>
 
 	<bean id="ExpressService" class="erp.service.ExpressService" />
-	
+
+	<bean id="KeywordService" class="erp.service.KeywordService">
+		<property name="keywordDao" ref="KeywordDao" />
+		<property name="utilDao" ref="UtilDao" />
+	</bean>
+
 	<bean id="UtilService" class="erp.service.UtilService">
 		<property name="utilDao" ref="UtilDao" />
 	</bean>

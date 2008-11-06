@@ -46,10 +46,7 @@ public class UtilService {
         try {
             u = utilDao.read("last_fee_date");
             if (null == u) {
-                u = new Util();
-                u.setKey("last_fee_date");
-                u.setValue(lastFeeDate);
-                utilDao.create(u);
+                utilDao.create(new Util("last_fee_date", lastFeeDate));
             } else {
                 u.setValue(lastFeeDate);
                 utilDao.update(u);

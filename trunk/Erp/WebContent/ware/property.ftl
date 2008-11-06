@@ -3,6 +3,48 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>宝贝属性</title>
+<script language="javascript" type="text/javascript" src="js/dojo/dojo.js" djConfig="isDebug:false,usePlainJson:true,bindEncoding:'UTF-8'"></script>
+<script language="javascript" type="text/javascript">
+
+function parseToken() {
+	var params = {
+		name: dojo.byId("ware_save_name").value
+	}
+	dojo.xhrPost({
+		url: "/erp/json/tokenize.action",
+		content: params,
+		preventCache: true,
+		handleAs: "json",
+		load: function(json) { try {
+			console.debug(json);
+			dojo.byId("ware_save_tokenize").value = json.tokenize;
+		} catch(e) { console.debug(e.toString()); } },
+		error: function(response) { console.debug(response.status);	}
+	});
+}
+
+function onSubmit(event) {
+	var id			= dojo.byId("ware_save_id").value;
+	var tokenize	= dojo.byId("ware_save_tokenize").value;
+	if (id == 0 && tokenize.length == 0) {
+		parseToken();
+		return false;
+	}
+	return true;
+}
+
+dojo.addOnLoad(function (){
+	var obj;
+	
+	obj = dojo.byId("ware_save_name");
+	var name = dojo.trim(obj.value);
+	if (name.length > 0) parseToken();
+	
+	obj = dojo.byId("ware_save");
+	dojo.connect(obj, "onsubmit", obj, onSubmit);
+});
+
+</script>
 </head>
 
 <body>
@@ -19,6 +61,7 @@
     <@s.textfield label="价格" name="price"/>
     <@s.textfield label="数量" name="number"/>
     <@s.select label="分类" name="categoryId" list="categoryMap"/>
+    <@s.textarea rows="3" cols="40" label="关键词" name="tokenize"/>
     <@s.hidden name="id"/>
     <@s.submit value=" 提 交 "/>
 </@s.form>

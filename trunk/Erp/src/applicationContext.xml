@@ -18,7 +18,10 @@
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">
-			<value>WEB-INF/dataSource.properties</value>
+			<value>classpath:dataSource.properties</value>
+			<!-- 
+				<value>WEB-INF/dataSource.properties</value>
+			-->
 		</property>
 	</bean>
 

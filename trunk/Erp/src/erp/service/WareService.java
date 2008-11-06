@@ -87,6 +87,10 @@ public class WareService {
         wareDao.update(obj);
     }
 
+    public boolean updateFullTextIndex(Ware obj, String tokens) {
+        return wareDao.updateFullTextIndex(obj.getId(), tokens) > 0;
+    }
+
     public int getCount(int status) {
         return wareDao.count(status);
     }
@@ -119,6 +123,7 @@ public class WareService {
     }
 
     public List<Ware> fullTextSearch(String content) {
+        logger.info("fullTextService:" + content);
         return wareDao.fullTextSearch(content);
     }
 

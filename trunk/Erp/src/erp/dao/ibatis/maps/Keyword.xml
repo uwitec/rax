@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Keyword">
+
+	<insert id="create" parameterClass="string">
+		<![CDATA[
+		INSERT INTO erp.keyword VALUES (#token#)
+		]]>
+	</insert>
+
+	<select id="read" resultClass="string">
+		<![CDATA[
+		SELECT token FROM erp.keyword WHERE token=#token# LIMIT 1
+		]]>
+	</select>
+
+	<delete id="delete" parameterClass="string">
+		<![CDATA[
+		DELETE FROM erp.keyword WHERE token=#token#
+		]]>
+	</delete>
+
+	<select id="count" resultClass="int">
+		<![CDATA[
+		SELECT COUNT(*) AS NUM FROM erp.keyword
+		]]>
+	</select>
+
+	<select id="list" resultClass="string">
+		<![CDATA[
+		SELECT token FROM erp.sell
+		]]>
+	</select>
+	
+</sqlMap>

@@ -6,8 +6,18 @@ public class Util {
     private String value;
 
     public Util() {
-        key = "";
-        value = "";
+        this.key = "";
+        this.value = "";
+    }
+
+    public Util(String key) {
+        this.key = key;
+        this.value = "";
+    }
+
+    public Util(String key, String value) {
+        this.key = key;
+        this.value = value;
     }
 
     public String getKey() {

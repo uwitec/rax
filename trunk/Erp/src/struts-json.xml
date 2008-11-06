@@ -10,7 +10,7 @@
 			<result type="json" />
 		</action>
 		<action name="ware_find_fulltext" class="WareFindAction"
-			method="fulltext_search">
+			method="fullTextSearch">
 			<result type="json" />
 		</action>
 		<action name="sell_item_add" class="SellItemAction">
@@ -22,7 +22,7 @@
 			<result type="json" />
 		</action>
 		<action name="sell_item_import" class="SellItemImportAction">
-			<result type="json"/>
+			<result type="json" />
 		</action>
 
 		<action name="fee_stat" class="StatAction" method="statFee">
@@ -32,10 +32,18 @@
 				</param>
 			</result>
 		</action>
-		
-		<action name="save_fee_stat_date" class="StatAction" method="saveFeeStatDate">
+
+		<action name="save_fee_stat_date" class="StatAction"
+			method="saveFeeStatDate">
 			<result type="json">
 				<param name="includeProperties">endDate</param>
+			</result>
+		</action>
+
+		<action name="tokenize" class="WareAction"
+			method="parseToken">
+			<result type="json">
+				<param name="includeProperties">tokenize</param>
 			</result>
 		</action>
 		

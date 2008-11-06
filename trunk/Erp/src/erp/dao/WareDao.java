@@ -18,17 +18,24 @@ public interface WareDao {
 
     public int count(int status) throws DataAccessException;
 
-    public List<Ware> list(int status, int index, int num) throws DataAccessException;
+    public List<Ware> list(int status, int index, int num)
+            throws DataAccessException;
 
-    public List<Ware> listByCategoryId(int id, int status) throws DataAccessException;
+    public List<Ware> listByCategoryId(int id, int status)
+            throws DataAccessException;
 
     public List<Ware> findByBarcode(String barcode) throws DataAccessException;
 
-    public List<Ware> findByKeywords(List<String> keywordList) throws DataAccessException;
-    
-    public List<Ware> findAdvanced(List<String> keywordList, int min, int max) throws DataAccessException;
-    
+    public List<Ware> findByKeywords(List<String> keywordList)
+            throws DataAccessException;
+
+    public List<Ware> findAdvanced(List<String> keywordList, int min, int max)
+            throws DataAccessException;
+
     public List<Ware> findByNum(int min, int max) throws DataAccessException;
 
     public List<Ware> fullTextSearch(String content) throws DataAccessException;
+
+    public int updateFullTextIndex(int id, String tokens)
+            throws DataAccessException;
 }

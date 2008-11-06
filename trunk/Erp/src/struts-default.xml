@@ -33,7 +33,8 @@
 			<result name="input" type="redirect-action">ware</result>
 			<result name="error" type="redirect-action">ware</result>
 			<result name="success" type="redirect-action">
-				ware_list
+				<param name="actionName">ware_list</param>
+				<param name="categoryId">${categoryId}</param>
 			</result>
 		</action>
 		<action name="ware_delete" class="WareAction" method="delete">

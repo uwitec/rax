@@ -34,7 +34,13 @@
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
 
+	<bean id="KeywordDao" class="erp.dao.ibatis.KeywordDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
 	<bean id="UtilDao" class="erp.dao.ibatis.UtilDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
+	
+	
 </beans>

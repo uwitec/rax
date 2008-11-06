@@ -10,7 +10,7 @@
 
 	<insert id="create" parameterClass="Ware">
 		<![CDATA[
-		INSERT INTO erp.ware (category_id,name,cost,price,barcode,number,status,lowest_cost) 
+		INSERT INTO erp.ware (category_id,name,cost,price,barcode,number,status,lowest_cost,tokenize) 
 		VALUES (#categoryId#,#name#,#cost#,#price#,#barcode#,#number#,#status#,#lowestCost#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
@@ -57,7 +57,7 @@
 	<select id="list" parameterClass="map" resultClass="Ware">
 		<![CDATA[
 		SELECT id,category_id AS
-		categoryId,name,cost,price,barcode,number,status,lowest_cost AS lowestCost 
+		categoryId,name,cost,price,barcode,number,status,lowest_cost AS lowestCost
 		FROM erp.ware
 		]]>
 		<dynamic>
@@ -75,7 +75,7 @@
 		resultClass="Ware">
 		<![CDATA[
 		SELECT id,category_id AS
-		categoryId,name,cost,price,barcode,number,status,lowest_cost AS	lowestCost 
+		categoryId,name,cost,price,barcode,number,status,lowest_cost AS	lowestCost
 		FROM erp.ware WHERE category_id=#id#
 		]]>
 		<dynamic>
@@ -143,12 +143,19 @@
 	<select id="fullTextSearch" parameterClass="string"
 		resultClass="Ware">
 		<![CDATA[
-		SELECT id,category_id AS categoryId,name,cost,price,barcode,number,status,lowest_cost AS lowestCost
-		FROM erp.ware, to_tsquery(erp.querycharseg(#content#, 1)) q
+		SELECT id,category_id AS categoryId,name,cost,price,barcode,number,status,lowest_cost AS lowestCost, ts_rank (idx_name, q) AS r
+		FROM erp.ware, to_tsquery(#content#) q
 		WHERE idx_name @@ q
-		ORDER BY ts_rank (idx_name, q) DESC
+		ORDER BY r DESC
 		LIMIT 12
 		]]>
 	</select>
+
+	<update id="updateFullTextIndex" parameterClass="map">
+		<![CDATA[
+		UPDATE erp.ware SET idx_name=to_tsvector(#tokenize#)
+		WHERE id=#id#
+		]]>
+	</update>
 
 </sqlMap>

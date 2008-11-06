@@ -10,6 +10,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import erp.model.Ware;
 import erp.model.WareCategory;
+import erp.service.KeywordService;
 import erp.service.WareCategoryService;
 import erp.service.WareService;
 import erp.util.Pager;
@@ -21,6 +22,7 @@ public class WareAction extends ActionSupport {
 
     private WareService wareService = null;
     private WareCategoryService wareCategoryService = null;
+    private KeywordService keywordService = null;
 
     private int id;
     private int categoryId;
@@ -30,6 +32,8 @@ public class WareAction extends ActionSupport {
     private String barcode;
     private String number;
     private int status = 0;
+
+    private String tokenize;
 
     private List<Ware> wareList;
     private Map<Integer, String> categoryMap;
@@ -100,6 +104,17 @@ public class WareAction extends ActionSupport {
         return SUCCESS;
     }
 
+    public String parseToken() throws Exception {
+        List<String> tokenList = keywordService.parseToken(name);
+        StringBuffer tokenBuf = new StringBuffer();
+        for (String token : tokenList) {
+            tokenBuf.append(token);
+            tokenBuf.append(" ");
+        }
+        tokenize = tokenBuf.toString().trim();
+        return SUCCESS;
+    }
+
     @Override
     public String execute() throws Exception {
         try {
@@ -122,6 +137,10 @@ public class WareAction extends ActionSupport {
                 wareService.updateWare(obj);
             } else {
                 id = wareService.createWare(obj);
+            }
+            if (tokenize != null && tokenize.isEmpty() == false) {
+                keywordService.saveTokens(tokenize);
+                wareService.updateFullTextIndex(obj, tokenize);
             }
         } catch (Exception ex) {
             logger.error(ex.toString());
@@ -236,6 +255,18 @@ public class WareAction extends ActionSupport {
 
     public void setCurrentPage(int page) {
         pager.setCurrentPage(page);
+    }
+
+    public void setKeywordService(KeywordService keywordService) {
+        this.keywordService = keywordService;
+    }
+
+    public String getTokenize() {
+        return tokenize;
+    }
+
+    public void setTokenize(String tokenize) {
+        this.tokenize = tokenize;
     }
 
 }

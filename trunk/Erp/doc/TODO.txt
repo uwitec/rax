@@ -4,7 +4,7 @@
 1. *如果Ware get出来tokenize为空, AJAX把name送去parse, 结果填回tokenize等待保存
 2. *修改触发器, 当tokenize被更新并且有变化时, 按空格分词, 更新索引
 3. *保存tokenize时, 按空格拆分, 2字成词, 保存入Keyword表
-4. 修改全文检索方法, 先分词, 再搜索
+4. *修改全文检索方法, 先分词, 再搜索
 5. *使用词表做分词解析
 6. *使用Util记录最长词大小
 7. 更新GoogleCode
