@@ -199,7 +199,7 @@ public class ExpressAction implements Action {
             dateSel.add(df.format(d3));
 
             sender = "李立林";
-            senderAddress = "浙江省杭州市滨江区\n请确认商品无缺损后签收\n签收后申述缺损,恕我们无法负责";
+            senderAddress = "浙江省杭州市滨江区\n签收前请务必确认包裹外包装完好,宝贝无破损,如有破损请直接拒收\n签收后请当场清点数量,如有短缺请在回执单上写明\n事后申述缺损,恕不赔偿";
             senderPhone = "0571-85790698";
             senderPostCode = "310053";
 

@@ -65,7 +65,7 @@ public class SellAction extends ActionSupport {
         sellList = sellService.list(pager.getOffsetItems(), pager.getPerPage(),
                 status);
 
-        logger.info(pager.getCurrentPage() + "/" + pager.getTotalPage());
+        //logger.info(pager.getCurrentPage() + "/" + pager.getTotalPage());
 
         return SUCCESS;
     }
