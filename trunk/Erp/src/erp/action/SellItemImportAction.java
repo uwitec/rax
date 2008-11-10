@@ -139,7 +139,11 @@ public class SellItemImportAction extends ActionSupport {
             }
             if (sellId > 0 && item != null) {
                 Sell obj = sellService.getSellById(sellId);
-                obj.setCustomerIM(item.getByerId());
+                if (obj.getCustomerIM().isEmpty()) {
+                    obj.setCustomerIM(item.getByerId());
+                    obj.setCustomerIMType(0);
+                    // IMType的具体定义在SellService里
+                }
                 sellService.updateSell(obj);
             }
         } catch (Exception ex) {

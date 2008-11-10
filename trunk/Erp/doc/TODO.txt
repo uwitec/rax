@@ -1,15 +1,6 @@
 ﻿<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-分词算法改进
-1. *如果Ware get出来tokenize为空, AJAX把name送去parse, 结果填回tokenize等待保存
-2. *修改触发器, 当tokenize被更新并且有变化时, 按空格分词, 更新索引
-3. *保存tokenize时, 按空格拆分, 2字成词, 保存入Keyword表
-4. *修改全文检索方法, 先分词, 再搜索
-5. *使用词表做分词解析
-6. *使用Util记录最长词大小
-7. 更新GoogleCode
-8. *改进分词算法, 浅咖啡->咖啡,浅咖啡 检测贴->检测,检测贴 蜜粉饼->蜜粉,粉饼,蜜粉饼
-
+更新GoogleCode
 
 打印之后提供按钮设置已打印, 列表显示时, 可根据状态, 设置颜色
 进货单添加项目, 出库单添加项目 优化模块显示, 从select -> table
