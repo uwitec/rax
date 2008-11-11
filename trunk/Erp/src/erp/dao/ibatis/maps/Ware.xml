@@ -10,7 +10,7 @@
 
 	<insert id="create" parameterClass="Ware">
 		<![CDATA[
-		INSERT INTO erp.ware (category_id,name,cost,price,barcode,number,status,lowest_cost,tokenize) 
+		INSERT INTO erp.ware (category_id,name,cost,price,barcode,number,status,lowest_cost) 
 		VALUES (#categoryId#,#name#,#cost#,#price#,#barcode#,#number#,#status#,#lowestCost#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
