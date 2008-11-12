@@ -91,22 +91,22 @@ public class ExpressService {
             break;
 
         case 2: // 圆通
-            obj.setDateFormat("yy   MM   dd");
+            obj.setDateFormat("yy     MM     dd");
             obj.setSize(new ExpressPos(658, 360));
-            obj.setDate(new ExpressPos(184, 68));           // x:65 y:24
-            obj.setSrcPhone(new ExpressPos(71, 136));       // x:25 y:48
-            obj.setSrcPostCode(null);
-            obj.setDstPhone1(new ExpressPos(275, 94));      // x:97 y:33
-            obj.setDstPhone2(new ExpressPos(383, 94));      // x:135 y:33
-            obj.setDstPostCode(null);
+            obj.setDate(new ExpressPos(68, 51));             // x:24 y:18
+            obj.setSrcPhone(new ExpressPos(113, 179));       // x:40 y:63
+            obj.setSrcPostCode(new ExpressPos(235, 179));    // x:83 y:63
+            obj.setDstPhone1(new ExpressPos(496, 264));      // x:175 y:93
+            obj.setDstPhone2(new ExpressPos(496, 246));      // x:175 y:-18pt
+            obj.setDstPostCode(new ExpressPos(524, 179));    // x:185 y:63
 
-            obj.setSrcName(new ExpressPos(77, 261));        // x:27 y:92
-            obj.setDstName(new ExpressPos(289, 232));       // x:102 y:82
+            obj.setSrcName(new ExpressPos(96, 278));         // x:34 y:98
+            obj.setDstName(new ExpressPos(363, 264));        // x:128 y:93
 
-            obj.setSrcAddressLB(new ExpressPos(51, 153));   // x:18 y:54
-            obj.setSrcAddressRT(new ExpressPos(255, 221));  // x:90 y:78
-            obj.setDstAddressLB(new ExpressPos(255, 111));  // x:90 y:39
-            obj.setDstAddressRT(new ExpressPos(459, 187));  // x:162 y:66
+            obj.setSrcAddressLB(new ExpressPos(85, 198));    // x:30 y:70
+            obj.setSrcAddressRT(new ExpressPos(303, 275));   // x:107 y:97
+            obj.setDstAddressLB(new ExpressPos(317, 179));   // x:112 y:63
+            obj.setDstAddressRT(new ExpressPos(581, 215));   // x:205 y:76
             break;
 
         case 3: // 中通
