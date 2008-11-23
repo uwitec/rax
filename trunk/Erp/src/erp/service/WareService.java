@@ -84,6 +84,7 @@ public class WareService {
                 + String.valueOf(newCost));
         obj.setCost(newCost);
         obj.setNumber(newNumber);
+        obj.setNumberAlarmEnable(newNumber != 0 ? 1 : 0);
         wareDao.update(obj);
     }
 
@@ -103,23 +104,21 @@ public class WareService {
         return wareDao.listByCategoryId(category.getId(), status);
     }
 
+    public List<Ware> listLowNumber(int status) {
+        return wareDao.listLowNumber(status);
+    }
+
     public List<Ware> findByBarcode(String barcode) {
         return wareDao.findByBarcode(barcode);
     }
 
-    public List<Ware> findByKeywords(String keywords, int min, int max) {
+    public List<Ware> findByKeywords(String keywords) {
         List<String> keywordList = new ArrayList<String>();
         String[] list = keywords.split(" ");
         for (int i = 0; i < list.length; i++) {
             keywordList.add(list[i].toLowerCase());
         }
-        return (min > 0 | max > 0) ? wareDao
-                .findAdvanced(keywordList, min, max) : wareDao
-                .findByKeywords(keywordList);
-    }
-
-    public List<Ware> findByNum(int min, int max) {
-        return wareDao.findByNum(min, max);
+        return wareDao.findByKeywords(keywordList);
     }
 
     public List<Ware> fullTextSearch(String content) {

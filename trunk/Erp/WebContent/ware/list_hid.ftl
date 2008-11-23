@@ -9,7 +9,7 @@
 <@s.url id="urlList" action="ware_list">
 	<@s.param name="page" value="page" />
 </@s.url>
-<a href="index.htm">返回首页</a>
+<a href="index.action">返回首页</a>
 <a href="${urlList}">返回宝贝列表</a>
 <br /><br />
 <div>总数:${pager.totalItems}</div><br />

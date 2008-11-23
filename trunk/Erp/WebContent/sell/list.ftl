@@ -9,7 +9,7 @@ body { display: none; }
 </head>
 
 <body>
-<a href="index.htm">返回首页</a>
+<a href="index.action">返回首页</a>
 <a href="sell_list.action?currentPage=${pager.currentPage}">待处理发货单</a>
 <a href="sell_listAll.action?currentPage=${pager.currentPage}">所有发货单</a>
 <a href="sell_search.action" target="_blank">搜索发货单</a>

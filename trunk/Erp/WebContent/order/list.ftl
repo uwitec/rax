@@ -6,7 +6,7 @@
 </head>
 
 <body>
-<a href="../index.htm">返回首页</a>
+<a href="../index.action">返回首页</a>
 <a href="order_list.action?page=${page}">待处理进货单</a>
 <a href="order_listAll.action?page=${page}">所有进货单</a>
 <br /><br />
@@ -16,13 +16,13 @@
 
 <#list 1..pageNum as i>
 <#if i == page>
-[${i}] 
+[${i}]
 <#else>
 <@s.url id="urlPage" action="order_list">
 	<@s.param name="page" value="#{i}"/>
 	<@s.param name="status" value="status"/>
 </@s.url>
-<a href="${urlPage}">[${i}]</a>  
+<a href="${urlPage}">[${i}]</a>
 </#if>
 </#list><br /><br />
 

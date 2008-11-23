@@ -6,12 +6,10 @@
 </head>
 
 <body>
-<a href="index.htm">返回首页</a><br /><br />
+<a href="index.action">返回首页</a><br /><br />
 
 <@s.form action="ware_search" target="ware_search_result" theme="simple">
-    搜索关键字:<@s.textfield label="关键字" name="keyword"/><br />
-    搜索库存量:<@s.textfield label="库存" name="min" size="2"/> - <@s.textfield name="max" size="2"/>
-	<@s.submit value=" 提 交 "/>
+    搜索关键字:<@s.textfield label="关键字" name="keyword"/><@s.submit value=" 提 交 "/>
 </@s.form>
 <br />
 

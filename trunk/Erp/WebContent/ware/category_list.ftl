@@ -6,7 +6,7 @@
 </head>
 
 <body>
-<a href="index.htm">返回首页</a>
+<a href="index.action">返回首页</a>
 <a href="ware_category.action">添加新的分类</a>
 <br /><br />
 <div>总数:<#if categoryList??>${categoryList.size()}</#if></div><br />

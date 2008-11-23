@@ -12,6 +12,8 @@ public class Ware {
     private String barcode;
     private int number;
     private int status;
+    private int numberAlarm;
+    private int numberAlarmEnable;
 
     public Ware() {
         id = 0;
@@ -24,6 +26,24 @@ public class Ware {
         barcode = "";
         number = 0;
         status = 0;
+        numberAlarm = 0;
+        numberAlarmEnable = 1;
+    }
+
+    public int getNumberAlarmEnable() {
+        return numberAlarmEnable;
+    }
+
+    public void setNumberAlarmEnable(int numberAlarmEnable) {
+        this.numberAlarmEnable = numberAlarmEnable;
+    }
+
+    public int getNumberAlarm() {
+        return numberAlarm;
+    }
+
+    public void setNumberAlarm(int numberAlarm) {
+        this.numberAlarm = numberAlarm;
     }
 
     public int getId() {

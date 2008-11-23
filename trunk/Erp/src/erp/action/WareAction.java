@@ -31,6 +31,8 @@ public class WareAction extends ActionSupport {
     private String price;
     private String barcode;
     private String number;
+    private String numberAlarm;
+    private boolean numberAlarmEnable;
     private int status = 0;
 
     private String tokenize;
@@ -83,6 +85,8 @@ public class WareAction extends ActionSupport {
                 cost = f.format(w.getCost());
                 price = f.format(w.getPrice());
                 number = String.valueOf(w.getNumber());
+                numberAlarm = String.valueOf(w.getNumberAlarm());
+                numberAlarmEnable = w.getNumberAlarmEnable() > 0;
                 status = w.getStatus();
             }
         } catch (Exception ex) {
@@ -115,6 +119,20 @@ public class WareAction extends ActionSupport {
         return SUCCESS;
     }
 
+    public String updateAlarm() throws Exception {
+        try {
+            Ware obj = wareService.getWareById(id);
+            if (obj != null) {
+                obj.setNumberAlarmEnable(0);
+                wareService.updateWare(obj);
+            }
+        } catch (Exception ex) {
+            logger.error(ex.toString());
+            return ERROR;
+        }
+        return SUCCESS;
+    }
+
     @Override
     public String execute() throws Exception {
         try {
@@ -123,6 +141,7 @@ public class WareAction extends ActionSupport {
             obj.setName(name.trim());
             obj.setBarcode(barcode.trim());
             obj.setStatus(status);
+            obj.setNumberAlarmEnable(numberAlarmEnable ? 1 : 0);
             if (cost.isEmpty() == false) {
                 obj.setCost(Double.parseDouble(cost));
             }
@@ -131,6 +150,9 @@ public class WareAction extends ActionSupport {
             }
             if (price.isEmpty() == false) {
                 obj.setPrice(Double.parseDouble(price));
+            }
+            if (numberAlarm.isEmpty() == false) {
+                obj.setNumberAlarm(Integer.parseInt(numberAlarm));
             }
 
             if (id > 0) {
@@ -267,6 +289,22 @@ public class WareAction extends ActionSupport {
 
     public void setTokenize(String tokenize) {
         this.tokenize = tokenize;
+    }
+
+    public String getNumberAlarm() {
+        return numberAlarm;
+    }
+
+    public void setNumberAlarm(String numberAlarm) {
+        this.numberAlarm = numberAlarm;
+    }
+
+    public boolean isNumberAlarmEnable() {
+        return numberAlarmEnable;
+    }
+
+    public void setNumberAlarmEnable(boolean numberAlarmEnable) {
+        this.numberAlarmEnable = numberAlarmEnable;
     }
 
 }

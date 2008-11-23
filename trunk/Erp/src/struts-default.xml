@@ -6,12 +6,15 @@
 <struts>
 
 	<package name="default" extends="struts-default">
-
 		<result-types>
 			<result-type name="freemarker"
 				class="org.apache.struts2.views.freemarker.FreemarkerResult"
 				default="true" />
 		</result-types>
+
+		<action name="index" class="IndexAction">
+			<result name="success">/index.ftl</result>
+		</action>
 
 		<action name="ware_list_all" class="WareAction"
 			method="listAll">
@@ -39,7 +42,8 @@
 		</action>
 		<action name="ware_delete" class="WareAction" method="delete">
 			<result name="success" type="redirect-action">
-				ware_list
+				<param name="actionName">ware_list</param>
+				<param name="categoryId">${categoryId}</param>
 			</result>
 		</action>
 		<action name="ware_search" class="WareFindAction">
@@ -71,6 +75,12 @@
 				ware_category_list
 			</result>
 		</action>
+		<action name="ware_alarm" class="WareAction"
+			method="updateAlarm">
+			<result name="success" type="redirect-action">index</result>
+		</action>
+
+
 
 		<action name="sell_list" class="SellAction" method="list">
 			<result name="success">/sell/list.ftl</result>
@@ -147,6 +157,8 @@
 			class="SellItemImportAction" method="input">
 			<result name="success">/sell/item_import.ftl</result>
 		</action>
+
+
 
 		<action name="invoice_input" class="InvoiceAction"
 			method="input">

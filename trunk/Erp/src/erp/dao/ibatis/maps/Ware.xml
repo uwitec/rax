@@ -10,8 +10,8 @@
 
 	<insert id="create" parameterClass="Ware">
 		<![CDATA[
-		INSERT INTO erp.ware (category_id,name,cost,price,barcode,number,status,lowest_cost) 
-		VALUES (#categoryId#,#name#,#cost#,#price#,#barcode#,#number#,#status#,#lowestCost#)
+		INSERT INTO erp.ware (category_id,name,cost,price,barcode,number,status,lowest_cost,number_alarm,number_alarm_enable) 
+		VALUES (#categoryId#,#name#,#cost#,#price#,#barcode#,#number#,#status#,#lowestCost#,#numberAlarm#,#numberAlarmEnable#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
@@ -22,7 +22,9 @@
 
 	<select id="read" parameterClass="int" resultClass="Ware">
 		<![CDATA[
-		SELECT id,category_id AS categoryId,name,cost,price,barcode,number,status,lowest_cost AS lowestCost
+		SELECT id,category_id AS categoryId,name,cost,price,
+		barcode,number,status,lowest_cost AS lowestCost,
+		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable
 		FROM erp.ware
 		WHERE id=#id#
 		]]>
@@ -30,8 +32,10 @@
 
 	<update id="update" parameterClass="Ware">
 		<![CDATA[
-		UPDATE erp.ware SET category_id=#categoryId#,name=#name#,cost=#cost#,price=#price#, 
-		barcode=#barcode#,number=#number#,status=#status#,lowest_cost=#lowestCost#
+		UPDATE erp.ware SET category_id=#categoryId#,name=#name#,
+		cost=#cost#,price=#price#,barcode=#barcode#,number=#number#,
+		status=#status#,lowest_cost=#lowestCost#,
+		number_alarm=#numberAlarm#,number_alarm_enable=#numberAlarmEnable#
 		WHERE id=#id#
 		]]>
 	</update>
@@ -56,8 +60,9 @@
 
 	<select id="list" parameterClass="map" resultClass="Ware">
 		<![CDATA[
-		SELECT id,category_id AS
-		categoryId,name,cost,price,barcode,number,status,lowest_cost AS lowestCost
+		SELECT id,category_id AS categoryId,name,cost,price,
+		barcode,number,status,lowest_cost AS lowestCost,
+		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable
 		FROM erp.ware
 		]]>
 		<dynamic>
@@ -74,8 +79,9 @@
 	<select id="listByCategoryId" parameterClass="map"
 		resultClass="Ware">
 		<![CDATA[
-		SELECT id,category_id AS
-		categoryId,name,cost,price,barcode,number,status,lowest_cost AS	lowestCost
+		SELECT id,category_id AS categoryId,name,cost,price,
+		barcode,number,status,lowest_cost AS lowestCost,
+		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable
 		FROM erp.ware WHERE category_id=#id#
 		]]>
 		<dynamic>
@@ -88,11 +94,32 @@
 		ORDER BY name
 		]]>
 	</select>
+	
+	<select id="listLowNumber" parameterClass="map"
+		resultClass="Ware">
+		<![CDATA[
+		SELECT id,category_id AS categoryId,name,cost,price,
+		barcode,number,status,lowest_cost AS lowestCost,
+		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable
+		FROM erp.ware WHERE number_alarm_enable>0 AND number<=number_alarm
+		]]>
+		<dynamic>
+			<isGreaterThan prepend="AND" property="status"
+				compareValue="-1">
+				status=#status#
+			</isGreaterThan>
+		</dynamic>
+		<![CDATA[
+		ORDER BY number,name
+		]]>
+	</select>
 
 	<select id="findByBarcode" parameterClass="string"
 		resultClass="Ware">
 		<![CDATA[
-		SELECT id,category_id AS categoryId,name,cost,price,barcode,number,status,lowest_cost AS lowestCost
+		SELECT id,category_id AS categoryId,name,cost,price,
+		barcode,number,status,lowest_cost AS lowestCost,
+		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable
 		FROM erp.ware
 		WHERE barcode=#barcode#
 		]]>
@@ -101,7 +128,9 @@
 	<select id="findByKeywords" parameterClass="list"
 		resultClass="Ware">
 		<![CDATA[
-		SELECT id,category_id AS categoryId,name,cost,price,barcode,number,status,lowest_cost AS lowestCost
+		SELECT id,category_id AS categoryId,name,cost,price,
+		barcode,number,status,lowest_cost AS lowestCost,
+		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable
 		FROM erp.ware
 		]]>
 		<dynamic prepend="WHERE">
@@ -114,36 +143,13 @@
 		]]>
 	</select>
 
-	<select id="findAdvanced" parameterClass="map" resultClass="Ware">
-		<![CDATA[
-		SELECT id,category_id AS categoryId,name,cost,price,barcode,number,status,lowest_cost AS lowestCost
-		FROM erp.ware
-		WHERE
-		]]>
-		<dynamic>
-			<iterate open="(" close=")" conjunction="AND"
-				property="keywords">
-				strpos(lower(name), #keywords[]#) > 0
-			</iterate>
-		</dynamic>
-		<dynamic prepend="AND">number BETWEEN #min# AND #max#</dynamic>
-		<![CDATA[
-		ORDER BY name
-		]]>
-	</select>
-
-	<select id="findByNum" parameterClass="map" resultClass="Ware">
-		<![CDATA[
-		SELECT id,category_id AS categoryId,name,cost,price,barcode,number,status,lowest_cost AS lowestCost
-		FROM erp.ware
-		WHERE number BETWEEN #min# AND #max#
-		]]>
-	</select>
-
 	<select id="fullTextSearch" parameterClass="string"
 		resultClass="Ware">
 		<![CDATA[
-		SELECT id,category_id AS categoryId,name,cost,price,barcode,number,status,lowest_cost AS lowestCost, ts_rank (idx_name, q) AS r
+		SELECT id,category_id AS categoryId,name,cost,price,
+		barcode,number,status,lowest_cost AS lowestCost,
+		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable,
+		ts_rank (idx_name, q) AS r
 		FROM erp.ware, to_tsquery(#content#) q
 		WHERE idx_name @@ q
 		ORDER BY r DESC

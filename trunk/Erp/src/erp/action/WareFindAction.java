@@ -20,8 +20,6 @@ public class WareFindAction extends ActionSupport {
 
     private String keyword;
     private String barcode;
-    private int min;
-    private int max;
 
     private List<Ware> wareList;
 
@@ -31,16 +29,8 @@ public class WareFindAction extends ActionSupport {
             logger.info("findByBarcode:" + barcode);
             wareList = wareService.findByBarcode(barcode);
         } else if ((keyword != null) && keyword.isEmpty() == false) {
-            logger.info("findByKeywords:" + keyword + " between(" + min + ","
-                    + max + ")");
-            wareList = wareService.findByKeywords(keyword, min, max);
-        } else if (min > 0 || max > 0) {
-            logger.info("findByNumber:(" + min + "," + max + ")");
-            try {
-                wareList = wareService.findByNum(min, max);
-            } catch (NumberFormatException ex) {
-                logger.error("Search from num error:" + ex.toString());
-            }
+            logger.info("findByKeywords:" + keyword);
+            wareList = wareService.findByKeywords(keyword);
         }
         return SUCCESS;
     }
@@ -83,22 +73,6 @@ public class WareFindAction extends ActionSupport {
 
     public String getBarcode() {
         return barcode;
-    }
-
-    public int getMin() {
-        return min;
-    }
-
-    public void setMin(int min) {
-        this.min = min;
-    }
-
-    public int getMax() {
-        return max;
-    }
-
-    public void setMax(int max) {
-        this.max = max;
     }
 
     public void setKeywordService(KeywordService keywordService) {

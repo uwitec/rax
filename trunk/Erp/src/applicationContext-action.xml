@@ -10,6 +10,10 @@
 		scope="prototype"
 	-->
 
+	<bean id="IndexAction" class="erp.action.IndexAction"
+		scope="prototype">
+		<property name="wareService" ref="WareService" />
+	</bean>
 	<bean id="WareAction" class="erp.action.WareAction"
 		scope="prototype">
 		<property name="wareService" ref="WareService" />

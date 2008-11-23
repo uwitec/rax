@@ -60,6 +60,8 @@ dojo.addOnLoad(function (){
     <@s.textfield label="成本" name="cost"/>
     <@s.textfield label="价格" name="price"/>
     <@s.textfield label="数量" name="number"/>
+    <@s.textfield label="警戒数量" name="numberAlarm"/>
+    <@s.checkbox label="启用警戒" name="numberAlarmEnable"/>
     <@s.select label="分类" name="categoryId" list="categoryMap"/>
     <@s.textarea rows="3" cols="40" label="关键词" name="tokenize"/>
     <@s.hidden name="id"/>

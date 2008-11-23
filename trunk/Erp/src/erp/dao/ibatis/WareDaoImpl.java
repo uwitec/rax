@@ -33,26 +33,6 @@ public class WareDaoImpl extends SqlMapClientDaoSupport implements WareDao {
     }
 
     @Override
-    public List<Ware> findAdvanced(List<String> keywordList, int min, int max)
-            throws DataAccessException {
-        Map param = new HashMap();
-        param.put("keywords", keywordList);
-        param.put("min", min);
-        param.put("max", max);
-        return getSqlMapClientTemplate().queryForList("Ware.findAdvanced",
-                param);
-    }
-
-    @Override
-    public List<Ware> findByNum(int min, int max) throws DataAccessException {
-        Map param = new HashMap();
-        param.put("min", min);
-        param.put("max", max);
-        // System.out.println("min:" + min + " max:" + max);
-        return getSqlMapClientTemplate().queryForList("Ware.findByNum", param);
-    }
-
-    @Override
     public List<Ware> fullTextSearch(String content) throws DataAccessException {
         return getSqlMapClientTemplate().queryForList("Ware.fullTextSearch",
                 content);
@@ -109,6 +89,14 @@ public class WareDaoImpl extends SqlMapClientDaoSupport implements WareDao {
         param.put("id", id);
         param.put("status", status);
         return getSqlMapClientTemplate().queryForList("Ware.listByCategoryId",
+                param);
+    }
+
+    @Override
+    public List<Ware> listLowNumber(int status) throws DataAccessException {
+        Map param = new HashMap();
+        param.put("status", status);
+        return getSqlMapClientTemplate().queryForList("Ware.listLowNumber",
                 param);
     }
 

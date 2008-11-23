@@ -47,5 +47,26 @@ function onKeyPress(evt)
 <input id="computeButton" type="button" value=" 计 算 "/>
 </p>
 <div id="dispLayer"></div>
+
+<table>
+<tr>
+<td>数量</td>
+<td>警戒数</td>
+<td>宝贝名称</td>
+<td>操作</td>
+</tr>
+<#if wareList??>
+<#list wareList as ware>
+<tr>
+<td>${ware.number}</td>
+<td>#{ware.numberAlarm}</td>
+<td><a href="ware.action?id=${ware.id?c}">${ware.name}</a></td>
+<td><a href="ware_alarm.action?id=${ware.id?c}">暂时不提醒</a></td>
+</tr>
+</#list>
+</#if>
+</table>
+<br />
+
 </body>
 </html>

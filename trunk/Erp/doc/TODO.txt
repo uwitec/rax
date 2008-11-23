@@ -1,5 +1,7 @@
 ﻿<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
+发货单上如果行数太多, 提示需要大纸打印
+手动调整词库的页面
 更新GoogleCode
 
 打印之后提供按钮设置已打印, 列表显示时, 可根据状态, 设置颜色
