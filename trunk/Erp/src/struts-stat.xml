@@ -15,7 +15,11 @@
 		<action name="stat_summary" class="StatAction">
 			<result name="success">/stat/summary.ftl</result>
 		</action>
-		 
+
+		<action name="keyword" class="KeywordAction">
+			<result name="success">/stat/keyword.ftl</result>
+		</action>
+
 	</package>
 
 </struts>

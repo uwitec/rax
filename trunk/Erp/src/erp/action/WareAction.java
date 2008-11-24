@@ -108,17 +108,6 @@ public class WareAction extends ActionSupport {
         return SUCCESS;
     }
 
-    public String parseToken() throws Exception {
-        List<String> tokenList = keywordService.parseToken(name);
-        StringBuffer tokenBuf = new StringBuffer();
-        for (String token : tokenList) {
-            tokenBuf.append(token);
-            tokenBuf.append(" ");
-        }
-        tokenize = tokenBuf.toString().trim();
-        return SUCCESS;
-    }
-
     public String updateAlarm() throws Exception {
         try {
             Ware obj = wareService.getWareById(id);

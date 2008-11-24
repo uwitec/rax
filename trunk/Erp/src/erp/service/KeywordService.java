@@ -45,10 +45,11 @@ public class KeywordService {
         return keywordDao.read(q) != null;
     }
 
-    public void saveTokens(String content) {
+    public int saveTokens(String content) {
         logger.info("saveTokens:" + content);
         String[] tokenList = content.split(" ");
         int maxTokenLength = 2;
+        int tokenNum = 0;
         Util u = utilDao.read("max_token_length");
         if (u == null) {
             utilDao.create(new Util("max_token_length", String
@@ -63,15 +64,18 @@ public class KeywordService {
             case Character.OTHER_LETTER: // 5
                 if (token.length() > 1) {
                     // logger.info("Token to be saved:" + token);
-                    if (keywordDao.create(token)
-                            && token.length() > maxTokenLength) {
-                        u.setValue(String.valueOf(token.length()));
-                        utilDao.update(u);
+                    if (keywordDao.create(token)) {
+                        tokenNum++;
+                        if (token.length() > maxTokenLength) {
+                            u.setValue(String.valueOf(token.length()));
+                            utilDao.update(u);
+                        }
                     }
                 }
                 break;
             }
         }
+        return tokenNum;
     }
 
     public List<String> parseToken(String content) {
@@ -156,6 +160,10 @@ public class KeywordService {
         // logger.info("finalToken:" + token);
 
         return finalTokenList;
+    }
+
+    public int getCount() {
+        return keywordDao.count(0);
     }
 
     public static void main(String[] args) throws Exception {

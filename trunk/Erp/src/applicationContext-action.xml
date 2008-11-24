@@ -82,6 +82,11 @@
 		<property name="expressService" ref="ExpressService" />
 		<property name="utilService" ref="UtilService" />
 	</bean>
+	
+	<bean id="KeywordAction" class="erp.action.KeywordAction"
+		scope="prototype">
+		<property name="keywordService" ref="KeywordService" />
+	</bean>
 
 	<bean id="SellItemImportAction"
 		class="erp.action.SellItemImportAction" scope="prototype">

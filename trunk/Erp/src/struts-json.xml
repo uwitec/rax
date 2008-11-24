@@ -40,13 +40,20 @@
 			</result>
 		</action>
 
-		<action name="tokenize" class="WareAction"
+		<action name="tokenize" class="KeywordAction"
 			method="parseToken">
 			<result type="json">
 				<param name="includeProperties">tokenize</param>
 			</result>
 		</action>
-		
+
+		<action name="save_tokens" class="KeywordAction"
+			method="saveTokens">
+			<result type="json">
+				<param name="includeProperties">status</param>
+			</result>
+		</action>
+
 	</package>
 
 </struts>

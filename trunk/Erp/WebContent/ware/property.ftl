@@ -8,7 +8,7 @@
 
 function parseToken() {
 	var params = {
-		name: dojo.byId("ware_save_name").value
+		tokenize: dojo.byId("ware_save_name").value
 	}
 	dojo.xhrPost({
 		url: "/erp/json/tokenize.action",
