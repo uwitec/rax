@@ -2,8 +2,6 @@ package erp.action;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import com.opensymphony.xwork2.ActionSupport;
 
 import erp.service.KeywordService;
@@ -11,7 +9,7 @@ import erp.service.KeywordService;
 public class KeywordAction extends ActionSupport {
 
     private static final long serialVersionUID = 1L;
-    private final static Logger logger = Logger.getLogger(KeywordAction.class);
+    //private final static Logger logger = Logger.getLogger(KeywordAction.class);
 
     private KeywordService keywordService = null;
 

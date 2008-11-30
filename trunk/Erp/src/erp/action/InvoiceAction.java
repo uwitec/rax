@@ -2,8 +2,6 @@ package erp.action;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import com.opensymphony.xwork2.ActionSupport;
 
 import erp.model.Sell;
@@ -15,7 +13,7 @@ import erp.service.WareService;
 public class InvoiceAction extends ActionSupport {
 
     private static final long serialVersionUID = 1L;
-    private final static Logger logger = Logger.getLogger(InvoiceAction.class);
+    //private final static Logger logger = Logger.getLogger(InvoiceAction.class);
 
     private SellService sellService = null;
     private SellItemService sellItemService = null;

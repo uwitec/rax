@@ -41,8 +41,8 @@ public class ExpressAction implements Action {
     private String senderPhone;
     private String senderAddress;
     private String senderPostCode;
-    List dateSel;
-    Map expressSel;
+    List<String> dateSel;
+    Map<Integer, String> expressSel;
 
     public InputStream getInputStream() throws Exception {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
@@ -193,13 +193,13 @@ public class ExpressAction implements Action {
             c.setTimeInMillis(d2.getTime() + 86400000);
             Date d3 = c.getTime();
 
-            dateSel = new ArrayList();
+            dateSel = new ArrayList<String>();
             dateSel.add(df.format(d1));
             dateSel.add(df.format(d2));
             dateSel.add(df.format(d3));
 
             sender = "李立林";
-            senderAddress = "浙江省杭州市滨江区\n签收前请务必确认包裹外包装完好,宝贝无破损,如有破损请直接拒收\n签收后请当场清点数量,如有短缺请在回执单上写明\n事后申述缺损,恕不赔偿";
+            senderAddress = "浙江省杭州市滨江区\n签收前请确认内容物无缺损,如破损请拒收,如短缺请快递员在回执上证明数量";
             senderPhone = "0571-85790698";
             senderPostCode = "310053";
 
@@ -248,11 +248,11 @@ public class ExpressAction implements Action {
         this.sell = sell;
     }
 
-    public void setDateSel(List dateSel) {
+    public void setDateSel(List<String> dateSel) {
         this.dateSel = dateSel;
     }
 
-    public List getDateSel() {
+    public List<String> getDateSel() {
         return dateSel;
     }
 
@@ -312,11 +312,11 @@ public class ExpressAction implements Action {
         this.expressService = expressService;
     }
 
-    public Map getExpressSel() {
+    public Map<Integer, String> getExpressSel() {
         return expressSel;
     }
 
-    public void setExpressSel(Map expressSel) {
+    public void setExpressSel(Map<Integer, String> expressSel) {
         this.expressSel = expressSel;
     }
 

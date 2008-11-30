@@ -18,10 +18,10 @@ public class KeywordService {
     private KeywordDao keywordDao;
     private UtilDao utilDao;
 
-    private Hashtable tokenTable;
+    private Hashtable<String, String> tokenTable;
 
     public KeywordService() {
-        tokenTable = new Hashtable();
+        tokenTable = new Hashtable<String, String>();
         tokenTable.put("rohto", "rohto");
         tokenTable.put("乐敦", "乐敦");
         tokenTable.put("肌研", "肌研");

@@ -139,7 +139,7 @@ label { cursor:pointer; }
     <@s.textfield label="收取运费" name="fee"/>
     <@s.radio name="feeSel" list="{0, 5, 10, 12, 15, 20, 25}"/>
     <@s.textfield label="实际运费" name="feeReal"/>
-    <@s.radio name="feeRealSel" list="{0, 4, 5, 8, 10, 12, 15, 20, 25}"/>
+    <@s.radio name="feeRealSel" list="{0, 3.5, 4, 5, 8, 10, 12, 15, 20, 25}"/>
     <@s.radio label="快递" name="expressId" list="expressSel"/>
     <@s.textfield label="快递单备注" name="commentExpress"/>
     <@s.textfield label="发货单备注" name="commentInvoice"/>

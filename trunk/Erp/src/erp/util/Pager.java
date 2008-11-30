@@ -84,7 +84,7 @@ public class Pager {
         return currentPage == totalPage;
     }
 
-    public Map getLinks() {
+    public Map<String, String> getLinks() {
         HashMap<String, String> m = new HashMap<String, String>();
 
         return m;

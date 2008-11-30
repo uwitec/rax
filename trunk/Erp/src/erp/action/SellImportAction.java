@@ -233,11 +233,11 @@ public class SellImportAction extends ActionSupport {
         this.date = date;
     }
 
-    public List getDateSel() {
+    public List<String> getDateSel() {
         return dateSel;
     }
 
-    public void setDateSel(List dateSel) {
+    public void setDateSel(List<String> dateSel) {
         this.dateSel = dateSel;
     }
 }
