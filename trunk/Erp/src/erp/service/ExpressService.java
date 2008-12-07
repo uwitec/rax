@@ -112,7 +112,7 @@ public class ExpressService {
         case 3: // 中通
             obj.setDateFormat("MM    dd");
             obj.setSize(new ExpressPos(658, 360));
-            obj.setDate(new ExpressPos(105, 57));           // x:37 y:20
+            obj.setDate(new ExpressPos(111, 57));           // x:39 y:20
             obj.setSrcPhone(new ExpressPos(119, 159));      // x:42 y:56
             obj.setSrcPostCode(new ExpressPos(241, 159));   // x:85 y:56
             obj.setDstPhone1(new ExpressPos(374, 159));     // x:132 y:56

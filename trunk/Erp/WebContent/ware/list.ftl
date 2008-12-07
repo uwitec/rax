@@ -19,16 +19,21 @@
 <@s.form action="ware_search" target="ware_search_result" theme="simple">
     搜索关键字:<@s.textfield label="关键字" name="keyword"/><@s.submit value=" 提 交 "/>
 </@s.form>
-<br />
 
 <div>当前分类宝贝数:<#if wareList??>${wareList.size()}<#else>0</#if></div>
 <div class="categoryList">
 <#if categoryList??>
+<#assign w = 0>
 <#list categoryList as category>
 <#if category.id = categoryId>
 [ ${category.name} ]
 <#else>
 <a href="?categoryId=${category.id}" title="${category.num}">${category.name}</a>
+</#if>
+<#assign w = w + category.name?length/>
+<#if 70 < w>
+  <br />
+  <#assign w = 0>
 </#if>
 </#list>
 </#if>
