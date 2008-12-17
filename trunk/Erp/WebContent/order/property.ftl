@@ -19,8 +19,9 @@ function setFee(value) {
 
 function onFeeChange(value) {
 	var objs = document.getElementsByName("feeSel");
+	value = parseFloat(value);
 	for (var i = 0; i < objs.length; i++) {
-		if (Math.floor(objs[i].value) == value) objs[i].checked = true
+		if (parseFloat(objs[i].value) == value) objs[i].checked = true
 		else objs[i].checked = false;
 	}
 }
@@ -59,7 +60,7 @@ label { cursor:pointer; }
 
 <#if id != 0>
 <a href="order_item.action?orderId=${id?c}">添加新项目</a>
-<a href="order_export.action?orderId=${id?c}" target="_blank">导出XLS档</a>
+<a href="order_export.action?id=${id?c}" target="_blank">导出XLS档</a>
 <br /><br />
 </#if>
 
