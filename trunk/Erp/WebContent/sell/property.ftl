@@ -15,17 +15,20 @@ function setFeeReal(value) {
 }
 function onFeeChange(value) {
 	var objs = document.getElementsByName("feeSel");
-	//alert("onFeeChange:" + value);
+	value = parseFloat(value);
+	//console.debug("onFeeChange:" + value);
 	for (var i = 0; i < objs.length; i++) {
-		if (Math.floor(objs[i].value) == value) objs[i].checked = true
+		if (parseFloat(objs[i].value) == value) objs[i].checked = true
 		else objs[i].checked = false;
 	}
 }
 function onFeeRealChange(value) {
 	var objs = document.getElementsByName("feeRealSel");
-	//alert("onFeeRealChange:" + value);
+	value = parseFloat(value);
+	//console.debug("onFeeRealChange:" + value);
 	for (var i = 0; i < objs.length; i++) {
-		if (Math.floor(objs[i].value) == value) objs[i].checked = true;
+	    radioValue = parseFloat(objs[i].value);
+		if (radioValue == value) objs[i].checked = true;
 		else objs[i].checked = false;
 	}
 }

@@ -8,139 +8,164 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import erp.model.Sell;
 import erp.model.SellItem;
+import erp.model.Ware;
 import erp.service.SellItemService;
 import erp.service.SellService;
+import erp.service.WareService;
 
 public class SellItemAction extends ActionSupport {
 
-    private static final long serialVersionUID = 1L;
-    private final static Logger logger = Logger.getLogger(SellItemAction.class);
+	private static final long serialVersionUID = 1L;
+	private final static Logger logger = Logger.getLogger(SellItemAction.class);
 
-    private SellService sellService = null;
-    private SellItemService sellItemService = null;
+	private WareService wareService = null;
+	private SellService sellService = null;
+	private SellItemService sellItemService = null;
 
-    private int id;
-    private int sellId;
-    private int wareId;
-    private double price;
-    private int number;
-    
-    private List<SellItem> sellItemList;
+	private int id;
+	private int sellId;
+	private int wareId;
+	private double price;
+	private int number;
+	private Ware ware;
 
-    public String get() throws Exception {
-        try {
-            // DecimalFormat f = new DecimalFormat("###0.00");
-            SellItem item = sellItemService.getSellItemById(id);
-            if (item != null) {
-                sellId = item.getSellId();
-                wareId = item.getWareId();
-                price = item.getPrice();
-                number = item.getNumber();
-            }
-        } catch (Exception ex) {
-            logger.error(ex.toString());
-            return ERROR;
-        }
-        return SUCCESS;
-    }
+	private List<SellItem> sellItemList;
 
-    public String delete() throws Exception {
-        try {
-            sellItemService.deleteSellItem(id);
-        } catch (Exception ex) {
-            logger.error(ex.toString());
-            return ERROR;
-        }
-        return SUCCESS;
-    }
+	public String get() throws Exception {	
+		try {
+			SellItem item = sellItemService.getSellItemById(id);
+			if (item != null) {
+				sellId = item.getSellId();
+				wareId = item.getWareId();
+				price = item.getPrice();
+				number = item.getNumber();
+				ware = wareService.getWareById(wareId);
+			}
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 
-    @Override
-    public String execute() throws Exception {
-        try {
-            if (sellId == 0) {
-                Sell sell = new Sell();
-                sellId = sellService.createSell(sell);
-            }
-            SellItem obj = (id > 0) ? sellItemService.getSellItemById(id)
-                    : new SellItem();
-            obj.setSellId(sellId);
-            obj.setWareId(wareId);
-            obj.setPrice(price);
-            obj.setNumber(number);
-            if (id > 0) {
-                sellItemService.updateSellItem(obj);
-            } else {
-                id = sellItemService.createSellItem(obj);
-            }
-        } catch (Exception ex) {
-            logger.error(ex.toString());
-            return ERROR;
-        }
-        return SUCCESS;
-    }
+	public String delete() throws Exception {
+		try {
+			sellItemService.deleteSellItem(id);
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 
-    public int getId() {
-        return id;
-    }
+	@Override
+	public String execute() throws Exception {
+		try {
+			if (sellId == 0) {
+				Sell sell = new Sell();
+				sellId = sellService.createSell(sell);
+			}
+			SellItem obj = (id > 0) ? sellItemService.getSellItemById(id)
+					: new SellItem();
+			obj.setSellId(sellId);
+			obj.setWareId(wareId);
+			obj.setPrice(price);
+			obj.setNumber(number);
+			if (id > 0) {
+				sellItemService.updateSellItem(obj);
+			} else {
+				id = sellItemService.createSellItem(obj);
+			}
+			Ware w = wareService.getWareById(wareId);
+			if (w.getPrice() == 0) {
+				w.setPrice(price);
+				wareService.updateWare(w);
+			}
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public SellItemService getSellItemService() {
-        return sellItemService;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setSellItemService(SellItemService sellItemService) {
-        this.sellItemService = sellItemService;
-    }
+	public SellItemService getSellItemService() {
+		return sellItemService;
+	}
 
-    public int getSellId() {
-        return sellId;
-    }
+	public void setSellItemService(SellItemService sellItemService) {
+		this.sellItemService = sellItemService;
+	}
 
-    public void setSellId(int sellId) {
-        this.sellId = sellId;
-    }
+	public int getSellId() {
+		return sellId;
+	}
 
-    public int getWareId() {
-        return wareId;
-    }
+	public void setSellId(int sellId) {
+		this.sellId = sellId;
+	}
 
-    public void setWareId(int wareId) {
-        this.wareId = wareId;
-    }
+	public int getWareId() {
+		return wareId;
+	}
 
-    public double getPrice() {
-        return price;
-    }
+	public void setWareId(int wareId) {
+		this.wareId = wareId;
+	}
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+	public double getPrice() {
+		return price;
+	}
 
-    public int getNumber() {
-        return number;
-    }
+	public void setPrice(double price) {
+		this.price = price;
+	}
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
+	public int getNumber() {
+		return number;
+	}
 
-    public SellService getSellService() {
-        return sellService;
-    }
+	public void setNumber(int number) {
+		this.number = number;
+	}
 
-    public void setSellService(SellService sellService) {
-        this.sellService = sellService;
-    }
+	public SellService getSellService() {
+		return sellService;
+	}
 
-    public List<SellItem> getSellItemList() {
-        return sellItemList;
-    }
+	public void setSellService(SellService sellService) {
+		this.sellService = sellService;
+	}
 
-    public void setSellItemList(List<SellItem> sellItemList) {
-        this.sellItemList = sellItemList;
-    }
+	public List<SellItem> getSellItemList() {
+		return sellItemList;
+	}
+
+	public void setSellItemList(List<SellItem> sellItemList) {
+		this.sellItemList = sellItemList;
+	}
+
+	public WareService getWareService() {
+		return wareService;
+	}
+
+	public void setWareService(WareService wareService) {
+		this.wareService = wareService;
+	}
+
+	public Ware getWare() {
+		return ware;
+	}
+
+	public void setWare(Ware ware) {
+		this.ware = ware;
+	}
 
 }

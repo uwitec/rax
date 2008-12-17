@@ -78,11 +78,12 @@ function onKeyIn(event) {
 function onSelect(event) {
 	if (this.selectedIndex < 0) return;
 	var obj = this.options[this.selectedIndex];
-	//console.debug(obj.text + ":" + obj.value);
+	// console.debug(obj.text + ":" + obj.value);
 
 	var objId		= dojo.byId("sell_item_save_wareId");
 	var objPrice	= dojo.byId("sell_item_save_price");
 	var objNum		= dojo.byId("sell_item_save_number");
+	var objName		= dojo.byId("sell_item_save_ware_name");
 	var ware;
 	for (var i = 0; i < wareList.length; i++) {
 		ware = wareList[i];
@@ -90,6 +91,8 @@ function onSelect(event) {
 			objId.value		= ware.id;
 			objPrice.value	= ware.price;
 			objNum.value	= 1;
+			objName.innerHTML = ware.name;
+			// console.debug(ware.name);
 			break;
 		}
 	}
@@ -111,13 +114,13 @@ function onSubmit() {
 				var objId		= dojo.byId("sell_item_save_wareId");
 				var objPrice	= dojo.byId("sell_item_save_price");
 				var objNum		= dojo.byId("sell_item_save_number");
-				var objResult	= dojo.byId("addList");
+				var objItems	= dojo.byId("itemsTable");
 				var ware;
 				if (wareList != null) {
 					for (var i = 0; i < wareList.length; i++) {
 						ware = wareList[i];
 						if (objId.value == ware.id) {
-							addOption(objResult, ware.name + " * " + objNum.value, null, true);
+							addRow(objItems, [objNum.value, objPrice.value, ware.name]);
 							break;
 						}
 					}
@@ -146,6 +149,18 @@ function onSubmit() {
 	});
 }
 
+function addRow(objTable, cells) {
+	var row;
+	var cell;
+	try {
+		row = objTable.insertRow(objTable.rows.length);
+		for (var i = 0; i < cells.length; i++) {
+			cell = row.insertCell(row.cells.length);
+			cell.innerHTML = cells[i];
+		}
+	} catch (ex) { alert(ex.description); }
+}
+
 dojo.addOnLoad(function (){
 	var obj;
 	obj = dojo.byId("search_result");
@@ -155,12 +170,18 @@ dojo.addOnLoad(function (){
 	obj.focus();
 	obj = dojo.byId("submitBtn");
 	dojo.connect(obj, "onclick", obj, onSubmit);
+	
+	obj = dojo.byId("sell_item_save_id");
+	if (obj.value == 0) {
+		dojo.byId("add_div").style.display = "block";
+	}
 });
 
 </script>
 <style type="text/css">
 select { width:380px; }
 label { cursor:pointer; }
+#add_div { display:none; }
 </style>
 </head>
 
@@ -174,22 +195,41 @@ label { cursor:pointer; }
 
 <div>
 <@s.form action="sell_item_save">
-    <@s.textfield label="宝贝编号" name="wareId"/>
+    <@s.label label="宝贝名称" name="ware.name"/>
     <@s.textfield label="价格" name="price"/>
     <@s.textfield label="数量" name="number"/>
-    <@s.hidden name="id"/>
     <@s.hidden name="sellId"/>
+    <@s.hidden name="wareId"/>
+    <@s.hidden name="id"/>
 </@s.form>
 <input type="button" id="submitBtn" value=" 提 交 "/>
 <span id="submitStatus"></span>
 </div>
 <br />
 
+<div id="add_div">
 <div>
 <@s.textfield label="搜索" name="search"/>
 <a href="ware.action" target="_blank">添加新的宝贝</a><br />
 <@s.select name="search_result" size="16"/><br />
-<@s.select name="addList"/>
+</div>
+
+<table id="itemsTable">
+<tr>
+<td>数量</td>
+<td>价格</td>
+<td>宝贝名称</td>
+</tr>
+<#if sellItemList??>
+<#list sellItemList as item>
+<tr>
+<td>${item.number}</td>
+<td>${item.price}</td>
+<td>${item.ware.name}</td>
+</tr>
+</#list>
+</#if>
+</table>
 </div>
 
 </body>

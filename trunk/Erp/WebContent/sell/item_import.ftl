@@ -46,7 +46,7 @@ function addRow(objTable, cells) {
 		}
 	} catch (ex) { alert(ex.description); }
 	return;
-	
+
 	try {
 		row = document.createElement("TR");
 		for (var i = 0; i < cells.length; i++) {

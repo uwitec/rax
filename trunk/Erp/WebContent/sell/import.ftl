@@ -20,18 +20,18 @@ function setDate(event) {
 	obj.value	= this.value;
 }
 function onFeeChange(event) {
-	var value = isNaN(event) ? this.value : event;
+	var value = isNaN(event) ? parseFloat(this.value) : event;
 	var objs = document.getElementsByName("feeSel");
 	for (var i = 0; i < objs.length; i++) {
-		if (Math.floor(objs[i].value) == value) objs[i].checked = true
+		if (parseFloat(objs[i].value) == value) objs[i].checked = true
 		else objs[i].checked = false;
 	}
 }
 function onFeeRealChange(event) {
-	var value = isNaN(event) ? this.value : event;
+	var value = isNaN(event) ? parseFloat(this.value) : event;
 	var objs = document.getElementsByName("feeRealSel");
 	for (var i = 0; i < objs.length; i++) {
-		if (Math.floor(objs[i].value) == value) objs[i].checked = true;
+		if (parseFloat(objs[i].value) == value) objs[i].checked = true;
 		else objs[i].checked = false;
 	}
 }

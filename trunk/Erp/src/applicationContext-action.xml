@@ -45,6 +45,7 @@
 	</bean>
 	<bean id="SellItemAction" class="erp.action.SellItemAction"
 		scope="prototype">
+		<property name="wareService" ref="WareService" />
 		<property name="sellService" ref="SellService" />
 		<property name="sellItemService" ref="SellItemService" />
 	</bean>
