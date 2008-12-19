@@ -1,5 +1,6 @@
 ﻿<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
+解析评价信息
 为不同的快递商分别保存结算日期
 发货单上如果行数太多, 提示需要大纸打印
 手动调整词库的页面
