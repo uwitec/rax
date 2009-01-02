@@ -45,6 +45,7 @@ function onImportContent(event) {
 	var addr = this.value;
 	var addrs;
 	addrs = addr.split("，");
+	if (addrs.length < 2) return;
 	addr = addrs[2];
 	if (addrs.length > 4) {
 		addr = addrs[3];
@@ -69,17 +70,17 @@ function onImportContent(event) {
 		case "天津市":
 			fee = 10;
 			feeReal = 8;
-			break;	
+			break;
 		default:
 			fee = 10;
 			feeReal = 10;
-			//if (addrs[0] == "四川省" && addrs[1] == "成都市") feeReal = 8;
+			if (addrs[0] == "四川省" && addrs[1] == "成都市") feeReal = 8;
 	}
 	//console.debug("addr:" + addr + " fee:" + fee + " feeReal:" + feeReal);
-	
+
 	setFee(fee);
 	onFeeChange.call(null, fee);
-	
+
 	setFeeReal(feeReal);
 	onFeeRealChange.call(null, feeReal);
 }
@@ -87,7 +88,7 @@ dojo.addOnLoad(function (){
 	var obj;
 	var sels;
 	var sel;
-	
+
 	obj	= dojo.byId("sell_import_date");
 	dojo.connect(obj, "onchange", obj, onDateChange);
 	sels = document.getElementsByName("sel");
@@ -98,7 +99,7 @@ dojo.addOnLoad(function (){
 			sel.checked = true;
 		}
 	}
-	
+
 	obj	= dojo.byId("sell_import_fee");
 	dojo.connect(obj, "onkeyup", obj, onFeeChange);
 	sels = document.getElementsByName("feeSel");
@@ -107,7 +108,7 @@ dojo.addOnLoad(function (){
 		if (Math.floor(sels[i].value) == obj.value) sels[i].checked = true;
 		else sels[i].checked = false;
 	}
-	
+
 	obj	= dojo.byId("sell_import_feeReal");
     dojo.connect(obj, "onkeyup", obj, onFeeRealChange);
 	sels = document.getElementsByName("feeRealSel");
@@ -116,10 +117,10 @@ dojo.addOnLoad(function (){
 		if (Math.floor(sels[i].value) == obj.value) sels[i].checked = true;
 		else sels[i].checked = false;
 	}
-	
+
 	obj = dojo.byId("sell_import_content");
 	dojo.connect(obj, "onkeyup", obj, onImportContent);
-	dojo.connect(obj, "onfocus", obj, obj.select);
+	//dojo.connect(obj, "onfocus", obj, obj.select);
 });
 </script>
 <style type="text/css">
