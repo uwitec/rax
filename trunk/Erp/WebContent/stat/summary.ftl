@@ -116,9 +116,10 @@ function onSave() {
 
 </head>
 
-<body  class="tundra">
+<body class="tundra">
 <a href="../index.action">返回首页</a>
 <a href="keyword.action">关键词管理</a>
+<a href="evaluation.action">评价格式转换</a>
 <br /><br />
 
 <div>库存数:#{storeAmount;m2M2}</div><br />

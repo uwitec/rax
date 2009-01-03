@@ -33,22 +33,19 @@
 			</result>
 		</action>
 
-		<action name="save_fee_stat_date" class="StatAction"
-			method="saveFeeStatDate">
+		<action name="save_fee_stat_date" class="StatAction" method="saveFeeStatDate">
 			<result type="json">
 				<param name="includeProperties">endDate</param>
 			</result>
 		</action>
 
-		<action name="tokenize" class="KeywordAction"
-			method="parseToken">
+		<action name="tokenize" class="KeywordAction" method="parseToken">
 			<result type="json">
 				<param name="includeProperties">tokenize</param>
 			</result>
 		</action>
 
-		<action name="save_tokens" class="KeywordAction"
-			method="saveTokens">
+		<action name="save_tokens" class="KeywordAction" method="saveTokens">
 			<result type="json">
 				<param name="includeProperties">status</param>
 			</result>

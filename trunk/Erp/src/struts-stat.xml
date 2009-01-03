@@ -20,6 +20,10 @@
 			<result name="success">/stat/keyword.ftl</result>
 		</action>
 
+		<action name="evaluation" class="EvaluationAction">
+			<result name="success">/stat/evaluation.ftl</result>
+		</action>
+		
 	</package>
 
 </struts>

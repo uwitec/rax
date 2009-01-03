@@ -92,10 +92,7 @@ dojo.addOnLoad(function (){
 </head>
 
 <body>
-<@s.url id="urlReturn" action="index">
-	<@s.param name="page" value="page" />
-</@s.url>
-<a href="${urlReturn}">返回</a><br /><br />
+<a href="stat_summary.action">返回</a><br /><br />
 
 <div>词库关键词数量: ${status}</div>
 <br />

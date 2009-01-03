@@ -6,16 +6,13 @@
 <beans>
 
 	<!--
-		All bean must be prototype, or it will have "status" 
-		scope="prototype"
+		All bean must be prototype, or it will have "status" scope="prototype"
 	-->
 
-	<bean id="IndexAction" class="erp.action.IndexAction"
-		scope="prototype">
+	<bean id="IndexAction" class="erp.action.IndexAction" scope="prototype">
 		<property name="wareService" ref="WareService" />
 	</bean>
-	<bean id="WareAction" class="erp.action.WareAction"
-		scope="prototype">
+	<bean id="WareAction" class="erp.action.WareAction" scope="prototype">
 		<property name="wareService" ref="WareService" />
 		<property name="wareCategoryService" ref="WareCategoryService" />
 		<property name="keywordService" ref="KeywordService" />
@@ -26,25 +23,21 @@
 		<property name="wareCategoryService" ref="WareCategoryService" />
 		<property name="wareService" ref="WareService" />
 	</bean>
-	<bean id="WareFindAction" class="erp.action.WareFindAction"
-		scope="prototype">
+	<bean id="WareFindAction" class="erp.action.WareFindAction" scope="prototype">
 		<property name="wareService" ref="WareService" />
 		<property name="keywordService" ref="KeywordService" />
 	</bean>
-	<bean id="SellAction" class="erp.action.SellAction"
-		scope="prototype">
+	<bean id="SellAction" class="erp.action.SellAction" scope="prototype">
 		<property name="sellService" ref="SellService" />
 		<property name="sellItemService" ref="SellItemService" />
 		<property name="wareService" ref="WareService" />
 		<property name="expressService" ref="ExpressService" />
 		<property name="pager" ref="Pager" />
 	</bean>
-	<bean id="SellFindAction" class="erp.action.SellFindAction"
-		scope="prototype">
+	<bean id="SellFindAction" class="erp.action.SellFindAction" scope="prototype">
 		<property name="sellService" ref="SellService" />
 	</bean>
-	<bean id="SellItemAction" class="erp.action.SellItemAction"
-		scope="prototype">
+	<bean id="SellItemAction" class="erp.action.SellItemAction" scope="prototype">
 		<property name="wareService" ref="WareService" />
 		<property name="sellService" ref="SellService" />
 		<property name="sellItemService" ref="SellItemService" />
@@ -54,20 +47,17 @@
 		<property name="sellService" ref="SellService" />
 		<property name="expressService" ref="ExpressService" />
 	</bean>
-	<bean id="InvoiceAction" class="erp.action.InvoiceAction"
-		scope="prototype">
+	<bean id="InvoiceAction" class="erp.action.InvoiceAction" scope="prototype">
 		<property name="sellService" ref="SellService" />
 		<property name="sellItemService" ref="SellItemService" />
 		<property name="wareService" ref="WareService" />
 	</bean>
-	<bean id="ExpressAction" class="erp.action.ExpressAction"
-		scope="prototype">
+	<bean id="ExpressAction" class="erp.action.ExpressAction" scope="prototype">
 		<property name="sellService" ref="SellService" />
 		<property name="expressService" ref="ExpressService" />
 	</bean>
 
-	<bean id="OrderAction" class="erp.action.OrderAction"
-		scope="prototype">
+	<bean id="OrderAction" class="erp.action.OrderAction" scope="prototype">
 		<property name="orderService" ref="OrderService" />
 		<property name="orderItemService" ref="OrderItemService" />
 		<property name="wareService" ref="WareService" />
@@ -77,20 +67,21 @@
 		<property name="orderService" ref="OrderService" />
 		<property name="orderItemService" ref="OrderItemService" />
 	</bean>
-	<bean id="StatAction" class="erp.action.StatAction"
-		scope="prototype">
+	<bean id="StatAction" class="erp.action.StatAction" scope="prototype">
 		<property name="statService" ref="StatService" />
 		<property name="expressService" ref="ExpressService" />
 		<property name="utilService" ref="UtilService" />
 	</bean>
-	
-	<bean id="KeywordAction" class="erp.action.KeywordAction"
-		scope="prototype">
+
+	<bean id="KeywordAction" class="erp.action.KeywordAction" scope="prototype">
 		<property name="keywordService" ref="KeywordService" />
 	</bean>
 
-	<bean id="SellItemImportAction"
-		class="erp.action.SellItemImportAction" scope="prototype">
+	<bean id="EvaluationAction" class="erp.action.EvaluationAction"
+		scope="prototype" />
+
+	<bean id="SellItemImportAction" class="erp.action.SellItemImportAction"
+		scope="prototype">
 		<property name="sellService" ref="SellService" />
 		<property name="sellItemService" ref="SellItemService" />
 		<property name="wareService" ref="WareService" />

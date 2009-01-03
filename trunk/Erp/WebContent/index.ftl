@@ -9,8 +9,8 @@ dojo.addOnLoad(function (){
 	var obj;
 	obj = dojo.byId("computeInput");
 	dojo.connect(obj, "onkeyup", obj, onKeyPress);
-	dojo.connect(obj, "onfocus", obj, obj.select);
-	dojo.connect(obj, "onclick", obj, obj.select);
+	//dojo.connect(obj, "onfocus", obj, obj.select);
+	//dojo.connect(obj, "onclick", obj, obj.select);
 	obj = dojo.byId("computeButton");
 	dojo.connect(obj, "onclick", obj, onCompute);
 });
