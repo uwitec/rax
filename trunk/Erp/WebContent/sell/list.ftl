@@ -40,7 +40,7 @@ ${imTypeSel.get(sell.customerIMType)}:${sell.customerIM}<br />
 <a href="sell.action?id=${sell.id?c}">查看/编辑</a>
 <a href="sell_item_import_input.action?sellId=${sell.id?c}">从淘宝导入售出记录</a>
 <a href="express_input.action?sellId=${sell.id?c}" target="_balnk">打印快递单</a>
-<a href="invoice_input.action?sellId=${sell.id?c}" target="_balnk">打印发货单</a>
+<a href="invoice.action?sellId=${sell.id?c}" target="_balnk">打印发货单</a>
 <#if sell.status = 0>
 <a href="sell_status.action?id=${sell.id?c}&status=1">设为已处理</a>
 </#if>

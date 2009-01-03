@@ -77,11 +77,9 @@ label { cursor:pointer; }
 <td>宝贝名称</td>
 </tr>
 <#if orderItemList??>
-<#assign num=0/>
 <#list orderItemList as item>
-<#assign num = num + 1/>
 <tr>
-<td>${num}</td>
+<td>${item_index + 1}</td>
 <#if order??>
 <#if order.status == 0>
 <td><a href="order_item_delete.action?id=${item.id?c}&orderId=${id?c}" onclick="return confirm('确实要删除这项么？')">删</a></td>

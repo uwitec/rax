@@ -106,7 +106,7 @@ label { cursor:pointer; }
 
 <a href="sell_item.action?sellId=${id?c}">添加购买的宝贝</a>
 <a href="sell_item_import_input.action?sellId=${id?c}">从淘宝导入售出记录</a>
-<a href="invoice_input.action?sellId=${id?c}" target="_balnk">打印发货单</a><br /><br />
+<a href="invoice.action?sellId=${id?c}" target="_balnk">打印发货单</a><br /><br />
 
 <table>
 <tr>
@@ -117,11 +117,9 @@ label { cursor:pointer; }
 <td>宝贝名称</td>
 </tr>
 <#if sellItemList??>
-<#assign num=0/>
 <#list sellItemList as item>
-<#assign num = num + 1/>
 <tr>
-<td>${num}</td>
+<td>${item_index + 1}</td>
 <td><a href="sell_item_delete.action?id=${item.id?c}&sellId=${id?c}" onclick="return confirm('确实要删除这项么？')">删</a></td>
 <td>${item.number}</td>
 <td>${item.price}</td>

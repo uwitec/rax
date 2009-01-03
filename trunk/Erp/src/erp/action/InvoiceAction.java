@@ -19,7 +19,7 @@ public class InvoiceAction extends ActionSupport {
     private SellItemService sellItemService = null;
     private WareService wareService = null;
 
-    private Sell sell;
+    private Sell sell = new Sell();;
     private List<SellItem> sellItemList;
     private int sellId;
 

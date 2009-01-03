@@ -6,6 +6,9 @@
 <style type="text/css">
 body { font-size:16px; margin:0px; }
 </style>
+<style media="print">
+.noprint { display: none; }  
+</style>
 </head>
 
 <body>
@@ -49,5 +52,14 @@ body { font-size:16px; margin:0px; }
     <td colspan="4">本店商品皆为私人消耗品，拆封后恕不退换。</td>  
   </tr>
 </table>
+<div class="noprint">
+<br />
+<br />
+&nbsp;&nbsp;
+<#if sellItemList?size gt 8>
+<font color="red">需换大纸打印</font>
+</#if>
+<a href='invoice_input.action?sellId=${sellId?c}'>编辑</a>
+</div>
 </body>
 </html>
