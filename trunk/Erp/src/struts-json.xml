@@ -51,6 +51,10 @@
 			</result>
 		</action>
 
+		<action name="parse_evaluation" class="EvaluationAction"
+			method="parseEvaluation">
+			<result type="json" />
+		</action>
 	</package>
 
 </struts>

@@ -1,19 +1,21 @@
 package erp.model;
 
-import java.util.Date;
-
 public class Evaluation {
 
 	private String content;
-	private Date pubDate;
+	private String pubDate;
 	private String name;
 	private String explain;
+	private String rank;
+	private boolean haveRank;
 
 	public Evaluation() {
 		content = "";
-		pubDate = new Date();
+		pubDate = "";
 		name = "";
 		explain = "";
+		rank = "";
+		haveRank = false;
 	}
 
 	public String getContent() {
@@ -24,11 +26,11 @@ public class Evaluation {
 		this.content = content;
 	}
 
-	public Date getPubDate() {
+	public String getPubDate() {
 		return pubDate;
 	}
 
-	public void setPubDate(Date pubDate) {
+	public void setPubDate(String pubDate) {
 		this.pubDate = pubDate;
 	}
 
@@ -46,5 +48,21 @@ public class Evaluation {
 
 	public void setExplain(String explain) {
 		this.explain = explain;
+	}
+
+	public String getRank() {
+		return rank;
+	}
+
+	public void setRank(String rank) {
+		this.rank = rank;
+	}
+
+	public boolean isHaveRank() {
+		return haveRank;
+	}
+
+	public void setHaveRank(boolean haveRank) {
+		this.haveRank = haveRank;
 	}
 }

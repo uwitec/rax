@@ -6,38 +6,112 @@
 <script language="javascript" type="text/javascript" src="../js/dojo/dojo.js" djConfig="isDebug:false,usePlainJson:true,bindEncoding:'UTF-8'"></script>
 <script language="javascript" type="text/javascript">
 
-var eList = new Array();
+var evaList = new Array();
 
-function addEvaluation(n, d, c) {
-	try {
-		var e = {
-			name:n,
-			pubDate:d,
-			content:c,
-			rank:""
-		};
-		eList.push(e);
-	} catch (err) {	console.debug(err);	}
-}
-
-function setRank(n, r) {
-	console.debug("setRank", n, r);
-	for (var i = 0; i < eList.length; i++) {
-		if (eList[i].name == n) {
-			eList[i].rank = r;
+function setRank(obj, name)
+{
+	console.debug("setRank: " + name);
+	for (var i = 0; i < evaList.length; i++) {
+		if (evaList[i].name == name) {
+			evaList[i].rank = obj.value;
+			evaList[i].haveRank = true;
 		}
 	}
 }
 
-function onParse() {
-	var obj;
-	obj = dojo.byId("ev_list");
-	obj.style.display = "none";
-	
+function addRow(objTable, cells)
+{
+	var row;
+	var cell;
+	try {
+		row = objTable.insertRow(objTable.rows.length);
+		for (var i = 0; i < cells.length; i++) {
+			cell = row.insertCell(row.cells.length);
+			cell.innerHTML = cells[i];
+		}
+	} catch (ex) { console.debug("addRow failed" + ex.description); }
+}
+
+function buildSelect(id)
+{
+	try {
+		sel = dojo.byId(id);
+		op = document.createElement("OPTION");
+		op.value = "";
+		op.innerHTML = "";
+		sel.appendChild(op);
+		
+		var lv = ["red", "blue", "cap"];
+		for (var i = 0; i < lv.length; i++) {
+			for (var j = 1; j <= 5; j++) {
+				op = document.createElement("OPTION");
+				op.value = "b_" + lv[i] + "_" + j + ".gif";
+				op.innerHTML = j + lv[i];
+				sel.appendChild(op);
+			}
+		}
+	} catch (ex) { console.debug("build Select failed" + ex.desription); }
+}
+
+function onParse(text)
+{
+	var params = { evaluation: text	}
+	dojo.xhrPost({
+		url: "/erp/json/parse_evaluation.action",
+		content: params,
+		preventCache: true,
+		handleAs: "json",
+		load: function(json) {
+			evaList = json.evaList;
+			var objTbl = dojo.byId("evaTable");
+			for (var i = 0; i < evaList.length; i++) {
+				var e = evaList[i];
+				var name = e.name.substr(0, 1) + "****" + e.name.substr(e.name.length - 1, 1);
+				var rank = "";
+				if (e.haveRank) rank = e.rank.length ? "<img src='http://pics.taobaocdn.com/newrank/" + e.rank + "'/>" : "";
+				else rank = "<select id='sel_" + name + "' onchange='setRank(this, \"" + e.name + "\")'></select>";
+				addRow(objTbl, [e.pubDate, e.content, name, rank]);
+				if (e.haveRank == false) buildSelect("sel_" + name);
+			}
+			this.onResponse(true);
+		},
+		error: function(response) { 
+			console.debug("onError:" + response.status);
+			this.onResponse(false);
+		},
+		onResponse: function(flag) {
+			var text		= flag ? "提交成功" : "提交失败";
+			var obj			= dojo.byId("parseStatus");
+			obj.innerHTML	= text;
+			objTimer		= setTimeout(dojo.hitch(this, "onFinish"), 3000);
+		},
+		onFinish: function() {
+			var obj			= dojo.byId("parseStatus");
+			obj.innerHTML	= "";
+		}
+	});
+}
+
+function onSubmit()
+{
+	var obj = dojo.byId("evaluation");
+	if (obj != null) {
+		var text = dojo.trim(obj.value);
+		if (text.length > 0) {
+			onParse(text);
+			dojo.byId("ev_input").style.display = "none";
+			dojo.byId("ev_list").style.display = "block";
+		}
+	}
+}
+
+function onGenerate()
+{
+	dojo.byId("ev_list").style.display = "none";
 	var content = this.name == "full" ? "<table><tbody>" : "";
-	for (var i = 0; i < eList.length; i++) {
-		var e = eList[i];
-		console.debug(e);
+	for (var i = 0; i < evaList.length; i++) {
+		var e = evaList[i];
+		console.debug("name: " + e.name + "  rank: " + e.rank);
 		
 		var name = e.name.substr(0, 1) + "****" + e.name.substr(e.name.length - 1, 1);
 		var img = e.rank.length ? "<img src='http://pics.taobaocdn.com/newrank/" + e.rank + "'/>" : "";
@@ -49,66 +123,52 @@ function onParse() {
 		content += "</tr>";
 	}
 	if (this.name == "full") content += "</tbody></table>";
-
-	obj = dojo.byId("ev_html");
+	
+	var obj = dojo.byId("ev_html");
 	obj.value = content;
 	obj.style.display = "block";
 	
-	obj = dojo.byId("div_html");
-	obj.innerHTML = content;
-	obj.style.display = "block";
+	dojo.byId("div_html").innerHTML = content;
 }
 
 dojo.addOnLoad(function (){
-<#if evaluationList??>
-<#list evaluationList as eva>
-	addEvaluation("${eva.name}", "${eva.pubDate?string("yyyy-MM-dd HH:mm:ss")}", "${eva.content}");
-</#list>
-</#if>
-	
-	var param = { head: true };
-	
-	var obj;
+	var obj;	
+	obj = dojo.byId("parseBtn");
+	dojo.connect(obj, "onclick", onSubmit);
 	obj = dojo.byId("translate_full");
-	dojo.connect(obj, "onclick", onParse);
-	
+	dojo.connect(obj, "onclick", onGenerate);
 	obj = dojo.byId("translate_lite");
-	dojo.connect(obj, "onclick", onParse);
-	
-	obj = dojo.byId("ev_html");
-	obj.value = "";
-	obj.style.display = "none";
-
-	obj = dojo.byId("div_html");
-	obj.innerHTML = "";
-	obj.style.display = "none";
+	dojo.connect(obj, "onclick", onGenerate);
 
 });
 
 </script>
+<style type="text/css">
+#ev_list, #ev_html { display: none; }
+</style>
 </head>
 
 <body>
 <a href="stat_summary.action">返回</a><br /><br />
 
-<div>
-<@s.form action="evaluation.action">
-    <@s.textarea label="评价" name="evaluation" cols="80" rows="2"/>
-    <@s.submit value=" 提 交 "/>
-</@s.form>
+<div id="ev_input">
+<label for="evaluation">评价:</label>
+<textarea id="evaluation" cols="80" rows="2" ></textarea>
+<input type="button" id="parseBtn" value=" 提 交 "/>
+<div id="parseStatus"></div>
 </div>
+
 <div id="ev_list">
-<#if evaluationList??>
-<#list evaluationList as eva>
-日期:${eva.pubDate?string("yyyy-MM-dd")}<br />
-内容:${eva.content}<br />
-买家:${eva.name}<br />
-等级:<@s.radio name="${eva.name}" list="byerRank" onclick="javascript:setRank(this.name, this.value)"/><br />
-<br />
-</#list>
+<table id="evaTable">
+<tr>
+<td>日期</td>
+<td width="600">内容</td>
+<td>买家</td>
+<td>等级</td>
+</tr>
+</table>
 <input type="button" id="translate_full" name="full" value=" 带表格转换 "/><br />
 <input type="button" id="translate_lite" name="lite" value=" 无表格转换 "/>
-</#if>
 </div>
 
 <div id="div_html"></div>
