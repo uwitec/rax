@@ -34,19 +34,21 @@ public class ExpressService {
          * 普通汉字内容使用11号字体
          * 收件人姓名使用12号字体
          * 
-         * Size         标准快递单尺寸 232 * 127
-         * Date         发件日期
-         * SrcPhone     发件人电话
-         * SrcPostCode  发件人邮编
-         * DstPhone1    收件人电话1, 移动电话
-         * DstPhone2    收件人电话2, 固定电话, 两个电话上下排开行高取13pt
-         * DstPostCode  收件人邮编
-         * SrcName      发件人姓名
-         * DstName      收件人姓名
-         * SrcAddressLB 发件人地址框左下角
-         * SrcAddressRT 发件人地址框右上角
-         * DstAddressLB 收件人地址框左下角, 备注会换行打印在收件人地址后面
-         * DstAddressRT 收件人地址框右上角
+         * Size             标准快递单尺寸 232 * 127
+         * Date             发件日期
+         * SrcPhone         发件人电话
+         * SrcPostCode      发件人邮编
+         * DstPhone1        收件人电话1, 移动电话
+         * DstPhone2        收件人电话2, 固定电话, 两个电话上下排开行高取13pt
+         * DstPostCode      收件人邮编
+         * SrcName          发件人姓名
+         * DstName          收件人姓名
+         * SrcAddressLB     发件人地址框左下角
+         * SrcAddressRT     发件人地址框右上角
+         * SrcAddressIndent 发件人地址缩进
+         * DstAddressLB     收件人地址框左下角, 备注会换行打印在收件人地址后面
+         * DstAddressRT     收件人地址框右上角
+         * DstAddressIndent 收件人地址缩进
          */
         ExpressTemplate obj = new ExpressTemplate();
 
@@ -131,7 +133,7 @@ public class ExpressService {
         case 4: // 天天
             obj.setDateFormat("yyyy-MM-dd");
             obj.setSize(new ExpressPos(658, 360));
-            obj.setDate(new ExpressPos(94, 264));           // x:33 y:93
+            obj.setDate(new ExpressPos(91, 264));           // x:32 y:93
             obj.setSrcPhone(new ExpressPos(85, 187));       // x:30 y:66
             obj.setSrcPostCode(new ExpressPos(227, 207));   // x:80 y:73
             obj.setDstPhone1(new ExpressPos(502, 187));     // x:177 y:66
@@ -141,12 +143,12 @@ public class ExpressService {
             obj.setSrcName(new ExpressPos(142, 150));       // x:50 y:53
             obj.setDstName(new ExpressPos(383, 150));       // x:135 y:53
             
-            obj.setSrcAddressLB(new ExpressPos(48, 204));   // x:17 y:72
-            obj.setSrcAddressRT(new ExpressPos(306, 264));  // x:108 y:93
+            obj.setSrcAddressLB(new ExpressPos(51, 204));   // x:18 y:72
+            obj.setSrcAddressRT(new ExpressPos(312, 258));  // x:110 y:91
             obj.setSrcAddressIndent(5);
             
             obj.setDstAddressLB(new ExpressPos(317, 204));  // x:112 y:72
-            obj.setDstAddressRT(new ExpressPos(570, 264));  // x:201 y:93
+            obj.setDstAddressRT(new ExpressPos(570, 258));  // x:201 y:91
             obj.setDstAddressIndent(5);
             break;
             
