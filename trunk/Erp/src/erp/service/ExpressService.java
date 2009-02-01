@@ -131,20 +131,23 @@ public class ExpressService {
         case 4: // 天天
             obj.setDateFormat("yyyy-MM-dd");
             obj.setSize(new ExpressPos(658, 360));
-            obj.setDate(new ExpressPos(94, 255));           // x:33 y:90
-            obj.setSrcPhone(new ExpressPos(85, 218));       // x:30 y:77
-            obj.setSrcPostCode(new ExpressPos(230, 153));   // x:81 y:54
-            obj.setDstPhone1(new ExpressPos(357, 218));     // x:126 y:77
-            obj.setDstPhone2(new ExpressPos(442, 218));     // x:156 y:77
-            obj.setDstPostCode(new ExpressPos(499, 153));   // x:176 y:54
+            obj.setDate(new ExpressPos(94, 264));           // x:33 y:93
+            obj.setSrcPhone(new ExpressPos(85, 187));       // x:30 y:66
+            obj.setSrcPostCode(new ExpressPos(227, 207));   // x:80 y:73
+            obj.setDstPhone1(new ExpressPos(502, 187));     // x:177 y:66
+            obj.setDstPhone2(new ExpressPos(354, 187));     // x:125 y:66
+            obj.setDstPostCode(new ExpressPos(502, 207));   // x:177 y:73
 
-            obj.setSrcName(new ExpressPos(139, 153));       // x:49 y:54
-            obj.setDstName(new ExpressPos(374, 153));       // x:132 y:54
+            obj.setSrcName(new ExpressPos(142, 150));       // x:50 y:53
+            obj.setDstName(new ExpressPos(383, 150));       // x:135 y:53
             
-            obj.setSrcAddressLB(new ExpressPos(57, 173));   // x:20 y:61
-            obj.setSrcAddressRT(new ExpressPos(312, 207));  // x:110 y:73
-            obj.setDstAddressLB(new ExpressPos(323, 173));  // x:114 y:61
-            obj.setDstAddressRT(new ExpressPos(573, 207));  // x:202 y:73
+            obj.setSrcAddressLB(new ExpressPos(48, 204));   // x:17 y:72
+            obj.setSrcAddressRT(new ExpressPos(306, 264));  // x:108 y:93
+            obj.setSrcAddressIndent(5);
+            
+            obj.setDstAddressLB(new ExpressPos(317, 204));  // x:112 y:72
+            obj.setDstAddressRT(new ExpressPos(570, 264));  // x:201 y:93
+            obj.setDstAddressIndent(5);
             break;
             
         case 5: // 顺丰

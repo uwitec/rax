@@ -2,131 +2,149 @@ package erp.model;
 
 public class ExpressTemplate {
 
-    private String dateFormat;
-    private ExpressPos size;
-    private ExpressPos date;
-    private ExpressPos srcName;
-    private ExpressPos srcAddressLB;
-    private ExpressPos srcAddressRT;
-    private ExpressPos srcPhone;
-    private ExpressPos srcPostCode;
-    private ExpressPos dstName;
-    private ExpressPos dstAddressLB;
-    private ExpressPos dstAddressRT;
-    private ExpressPos dstPhone1;
-    private ExpressPos dstPhone2;
-    private ExpressPos dstPostCode;
+	private String dateFormat;
+	private ExpressPos size;
+	private ExpressPos date;
+	private ExpressPos srcName;
+	private ExpressPos srcAddressLB;
+	private ExpressPos srcAddressRT;
+	private int srcAddressIndent = 0;
+	private ExpressPos srcPhone;
+	private ExpressPos srcPostCode;
+	private ExpressPos dstName;
+	private ExpressPos dstAddressLB;
+	private ExpressPos dstAddressRT;
+	private int dstAddressIndent = 0;
+	private ExpressPos dstPhone1;
+	private ExpressPos dstPhone2;
+	private ExpressPos dstPostCode;
 
-    public String getDateFormat() {
-        return dateFormat;
-    }
+	public String getDateFormat() {
+		return dateFormat;
+	}
 
-    public void setDateFormat(String dateFormat) {
-        this.dateFormat = dateFormat;
-    }
+	public int getSrcAddressIndent() {
+		return srcAddressIndent;
+	}
 
-    public ExpressPos getSize() {
-        return size;
-    }
+	public void setSrcAddressIndent(int srcAddressIndent) {
+		this.srcAddressIndent = srcAddressIndent;
+	}
 
-    public void setSize(ExpressPos size) {
-        this.size = size;
-    }
+	public int getDstAddressIndent() {
+		return dstAddressIndent;
+	}
 
-    public ExpressPos getDate() {
-        return date;
-    }
+	public void setDstAddressIndent(int dstAddressIndent) {
+		this.dstAddressIndent = dstAddressIndent;
+	}
 
-    public void setDate(ExpressPos date) {
-        this.date = date;
-    }
+	public void setDateFormat(String dateFormat) {
+		this.dateFormat = dateFormat;
+	}
 
-    public ExpressPos getSrcName() {
-        return srcName;
-    }
+	public ExpressPos getSize() {
+		return size;
+	}
 
-    public void setSrcName(ExpressPos srcName) {
-        this.srcName = srcName;
-    }
+	public void setSize(ExpressPos size) {
+		this.size = size;
+	}
 
-    public ExpressPos getSrcPhone() {
-        return srcPhone;
-    }
+	public ExpressPos getDate() {
+		return date;
+	}
 
-    public void setSrcPhone(ExpressPos srcPhone) {
-        this.srcPhone = srcPhone;
-    }
+	public void setDate(ExpressPos date) {
+		this.date = date;
+	}
 
-    public ExpressPos getSrcPostCode() {
-        return srcPostCode;
-    }
+	public ExpressPos getSrcName() {
+		return srcName;
+	}
 
-    public void setSrcPostCode(ExpressPos srcPostCode) {
-        this.srcPostCode = srcPostCode;
-    }
+	public void setSrcName(ExpressPos srcName) {
+		this.srcName = srcName;
+	}
 
-    public ExpressPos getDstName() {
-        return dstName;
-    }
+	public ExpressPos getSrcPhone() {
+		return srcPhone;
+	}
 
-    public void setDstName(ExpressPos dstName) {
-        this.dstName = dstName;
-    }
+	public void setSrcPhone(ExpressPos srcPhone) {
+		this.srcPhone = srcPhone;
+	}
 
-    public ExpressPos getDstPhone1() {
-        return dstPhone1;
-    }
+	public ExpressPos getSrcPostCode() {
+		return srcPostCode;
+	}
 
-    public void setDstPhone1(ExpressPos dstPhone1) {
-        this.dstPhone1 = dstPhone1;
-    }
+	public void setSrcPostCode(ExpressPos srcPostCode) {
+		this.srcPostCode = srcPostCode;
+	}
 
-    public ExpressPos getDstPhone2() {
-        return dstPhone2;
-    }
+	public ExpressPos getDstName() {
+		return dstName;
+	}
 
-    public void setDstPhone2(ExpressPos dstPhone2) {
-        this.dstPhone2 = dstPhone2;
-    }
+	public void setDstName(ExpressPos dstName) {
+		this.dstName = dstName;
+	}
 
-    public ExpressPos getDstPostCode() {
-        return dstPostCode;
-    }
+	public ExpressPos getDstPhone1() {
+		return dstPhone1;
+	}
 
-    public void setDstPostCode(ExpressPos dstPostCode) {
-        this.dstPostCode = dstPostCode;
-    }
+	public void setDstPhone1(ExpressPos dstPhone1) {
+		this.dstPhone1 = dstPhone1;
+	}
 
-    public ExpressPos getSrcAddressLB() {
-        return srcAddressLB;
-    }
+	public ExpressPos getDstPhone2() {
+		return dstPhone2;
+	}
 
-    public void setSrcAddressLB(ExpressPos srcAddressLB) {
-        this.srcAddressLB = srcAddressLB;
-    }
+	public void setDstPhone2(ExpressPos dstPhone2) {
+		this.dstPhone2 = dstPhone2;
+	}
 
-    public ExpressPos getSrcAddressRT() {
-        return srcAddressRT;
-    }
+	public ExpressPos getDstPostCode() {
+		return dstPostCode;
+	}
 
-    public void setSrcAddressRT(ExpressPos srcAddressRT) {
-        this.srcAddressRT = srcAddressRT;
-    }
+	public void setDstPostCode(ExpressPos dstPostCode) {
+		this.dstPostCode = dstPostCode;
+	}
 
-    public ExpressPos getDstAddressLB() {
-        return dstAddressLB;
-    }
+	public ExpressPos getSrcAddressLB() {
+		return srcAddressLB;
+	}
 
-    public void setDstAddressLB(ExpressPos dstAddressLB) {
-        this.dstAddressLB = dstAddressLB;
-    }
+	public void setSrcAddressLB(ExpressPos srcAddressLB) {
+		this.srcAddressLB = srcAddressLB;
+	}
 
-    public ExpressPos getDstAddressRT() {
-        return dstAddressRT;
-    }
+	public ExpressPos getSrcAddressRT() {
+		return srcAddressRT;
+	}
 
-    public void setDstAddressRT(ExpressPos dstAddressRT) {
-        this.dstAddressRT = dstAddressRT;
-    }
+	public void setSrcAddressRT(ExpressPos srcAddressRT) {
+		this.srcAddressRT = srcAddressRT;
+	}
+
+	public ExpressPos getDstAddressLB() {
+		return dstAddressLB;
+	}
+
+	public void setDstAddressLB(ExpressPos dstAddressLB) {
+		this.dstAddressLB = dstAddressLB;
+	}
+
+	public ExpressPos getDstAddressRT() {
+		return dstAddressRT;
+	}
+
+	public void setDstAddressRT(ExpressPos dstAddressRT) {
+		this.dstAddressRT = dstAddressRT;
+	}
 
 }

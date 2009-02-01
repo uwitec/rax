@@ -120,13 +120,23 @@ public class ExpressAction implements Action {
 
             // 收发件人地址
             StringBuffer recvAddress = new StringBuffer();
+            for (int i = 0; i < tpl.getDstAddressIndent(); i++) {
+            	recvAddress.append("　");
+            }
             recvAddress.append(sell.getCustomerAddress());
             if (false == sell.getCommentExpress().isEmpty()) {
                 recvAddress.append("\n");
                 recvAddress.append(sell.getCommentExpress());
             }
+            
+            StringBuffer sendAddress = new StringBuffer();
+            for (int i = 0; i < tpl.getSrcAddressIndent(); i++) {
+            	sendAddress.append("　");
+            }
+            sendAddress.append(senderAddress);
+            
             Font cf = new Font(bfChinese, 11, Font.NORMAL);
-            Phrase srcAddress = new Phrase(senderAddress, cf);
+            Phrase srcAddress = new Phrase(sendAddress.toString(), cf);
             Phrase dstAddress = new Phrase(recvAddress.toString(), cf);
             ExpressPos posLB;
             ExpressPos posRT;
