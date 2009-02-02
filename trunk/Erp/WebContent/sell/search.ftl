@@ -20,7 +20,7 @@
 <div>
 ${imTypeSel.get(sell.customerIMType)}:${sell.customerIM}<br />
 姓名:${sell.customerName}<br />
-日期:${sell.createDate?string("yyyy-MM-dd")}<br />
+日期:${sell.sendDate?string("yyyy-MM-dd")}<br />
 地址:${sell.customerAddress}<br />
 <a href="sell.action?id=${sell.id?c}">查看/编辑</a>
 </div>

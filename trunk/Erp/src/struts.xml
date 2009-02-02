@@ -10,6 +10,14 @@
 	<constant name="struts.locale" value="zh_CN" />
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 
+	<!--
+		<constant name="format.time" value="{0,time}" /> <constant
+		name="format.number" value="{0,number,#0.0##}" /> <constant
+		name="format.percent" value="{0,number,##0.00'%'}" /> <constant
+		name="format.money" value="{0,number,\u00A4##0.00}" /> <constant
+		name="format.date" value="{0,date,yyyy-MM-dd}" />
+	-->
+
 	<include file="struts-default.xml" />
 	<include file="struts-json.xml" />
 	<include file="struts-order.xml" />

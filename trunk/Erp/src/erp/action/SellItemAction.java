@@ -31,7 +31,7 @@ public class SellItemAction extends ActionSupport {
 
 	private List<SellItem> sellItemList;
 
-	public String get() throws Exception {	
+	public String get() throws Exception {
 		try {
 			SellItem item = sellItemService.getSellItemById(id);
 			if (item != null) {
@@ -45,6 +45,10 @@ public class SellItemAction extends ActionSupport {
 			logger.error(ex.toString());
 			return ERROR;
 		}
+		sellItemList = sellItemService.listBySellId(sellId);
+        for (SellItem item : sellItemList) {
+            item.setWare(wareService.getWareById(item.getWareId()));
+        }
 		return SUCCESS;
 	}
 

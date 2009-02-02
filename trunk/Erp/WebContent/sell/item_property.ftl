@@ -195,7 +195,7 @@ label { cursor:pointer; }
 <div>
 <@s.form action="sell_item_save">
     <@s.label label="宝贝名称" name="ware.name"/>
-    <@s.textfield label="价格" name="price"/>
+    <@s.textfield label="价格" name="price" value="#{price;m2M2}"/>
     <@s.textfield label="数量" name="number"/>
     <@s.hidden name="sellId"/>
     <@s.hidden name="wareId"/>
