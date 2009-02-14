@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Express">
+
+	<typeAlias alias="Express" type="erp.model.Express" />
+
+	<cacheModel id="express-cache" type="MEMORY">
+		<flushInterval hours="24" />
+		<flushOnExecute statement="Express.create" />
+		<flushOnExecute statement="Express.update" />
+		<flushOnExecute statement="Express.delete" />
+		<property name="reference-type" value="WEAK" />
+	</cacheModel>
+
+	<insert id="create" parameterClass="Express">
+		<![CDATA[
+			INSERT INTO erp.express (ex_name, phone, settle_date,
+            tpl_size_x, tpl_size_y,
+            tpl_date_x, tpl_date_y, tpl_date_fmt,
+            tpl_src_name_x, tpl_src_name_y,
+            tpl_src_phone_x, tpl_src_phone_y,
+            tpl_src_zip_x, tpl_src_zip_y,
+            tpl_src_address_lb_x, tpl_src_address_lb_y,
+            tpl_src_address_rt_x, tpl_src_address_rt_y,
+            tpl_src_address_indent,
+            tpl_dst_name_x, tpl_dst_name_y,
+            tpl_dst_phone1_x, tpl_dst_phone1_y,
+            tpl_dst_phone2_x, tpl_dst_phone2_y,
+            tpl_dst_zip_x, tpl_dst_zip_y,
+            tpl_dst_address_lb_x, tpl_dst_address_lb_y,
+            tpl_dst_address_rt_x, tpl_dst_address_rt_y,
+            tpl_dst_address_indent)
+    		VALUES (#exName#, #phone#, #settleDate#,
+    		#tplSizeX#, #tplSizeY#,
+    		#tplDateX#, #tplDateY#, #tplDateFmt#,
+    		#tplSrcNameX#, #tplSrcNameY#,
+    		#tplSrcPhoneX#, #tplSrcPhoneY#,
+    		#tplSrcZipX#, #tplSrcZipY#,
+    		#tplSrcAddrLBX#, #tplSrcAddrLBY#,
+			#tplSrcAddrRTX#, #tplSrcAddrRTY#,
+			#tplSrcAddrIndent#,
+    		#tplDstNameX#, #tplDstNameY#,
+    		#tplDstPhone1X#, #tplDstPhone1Y#,
+    		#tplDstPhone2X#, #tplDstPhone2Y#,
+    		#tplDstZipX#, #tplDstZipY#,
+    		#tplDstAddrLBX#, #tplDstAddrLBY#,
+			#tplDstAddrRTX#, #tplDstAddrRTY#,
+            #tplDstAddrIndent#);
+		]]>
+		<selectKey resultClass="int" keyProperty="id">
+			<![CDATA[
+			SELECT currval('erp.express_id_seq')
+			]]>
+		</selectKey>
+	</insert>
+
+	<select id="read" parameterClass="int" resultClass="Express"
+		cacheModel="express-cache">
+		<![CDATA[
+		SELECT id, ex_name AS exName, phone, settle_date AS settleDate,
+		tpl_size_x AS tplSizeX, tpl_size_y AS tplSizeY, 
+		tpl_date_x AS tplDateX, tpl_date_y AS tplDateY, tpl_date_fmt AS tplDateFmt, 
+		tpl_src_name_x AS tplSrcNameX, tpl_src_name_y AS tplSrcNameY, 
+		tpl_src_phone_x AS tplSrcPhoneX, tpl_src_phone_y AS tplSrcPhoneY, 
+		tpl_src_zip_x AS tplSrcZipX, tpl_src_zip_y AS tplSrcZipY, 
+		tpl_src_address_lb_x AS tplSrcAddrLBX, tpl_src_address_lb_y AS tplSrcAddrLBY, 
+		tpl_src_address_rt_x AS tplSrcAddrRTX, tpl_src_address_rt_y AS tplSrcAddrRTY, 
+		tpl_src_address_indent AS tplSrcAddrIndent, 
+		tpl_dst_name_x AS tplDstNameX, tpl_dst_name_y AS tplDstNameY, 
+		tpl_dst_phone1_x AS tplDstPhone1X, tpl_dst_phone1_y AS tplDstPhone1Y, 
+		tpl_dst_phone2_x AS tplDstPhone2X, tpl_dst_phone2_y AS tplDstPhone2Y, 
+		tpl_dst_zip_x AS tplDstZipX, tpl_dst_zip_y AS tplDstZipY, 
+		tpl_dst_address_lb_x AS tplDstAddrLBX, tpl_dst_address_lb_y AS tplDstAddrLBY, 
+		tpl_dst_address_rt_x AS tplDstAddrRTX, tpl_dst_address_rt_y AS tplDstAddrRTY, 
+		tpl_dst_address_indent AS tplDstAddrIndent
+		FROM erp.express
+		WHERE id=#id# LIMIT 1
+		]]>
+	</select>
+
+	<update id="update" parameterClass="Express">
+		<![CDATA[
+		UPDATE erp.express
+		SET ex_name=#exName#, phone=#phone#, settle_date=#settleDate#,
+		tpl_size_x=#tplSizeX#, tpl_size_y=#tplSizeY#, 
+		tpl_date_x=#tplDateX#, tpl_date_y=#tplDateY#, tpl_date_fmt=#tplDateFmt#, 
+		tpl_src_name_x=#tplSrcNameX#, tpl_src_name_y=#tplSrcNameY#, 
+		tpl_src_phone_x=#tplSrcPhoneX#, tpl_src_phone_y=#tplSrcPhoneY#, 
+		tpl_src_zip_x=#tplSrcZipX#, tpl_src_zip_y=#tplSrcZipY#, 
+		tpl_src_address_lb_x=#tplSrcAddrLBX#, tpl_src_address_lb_y=#tplSrcAddrLBY#, 
+		tpl_src_address_rt_x=#tplSrcAddrRTX#, tpl_src_address_rt_y=#tplSrcAddrRTY#, 
+		tpl_src_address_indent=#tplSrcAddrIndent#, 
+		tpl_dst_name_x=#tplDstNameX#, tpl_dst_name_y=#tplDstNameY#, 
+		tpl_dst_phone1_x=#tplDstPhone1X#, tpl_dst_phone1_y=#tplDstPhone1Y#, 
+		tpl_dst_phone2_x=#tplDstPhone2X#, tpl_dst_phone2_y=#tplDstPhone2Y#, 
+		tpl_dst_zip_x=#tplDstZipX#, tpl_dst_zip_y=#tplDstZipY#, 
+		tpl_dst_address_lb_x=#tplDstAddrLBX#, tpl_dst_address_lb_y=#tplDstAddrLBY#, 
+		tpl_dst_address_rt_x=#tplDstAddrRTX#, tpl_dst_address_rt_y=#tplDstAddrRTY#, 
+		tpl_dst_address_indent=#tplDstAddrIndent#
+		WHERE id=#id#
+		]]>
+	</update>
+
+	<delete id="delete" parameterClass="int">
+		<![CDATA[
+		DELETE FROM erp.express WHERE id=#id#
+		]]>
+	</delete>
+
+	<select id="count" resultClass="int">
+		<![CDATA[
+		SELECT COUNT(*) AS NUM FROM erp.express
+		]]>
+	</select>
+
+	<select id="list" resultClass="Express" cacheModel="express-cache">
+		<![CDATA[
+		SELECT id, ex_name AS exName, phone, settle_date AS settleDate,
+		tpl_size_x AS tplSizeX, tpl_size_y AS tplSizeY, 
+		tpl_date_x AS tplDateX, tpl_date_y AS tplDateY, tpl_date_fmt AS tplDateFmt, 
+		tpl_src_name_x AS tplSrcNameX, tpl_src_name_y AS tplSrcNameY, 
+		tpl_src_phone_x AS tplSrcPhoneX, tpl_src_phone_y AS tplSrcPhoneY, 
+		tpl_src_zip_x AS tplSrcZipX, tpl_src_zip_y AS tplSrcZipY, 
+		tpl_src_address_lb_x AS tplSrcAddrLBX, tpl_src_address_lb_y AS tplSrcAddrLBY, 
+		tpl_src_address_rt_x AS tplSrcAddrRTX, tpl_src_address_rt_y AS tplSrcAddrRTY, 
+		tpl_src_address_indent AS tplSrcAddrIndent, 
+		tpl_dst_name_x AS tplDstNameX, tpl_dst_name_y AS tplDstNameY, 
+		tpl_dst_phone1_x AS tplDstPhone1X, tpl_dst_phone1_y AS tplDstPhone1Y, 
+		tpl_dst_phone2_x AS tplDstPhone2X, tpl_dst_phone2_y AS tplDstPhone2Y, 
+		tpl_dst_zip_x AS tplDstZipX, tpl_dst_zip_y AS tplDstZipY, 
+		tpl_dst_address_lb_x AS tplDstAddrLBX, tpl_dst_address_lb_y AS tplDstAddrLBY, 
+		tpl_dst_address_rt_x AS tplDstAddrRTX, tpl_dst_address_rt_y AS tplDstAddrRTY, 
+		tpl_dst_address_indent AS tplDstAddrIndent
+		FROM erp.express ORDER BY id
+		]]>
+	</select>
+
+</sqlMap>

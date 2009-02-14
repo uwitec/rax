@@ -8,6 +8,15 @@
 
 	<typeAlias alias="SellItem" type="erp.model.SellItem" />
 
+	<cacheModel id="sellItem-cache" type="LRU" readOnly="true"
+		serialize="false">
+		<flushInterval hours="24" />
+		<flushOnExecute statement="SellItem.create" />
+		<flushOnExecute statement="SellItem.update" />
+		<flushOnExecute statement="SellItem.delete" />
+		<property name="cache-size" value="128" />
+	</cacheModel>
+
 	<insert id="create" parameterClass="SellItem">
 		<![CDATA[
 		INSERT INTO erp.sell_item (sell_id, ware_id, price, number) 
@@ -20,8 +29,8 @@
 		</selectKey>
 	</insert>
 
-	<select id="read" parameterClass="int"
-		resultClass="SellItem">
+	<select id="read" parameterClass="int" resultClass="SellItem"
+		cacheModel="sellItem-cache">
 		<![CDATA[
 		SELECT id, sell_id AS sellId, ware_id AS wareId, price, number
 		FROM erp.sell_item
@@ -42,7 +51,8 @@
 		]]>
 	</delete>
 
-	<select id="list" parameterClass="int" resultClass="SellItem">
+	<select id="list" parameterClass="int" resultClass="SellItem"
+		cacheModel="sellItem-cache">
 		<![CDATA[
 		SELECT id, sell_id AS sellId, ware_id AS wareId, price, number
 		FROM erp.sell_item

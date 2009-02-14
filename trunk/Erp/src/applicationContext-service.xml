@@ -20,8 +20,7 @@
 		<property name="wareDao" ref="WareDao" />
 	</bean>
 
-	<bean id="WareCategoryService"
-		class="erp.service.WareCategoryService">
+	<bean id="WareCategoryService" class="erp.service.WareCategoryService">
 		<property name="wareCategoryDao" ref="WareCategoryDao" />
 		<property name="wareDao" ref="WareDao" />
 	</bean>
@@ -35,7 +34,9 @@
 		<property name="statDao" ref="StatDao" />
 	</bean>
 
-	<bean id="ExpressService" class="erp.service.ExpressService" />
+	<bean id="ExpressService" class="erp.service.ExpressService">
+		<property name="expressDao" ref="ExpressDao" />
+	</bean>
 
 	<bean id="KeywordService" class="erp.service.KeywordService">
 		<property name="keywordDao" ref="KeywordDao" />

@@ -15,7 +15,7 @@ public class SellService {
     }
     
     public Map<Integer, String> getIMTypeSel() {
-        Map<Integer, String> ret = new HashMap<Integer, String>();
+        Map<Integer, String> ret = new HashMap<Integer, String>(8);
         ret.put(0, "旺旺");
         ret.put(1, "QQ");
         ret.put(2, "易趣通");

@@ -1,7 +1,10 @@
 ﻿<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
+供货商 属性
+每笔进出库记录
+
 双击改单击
-宝贝属性添加重量
+宝贝属性添加重量, 净重，毛重
 为不同的快递商分别保存结算日期
 直接显示每笔交易的利润
 直接出快递单
@@ -16,3 +19,5 @@
 表单格式化
 竖分页
 黑名单
+
+整理Struts action namespace

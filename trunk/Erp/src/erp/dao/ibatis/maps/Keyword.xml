@@ -32,7 +32,7 @@
 
 	<select id="list" resultClass="string">
 		<![CDATA[
-		SELECT token FROM erp.sell
+		SELECT token FROM erp.keyword
 		]]>
 	</select>
 	

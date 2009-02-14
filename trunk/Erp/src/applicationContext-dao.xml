@@ -4,6 +4,9 @@
 		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 
 <beans>
+	<bean id="ExpressDao" class="erp.dao.ibatis.ExpressDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
 
 	<bean id="OrderDao" class="erp.dao.ibatis.OrderDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
@@ -25,8 +28,7 @@
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
 
-	<bean id="WareCategoryDao"
-		class="erp.dao.ibatis.WareCategoryDaoImpl">
+	<bean id="WareCategoryDao" class="erp.dao.ibatis.WareCategoryDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
 
@@ -41,6 +43,6 @@
 	<bean id="UtilDao" class="erp.dao.ibatis.UtilDaoImpl">
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
-	
-	
+
+
 </beans>

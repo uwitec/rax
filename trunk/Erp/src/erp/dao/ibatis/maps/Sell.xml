@@ -8,6 +8,15 @@
 
 	<typeAlias alias="Sell" type="erp.model.Sell" />
 
+	<cacheModel id="sell-cache" type="LRU" readOnly="true"
+		serialize="false">
+		<flushInterval hours="24" />
+		<flushOnExecute statement="Sell.create" />
+		<flushOnExecute statement="Sell.update" />
+		<flushOnExecute statement="Sell.delete" />
+		<property name="cache-size" value="128" />
+	</cacheModel>
+
 	<insert id="create" parameterClass="Sell">
 		<![CDATA[
 		INSERT INTO erp.sell (customer_name,customer_address,
@@ -28,7 +37,8 @@
 		</selectKey>
 	</insert>
 
-	<select id="read" parameterClass="int" resultClass="Sell">
+	<select id="read" parameterClass="int" resultClass="Sell"
+		cacheModel="sell-cache">
 		<![CDATA[
 		SELECT id,customer_name AS customerName,customer_address AS customerAddress,
 		customer_phone1 AS customerPhone1,customer_phone2 AS customerPhone2,
@@ -74,7 +84,8 @@
 		</dynamic>
 	</select>
 
-	<select id="list" parameterClass="map" resultClass="Sell">
+	<select id="list" parameterClass="map" resultClass="Sell"
+		cacheModel="sell-cache">
 		<![CDATA[
 		SELECT id,customer_name AS customerName,customer_address AS customerAddress,
 		customer_phone1 AS customerPhone1,customer_phone2 AS customerPhone2,
@@ -97,8 +108,7 @@
 		]]>
 	</select>
 
-	<select id="findByKeyword" parameterClass="string"
-		resultClass="Sell">
+	<select id="findByKeyword" parameterClass="string" resultClass="Sell">
 		<![CDATA[
 		SELECT id,customer_name AS customerName,customer_address AS customerAddress,
 		customer_phone1 AS customerPhone1,customer_phone2 AS customerPhone2,
