@@ -7,7 +7,15 @@
 <sqlMap namespace="WareCategory">
 
 	<typeAlias alias="WareCategory" type="erp.model.WareCategory" />
-
+	
+	<cacheModel id="ware-category-cache" type="MEMORY">
+		<flushInterval hours="24" />
+		<flushOnExecute statement="WareCategory.create" />
+		<flushOnExecute statement="WareCategory.update" />
+		<flushOnExecute statement="WareCategory.delete" />
+		<property name="reference-type" value="WEAK" />
+	</cacheModel>
+	
 	<insert id="create" parameterClass="WareCategory">
 		<![CDATA[
 		INSERT INTO erp.ware_category (name,num) VALUES (#name#,#num#)
@@ -19,7 +27,7 @@
 		</selectKey>
 	</insert>
 
-	<select id="read" parameterClass="int" resultClass="WareCategory">
+	<select id="read" parameterClass="int" resultClass="WareCategory" cacheModel="ware-category-cache">
 		<![CDATA[
 		SELECT id,name,num
 		FROM erp.ware_category

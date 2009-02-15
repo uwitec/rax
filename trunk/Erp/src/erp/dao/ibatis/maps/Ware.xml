@@ -8,6 +8,15 @@
 
 	<typeAlias alias="Ware" type="erp.model.Ware" />
 
+	<cacheModel id="ware-cache" type="LRU" readOnly="true"
+		serialize="false">
+		<flushInterval hours="24" />
+		<flushOnExecute statement="Ware.create" />
+		<flushOnExecute statement="Ware.update" />
+		<flushOnExecute statement="Ware.delete" />
+		<property name="cache-size" value="256" />
+	</cacheModel>
+
 	<insert id="create" parameterClass="Ware">
 		<![CDATA[
 		INSERT INTO erp.ware (category_id,name,cost,price,barcode,number,status,lowest_cost,number_alarm,number_alarm_enable) 
@@ -20,7 +29,7 @@
 		</selectKey>
 	</insert>
 
-	<select id="read" parameterClass="int" resultClass="Ware">
+	<select id="read" parameterClass="int" resultClass="Ware" cacheModel="ware-cache">
 		<![CDATA[
 		SELECT id,category_id AS categoryId,name,cost,price,
 		barcode,number,status,lowest_cost AS lowestCost,
@@ -58,7 +67,7 @@
 		</dynamic>
 	</select>
 
-	<select id="list" parameterClass="map" resultClass="Ware">
+	<select id="list" parameterClass="map" resultClass="Ware" cacheModel="ware-cache">
 		<![CDATA[
 		SELECT id,category_id AS categoryId,name,cost,price,
 		barcode,number,status,lowest_cost AS lowestCost,
@@ -77,7 +86,7 @@
 	</select>
 
 	<select id="listByCategoryId" parameterClass="map"
-		resultClass="Ware">
+		resultClass="Ware" cacheModel="ware-cache">
 		<![CDATA[
 		SELECT id,category_id AS categoryId,name,cost,price,
 		barcode,number,status,lowest_cost AS lowestCost,
@@ -96,7 +105,7 @@
 	</select>
 	
 	<select id="listLowNumber" parameterClass="map"
-		resultClass="Ware">
+		resultClass="Ware" cacheModel="ware-cache">
 		<![CDATA[
 		SELECT id,category_id AS categoryId,name,cost,price,
 		barcode,number,status,lowest_cost AS lowestCost,

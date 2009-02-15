@@ -88,8 +88,8 @@ label { cursor:pointer; }
     <@s.textarea label="地址" name="customerAddress" cols="80" rows="2"/>
     <@s.textfield label="日期" name="date"/>
     <@s.radio name="sel" list="dateSel"/>
-    <@s.textfield label="移动电话" name="customerPhone1"/>
-    <@s.textfield label="固定电话" name="customerPhone2"/>
+    <@s.textfield label="电话1" name="customerPhone1"/>
+    <@s.textfield label="电话2" name="customerPhone2"/>
     <@s.textfield label="邮编" name="customerPostCode"/>
     <@s.textfield label="收取运费" name="fee" onkeyup="javascript:onFeeChange(this.value)"/>
     <@s.radio name="feeSel" list="{0, 5, 10, 12, 15, 20, 25}" onclick="javascript:setFee(this.value)"/>

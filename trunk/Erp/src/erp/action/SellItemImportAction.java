@@ -22,195 +22,208 @@ import erp.service.WareService;
 
 public class SellItemImportAction extends ActionSupport {
 
-    private static final long serialVersionUID = 1L;
-    private final static Logger logger = Logger
-            .getLogger(SellItemImportAction.class);
+	private static final long serialVersionUID = 1L;
+	private final static Logger logger = Logger
+			.getLogger(SellItemImportAction.class);
 
-    private SellService sellService;
-    private SellItemService sellItemService;
-    private WareService wareService;
+	private SellService sellService;
+	private SellItemService sellItemService;
+	private WareService wareService;
 
-    private int sellId;
-    private Sell sell;
-    private String sellContent;
-    private List<InvoiceItem> itemList;
-    private List<SellItem> sellItemList;
+	private int sellId;
+	private Sell sell;
+	private String sellContent;
+	private List<InvoiceItem> itemList;
+	private List<SellItem> sellItemList;
 
-    @Override
-    public String input() throws Exception {
-        sell = sellService.getSellById(sellId);
-        if (sell != null) {
-            sellItemList = sellItemService.listBySell(sell);
-            for (SellItem item : sellItemList) {
-                item.setWare(wareService.getWareById(item.getWareId()));
-            }
-        }
-        return SUCCESS;
-    }
+	@Override
+	public String input() throws Exception {
+		sell = sellService.getSellById(sellId);
+		if (sell != null) {
+			sellItemList = sellItemService.listBySell(sell);
+			for (SellItem item : sellItemList) {
+				item.setWare(wareService.getWareById(item.getWareId()));
+			}
+		}
+		return SUCCESS;
+	}
 
-    @Override
-    public String execute() throws Exception {
-        try {
-            itemList = new ArrayList<InvoiceItem>();
-            InvoiceItem item = null;
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            String numStr = "\\(([0-9]*) 件\\)";
-            String dateStr = "([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})";
-            String[] details;
+	@Override
+	public String execute() throws Exception {
+		try {
+			double totalExFee = 0;
+			itemList = new ArrayList<InvoiceItem>();
+			InvoiceItem item = null;
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			String dateStr = "([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})";
 
-            String info = "";
-            String[] infos = sellContent.split("\n");
-            ArrayList<String> infoArray = new ArrayList<String>();
-            for (int i = 0; i < infos.length; i++) {
-                if (infos[i].trim().length() > 0) {
-                    infoArray.add(infos[i].trim());
-                }
-            }
+			String[] infos = sellContent.split("\n");
+			ArrayList<String> infoArray = new ArrayList<String>();
+			for (int i = 0; i < infos.length; i++) {
+				if (infos[i].trim().length() > 0) {
+					infoArray.add(infos[i].trim());
+				}
+			}
 
-            Pattern pattern = Pattern.compile(dateStr);
-            Matcher matcher;
-            for (int i = 0; i < infoArray.size(); i++) {
-                Date date = new Date();
-                int num = 1;
-                String name = "";
-                String byerId = "";
-                String byerName = "";
-                double price = 0;
+			Pattern pattern = Pattern.compile(dateStr);
+			Matcher matcher;
+			for (int i = 0; i < infoArray.size(); i++) {
+				Date date = new Date();
+				int num = 1;
+				String name = "";
+				String byerId = "";
+				String byerName = "";
+				double price = 0;
+				double exFee = 0;
 
-                info = infoArray.get(i);
-                // logger.info("info[" + i + "]:" + info);
+				String info = infoArray.get(i);
+				logger.debug("info[" + i + "]:" + info);
 
-                matcher = pattern.matcher(info);
-                if (matcher.find()) {
-                    // logger.info("datePattern:");
-                    // for (int j = 0; j <= matcher.groupCount(); j++) {
-                    // logger.info(matcher.group(j));
-                    // }
+				if (info.startsWith("买家：")) {
+					int posIndex = i;
+					try {
+						infos = info.split(" ");
+						byerId = infos[1];
+						byerName = infos[2];
+					} catch (Exception ex) {
+					}
 
-                    date = formatter.parse(matcher.group(1));
-                    // logger.info("date:" + formatter.format(date));
+					info = infoArray.get(i - 1);
+					posIndex = info.indexOf("含快递 ：");
+					if (posIndex > -1) {
+						exFee = Double.valueOf(info.substring(posIndex + 5,
+								info.length() - 1));
+					}
 
-                    details = info.split("  ");
-                    int pos = details[0].equals("修改") ? i - 1 : i;
+					info = infoArray.get(i - 2);
+					posIndex = info.lastIndexOf("-");
+					if (posIndex > -1) {
+						infos = info.substring(0, posIndex - 1).trim().split(
+								" ");
+						if (logger.isDebugEnabled()) {
+							logger.debug("info:" + info);
+							for (int j = 0; j < infos.length; j++) {
+								logger.debug("infos[" + j + "]:" + infos[j]);
+							}
+						}
 
-                    details = infoArray.get(pos).split(" ");
-                    price = Double.parseDouble(details[1]);
-                    // logger.info("price:" + String.valueOf(price));
+						try {
+							num = Integer.valueOf(infos[infos.length - 1]);
+						} catch (Exception ex) {
+						}
+						try {
+							price = Double.valueOf(infos[infos.length - 2]);
+						} catch (Exception ex) {
+						}
 
-                    byerName = infoArray.get(pos - 1);
-                    // logger.info("byerName:" + byerName);
+						StringBuffer nameBuffer = new StringBuffer();
+						for (int j = 0; j < infos.length - 2; j++) {
+							nameBuffer.append(infos[j]);
+							nameBuffer.append(" ");
+						}
+						name = nameBuffer.toString().trim();
+					}
 
-                    details = infoArray.get(pos - 2).split("  ");
-                    pos = details.length - 1;
-                    byerId = details[pos].trim();
-                    // logger.info("byerId:" + byerId);
+					try {
+						info = infoArray.get(i - 3);
+						matcher = pattern.matcher(info);
+						if (matcher.find()) {
+							date = formatter.parse(matcher.group(1));
+						}
+					} catch (Exception ex) {
+					}
 
-                    StringBuffer nameBuffer = new StringBuffer();
-                    for (int j = 0; j < pos; j++) {
-                        nameBuffer.append(details[j]);
-                        nameBuffer.append(" ");
-                    }
-                    name = nameBuffer.toString().trim();
-                    // logger.info("name:" + name);
+					item = new InvoiceItem();
+					item.setName(name);
+					item.setDate(date);
+					item.setByerId(byerId);
+					item.setNumber(num);
+					item.setByerName(byerName);
+					item.setPrice(price);
+					item.setExFee(exFee);
+					itemList.add(item);
+					totalExFee += exFee;
 
-                    Pattern numPattern = Pattern.compile(numStr);
-                    Matcher numMatcher = numPattern.matcher(name);
-                    if (numMatcher.find()) {
-                        name = name.replace(numMatcher.group(0), "").trim();
-                        num = Integer.parseInt(numMatcher.group(1));
-                        // logger.info("num:" + num);
-                    }
+					logger.info("日期:" + formatter.format(date) + " 宝贝名称:"
+							+ name + " 数量:" + num + " 价格:" + price + " 快递费:"
+							+ exFee + " 买家ID:" + byerId + " 买家姓名:" + byerName);
+				}
 
-                    item = new InvoiceItem();
-                    item.setName(name);
-                    item.setDate(date);
-                    item.setByerId(byerId);
-                    item.setNumber(num);
-                    item.setByerName(byerName);
-                    item.setPrice(price);
+			}
+			if (sellId > 0 && item != null) {
+				Sell obj = sellService.getSellById(sellId);
+				if (obj.getCustomerIM().isEmpty()) {
+					obj.setCustomerIM(item.getByerId());
+					obj.setCustomerIMType(0);
+					// IMType的具体定义在SellService里
+				}
+				obj.setFee(totalExFee);
+				sellService.updateSell(obj);
+			}
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+		}
 
-                    itemList.add(item);
+		return SUCCESS;
+	}
 
-                    logger.info("日期:" + formatter.format(date) + " 宝贝名称:"
-                            + name + " 数量:" + num + " 价格:" + price + " 买家ID:"
-                            + byerId + " 买家姓名:" + byerName);
-                }
+	public static void main(String[] args) throws Exception {
+		char[] cbuf = new char[1024];
+		StringBuffer buf = new StringBuffer();
+		InputStreamReader is = new InputStreamReader(new FileInputStream(
+				"D:/content.txt"));
+		int size;
+		while ((size = is.read(cbuf)) != -1) {
+			buf.append(cbuf, 0, size);
+		}
 
-            }
-            if (sellId > 0 && item != null) {
-                Sell obj = sellService.getSellById(sellId);
-                if (obj.getCustomerIM().isEmpty()) {
-                    obj.setCustomerIM(item.getByerId());
-                    obj.setCustomerIMType(0);
-                    // IMType的具体定义在SellService里
-                }
-                sellService.updateSell(obj);
-            }
-        } catch (Exception ex) {
-            logger.error(ex.toString());
-        }
+		SellItemImportAction action = new SellItemImportAction();
+		action.sellContent = buf.toString();
+		action.execute();
+	}
 
-        return SUCCESS;
+	public void setSellService(SellService sellService) {
+		this.sellService = sellService;
+	}
 
-    }
+	public String getSellContent() {
+		return sellContent;
+	}
 
-    public static void main(String[] args) throws Exception {
-        char[] cbuf = new char[1024];
-        StringBuffer buf = new StringBuffer();
-        InputStreamReader is = new InputStreamReader(new FileInputStream(
-                "D:/content.txt"));
-        int size;
-        while ((size = is.read(cbuf)) != -1) {
-            buf.append(cbuf, 0, size);
-        }
+	public void setSellContent(String sellContent) {
+		this.sellContent = sellContent;
+	}
 
-        SellItemImportAction action = new SellItemImportAction();
-        action.sellContent = buf.toString();
-        action.execute();
-    }
+	public List<InvoiceItem> getItemList() {
+		return itemList;
+	}
 
-    public void setSellService(SellService sellService) {
-        this.sellService = sellService;
-    }
+	public void setItemList(List<InvoiceItem> itemList) {
+		this.itemList = itemList;
+	}
 
-    public String getSellContent() {
-        return sellContent;
-    }
+	public int getSellId() {
+		return sellId;
+	}
 
-    public void setSellContent(String sellContent) {
-        this.sellContent = sellContent;
-    }
+	public void setSellId(int sellId) {
+		this.sellId = sellId;
+	}
 
-    public List<InvoiceItem> getItemList() {
-        return itemList;
-    }
+	public void setSellItemService(SellItemService sellItemService) {
+		this.sellItemService = sellItemService;
+	}
 
-    public void setItemList(List<InvoiceItem> itemList) {
-        this.itemList = itemList;
-    }
+	public void setWareService(WareService wareService) {
+		this.wareService = wareService;
+	}
 
-    public int getSellId() {
-        return sellId;
-    }
+	public Sell getSell() {
+		return sell;
+	}
 
-    public void setSellId(int sellId) {
-        this.sellId = sellId;
-    }
-
-    public void setSellItemService(SellItemService sellItemService) {
-        this.sellItemService = sellItemService;
-    }
-
-    public void setWareService(WareService wareService) {
-        this.wareService = wareService;
-    }
-
-    public Sell getSell() {
-        return sell;
-    }
-
-    public List<SellItem> getSellItemList() {
-        return sellItemList;
-    }
+	public List<SellItem> getSellItemList() {
+		return sellItemList;
+	}
 
 }

@@ -181,12 +181,11 @@ function onSelect(event) {
 	var itemName;
 	var itemPrice;
 	var itemNum;
-	var itemImportPrice;
 
 	try {
 		var item = importList[importIdx];
 		itemNum = item.number;
-		itemImportPrice = item.price;
+		itemPrice = item.price;
 	} catch(ex) {
 		console.debug(ex.toString());
 	}
@@ -196,14 +195,13 @@ function onSelect(event) {
 		ware = wareList[i];
 		if (obj.value == ware.id) {
 			itemName = ware.name;
-			itemPrice = ware.price;
 			itemId = ware.id;
 			break;
 		}
 	}
 
 	if (confirm("名称:" + itemName + "\n数量:" + itemNum + "\n单价:" + itemPrice)) {
-		console.debug("id:" + itemId + " num:"  + itemNum + " itemName:" + itemName + " price:" + itemPrice + " importPrice:" + itemImportPrice);
+		console.debug("id:" + itemId + " num:"  + itemNum + " itemName:" + itemName + " price:" + itemPrice);
 		while (this.options.length > 0) {
 			this.remove(0);
 		}
@@ -216,12 +214,6 @@ function onSelect(event) {
 			}
 		}
 				
-		priceDiff += itemImportPrice - itemPrice * itemNum;
-		console.debug("sellFee:" + sellFee + " priceDiff:" + priceDiff + " itemImportPrice:"  + itemImportPrice + " itemPrice * itemNum:" + itemPrice * itemNum);
-		
-		obj = dojo.byId("checkingPrompt");
-		obj.style.display = (priceDiff == sellFee) ? "none" : "block";
-		
 		onSubmit(itemId, itemPrice, itemNum);
 	}
 }
@@ -276,7 +268,6 @@ function onSubmit(itemId, itemPrice, itemNum) {
 <style type="text/css">
 select { width:380px; }
 label { cursor:pointer; }
-#checkingPrompt { color:red; display:none; }
 </style>
 </head>
 
@@ -294,9 +285,6 @@ label { cursor:pointer; }
 <select id="searchResult" size="12"></select><br />
 </div>
 <br />
-
-<div id="checkingPrompt">系统出库价格与淘宝数据不相符, 请检查邮费及是否有其他优惠</div>
-<br/>
 
 <table id="itemsTable">
 <tr>

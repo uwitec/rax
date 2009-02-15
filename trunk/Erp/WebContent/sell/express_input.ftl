@@ -44,8 +44,8 @@ body { display: none; }
 <@s.form action="express">
     <@s.textfield label="姓名" name="sell.customerName"/>
     <@s.textarea label="地址" name="sell.customerAddress" cols="80" rows="2"/>
-    <@s.textfield label="移动电话" name="sell.customerPhone1"/>
-    <@s.textfield label="固定电话" name="sell.customerPhone2"/>
+    <@s.textfield label="电话1" name="sell.customerPhone1"/>
+    <@s.textfield label="电话2" name="sell.customerPhone2"/>
     <@s.textfield label="邮编" name="sell.customerPostCode"/>
     <@s.textfield label="日期" name="date"/>
     <@s.radio name="sel" list="dateSel"/>
