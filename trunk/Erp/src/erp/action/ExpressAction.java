@@ -51,7 +51,7 @@ public class ExpressAction implements Action {
 	public InputStream getInputStream() throws Exception {
 		ByteArrayOutputStream buf = new ByteArrayOutputStream();
 		try {
-			Express ex = expressService.getExpress(sell.getExpressId());
+			Express ex = expressService.getExpressById(sell.getExpressId());
 			BaseFont bfChinese = BaseFont.createFont("STSong-Light",
 					"UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
 			BaseFont bfEnglish = BaseFont.createFont(BaseFont.HELVETICA,

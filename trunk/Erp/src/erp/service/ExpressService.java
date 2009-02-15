@@ -20,8 +20,44 @@ public class ExpressService {
 		return mapEx;
 	}
 
-	public Express getExpress(int expressId) {
+	public Express getExpressById(int expressId) {
 		return expressDao.read(expressId);
+	}
+
+	public int createExpress(Express obj) {
+		return expressDao.create(obj);
+	}
+
+	public boolean deleteExpress(Express obj) {
+		boolean ret = false;
+		if (null != obj) {
+			expressDao.delete(obj);
+			ret = true;
+		}
+		return ret;
+	}
+
+	public boolean deleteExpressById(int id) {
+		boolean ret = false;
+		Express obj = expressDao.read(id);
+		if (null != obj) {
+			expressDao.delete(obj);
+			ret = true;
+		}
+		return ret;
+	}
+
+	public boolean updateExpress(Express obj) {
+		expressDao.update(obj);
+		return true;
+	}
+
+	public int getCount() {
+		return expressDao.count();
+	}
+
+	public List<Express> list() {
+		return expressDao.list();
 	}
 
 	public ExpressDao getExpressDao() {

@@ -54,7 +54,7 @@
 		]]>
 	</select>
 
-	<select id="list" resultClass="WareCategory">
+	<select id="list" resultClass="WareCategory" cacheModel="ware-category-cache">
 		<![CDATA[
 		SELECT id,name,num
 		FROM erp.ware_category

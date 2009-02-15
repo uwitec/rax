@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
 import erp.dao.WareCategoryDao;
 import erp.dao.WareDao;
 import erp.model.Ware;
@@ -15,7 +13,6 @@ public class WareCategoryService {
 
 	private WareCategoryDao wareCategoryDao;
 	private WareDao wareDao;
-	private final static Logger logger = Logger.getLogger(WareCategoryService.class);
 
 	public WareCategoryService() {
 	}
@@ -63,15 +60,9 @@ public class WareCategoryService {
 	public Map<Integer, String> getMap() {
 		HashMap<Integer, String> map = new HashMap<Integer, String>();
 		List<WareCategory> list = wareCategoryDao.list();
-
-		map.put(0, "无分类");
 		for (WareCategory category : list) {
-			logger.info("categoryId:" + category.getId() + " categoryName:"
-					+ category.getName());
 			map.put(category.getId(), category.getName());
 		}
-		
-		logger.info("mapSize:" + map.size());
 		return map;
 	}
 

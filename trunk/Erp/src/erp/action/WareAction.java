@@ -55,9 +55,6 @@ public class WareAction extends ActionSupport {
     public String listByCategory() throws Exception {
         WareCategory category;
         categoryList = wareCategoryService.list();
-        category = new WareCategory();
-        category.setName("无分组");
-        categoryList.add(category);
         category = wareCategoryService.getWareCategoryById(categoryId);
         if (category != null) {
             wareList = wareService.listByCategory(category, status);
