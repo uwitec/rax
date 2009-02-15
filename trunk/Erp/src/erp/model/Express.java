@@ -5,15 +5,28 @@ import java.util.Date;
 public class Express {
 	
 	/*
-	 * 坐标系X向右, Y向上, 测量单位为毫米, 可以用index.html上的输入框换算为pt 如设置ExpressPos 对象为null,
-	 * 可不打印该项 英文/数字内容使用10号字体 普通汉字内容使用11号字体 收件人姓名使用12号字体
+	 * 坐标系X向右, Y向上, 测量单位为毫米
+	 * 可以用index.html上的输入框换算为pt 
+	 * 如设置ExpressPos 对象为null, 可不打印该项 
+	 * 英文/数字内容使用10号字体 
+	 * 普通汉字内容使用11号字体 
+	 * 收件人姓名使用12号字体
 	 * 
-	 * Size 标准快递单尺寸 232 127 Date 发件日期 SrcPhone 发件人电话 SrcPostCode 发件人邮编
-	 * DstPhone1 收件人电话1, 移动电话 DstPhone2 收件人电话2, 固定电话, 两个电话上下排开行高取13pt/5mm
-	 * DstPostCode 收件人邮编 SrcName 发件人姓名 DstName 收件人姓名 SrcAddressLB 发件人地址框左下角
-	 * SrcAddressRT 发件人地址框右上角 SrcAddressIndent 发件人地址缩进 DstAddressLB
-	 * 收件人地址框左下角, 备注会换行打印在收件人地址后面 DstAddressRT 收件人地址框右上角 DstAddressIndent
-	 * 收件人地址缩进
+	 * Size 标准快递单尺寸 232 127 
+	 * Date 发件日期 
+	 * SrcPhone 发件人电话
+	 * SrcPostCode 发件人邮编
+	 * DstPhone1 收件人电话1, 移动电话 
+	 * DstPhone2 收件人电话2, 固定电话, 两个电话上下排开行高取13pt/5mm
+	 * DstPostCode 收件人邮编 
+	 * SrcName 发件人姓名 
+	 * DstName 收件人姓名 
+	 * SrcAddressLB 发件人地址框左下角
+	 * SrcAddressRT 发件人地址框右上角 
+	 * SrcAddressIndent 发件人地址缩进 
+	 * DstAddressLB 收件人地址框左下角, 备注会换行打印在收件人地址后面 
+	 * DstAddressRT 收件人地址框右上角 
+	 * DstAddressIndent 收件人地址缩进
 	 */
 	
 	private int id;

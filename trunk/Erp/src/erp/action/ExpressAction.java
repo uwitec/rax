@@ -34,6 +34,7 @@ public class ExpressAction implements Action {
 	private final static Logger logger = Logger.getLogger(ExpressAction.class);
 	private SellService sellService = null;
 	private ExpressService expressService = null;
+	
 	private Sell sell;
 	private int sellId;
 	private String date;
@@ -41,8 +42,13 @@ public class ExpressAction implements Action {
 	private String senderPhone;
 	private String senderAddress;
 	private String senderPostCode;
-	List<String> dateSel;
-	Map<Integer, String> expressSel;
+	
+    private List<Express> expressList;
+    private Express express;
+    private int id;
+    
+	private List<String> dateSel;
+	private Map<Integer, String> expressSel;
 
 	private long mm2pt(int mm) {
 		return Math.round(mm * 2.834645669291);
@@ -239,6 +245,25 @@ public class ExpressAction implements Action {
 		return ERROR;
 	}
 
+	public String list() throws Exception {
+		expressList = expressService.list();
+		return SUCCESS;
+	}
+	
+	public String get() throws Exception {
+		express = expressService.getExpressById(id);
+		return SUCCESS;
+	}
+	
+	public String save() throws Exception {
+        if (id > -1) {
+        	expressService.updateExpress(express);
+        } else {
+            id = expressService.createExpress(express);
+        }
+        return SUCCESS;
+	}
+
 	public void setSellService(SellService sellService) {
 		this.sellService = sellService;
 	}
@@ -325,6 +350,30 @@ public class ExpressAction implements Action {
 
 	public void setExpressSel(Map<Integer, String> expressSel) {
 		this.expressSel = expressSel;
+	}
+
+	public List<Express> getExpressList() {
+		return expressList;
+	}
+
+	public void setExpressList(List<Express> expressList) {
+		this.expressList = expressList;
+	}
+
+	public Express getExpress() {
+		return express;
+	}
+
+	public void setExpress(Express express) {
+		this.express = express;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

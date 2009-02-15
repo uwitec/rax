@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<package name="express" extends="struts-default">
+		<result-types>
+			<result-type name="freemarker"
+				class="org.apache.struts2.views.freemarker.FreemarkerResult"
+				default="true" />
+		</result-types>
+
+		<action name="express_list" class="ExpressAction" method="list">
+			<result name="success">/express/ex_list.ftl</result>
+		</action>
+
+		<action name="express_property" class="ExpressAction" method="get">
+			<result name="success">/express/ex_property.ftl
+			</result>
+		</action>
+
+		<action name="express_save" class="ExpressAction" method="save">
+			<result name="success" type="redirect-action">express/express_list
+			</result>
+			<result name="error" type="redirect-action">express/express_list
+			</result>
+		</action>
+
+	</package>
+
+</struts>

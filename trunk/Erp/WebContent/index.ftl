@@ -37,6 +37,7 @@ function onKeyPress(evt)
 <body>
 <p>
 <a href="stat/stat_summary.action">统计数据</a>
+<a href="express/express_list.action">快递公司</a>
 <a href="order/order_list.action">进货单列表</a>
 <a href="ware_list.action">宝贝列表</a>
 <a href="ware_category_list.action">分类列表</a>
