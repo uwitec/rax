@@ -77,25 +77,26 @@ public class SellItemImportAction extends ActionSupport {
 				double exFee = 0;
 
 				String info = infoArray.get(i);
-				logger.debug("info[" + i + "]:" + info);
+				logger.info("info[" + i + "]:" + info);
 
-				if (info.startsWith("买家：")) {
-					int posIndex = i;
+				int posIndex = info.indexOf("买家：");
+				if (posIndex > 0) {
+					if (info.indexOf("交易关闭") > -1) continue;
 					try {
-						infos = info.split(" ");
+						infos = info.substring(posIndex + 3).split(" ");
 						byerId = infos[1];
 						byerName = infos[2];
 					} catch (Exception ex) {
 					}
 
-					info = infoArray.get(i - 1);
+					info = infoArray.get(i + 2);
 					posIndex = info.indexOf("含快递 ：");
 					if (posIndex > -1) {
 						exFee = Double.valueOf(info.substring(posIndex + 5,
 								info.length() - 1));
 					}
 
-					info = infoArray.get(i - 2);
+					info = infoArray.get(i + 1);
 					posIndex = info.lastIndexOf("-");
 					if (posIndex > -1) {
 						infos = info.substring(0, posIndex - 1).trim().split(
@@ -125,7 +126,7 @@ public class SellItemImportAction extends ActionSupport {
 					}
 
 					try {
-						info = infoArray.get(i - 3);
+						info = infoArray.get(i + 3);
 						matcher = pattern.matcher(info);
 						if (matcher.find()) {
 							date = formatter.parse(matcher.group(1));
