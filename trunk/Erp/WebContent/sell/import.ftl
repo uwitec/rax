@@ -44,14 +44,20 @@ function onDateChange(event) {
 function onImportContent(event) {
 	var addr = this.value;
 	var addrs;
-	addrs = addr.split("，");
-	if (addrs.length < 2) return;
-	addr = addrs[2];
-	if (addrs.length > 4) {
-		addr = addrs[3];
-	}
-	addrs = dojo.trim(addr).split(" ");
-	console.debug("addrs:" + addrs);
+	addrs = addr.split("\n");
+	//console.debug("addrs[0]:" + addrs[0]);
+	//console.debug("addrs[1]:" + addrs[1]);
+	//console.debug("addrs[2]:" + addrs[2]);
+	//console.debug("addrs[3]:" + addrs[3]);
+	
+	addrs	= addrs[1].split("：");
+	addr	= dojo.trim(addrs[1]); 
+	addrs	= addr.split(" ");
+	//console.debug("addrs[0]:" + addrs[0]);
+	//console.debug("addrs[1]:" + addrs[1]);
+	//console.debug("addrs[2]:" + addrs[2]);
+	//console.debug("addrs[3]:" + addrs[3]);
+	
 	switch (addrs[0]) {
 		case "浙江省":
 		case "江苏省":
