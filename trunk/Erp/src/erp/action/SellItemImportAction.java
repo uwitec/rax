@@ -85,7 +85,7 @@ public class SellItemImportAction extends ActionSupport {
 					try {
 						infos = info.substring(posIndex + 3).split(" ");
 						byerId = infos[1];
-						byerName = infos[2];
+						byerName = infos[2].equals("----") ? "" : infos[2];
 					} catch (Exception ex) {
 					}
 

@@ -49,15 +49,15 @@ function onImportContent(event) {
 	//console.debug("addrs[1]:" + addrs[1]);
 	//console.debug("addrs[2]:" + addrs[2]);
 	//console.debug("addrs[3]:" + addrs[3]);
-	
+
 	addrs	= addrs[1].split("：");
-	addr	= dojo.trim(addrs[1]); 
+	addr	= dojo.trim(addrs[1]);
 	addrs	= addr.split(" ");
 	//console.debug("addrs[0]:" + addrs[0]);
 	//console.debug("addrs[1]:" + addrs[1]);
 	//console.debug("addrs[2]:" + addrs[2]);
 	//console.debug("addrs[3]:" + addrs[3]);
-	
+
 	switch (addrs[0]) {
 		case "浙江省":
 		case "江苏省":
@@ -140,7 +140,7 @@ label { cursor:pointer; }
 
 <div>
 <@s.form action="sell_import">
-    <@s.textarea label="地址" name="content" cols="80" rows="2"/>
+    <@s.textarea label="地址" name="content" cols="80" rows="4"/>
     <@s.textfield label="日期" name="date"/>
     <@s.radio name="sel" list="dateSel"/>
     <@s.textfield label="收取运费" name="fee"/>
