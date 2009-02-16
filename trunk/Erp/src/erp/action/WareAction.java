@@ -28,7 +28,7 @@ public class WareAction extends ActionSupport {
     private int categoryId;
     private String name;
     private String cost;
-    private String price;
+    private String lastPrice;
     private String barcode;
     private String number;
     private String numberAlarm;
@@ -80,7 +80,7 @@ public class WareAction extends ActionSupport {
                 name = w.getName();
                 barcode = w.getBarcode();
                 cost = f.format(w.getCost());
-                price = f.format(w.getPrice());
+                lastPrice = f.format(w.getLastPrice());
                 number = String.valueOf(w.getNumber());
                 numberAlarm = String.valueOf(w.getNumberAlarm());
                 numberAlarmEnable = w.getNumberAlarmEnable() > 0;
@@ -134,8 +134,8 @@ public class WareAction extends ActionSupport {
             if (number.isEmpty() == false) {
                 obj.setNumber(Integer.parseInt(number));
             }
-            if (price.isEmpty() == false) {
-                obj.setPrice(Double.parseDouble(price));
+            if (lastPrice.isEmpty() == false) {
+                obj.setLastPrice(Double.parseDouble(lastPrice));
             }
             if (numberAlarm.isEmpty() == false) {
                 obj.setNumberAlarm(Integer.parseInt(numberAlarm));
@@ -181,12 +181,12 @@ public class WareAction extends ActionSupport {
         this.cost = cost;
     }
 
-    public String getPrice() {
-        return price;
+    public String getLastPrice() {
+        return lastPrice;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setLastPrice(String lastPrice) {
+        this.lastPrice = lastPrice;
     }
 
     public String getBarcode() {

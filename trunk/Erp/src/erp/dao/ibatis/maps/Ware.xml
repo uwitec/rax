@@ -20,7 +20,7 @@
 	<insert id="create" parameterClass="Ware">
 		<![CDATA[
 		INSERT INTO erp.ware (category_id,name,cost,price,barcode,number,status,lowest_cost,number_alarm,number_alarm_enable) 
-		VALUES (#categoryId#,#name#,#cost#,#price#,#barcode#,#number#,#status#,#lowestCost#,#numberAlarm#,#numberAlarmEnable#)
+		VALUES (#categoryId#,#name#,#cost#,#lastPrice#,#barcode#,#number#,#status#,#lowestCost#,#numberAlarm#,#numberAlarmEnable#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
@@ -31,7 +31,7 @@
 
 	<select id="read" parameterClass="int" resultClass="Ware" cacheModel="ware-cache">
 		<![CDATA[
-		SELECT id,category_id AS categoryId,name,cost,price,
+		SELECT id,category_id AS categoryId,name,cost,price AS lastPrice,
 		barcode,number,status,lowest_cost AS lowestCost,
 		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable
 		FROM erp.ware
@@ -42,7 +42,7 @@
 	<update id="update" parameterClass="Ware">
 		<![CDATA[
 		UPDATE erp.ware SET category_id=#categoryId#,name=#name#,
-		cost=#cost#,price=#price#,barcode=#barcode#,number=#number#,
+		cost=#cost#,price=#lastPrice#,barcode=#barcode#,number=#number#,
 		status=#status#,lowest_cost=#lowestCost#,
 		number_alarm=#numberAlarm#,number_alarm_enable=#numberAlarmEnable#
 		WHERE id=#id#
@@ -69,7 +69,7 @@
 
 	<select id="list" parameterClass="map" resultClass="Ware" cacheModel="ware-cache">
 		<![CDATA[
-		SELECT id,category_id AS categoryId,name,cost,price,
+		SELECT id,category_id AS categoryId,name,cost,price AS lastPrice,
 		barcode,number,status,lowest_cost AS lowestCost,
 		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable
 		FROM erp.ware
@@ -88,7 +88,7 @@
 	<select id="listByCategoryId" parameterClass="map"
 		resultClass="Ware" cacheModel="ware-cache">
 		<![CDATA[
-		SELECT id,category_id AS categoryId,name,cost,price,
+		SELECT id,category_id AS categoryId,name,cost,price AS lastPrice,
 		barcode,number,status,lowest_cost AS lowestCost,
 		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable
 		FROM erp.ware WHERE category_id=#id#
@@ -107,7 +107,7 @@
 	<select id="listLowNumber" parameterClass="map"
 		resultClass="Ware" cacheModel="ware-cache">
 		<![CDATA[
-		SELECT id,category_id AS categoryId,name,cost,price,
+		SELECT id,category_id AS categoryId,name,cost,price AS lastPrice,
 		barcode,number,status,lowest_cost AS lowestCost,
 		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable
 		FROM erp.ware WHERE number_alarm_enable>0 AND number<=number_alarm
@@ -126,7 +126,7 @@
 	<select id="findByBarcode" parameterClass="string"
 		resultClass="Ware">
 		<![CDATA[
-		SELECT id,category_id AS categoryId,name,cost,price,
+		SELECT id,category_id AS categoryId,name,cost,price AS lastPrice,
 		barcode,number,status,lowest_cost AS lowestCost,
 		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable
 		FROM erp.ware
@@ -137,7 +137,7 @@
 	<select id="findByKeywords" parameterClass="list"
 		resultClass="Ware">
 		<![CDATA[
-		SELECT id,category_id AS categoryId,name,cost,price,
+		SELECT id,category_id AS categoryId,name,cost,price AS lastPrice,
 		barcode,number,status,lowest_cost AS lowestCost,
 		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable
 		FROM erp.ware
@@ -155,7 +155,7 @@
 	<select id="fullTextSearch" parameterClass="string"
 		resultClass="Ware">
 		<![CDATA[
-		SELECT id,category_id AS categoryId,name,cost,price,
+		SELECT id,category_id AS categoryId,name,cost,price AS lastPrice,
 		barcode,number,status,lowest_cost AS lowestCost,
 		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable,
 		ts_rank (idx_name, q) AS r

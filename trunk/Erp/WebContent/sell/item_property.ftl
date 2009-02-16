@@ -89,7 +89,7 @@ function onSelect(event) {
 		ware = wareList[i];
 		if (obj.value == ware.id) {
 			objId.value		= ware.id;
-			objPrice.value	= ware.price;
+			objPrice.value	= ware.lastPrice;
 			objNum.value	= 1;
 			objName.innerHTML = ware.name;
 			// console.debug(ware.name);

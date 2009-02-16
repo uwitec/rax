@@ -11,7 +11,6 @@ var wareList;
 var importList;
 var importIdx = 0;
 var sellFee = ${sell.fee?c};
-var priceDiff = 0;
 
 dojo.addOnLoad(function (){
 	var obj;

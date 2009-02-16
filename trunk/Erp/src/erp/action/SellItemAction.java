@@ -46,9 +46,9 @@ public class SellItemAction extends ActionSupport {
 			return ERROR;
 		}
 		sellItemList = sellItemService.listBySellId(sellId);
-        for (SellItem item : sellItemList) {
-            item.setWare(wareService.getWareById(item.getWareId()));
-        }
+		for (SellItem item : sellItemList) {
+			item.setWare(wareService.getWareById(item.getWareId()));
+		}
 		return SUCCESS;
 	}
 
@@ -81,10 +81,8 @@ public class SellItemAction extends ActionSupport {
 				id = sellItemService.createSellItem(obj);
 			}
 			Ware w = wareService.getWareById(wareId);
-			if (w.getPrice() == 0) {
-				w.setPrice(price);
-				wareService.updateWare(w);
-			}
+			w.setLastPrice(price);
+			wareService.updateWare(w);
 		} catch (Exception ex) {
 			logger.error(ex.toString());
 			return ERROR;

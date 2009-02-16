@@ -58,7 +58,7 @@ dojo.addOnLoad(function (){
     <@s.textfield label="名称" name="name"/>
     <@s.textfield label="条码" name="barcode"/>
     <@s.textfield label="成本" name="cost"/>
-    <@s.textfield label="价格" name="price"/>
+    <@s.textfield label="参考价格" name="lastPrice"/>
     <@s.textfield label="数量" name="number"/>
     <@s.textfield label="警戒数量" name="numberAlarm"/>
     <@s.checkbox label="启用警戒" name="numberAlarmEnable"/>
