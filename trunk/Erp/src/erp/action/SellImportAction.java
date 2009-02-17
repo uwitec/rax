@@ -80,11 +80,10 @@ public class SellImportAction extends ActionSupport {
 			Sell obj = (sellId > 0) ? sellService.getSellById(sellId)
 					: new Sell();
 
-			String[] info = content.split("\n");
-			for (int i = 0; i < info.length; i++) {
-				logger.info("info[" + i + "]:" + info[i]);
-			}
 
+
+			/*
+			String[] info = content.split("\n");
 			obj.setCustomerName(info[0].substring(info[0].indexOf("：") + 1).trim());
 			obj.setCustomerAddress(info[1].substring(info[1].indexOf("：") + 1).trim());
 			obj.setCustomerPostCode(info[2].substring(info[2].indexOf("：") + 1).trim());
@@ -93,7 +92,19 @@ public class SellImportAction extends ActionSupport {
 			
 			obj.setCustomerPhone1(phoneList[0].trim());
 			obj.setCustomerPhone2(phoneList.length > 1 ? phoneList[1].trim() : "");
+			*/
+			
+			String[] info = content.split("，");
+            obj.setCustomerName(info[0].trim());
+            obj.setCustomerPhone1(info[1].trim());
+            obj.setCustomerPhone2(info[2].trim());
+            obj.setCustomerAddress(info[3].trim());
+            obj.setCustomerPostCode(info[4].trim());
 
+			for (int i = 0; i < info.length; i++) {
+				logger.info("info[" + i + "]:" + info[i]);
+			}
+			
 			obj.setExpressId(expressId);
 			obj.setCommentExpress(commentExpress);
 			obj.setCommentInvoice(commentInvoice);

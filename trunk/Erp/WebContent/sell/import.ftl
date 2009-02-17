@@ -44,6 +44,7 @@ function onDateChange(event) {
 function onImportContent(event) {
 	var addr = this.value;
 	var addrs;
+	/*
 	addrs = addr.split("\n");
 	//console.debug("addrs[0]:" + addrs[0]);
 	//console.debug("addrs[1]:" + addrs[1]);
@@ -57,6 +58,16 @@ function onImportContent(event) {
 	//console.debug("addrs[1]:" + addrs[1]);
 	//console.debug("addrs[2]:" + addrs[2]);
 	//console.debug("addrs[3]:" + addrs[3]);
+	*/
+
+	addrs = addr.split("，");
+	if (addrs.length < 2) return;
+	addr = addrs[2];
+	if (addrs.length > 4) {
+		addr = addrs[3];
+	}
+	addrs = dojo.trim(addr).split(" ");
+	console.debug("addrs:" + addrs);
 
 	switch (addrs[0]) {
 		case "浙江省":
