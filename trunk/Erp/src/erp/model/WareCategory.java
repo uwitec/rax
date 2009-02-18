@@ -2,38 +2,28 @@ package erp.model;
 
 public class WareCategory {
 
-    private int id;
-    private String name;
-    private int num;
-    
-    public WareCategory() {
-        id = 0;
-        name = "";
-        num = 0;
-    }
+	private int id;
+	private String name;
 
-    public int getId() {
-        return id;
-    }
+	public WareCategory() {
+		id = 0;
+		name = "";
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public int getNum() {
-        return num;
-    }
-
-    public void setNum(int num) {
-        this.num = num;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
 }

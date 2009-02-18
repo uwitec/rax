@@ -14,11 +14,7 @@
 <#if categoryList??>
 <#list categoryList as category>
 <div>
-<@s.url id="url_detail" action="ware_category">
-	<@s.param name="id" value="#{category.id}"/>
-</@s.url>
-[${category.num?string?left_pad(3)?replace(" ", "&nbsp;")}]
-<a href="${url_detail}">${category.name}</a>
+<a href="ware_category.action?id=${category.id}">${category.name}</a>
 </div>
 </#list>
 </#if>

@@ -11,7 +11,6 @@
 <div>
 <@s.form action="ware_category_save">
     <@s.textfield label="名称" name="category.name"/>
-    <@s.textfield label="数量" name="category.num"/>
     <@s.hidden name="id"/>
     <@s.submit value=" 提 交 "/>
 </@s.form>

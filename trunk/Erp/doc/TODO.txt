@@ -1,7 +1,8 @@
 ﻿<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-导入订单时，需要根据价格×数量， 减去运费，之后和最后的总价比较，如果不符，提示有VIP折扣需要确认
+删掉WareCategory表的num字段, 不再使用它了
 
+导入订单时，需要根据价格×数量， 减去运费，之后和最后的总价比较，如果不符，提示有VIP折扣需要确认
 修复评价格式转换功能
 快递公司属性详细说明，附图例，快捷打印测试快递单
 为不同的快递商分别保存结算日期
@@ -31,3 +32,5 @@ sell里面记录买家姓名、与收件人名相区分
 黑名单
 
 整理Struts action namespace
+
+[${category.num?string?left_pad(3)?replace(" ", "&nbsp;")}]

@@ -28,7 +28,7 @@
 <#if category.id = categoryId>
 [ ${category.name} ]
 <#else>
-<a href="?categoryId=${category.id}" title="${category.num}">${category.name}</a>
+<a href="?categoryId=${category.id}">${category.name}</a>
 </#if>
 <#assign w = w + category.name?length/>
 <#if 70 < w>

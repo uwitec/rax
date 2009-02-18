@@ -126,7 +126,10 @@ public class WareAction extends ActionSupport {
             obj.setCategoryId(categoryId);
             obj.setName(name.trim());
             obj.setBarcode(barcode.trim());
-            obj.setStatus(status);
+            /*
+             * status 默认是0，设置这个会导致编辑隐藏的宝贝时不小心将隐藏属性取消
+             * obj.setStatus(status);
+             */
             obj.setNumberAlarmEnable(numberAlarmEnable ? 1 : 0);
             if (cost.isEmpty() == false) {
                 obj.setCost(Double.parseDouble(cost));

@@ -24,8 +24,7 @@ SET default_with_oids = false;
 
 CREATE TABLE ware_category (
     id integer NOT NULL,
-    name character varying(64) NOT NULL,
-    num integer DEFAULT 0 NOT NULL
+    name character varying(64) NOT NULL
 );
 
 
