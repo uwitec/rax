@@ -37,7 +37,7 @@ public class StatService {
         Date start = c.getTime();
         // Only date info will be used, so do not need set hour or minute
         
-        logger.info("ListStatByDay " + String.valueOf(num) + " start:"
+        logger.debug("ListStatByDay " + String.valueOf(num) + " start:"
                 + start.toString() + " end:" + end.toString());
 
         c.add(Calendar.DATE, num + num);
@@ -46,7 +46,7 @@ public class StatService {
         List<Stat> lstProfit = statDao.listProfitByDay(start, end);
         List<Stat> lstCount = statDao.listCountByDay(start, end);
 
-        logger.info("Count:" + String.valueOf(lstCount.size())
+        logger.debug("Count:" + String.valueOf(lstCount.size())
                 + " ProfitCount:" + String.valueOf(lstProfit.size()));
 
         for (Stat st : lstCount) {
@@ -110,7 +110,7 @@ public class StatService {
         c.add(Calendar.MONTH, -num);
         start = c.getTime();
 
-        logger.info("listStatByMonth " + String.valueOf(num) + " start:"
+        logger.debug("listStatByMonth " + String.valueOf(num) + " start:"
                 + start.toString() + " end:" + end.toString());
 
         List<Stat> lstRet = new ArrayList<Stat>();

@@ -29,7 +29,7 @@
 		</selectKey>
 	</insert>
 
-	<select id="read" parameterClass="int" resultClass="Ware" cacheModel="ware-cache">
+	<select id="read" parameterClass="int" resultClass="Ware">
 		<![CDATA[
 		SELECT id,category_id AS categoryId,name,cost,price AS lastPrice,
 		barcode,number,status,lowest_cost AS lowestCost,

@@ -37,8 +37,7 @@
 		</selectKey>
 	</insert>
 
-	<select id="read" parameterClass="int" resultClass="Sell"
-		cacheModel="sell-cache">
+	<select id="read" parameterClass="int" resultClass="Sell">
 		<![CDATA[
 		SELECT id,customer_name AS customerName,customer_address AS customerAddress,
 		customer_phone1 AS customerPhone1,customer_phone2 AS customerPhone2,

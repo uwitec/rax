@@ -27,7 +27,7 @@
 		</selectKey>
 	</insert>
 
-	<select id="read" parameterClass="int" resultClass="WareCategory" cacheModel="ware-category-cache">
+	<select id="read" parameterClass="int" resultClass="WareCategory">
 		<![CDATA[
 		SELECT id,name
 		FROM erp.ware_category

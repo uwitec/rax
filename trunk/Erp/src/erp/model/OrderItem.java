@@ -2,68 +2,67 @@ package erp.model;
 
 public class OrderItem {
 
-    private int id;
-    private int orderId;
-    private int wareId;
-    private double cost;
-    private int number;
-    
-    private Ware ware;
-    
-    public OrderItem() {
-        id = 0;
-        orderId = 0;
-        wareId = 0;
-        cost = 0;
-        number = 0;
-    }
-    
-    public int getOrderId() {
-        return orderId;
-    }
+	private int id;
+	private int orderId;
+	private int wareId;
+	private double cost;
+	private int number;
+	private Ware ware;
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
+	public OrderItem() {
+		id = 0;
+		orderId = 0;
+		wareId = 0;
+		cost = 0;
+		number = 0;
+	}
 
-    public int getWareId() {
-        return wareId;
-    }
+	public int getOrderId() {
+		return orderId;
+	}
 
-    public void setWareId(int wareId) {
-        this.wareId = wareId;
-    }
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
 
-    public double getCost() {
-        return cost;
-    }
+	public int getWareId() {
+		return wareId;
+	}
 
-    public void setCost(double cost) {
-        this.cost = cost;
-    }
+	public void setWareId(int wareId) {
+		this.wareId = wareId;
+	}
 
-    public int getNumber() {
-        return number;
-    }
+	public double getCost() {
+		return cost;
+	}
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public int getNumber() {
+		return number;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setNumber(int number) {
+		this.number = number;
+	}
 
-    public Ware getWare() {
-        return ware;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setWare(Ware ware) {
-        this.ware = ware;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Ware getWare() {
+		return ware;
+	}
+
+	public void setWare(Ware ware) {
+		this.ware = ware;
+	}
 
 }

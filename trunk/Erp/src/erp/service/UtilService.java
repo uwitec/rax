@@ -21,10 +21,10 @@ public class UtilService {
 
     public String getLastFeeDateStr() {
         // 取得快递费用结算日期
-        logger.info("getLastFeeDateStr");
+        logger.debug("getLastFeeDateStr");
         Util u = utilDao.read("last_fee_date");
         String ret = (null == u) ? "" : u.getValue();
-        logger.info("getLastFeeDateStr:" + ret);
+        logger.debug("getLastFeeDateStr:" + ret);
         return ret;
     }
 
@@ -32,7 +32,7 @@ public class UtilService {
         // 设置最近快递费用结算日期
         boolean bFlag = true;
         Util u = null;
-        logger.info("setLastFeeDateStr:" + String.valueOf(lastFeeDate));
+        logger.debug("setLastFeeDateStr:" + String.valueOf(lastFeeDate));
         try {
             SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
             Date d = f.parse(lastFeeDate);

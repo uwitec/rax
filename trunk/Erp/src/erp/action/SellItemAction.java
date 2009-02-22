@@ -69,8 +69,8 @@ public class SellItemAction extends ActionSupport {
 				Sell sell = new Sell();
 				sellId = sellService.createSell(sell);
 			}
-			SellItem obj = (id > 0) ? sellItemService.getSellItemById(id)
-					: new SellItem();
+			SellItem obj = new SellItem();			
+			obj.setId(id);
 			obj.setSellId(sellId);
 			obj.setWareId(wareId);
 			obj.setPrice(price);

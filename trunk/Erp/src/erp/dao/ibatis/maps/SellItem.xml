@@ -29,8 +29,7 @@
 		</selectKey>
 	</insert>
 
-	<select id="read" parameterClass="int" resultClass="SellItem"
-		cacheModel="sellItem-cache">
+	<select id="read" parameterClass="int" resultClass="SellItem">
 		<![CDATA[
 		SELECT id, sell_id AS sellId, ware_id AS wareId, price, number
 		FROM erp.sell_item

@@ -75,9 +75,9 @@ label { cursor:pointer; }
 <a href="sell_list.action">返回发货单列表</a>
 <a href="express_input.action?sellId=${id?c}" target="_balnk">打印快递单</a>
 <#if id != 0>
-<a href="sell_delete.action?id=${id?c}" onclick="return confirm('确实要删除这笔交易么？')">删除</a><br />
+<a href="sell_delete.action?id=${id?c}" onclick="return confirm('确实要删除这笔交易么？')">删除</a>
 </#if>
-<br />
+<br /><br />
 
 <div>
 <@s.form action="sell_save">
