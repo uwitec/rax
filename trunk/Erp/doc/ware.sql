@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2008-11-23 21:46:22
+-- Started on 2009-02-22 15:23:04
 
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = off;
@@ -17,8 +17,8 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- TOC entry 1697 (class 1259 OID 16537)
--- Dependencies: 2002 2003 2004 2005 2007 2008 6
+-- TOC entry 1494 (class 1259 OID 16537)
+-- Dependencies: 1771 1772 1773 1774 1776 1777 6
 -- Name: ware; Type: TABLE; Schema: erp; Owner: erp; Tablespace: 
 --
 
@@ -41,8 +41,8 @@ CREATE TABLE ware (
 ALTER TABLE erp.ware OWNER TO erp;
 
 --
--- TOC entry 1704 (class 1259 OID 16564)
--- Dependencies: 1697 6
+-- TOC entry 1501 (class 1259 OID 16564)
+-- Dependencies: 6 1494
 -- Name: ware_id_seq; Type: SEQUENCE; Schema: erp; Owner: erp
 --
 
@@ -56,8 +56,8 @@ CREATE SEQUENCE ware_id_seq
 ALTER TABLE erp.ware_id_seq OWNER TO erp;
 
 --
--- TOC entry 2020 (class 0 OID 0)
--- Dependencies: 1704
+-- TOC entry 1786 (class 0 OID 0)
+-- Dependencies: 1501
 -- Name: ware_id_seq; Type: SEQUENCE OWNED BY; Schema: erp; Owner: erp
 --
 
@@ -65,8 +65,8 @@ ALTER SEQUENCE ware_id_seq OWNED BY ware.id;
 
 
 --
--- TOC entry 2006 (class 2604 OID 16570)
--- Dependencies: 1704 1697
+-- TOC entry 1775 (class 2604 OID 16570)
+-- Dependencies: 1501 1494
 -- Name: id; Type: DEFAULT; Schema: erp; Owner: erp
 --
 
@@ -74,8 +74,8 @@ ALTER TABLE ware ALTER COLUMN id SET DEFAULT nextval('ware_id_seq'::regclass);
 
 
 --
--- TOC entry 2015 (class 2606 OID 16585)
--- Dependencies: 1697 1697
+-- TOC entry 1782 (class 2606 OID 16585)
+-- Dependencies: 1494 1494
 -- Name: ware_p_key; Type: CONSTRAINT; Schema: erp; Owner: erp; Tablespace: 
 --
 
@@ -84,8 +84,8 @@ ALTER TABLE ONLY ware
 
 
 --
--- TOC entry 2009 (class 1259 OID 16592)
--- Dependencies: 1697
+-- TOC entry 1778 (class 1259 OID 16592)
+-- Dependencies: 1494
 -- Name: ware_barcode_index; Type: INDEX; Schema: erp; Owner: erp; Tablespace: 
 --
 
@@ -93,8 +93,8 @@ CREATE INDEX ware_barcode_index ON ware USING btree (barcode);
 
 
 --
--- TOC entry 2010 (class 1259 OID 16593)
--- Dependencies: 1697
+-- TOC entry 1779 (class 1259 OID 16593)
+-- Dependencies: 1494
 -- Name: ware_category_index; Type: INDEX; Schema: erp; Owner: erp; Tablespace: 
 --
 
@@ -102,8 +102,8 @@ CREATE INDEX ware_category_index ON ware USING btree (category_id);
 
 
 --
--- TOC entry 2011 (class 1259 OID 16668)
--- Dependencies: 1697
+-- TOC entry 1780 (class 1259 OID 16668)
+-- Dependencies: 1494
 -- Name: ware_idxname_fti; Type: INDEX; Schema: erp; Owner: erp; Tablespace: 
 --
 
@@ -111,33 +111,15 @@ CREATE INDEX ware_idxname_fti ON ware USING gist (idx_name);
 
 
 --
--- TOC entry 2012 (class 1259 OID 16595)
--- Dependencies: 1697
--- Name: ware_number_index; Type: INDEX; Schema: erp; Owner: erp; Tablespace: 
---
-
-CREATE INDEX ware_number_index ON ware USING btree (number);
-
-
---
--- TOC entry 2013 (class 1259 OID 17099)
--- Dependencies: 1697 1697
--- Name: ware_numberalarm_index; Type: INDEX; Schema: erp; Owner: erp; Tablespace: 
---
-
-CREATE INDEX ware_numberalarm_index ON ware USING btree (number_alarm, number_alarm_enable);
-
-
---
--- TOC entry 2016 (class 1259 OID 16596)
--- Dependencies: 1697
+-- TOC entry 1783 (class 1259 OID 16596)
+-- Dependencies: 1494
 -- Name: ware_status_index; Type: INDEX; Schema: erp; Owner: erp; Tablespace: 
 --
 
 CREATE INDEX ware_status_index ON ware USING btree (status);
 
 
--- Completed on 2008-11-10 23:56:39
+-- Completed on 2009-02-22 15:23:04
 
 --
 -- PostgreSQL database dump complete
