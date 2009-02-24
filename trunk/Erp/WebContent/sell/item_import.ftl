@@ -10,7 +10,6 @@ var sellId;
 var wareList;
 var importList;
 var importIdx = 0;
-var sellFee = ${sell.fee?c};
 
 dojo.addOnLoad(function (){
 	var obj;
@@ -120,12 +119,17 @@ function doParse(content) {
 				obj.remove(0);
 			}
 			var item = null;
+			var total = 0;
 			for (var i = 0; i < json.itemList.length; i++) {
 				item = json.itemList[i];
-				addOption(obj, item.name, i, true);
 				//console.debug(item);
+				addOption(obj, item.name, i, true);
+				total += item.number * item.price;
 			}
-			importList = json.itemList;
+			if (total + json.totalExFee != json.totalPrice) {
+				dojo.byId("checkingPrompt").style.display = "block";
+			}
+			importList = json.itemList;			
 			//console.debug(importList);
 		} catch(e) { console.debug(e.toString()); } },
 		error: function(response) { console.debug(response.status);	}
@@ -212,7 +216,6 @@ function onSelect(event) {
          		break;
 			}
 		}
-				
 		onSubmit(itemId, itemPrice, itemNum);
 	}
 }
@@ -267,6 +270,7 @@ function onSubmit(itemId, itemPrice, itemNum) {
 <style type="text/css">
 select { width:380px; }
 label { cursor:pointer; }
+#checkingPrompt { color:red; display:none; }
 </style>
 </head>
 
@@ -284,6 +288,9 @@ label { cursor:pointer; }
 <select id="searchResult" size="12"></select><br />
 </div>
 <br />
+
+<div id="checkingPrompt">标价与实付总价不符, 请检查是否VIP价</div>
+<br/>
 
 <table id="itemsTable">
 <tr>

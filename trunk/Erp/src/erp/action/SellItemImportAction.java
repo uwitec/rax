@@ -35,6 +35,8 @@ public class SellItemImportAction extends ActionSupport {
 	private String sellContent;
 	private List<InvoiceItem> itemList;
 	private List<SellItem> sellItemList;
+	private double totalPrice;
+	private double totalExFee;
 
 	@Override
 	public String input() throws Exception {
@@ -51,8 +53,9 @@ public class SellItemImportAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		try {
-			double totalExFee = 0;
 			itemList = new ArrayList<InvoiceItem>();
+			totalPrice = 0;
+			totalExFee = 0;
 			InvoiceItem item = null;
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			String dateStr = "([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})";
@@ -75,13 +78,15 @@ public class SellItemImportAction extends ActionSupport {
 				String byerName = "";
 				double price = 0;
 				double exFee = 0;
+				double total = 0;
 
 				String info = infoArray.get(i);
 				logger.info("info[" + i + "]:" + info);
 
 				int posIndex = info.indexOf("买家：");
 				if (posIndex > 0) {
-					if (info.indexOf("交易关闭") > -1) continue;
+					if (info.indexOf("交易关闭") > -1)
+						continue;
 					try {
 						infos = info.substring(posIndex + 3).split(" ");
 						byerId = infos[1];
@@ -123,6 +128,12 @@ public class SellItemImportAction extends ActionSupport {
 							nameBuffer.append(" ");
 						}
 						name = nameBuffer.toString().trim();
+
+						try {
+							total = Double.valueOf(info.substring(posIndex + 1)
+									.trim());
+						} catch (Exception ex) {
+						}
 					}
 
 					try {
@@ -144,6 +155,7 @@ public class SellItemImportAction extends ActionSupport {
 					item.setExFee(exFee);
 					itemList.add(item);
 					totalExFee += exFee;
+					totalPrice += total;
 
 					logger.info("日期:" + formatter.format(date) + " 宝贝名称:"
 							+ name + " 数量:" + num + " 价格:" + price + " 快递费:"
@@ -151,6 +163,8 @@ public class SellItemImportAction extends ActionSupport {
 				}
 
 			}
+			logger.info("运费:" + totalExFee + " 合计:" + totalPrice);
+			
 			if (sellId > 0 && item != null) {
 				Sell obj = sellService.getSellById(sellId);
 				if (obj.getCustomerIM().isEmpty()) {
@@ -225,6 +239,22 @@ public class SellItemImportAction extends ActionSupport {
 
 	public List<SellItem> getSellItemList() {
 		return sellItemList;
+	}
+
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public double getTotalExFee() {
+		return totalExFee;
+	}
+
+	public void setTotalExFee(double totalExFee) {
+		this.totalExFee = totalExFee;
 	}
 
 }
