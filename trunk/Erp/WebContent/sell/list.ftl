@@ -6,6 +6,9 @@
 <style media="print">
 body { display: none; }
 </style>
+<style type="text/css">
+.comment { color: red; }
+</style>
 </head>
 
 <body>
@@ -31,7 +34,10 @@ body { display: none; }
 <#if sellList??>
 <#list sellList as sell>
 <div>
-${imTypeSel.get(sell.customerIMType)}:${sell.customerIM}<br />
+${imTypeSel.get(sell.customerIMType)}:${sell.customerIM}
+<#if sell.customerIMComment != "">
+<span class="comment">${sell.customerIMComment}</span>
+</#if><br />
 姓名:${sell.customerName}<br />
 <#if status = -1>
 日期:${sell.sendDate?string("yyyy-MM-dd")}<br />

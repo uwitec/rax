@@ -3,6 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>出库单列表</title>
+<style type="text/css">
+.comment { color: red; }
+</style>
 </head>
 
 <body>
@@ -18,7 +21,10 @@
 <#if sellList??>
 <#list sellList as sell>
 <div>
-${imTypeSel.get(sell.customerIMType)}:${sell.customerIM}<br />
+${imTypeSel.get(sell.customerIMType)}:${sell.customerIM}
+<#if sell.customerIMComment != "">
+<span class="comment">${sell.customerIMComment}</span>
+</#if><br />
 姓名:${sell.customerName}<br />
 日期:${sell.sendDate?string("yyyy-MM-dd")}<br />
 地址:${sell.customerAddress}<br />
