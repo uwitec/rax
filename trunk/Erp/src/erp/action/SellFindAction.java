@@ -22,10 +22,10 @@ public class SellFindAction extends ActionSupport {
     
     @Override
     public String execute() throws Exception {
-        if ((keyword != null) && keyword.isEmpty() == false) {
+        if ((keyword != null) && keyword.trim().isEmpty() == false) {
             logger.info("findByKeyword:" + keyword);
             imTypeSel = sellService.getIMTypeSel();
-            sellList = sellService.findByKeyword(keyword);
+            sellList = sellService.findByKeyword(keyword.trim());
         }
         return SUCCESS;
     }

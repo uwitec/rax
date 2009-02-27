@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -81,8 +83,78 @@ public class SellItemImportAction extends ActionSupport {
 				double total = 0;
 
 				String info = infoArray.get(i);
-				logger.info("info[" + i + "]:" + info);
+				//logger.debug("info[" + i + "]:" + info);
 
+				matcher = pattern.matcher(info);
+				if (matcher.find()) {
+					if (infoArray.get(i + 3).indexOf("交易关闭") > -1) continue;
+					
+					int posIndex;
+					try {
+						date = formatter.parse(matcher.group(1));
+					} catch (Exception ex) {}
+					
+					info = infoArray.get(i + 1);
+					posIndex = info.lastIndexOf("-");
+
+					infos = info.substring(0, posIndex - 1).trim().split(" ");					
+					try {
+						num = Integer.valueOf(infos[infos.length - 1]);
+					} catch (Exception ex) {}
+					
+					try {
+						price = Double.valueOf(infos[infos.length - 2]);
+					} catch (Exception ex) {}
+
+					StringBuffer nameBuffer = new StringBuffer();
+					for (int j = 0; j < infos.length - 2; j++) {
+						nameBuffer.append(infos[j]);
+						nameBuffer.append(" ");
+					}
+					name = nameBuffer.toString().trim();
+
+					byerId = info.substring(posIndex + 1).trim();
+					byerName = infoArray.get(i + 2).trim();
+					byerName = byerName.equals("----") ? "" : byerName;
+					
+					for (int j = i + 4; j < infoArray.size(); j++) {
+						info = infoArray.get(j);
+						posIndex = info.indexOf("含快递 ：");
+						if (posIndex > -1) {
+							try {
+								exFee = Double.valueOf(info.substring(posIndex + 5, info.length() - 1));
+							} catch (Exception ex) {}
+							infos = infoArray.get(j - 1).trim().split(" ");
+							try {
+								total = Double.valueOf(infos[infos.length - 1]);
+							} catch (Exception ex) {}
+							break;
+						}
+					}
+					
+					item = new InvoiceItem();
+					item.setName(name);
+					item.setDate(date);
+					item.setByerId(byerId);
+					item.setNumber(num);
+					item.setByerName(byerName);
+					item.setPrice(price);
+					item.setExFee(exFee);
+					itemList.add(item);
+					totalExFee += exFee;
+					totalPrice += total;
+
+					logger.debug("日期:" + formatter.format(date) 
+							+ " 宝贝名称:" + name 
+							+ " 单价:" + price 
+							+ " 数量:" + num 
+							+ " 快递费:" + exFee
+							+ " 实付:" + total
+							+ " 买家ID:" + byerId 
+							+ " 买家姓名:" + byerName);
+				}
+
+				/*
 				int posIndex = info.indexOf("买家：");
 				if (posIndex > 0) {
 					if (info.indexOf("交易关闭") > -1)
@@ -157,14 +229,15 @@ public class SellItemImportAction extends ActionSupport {
 					totalExFee += exFee;
 					totalPrice += total;
 
-					logger.info("日期:" + formatter.format(date) + " 宝贝名称:"
+					logger.debug("日期:" + formatter.format(date) + " 宝贝名称:"
 							+ name + " 数量:" + num + " 价格:" + price + " 快递费:"
 							+ exFee + " 买家ID:" + byerId + " 买家姓名:" + byerName);
 				}
+				*/
 
 			}
-			logger.info("运费:" + totalExFee + " 合计:" + totalPrice);
-			
+			logger.debug("运费:" + totalExFee + " 合计:" + totalPrice);
+
 			if (sellId > 0 && item != null) {
 				Sell obj = sellService.getSellById(sellId);
 				if (obj.getCustomerIM().isEmpty()) {
@@ -183,6 +256,9 @@ public class SellItemImportAction extends ActionSupport {
 	}
 
 	public static void main(String[] args) throws Exception {
+		BasicConfigurator.configure();
+		Logger.getRootLogger().setLevel(Level.DEBUG);
+
 		char[] cbuf = new char[1024];
 		StringBuffer buf = new StringBuffer();
 		InputStreamReader is = new InputStreamReader(new FileInputStream(
