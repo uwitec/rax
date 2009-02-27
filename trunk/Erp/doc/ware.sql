@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2009-02-22 15:23:04
+-- Started on 2009-02-27 20:23:21
 
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = off;
@@ -28,13 +28,13 @@ CREATE TABLE ware (
     cost real DEFAULT 0 NOT NULL,
     price real DEFAULT 0 NOT NULL,
     number integer NOT NULL,
-    barcode character varying(16),
+    barcode character varying(16) NOT NULL,
     status integer DEFAULT 0 NOT NULL,
     idx_name tsvector,
     category_id integer DEFAULT 0 NOT NULL,
     lowest_cost real NOT NULL,
     number_alarm integer DEFAULT (-1) NOT NULL,
-    number_alarm_enable integer DEFAULT 1
+    number_alarm_enable integer DEFAULT 1 NOT NULL
 );
 
 
@@ -119,7 +119,7 @@ CREATE INDEX ware_idxname_fti ON ware USING gist (idx_name);
 CREATE INDEX ware_status_index ON ware USING btree (status);
 
 
--- Completed on 2009-02-22 15:23:04
+-- Completed on 2009-02-27 20:23:22
 
 --
 -- PostgreSQL database dump complete
