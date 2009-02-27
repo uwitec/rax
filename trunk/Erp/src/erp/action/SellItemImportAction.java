@@ -70,6 +70,7 @@ public class SellItemImportAction extends ActionSupport {
 				}
 			}
 
+					
 			Pattern pattern = Pattern.compile(dateStr);
 			Matcher matcher;
 			for (int i = 0; i < infoArray.size(); i++) {
@@ -121,8 +122,8 @@ public class SellItemImportAction extends ActionSupport {
 						info = infoArray.get(j);
 						posIndex = info.indexOf("含快递 ：");
 						if (posIndex > -1) {
-							try {
-								exFee = Double.valueOf(info.substring(posIndex + 5, info.length() - 1));
+							try {							
+								exFee = Double.valueOf(info.substring(posIndex + 5, info.lastIndexOf(")")));
 							} catch (Exception ex) {}
 							infos = infoArray.get(j - 1).trim().split(" ");
 							try {
