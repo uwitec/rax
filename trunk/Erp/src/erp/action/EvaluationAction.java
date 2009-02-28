@@ -2,15 +2,15 @@ package erp.action;
 
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -27,6 +27,34 @@ public class EvaluationAction extends ActionSupport {
 	private List<Evaluation> evaList;
 	private Map<String, String> rank;
 
+	public EvaluationAction() {
+		rank = new HashMap<String, String>(16);
+		rank.put("b_blue_1.gif",
+				"<img src='http://pics.taobaocdn.com/newrank/b_blue_1.gif'>");
+		rank.put("b_blue_2.gif",
+				"<img src='http://pics.taobaocdn.com/newrank/b_blue_2.gif'>");
+		rank.put("b_blue_3.gif",
+				"<img src='http://pics.taobaocdn.com/newrank/b_blue_3.gif'>");
+		rank.put("b_blue_4.gif",
+				"<img src='http://pics.taobaocdn.com/newrank/b_blue_4.gif'>");
+		rank.put("b_blue_5.gif",
+				"<img src='http://pics.taobaocdn.com/newrank/b_blue_5.gif'>");
+		rank.put("b_red_1.gif",
+				"<img src='http://pics.taobaocdn.com/newrank/b_red_1.gif'>");
+		rank.put("b_red_2.gif",
+				"<img src='http://pics.taobaocdn.com/newrank/b_red_2.gif'>");
+		rank.put("b_red_3.gif",
+				"<img src='http://pics.taobaocdn.com/newrank/b_red_3.gif'>");
+		rank.put("b_red_4.gif",
+				"<img src='http://pics.taobaocdn.com/newrank/b_red_4.gif'>");
+		rank.put("b_red_5.gif",
+				"<img src='http://pics.taobaocdn.com/newrank/b_red_5.gif'>");
+		rank.put("", "(无)");
+		/*
+		 * http://pics.taobaocdn.com/newrank/b_cap_2.gif
+		 */
+	}
+
 	public String parseEvaluation() throws Exception {
 		evaList = new ArrayList<Evaluation>();
 		try {
@@ -34,114 +62,56 @@ public class EvaluationAction extends ActionSupport {
 			String[] infos = evaluation.split("\n");
 			ArrayList<String> infoArray = new ArrayList<String>();
 			for (int i = 0; i < infos.length; i++) {
-				if (infos[i].trim().length() > 0) {
-					infoArray.add(infos[i].trim());
+				info = infos[i].trim();
+				if (info.isEmpty() == false) {
+					infoArray.add(info);
 				}
 			}
 
-			String dateStr = "([0-9]{4}.[0-9]{1,2}.[0-9]{1,2} [0-9]{2}:[0-9]{2}:[0-9]{2})";
-			Pattern pattern = Pattern.compile(dateStr);
+			Pattern datePattern = Pattern.compile("(\\[[0-9]{4}.[0-9]{1,2}.[0-9]{1,2} [0-9]{2}:[0-9]{2}:[0-9]{2}\\])");
+			Pattern levelPattern = Pattern.compile("\\[([\\d]*)－[\\S]*\\]");
 			Matcher matcher;
-
-			Pattern lvPat = Pattern.compile("\\[([\\d]*)－[\\S]*\\]");
 
 			for (int i = 0; i < infoArray.size(); i++) {
 				info = infoArray.get(i);
-				// logger.info("info[" + i + "]:" + info);
+				//logger.debug("info[" + i + "]:" + info);
 
+				String evDate = "";
 				String evContent = "";
 				String evName = "";
 				String evExplain = "";
 				String evRank = "";
 				boolean evHaveRank = false;
-				String evDate = "";
-				int startPos = info.lastIndexOf("[详情]");
-				if (startPos > -1) {
-					evHaveRank = (startPos == 0);
-					startPos += 4;
-					for (int j = i; j < infoArray.size(); j++) {
-						String subInfo = infoArray.get(j);
-						matcher = pattern.matcher(subInfo);
-						if (matcher.find()) {
-							evDate = matcher.group(1);
-							evContent += subInfo.substring(startPos, subInfo
-									.lastIndexOf(matcher.group(1)));
-							evContent = evContent.trim();
-							startPos = j + 1;
-							break;
-						} else {
-							evContent += subInfo.substring(startPos, subInfo
-									.length());
-							startPos = 0;
-						}
+				
+				matcher = datePattern.matcher(info);
+				if (matcher.find()) {
+					evDate = matcher.group(1);
+					evContent = infoArray.get(i - 1);
+					if (evContent.startsWith("[解释]")) {
+						evExplain = evContent.substring(5);
+						evContent = infoArray.get(i - 2);
 					}
-
-					for (int j = startPos; j < infoArray.size(); j++) {
-						String subInfo = infoArray.get(j);
-						if (subInfo.indexOf("解释") == 0
-								&& j + 1 < infoArray.size()) {
-							String[] s = infoArray.get(j + 1).split("  ");
-							evExplain = s[0];
-						} else if (subInfo.indexOf("买家") == 0) {
-							String[] s = subInfo.split(" ");
-							/*
-							for (int k = 0; k < s.length; k++) {
-								logger.info("[" + s[k] + "]");
-							}
-							*/
-							evName = s[2];
-
-							matcher = lvPat.matcher(subInfo);
-							if (matcher.find()) {
-								logger.debug(matcher.group(1));
-								try {
-									switch (Integer.parseInt(matcher.group(1))) {
-									case 4:
-										evRank = "b_red_1.gif";
-										break;
-									case 11:
-										evRank = "b_red_2.gif";
-										break;
-									case 41:
-										evRank = "b_red_3.gif";
-										break;
-									case 91:
-										evRank = "b_red_4.gif";
-										break;
-									case 151:
-										evRank = "b_red_5.gif";
-										break;
-									case 251:
-										evRank = "b_blue_1.gif";
-										break;
-									case 501:
-										evRank = "b_blue_2.gif";
-										break;
-									case 1001:
-										evRank = "b_blue_3.gif";
-										break;
-									case 2001:
-										evRank = "b_blue_4.gif";
-										break;
-									case 5001:
-										evRank = "b_blue_5.gif";
-										break;
-									case 10001:
-										evRank = "b_cap_1.gif";
-										break;
-									}
-								} catch (NumberFormatException e) {
-								}
-							}
-							break;
-						}
+					
+					int posIndex = info.indexOf("买家");
+					if (posIndex > -1) {
+						String[] subInfo = info.substring(posIndex).split(" ");
+						evName = subInfo[2];
 					}
-					logger.info("evContent:" + evContent);
-					logger.info("evDate:" + evDate);
-					logger.info("evName:" + evName);
-					logger.info("evExplain:" + evExplain);
-					logger.info("evHaveRank:" + evHaveRank);
-					logger.info("evRank:" + evRank);
+					
+					matcher = levelPattern.matcher(info);
+					if (matcher.find()) {
+						try {
+							evRank = levelToPicture(Integer.parseInt(matcher.group(1)));
+							evHaveRank = true;
+						} catch (NumberFormatException e) {}
+					}
+					
+					logger.debug("evContent:" + evContent);
+					logger.debug("evDate:" + evDate);
+					logger.debug("evName:" + evName);
+					logger.debug("evExplain:" + evExplain);
+					logger.debug("evHaveRank:" + evHaveRank);
+					logger.debug("evRank:" + evRank);
 					Evaluation e = new Evaluation();
 					e.setContent(evContent);
 					e.setName(evName);
@@ -165,36 +135,13 @@ public class EvaluationAction extends ActionSupport {
 	}
 
 	public Map<String, String> getRank() {
-		Map<String, String> ret = new HashMap<String, String>(16);
-		ret.put("b_blue_1.gif",
-				"<img src='http://pics.taobaocdn.com/newrank/b_blue_1.gif'>");
-		ret.put("b_blue_2.gif",
-				"<img src='http://pics.taobaocdn.com/newrank/b_blue_2.gif'>");
-		ret.put("b_blue_3.gif",
-				"<img src='http://pics.taobaocdn.com/newrank/b_blue_3.gif'>");
-		ret.put("b_blue_4.gif",
-				"<img src='http://pics.taobaocdn.com/newrank/b_blue_4.gif'>");
-		ret.put("b_blue_5.gif",
-				"<img src='http://pics.taobaocdn.com/newrank/b_blue_5.gif'>");
-		ret.put("b_red_1.gif",
-				"<img src='http://pics.taobaocdn.com/newrank/b_red_1.gif'>");
-		ret.put("b_red_2.gif",
-				"<img src='http://pics.taobaocdn.com/newrank/b_red_2.gif'>");
-		ret.put("b_red_3.gif",
-				"<img src='http://pics.taobaocdn.com/newrank/b_red_3.gif'>");
-		ret.put("b_red_4.gif",
-				"<img src='http://pics.taobaocdn.com/newrank/b_red_4.gif'>");
-		ret.put("b_red_5.gif",
-				"<img src='http://pics.taobaocdn.com/newrank/b_red_5.gif'>");
-		ret.put("", "(无)");
-
-		/*
-		 * http://pics.taobaocdn.com/newrank/b_cap_2.gif
-		 */
-		return ret;
+		return rank;
 	}
 
 	public static void main(String[] args) throws Exception {
+		BasicConfigurator.configure();
+		Logger.getRootLogger().setLevel(Level.DEBUG);
+		
 		char[] cbuf = new char[1024];
 		StringBuffer buf = new StringBuffer();
 		InputStreamReader is = new InputStreamReader(new FileInputStream(
@@ -208,6 +155,46 @@ public class EvaluationAction extends ActionSupport {
 		action.parseEvaluation();
 	}
 
+	private String levelToPicture(int score) {
+		String strImage = "";
+		switch (score) {
+		case 4:
+			strImage = "b_red_1.gif";
+			break;
+		case 11:
+			strImage = "b_red_2.gif";
+			break;
+		case 41:
+			strImage = "b_red_3.gif";
+			break;
+		case 91:
+			strImage = "b_red_4.gif";
+			break;
+		case 151:
+			strImage = "b_red_5.gif";
+			break;
+		case 251:
+			strImage = "b_blue_1.gif";
+			break;
+		case 501:
+			strImage = "b_blue_2.gif";
+			break;
+		case 1001:
+			strImage = "b_blue_3.gif";
+			break;
+		case 2001:
+			strImage = "b_blue_4.gif";
+			break;
+		case 5001:
+			strImage = "b_blue_5.gif";
+			break;
+		case 10001:
+			strImage = "b_cap_1.gif";
+			break;
+		}
+		return strImage;
+	}
+	
 	public String getEvaluation() {
 		return evaluation;
 	}
