@@ -64,6 +64,7 @@ label { cursor:pointer; }
 <br /><br />
 </#if>
 
+<#assign total=0/>
 <table>
 <tr>
 <td>编号</td>
@@ -78,6 +79,7 @@ label { cursor:pointer; }
 </tr>
 <#if orderItemList??>
 <#list orderItemList as item>
+<#assign total=total + item.cost * item.number/>
 <tr>
 <td>${item_index + 1}</td>
 <#if order??>
@@ -91,7 +93,10 @@ label { cursor:pointer; }
 </tr>
 </#list>
 </#if>
-</table>
+</table><br />
+
+<span>货款: #{total;m2M2}</span><br />
+<span>总额: #{total + order.fee;m2M2}</span>
 
 </body>
 </html>
