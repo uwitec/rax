@@ -120,10 +120,10 @@ public class SellItemImportAction extends ActionSupport {
 					
 					for (int j = i + 4; j < infoArray.size(); j++) {
 						info = infoArray.get(j);
-						posIndex = info.indexOf("含快递 ：");
+						posIndex = info.indexOf("含快递:");
 						if (posIndex > -1) {
-							try {							
-								exFee = Double.valueOf(info.substring(posIndex + 5, info.lastIndexOf(")")));
+							try {
+								exFee = Double.valueOf(info.substring(posIndex + 4, info.lastIndexOf(")")));
 							} catch (Exception ex) {}
 							infos = infoArray.get(j - 1).trim().split(" ");
 							try {
