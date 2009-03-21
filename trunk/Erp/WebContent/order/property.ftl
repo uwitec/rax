@@ -65,6 +65,7 @@ label { cursor:pointer; }
 </#if>
 
 <#assign total=0/>
+<#assign totalSum=0/>
 <table>
 <tr>
 <td>编号</td>
@@ -95,8 +96,12 @@ label { cursor:pointer; }
 </#if>
 </table><br />
 
+<#if order??>
+<#assign totalSum=total + order.fee/>
+</#if>
+
 <span>货款: #{total;m2M2}</span><br />
-<span>总额: #{total + order.fee;m2M2}</span>
+<span>总额: #{totalSum;m2M2}</span>
 
 </body>
 </html>
