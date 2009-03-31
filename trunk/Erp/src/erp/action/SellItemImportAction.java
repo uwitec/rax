@@ -63,6 +63,7 @@ public class SellItemImportAction extends ActionSupport {
 			String dateStr = "([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})";
 			String feeStr = "\\(含[\\s]*快递[\\s]*:([\\d\\.]+)\\)";
 			String itemStr = "([\\S\\s]*)[\\s]+([\\d\\.]+)[\\s]+([\\d]+)[\\s]+-([\\s\\S]*)";
+			String nameStr = "([\\S\\s]+)[\\s]{2}([\\S]+)";
 
 			String[] infos = sellContent.split("\n");
 			ArrayList<String> infoArray = new ArrayList<String>();
@@ -75,6 +76,7 @@ public class SellItemImportAction extends ActionSupport {
 			Pattern datePat = Pattern.compile(dateStr);
 			Pattern feePat = Pattern.compile(feeStr);
 			Pattern itemPat = Pattern.compile(itemStr);
+			Pattern namePat = Pattern.compile(nameStr);
 			Matcher matcher;
 			for (int i = 0; i < infoArray.size(); i++) {
 				Date date = new Date();
@@ -91,32 +93,43 @@ public class SellItemImportAction extends ActionSupport {
 
 				matcher = datePat.matcher(info);
 				if (matcher.find()) {
-					if (infoArray.get(i + 3).indexOf("交易关闭") > -1) continue;
 
 					try {
 						date = formatter.parse(matcher.group(1));
 					} catch (Exception ex) {}
 
-					matcher = itemPat.matcher(infoArray.get(i + 1)); 
-					if (matcher.find()) {					
-						name = matcher.group(1).trim();
-						byerId = matcher.group(4).trim();
-						
-						try {
-							price = Double.valueOf(matcher.group(2));
-						} catch (Exception ex) {}
-						
-						try {
-							num = Integer.valueOf(matcher.group(3));
-						} catch (Exception ex) {}
+					for (int j = 1; j <= 2; j++) {
+						matcher = itemPat.matcher(infoArray.get(i + j));
+						if (matcher.find()) {
+							name = matcher.group(1).trim();
+							byerId = matcher.group(4).trim();
+							
+							try {
+								price = Double.valueOf(matcher.group(2));
+							} catch (Exception ex) {}
+							
+							try {
+								num = Integer.valueOf(matcher.group(3));
+							} catch (Exception ex) {}
+							
+							if (name.lastIndexOf("化妆品容量") != -1) {
+								name = infoArray.get(i + j - 1);
+								i++;
+							}
+						}
 					}
-
-					byerName = infoArray.get(i + 2).trim();
+					
+					if (infoArray.get(i + 3).indexOf("交易关闭") > -1) continue;
+				
+					info = infoArray.get(i + 2);
+					matcher = namePat.matcher(infoArray.get(i + 2));
+					byerName = matcher.find() ? matcher.group(1) : info;
 					byerName = byerName.equals("----") ? "" : byerName;
 
-					for (int j = i + 4; j < infoArray.size(); j++) {
+					for (int j = i + 3; j < infoArray.size(); j++) {
 						info = infoArray.get(j);
 						if (datePat.matcher(info).find()) break;
+						
 						matcher = feePat.matcher(info);
 						if (matcher.find()) {
 							try {
@@ -134,7 +147,11 @@ public class SellItemImportAction extends ActionSupport {
 								double extPrice = 0;
 								int extNumber = 0;
 								
-								extName = matcher.group(1).trim();								
+								extName = matcher.group(1).trim();
+								if (extName.lastIndexOf("化妆品容量") != -1) {
+									extName = infoArray.get(j - 1);
+								}
+								
 								try {
 									extPrice = Double.valueOf(matcher.group(2));
 								} catch (Exception ex) {}
@@ -213,12 +230,8 @@ public class SellItemImportAction extends ActionSupport {
 		action.execute();
 		
 		/*
-		Pattern pattern;
 		Matcher matcher;
-
-		String feeStr = "\\(含[\\s]*快递[\\s]*:([\\d\\.]+)\\)";
-		String itemStr = "([\\S\\s]*)[\\s]+([\\d\\.]+)[\\s]+([\\d]+)[\\s]+-([\\s\\S]*)";
-		pattern = Pattern.compile(itemStr);
+		Pattern pattern = Pattern.compile("([\\S\\s]+)[\\s]{2}([\\S]+)");
 		
 		String info;
 		String[] infos = buf.toString().split("\n");
@@ -227,13 +240,12 @@ public class SellItemImportAction extends ActionSupport {
 			matcher = pattern.matcher(info); 
 			if (matcher.find()) {
 				logger.debug(matcher.group(0));
-				logger.debug(matcher.group(1));
-				logger.debug(matcher.group(2));
-				logger.debug(matcher.group(3));
-				logger.debug(matcher.group(4).trim());
+				//logger.debug(matcher.group(1));
+				//logger.debug(matcher.group(2));
 			}
 		}
 		*/
+
 	}
 
 	public void setSellService(SellService sellService) {
