@@ -109,6 +109,7 @@ label { cursor:pointer; }
 <a href="invoice.action?sellId=${id?c}" target="_balnk">打印发货单</a><br /><br />
 
 <#assign total=0/>
+<#assign totalSum=0/>
 <table>
 <tr>
 <td>编号</td>
@@ -131,7 +132,12 @@ label { cursor:pointer; }
 </#if>
 </table><br />
 
+<#if sellItemList??>
+<#assign totalSum=total + fee?number/>
+</#if>
+
 <span>合计: #{total;m2M2}</span><br />
+<span>总计: #{totalSum;m2M2}</span>
 
 </body>
 </html>
