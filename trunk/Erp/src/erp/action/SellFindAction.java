@@ -9,6 +9,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import erp.model.Sell;
 import erp.service.SellService;
+import erp.service.UtilService;
 
 public class SellFindAction extends ActionSupport {
 
@@ -16,15 +17,17 @@ public class SellFindAction extends ActionSupport {
     private final static Logger logger = Logger.getLogger(SellFindAction.class);
 
     private SellService sellService = null;
+    private UtilService utilService = null;
+    
     private String keyword;
     private List<Sell> sellList;
-    Map<Integer, String> imTypeSel;
+    private Map<Integer, String> imTypeSel;
     
     @Override
     public String execute() throws Exception {
         if ((keyword != null) && keyword.trim().isEmpty() == false) {
             logger.info("findByKeyword:" + keyword);
-            imTypeSel = sellService.getIMTypeSel();
+            imTypeSel = utilService.getIMTypeSel();
             sellList = sellService.findByKeyword(keyword.trim());
         }
         return SUCCESS;
@@ -49,5 +52,9 @@ public class SellFindAction extends ActionSupport {
     public void setSellService(SellService sellService) {
         this.sellService = sellService;
     }
+
+	public void setUtilService(UtilService utilService) {
+		this.utilService = utilService;
+	}
 
 }

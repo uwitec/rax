@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Vendor">
+
+	<typeAlias alias="Vendor" type="erp.model.Vendor" />
+
+	<cacheModel id="vendor-cache" type="MEMORY">
+		<flushInterval hours="24" />
+		<flushOnExecute statement="Vendor.create" />
+		<flushOnExecute statement="Vendor.update" />
+		<flushOnExecute statement="Vendor.delete" />
+		<property name="reference-type" value="WEAK" />
+	</cacheModel>
+
+	<insert id="create" parameterClass="Vendor">
+		<![CDATA[
+			INSERT INTO "vendor" (title, name, phone1, phone2, address, im, im_type, comment)
+    		VALUES (#title#, #name#, #phone1#, #phone2#, #address#, #IM#, #IMType#, #comment#);
+		]]>
+		<selectKey resultClass="int" keyProperty="id">
+			<![CDATA[
+			SELECT currval('vendor_id_seq')
+			]]>
+		</selectKey>
+	</insert>
+
+	<select id="read" parameterClass="int" resultClass="Vendor"
+		cacheModel="vendor-cache">
+		<![CDATA[
+		SELECT id,title,name,phone1,phone2,address,comment,im AS IM,im_type AS IMType,comment
+		FROM "vendor"
+		WHERE id=#id# LIMIT 1
+		]]>
+	</select>
+
+	<update id="update" parameterClass="Vendor">
+		<![CDATA[
+		UPDATE "vendor"
+		SET title=#title#,name=#name#,phone1=#phone1#,phone2=#phone2#,address=#address#,im=#IM#,im_type=#IMType#,comment=#comment#
+		WHERE id=#id#
+		]]>
+	</update>
+
+	<delete id="delete" parameterClass="int">
+		<![CDATA[
+		DELETE FROM "vendor" WHERE id=#id#
+		]]>
+	</delete>
+
+	<select id="count" resultClass="int">
+		<![CDATA[
+		SELECT COUNT(*) AS NUM FROM "vendor"
+		]]>
+	</select>
+
+	<select id="list" resultClass="Vendor" cacheModel="vendor-cache">
+		<![CDATA[
+		SELECT id,title,name,phone1,phone2,address,comment,im AS IM,im_type AS IMType,comment
+		FROM "vendor" ORDER BY id
+		]]>
+	</select>
+
+</sqlMap>

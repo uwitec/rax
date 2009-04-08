@@ -14,6 +14,7 @@
 <#if categoryList??>
 <#list categoryList as category>
 <div>
+${(category_index + 1)?string?left_pad(2)?replace(" ", "&nbsp;")}
 <a href="ware_category.action?id=${category.id}">${category.name}</a>
 </div>
 </#list>

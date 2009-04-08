@@ -23,5 +23,6 @@
 	<include file="struts-order.xml" />
 	<include file="struts-stat.xml" />
 	<include file="struts-express.xml" />
+	<include file="struts-vendor.xml" />
 
 </struts>

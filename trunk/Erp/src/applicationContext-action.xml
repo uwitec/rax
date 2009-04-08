@@ -32,10 +32,12 @@
 		<property name="sellItemService" ref="SellItemService" />
 		<property name="wareService" ref="WareService" />
 		<property name="expressService" ref="ExpressService" />
+		<property name="utilService" ref="UtilService" />
 		<property name="pager" ref="Pager" />
 	</bean>
 	<bean id="SellFindAction" class="erp.action.SellFindAction" scope="prototype">
 		<property name="sellService" ref="SellService" />
+		<property name="utilService" ref="UtilService" />
 	</bean>
 	<bean id="SellItemAction" class="erp.action.SellItemAction" scope="prototype">
 		<property name="wareService" ref="WareService" />
@@ -85,6 +87,11 @@
 		<property name="sellService" ref="SellService" />
 		<property name="sellItemService" ref="SellItemService" />
 		<property name="wareService" ref="WareService" />
+	</bean>
+
+	<bean id="VendorAction" class="erp.action.VendorAction" scope="prototype">
+		<property name="vendorService" ref="VendorService" />
+		<property name="utilService" ref="UtilService" />
 	</bean>
 
 </beans>

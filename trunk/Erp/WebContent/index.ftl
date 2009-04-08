@@ -9,6 +9,7 @@
 <a href="stat/stat_summary.action">统计数据</a>
 <a href="express/express_list.action">快递公司</a>
 <a href="order/order_list.action">进货单列表</a>
+<a href="vendor/vendor_list.action">供货商</a>
 <a href="ware_list.action">宝贝列表</a>
 <a href="ware_category_list.action">分类列表</a>
 <a href="sell_list.action">发货单列表</a>

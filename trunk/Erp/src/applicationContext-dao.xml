@@ -44,5 +44,8 @@
 		<property name="sqlMapClient" ref="sqlMapClient" />
 	</bean>
 
+	<bean id="VendorDao" class="erp.dao.ibatis.VendorDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
 
 </beans>

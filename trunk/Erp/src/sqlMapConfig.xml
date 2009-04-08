@@ -20,5 +20,6 @@
 	<sqlMap resource="erp/dao/ibatis/maps/Util.xml" />
 	<sqlMap resource="erp/dao/ibatis/maps/Keyword.xml" />
 	<sqlMap resource="erp/dao/ibatis/maps/Express.xml" />
+	<sqlMap resource="erp/dao/ibatis/maps/Vendor.xml" />
 
 </sqlMapConfig>

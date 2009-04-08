@@ -45,4 +45,8 @@
 	<bean id="UtilService" class="erp.service.UtilService">
 		<property name="utilDao" ref="UtilDao" />
 	</bean>
+
+	<bean id="VendorService" class="erp.service.VendorService">
+		<property name="vendorDao" ref="VendorDao" />
+	</bean>
 </beans>
