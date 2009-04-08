@@ -10,12 +10,12 @@
 
 	<insert id="create" parameterClass="Order">
 		<![CDATA[
-		INSERT INTO erp.order (create_date, status, fee, comment) 
+		INSERT INTO "order" (create_date, status, fee, comment) 
 		VALUES (#createDate#, #status#, #fee#, #comment#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
-			SELECT currval('erp.order_id_seq')
+			SELECT currval('order_id_seq')
 			]]>
 		</selectKey>
 	</insert>
@@ -23,27 +23,27 @@
 	<select id="read" parameterClass="int" resultClass="Order">
 		<![CDATA[
 		SELECT id,create_date AS createDate,status,fee,comment
-		FROM erp.order
+		FROM "order"
 		WHERE id=#id#
 		]]>
 	</select>
 
 	<update id="update" parameterClass="Order">
 		<![CDATA[
-		UPDATE erp.order SET create_date=#createDate#,status=#status#,fee=#fee#,comment=#comment#
+		UPDATE "order" SET create_date=#createDate#,status=#status#,fee=#fee#,comment=#comment#
 		WHERE id=#id#
 		]]>
 	</update>
 
 	<delete id="delete" parameterClass="int">
 		<![CDATA[
-		DELETE FROM erp.order WHERE id=#id#
+		DELETE FROM "order" WHERE id=#id#
 		]]>
 	</delete>
 
 	<select id="count" parameterClass="map" resultClass="int">
 		<![CDATA[
-		SELECT COUNT(*) AS NUM FROM erp.order
+		SELECT COUNT(*) AS NUM FROM "order"
 		]]>
 		<dynamic>
 			<isGreaterThan prepend="WHERE" property="status"
@@ -56,7 +56,7 @@
 	<select id="list" parameterClass="map" resultClass="Order">
 		<![CDATA[
 		SELECT id,create_date AS createDate,status,fee,comment
-		FROM erp.order
+		FROM "order"
 		]]>
 		<dynamic>
 			<isNotEmpty prepend="WHERE" property="status">

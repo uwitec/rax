@@ -11,15 +11,16 @@
 
 	<select id="storeAmount" resultClass="double">
 		<![CDATA[
-		select sum(cost * number) from erp.ware
+		select sum(cost * number) from "ware"
 		]]>
 	</select>
 
 	<select id="profitByDay" parameterClass="map" resultClass="Stat">
 		<![CDATA[
 		SELECT s.send_date AS statDate, SUM((i.price - w.cost) * i.number) AS profit, SUM(i.number * i.price) AS amount
-		FROM sell_item AS i LEFT JOIN sell AS s ON (i.sell_id=s.id) 
-		LEFT JOIN ware AS w ON (i.ware_id=w.id) 
+		FROM "sell_item" AS i 
+		LEFT JOIN "sell" AS s ON (i.sell_id=s.id) 
+		LEFT JOIN "ware" AS w ON (i.ware_id=w.id) 
 		WHERE s.send_date BETWEEN #from# AND #to#
 		GROUP BY s.send_date
 		ORDER BY s.send_date DESC
@@ -29,7 +30,7 @@
 	<select id="countByDay" parameterClass="map" resultClass="Stat">
 		<![CDATA[
 		SELECT send_date AS statDate, COUNT(id) AS number, SUM(fee) AS fee, SUM(fee_real) AS feeReal
-		FROM sell
+		FROM "sell"
 		WHERE send_date BETWEEN #from# AND #to#
 		GROUP BY send_date
 		ORDER BY send_date DESC		
@@ -40,8 +41,9 @@
 		resultClass="Stat">
 		<![CDATA[
 		SELECT s.send_date AS statDate, SUM((i.price - w.cost) * i.number) AS profit, SUM(i.number * i.price) AS amount
-		FROM sell_item AS i LEFT JOIN sell AS s ON (i.sell_id=s.id) 
-		LEFT JOIN ware AS w ON (i.ware_id=w.id) 
+		FROM "sell_item" AS i 
+		LEFT JOIN "sell" AS s ON (i.sell_id=s.id) 
+		LEFT JOIN "ware" AS w ON (i.ware_id=w.id) 
 		WHERE s.send_date BETWEEN #from# AND #to#
 		GROUP BY s.send_date
 		ORDER BY s.send_date DESC
@@ -51,7 +53,7 @@
 	<select id="countByMonth" parameterClass="map" resultClass="Stat">
 		<![CDATA[
 		SELECT send_date AS statDate, COUNT(id) AS number, SUM(fee) AS fee, SUM(fee_real) AS feeReal
-		FROM sell
+		FROM "sell"
 		WHERE send_date BETWEEN #from# AND #to#
 		GROUP BY send_date
 		ORDER BY send_date DESC
@@ -61,7 +63,7 @@
 	<select id="feeByDate" parameterClass="map" resultClass="StatFee">
 		<![CDATA[
 		SELECT COUNT(id) AS number, SUM(fee_real) AS amount, express_id AS expressId
-		FROM erp.sell
+		FROM "sell"
 		WHERE send_date BETWEEN #from# AND #to#
 		GROUP BY express_id
 		]]>

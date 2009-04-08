@@ -18,11 +18,11 @@
 	
 	<insert id="create" parameterClass="WareCategory">
 		<![CDATA[
-		INSERT INTO erp.ware_category (name) VALUES (#name#)
+		INSERT INTO "ware_category" (name) VALUES (#name#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
-			SELECT currval('erp.ware_category_id_seq')
+			SELECT currval('ware_category_id_seq')
 			]]>
 		</selectKey>
 	</insert>
@@ -30,34 +30,34 @@
 	<select id="read" parameterClass="int" resultClass="WareCategory">
 		<![CDATA[
 		SELECT id,name
-		FROM erp.ware_category
+		FROM "ware_category"
 		WHERE id=#id#
 		]]>
 	</select>
 
 	<update id="update" parameterClass="WareCategory">
 		<![CDATA[
-		UPDATE erp.ware_category SET name=#name#
+		UPDATE "ware_category" SET name=#name#
 		WHERE id=#id#
 		]]>
 	</update>
 
 	<delete id="delete" parameterClass="int">
 		<![CDATA[
-		DELETE FROM erp.ware_category WHERE id=#id#
+		DELETE FROM "ware_category" WHERE id=#id#
 		]]>
 	</delete>
 
 	<select id="count" resultClass="int">
 		<![CDATA[
-		SELECT COUNT(*) AS NUM FROM erp.ware_category
+		SELECT COUNT(*) AS NUM FROM "ware_category"
 		]]>
 	</select>
 
 	<select id="list" resultClass="WareCategory" cacheModel="ware-category-cache">
 		<![CDATA[
 		SELECT id,name
-		FROM erp.ware_category
+		FROM "ware_category"
 		ORDER BY name
 		]]>
 	</select>

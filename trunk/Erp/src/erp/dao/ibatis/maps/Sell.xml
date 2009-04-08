@@ -19,7 +19,7 @@
 
 	<insert id="create" parameterClass="Sell">
 		<![CDATA[
-		INSERT INTO erp.sell (customer_name,customer_address,
+		INSERT INTO "sell" (customer_name,customer_address,
 		customer_phone1,customer_phone2,customer_postcode,
 		customer_im,customer_im_type,customer_im_comment,
 		fee,fee_real,create_date,send_date,express_id,
@@ -32,7 +32,7 @@
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
-			SELECT currval('erp.sell_id_seq')
+			SELECT currval('sell_id_seq')
 			]]>
 		</selectKey>
 	</insert>
@@ -47,14 +47,14 @@
 		express_id AS expressId,
 		comment_express AS commentExpress,comment_invoice AS commentInvoice,
 		sender,status
-		FROM erp.sell
+		FROM "sell"
 		WHERE id=#id#
 		]]>
 	</select>
 
 	<update id="update" parameterClass="Sell">
 		<![CDATA[
-		UPDATE erp.sell SET customer_name=#customerName#,customer_address=#customerAddress#,
+		UPDATE "sell" SET customer_name=#customerName#,customer_address=#customerAddress#,
 		customer_phone1=#customerPhone1#,customer_phone2=#customerPhone2#,
 		customer_postcode=#customerPostCode#,
 		customer_im=#customerIM#,customer_im_type=#customerIMType#,customer_im_comment=#customerIMComment#,
@@ -67,13 +67,13 @@
 
 	<delete id="delete" parameterClass="int">
 		<![CDATA[
-		DELETE FROM erp.sell WHERE id=#id#
+		DELETE FROM "sell" WHERE id=#id#
 		]]>
 	</delete>
 
 	<select id="count" parameterClass="map" resultClass="int">
 		<![CDATA[
-		SELECT COUNT(*) AS NUM FROM erp.sell
+		SELECT COUNT(*) AS NUM FROM "sell"
 		]]>
 		<dynamic>
 			<isGreaterThan prepend="WHERE" property="status"
@@ -94,7 +94,7 @@
 		express_id AS expressId,
 		comment_express AS commentExpress,comment_invoice AS commentInvoice,
 		sender,status
-		FROM erp.sell
+		FROM "sell"
 		]]>
 		<dynamic>
 			<isNotEmpty prepend="WHERE" property="status">
@@ -117,7 +117,7 @@
 		express_id AS expressId,
 		comment_express AS commentExpress,comment_invoice AS commentInvoice,
 		sender,status
-		FROM erp.sell
+		FROM "sell"
 		WHERE strpos(lower(customer_im), #keyword#) > 0 
 		OR strpos(lower(customer_name), #keyword#) > 0
 		OR strpos(lower(customer_address), #keyword#) > 0

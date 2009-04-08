@@ -10,12 +10,12 @@
 
 	<insert id="create" parameterClass="OrderItem">
 		<![CDATA[
-		INSERT INTO erp.order_item (order_id, ware_id, cost, number) 
+		INSERT INTO "order_item" (order_id, ware_id, cost, number) 
 		VALUES (#orderId#, #wareId#, #cost#, #number#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
-			SELECT currval('erp.order_item_id_seq')
+			SELECT currval('order_item_id_seq')
 			]]>
 		</selectKey>
 	</insert>
@@ -24,28 +24,28 @@
 		resultClass="OrderItem">
 		<![CDATA[
 		SELECT id, order_id AS orderId, ware_id AS wareId, cost, number
-		FROM erp.order_item
+		FROM "order_item"
 		WHERE id=#id#
 		]]>
 	</select>
 
 	<update id="update" parameterClass="OrderItem">
 		<![CDATA[
-		UPDATE erp.order_item SET order_id=#orderId#, ware_id=#wareId#, cost=#cost#, number=#number#
+		UPDATE "order_item" SET order_id=#orderId#, ware_id=#wareId#, cost=#cost#, number=#number#
 		WHERE id=#id#
 		]]>
 	</update>
 
 	<delete id="delete" parameterClass="int">
 		<![CDATA[
-		DELETE FROM erp.order_item WHERE id=#id#
+		DELETE FROM "order_item" WHERE id=#id#
 		]]>
 	</delete>
 
 	<select id="list" parameterClass="int" resultClass="OrderItem">
 		<![CDATA[
 		SELECT id, order_id AS orderId, ware_id AS wareId, cost, number
-		FROM erp.order_item
+		FROM "order_item"
 		WHERE order_id=#id#
 		ORDER BY id
 		]]>

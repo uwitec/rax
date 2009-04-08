@@ -18,7 +18,7 @@
 
 	<insert id="create" parameterClass="Express">
 		<![CDATA[
-			INSERT INTO erp.express (ex_name, phone, settle_date,
+			INSERT INTO "express" (ex_name, phone, settle_date,
             tpl_size_x, tpl_size_y,
             tpl_date_x, tpl_date_y, tpl_date_fmt,
             tpl_src_name_x, tpl_src_name_y,
@@ -53,7 +53,7 @@
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
-			SELECT currval('erp.express_id_seq')
+			SELECT currval('express_id_seq')
 			]]>
 		</selectKey>
 	</insert>
@@ -77,14 +77,14 @@
 		tpl_dst_address_lb_x AS tplDstAddrLBX, tpl_dst_address_lb_y AS tplDstAddrLBY, 
 		tpl_dst_address_rt_x AS tplDstAddrRTX, tpl_dst_address_rt_y AS tplDstAddrRTY, 
 		tpl_dst_address_indent AS tplDstAddrIndent
-		FROM erp.express
+		FROM "express"
 		WHERE id=#id# LIMIT 1
 		]]>
 	</select>
 
 	<update id="update" parameterClass="Express">
 		<![CDATA[
-		UPDATE erp.express
+		UPDATE "express"
 		SET ex_name=#exName#, phone=#phone#, settle_date=#settleDate#,
 		tpl_size_x=#tplSizeX#, tpl_size_y=#tplSizeY#, 
 		tpl_date_x=#tplDateX#, tpl_date_y=#tplDateY#, tpl_date_fmt=#tplDateFmt#, 
@@ -107,13 +107,13 @@
 
 	<delete id="delete" parameterClass="int">
 		<![CDATA[
-		DELETE FROM erp.express WHERE id=#id#
+		DELETE FROM "express" WHERE id=#id#
 		]]>
 	</delete>
 
 	<select id="count" resultClass="int">
 		<![CDATA[
-		SELECT COUNT(*) AS NUM FROM erp.express
+		SELECT COUNT(*) AS NUM FROM "express"
 		]]>
 	</select>
 
@@ -135,7 +135,7 @@
 		tpl_dst_address_lb_x AS tplDstAddrLBX, tpl_dst_address_lb_y AS tplDstAddrLBY, 
 		tpl_dst_address_rt_x AS tplDstAddrRTX, tpl_dst_address_rt_y AS tplDstAddrRTY, 
 		tpl_dst_address_indent AS tplDstAddrIndent
-		FROM erp.express ORDER BY id
+		FROM "express" ORDER BY id
 		]]>
 	</select>
 

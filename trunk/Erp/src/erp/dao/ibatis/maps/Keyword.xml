@@ -8,31 +8,31 @@
 
 	<insert id="create" parameterClass="string">
 		<![CDATA[
-		INSERT INTO erp.keyword VALUES (#token#)
+		INSERT INTO "keyword" VALUES (#token#)
 		]]>
 	</insert>
 
 	<select id="read" resultClass="string">
 		<![CDATA[
-		SELECT token FROM erp.keyword WHERE token=#token# LIMIT 1
+		SELECT token FROM "keyword" WHERE token=#token# LIMIT 1
 		]]>
 	</select>
 
 	<delete id="delete" parameterClass="string">
 		<![CDATA[
-		DELETE FROM erp.keyword WHERE token=#token#
+		DELETE FROM "keyword" WHERE token=#token#
 		]]>
 	</delete>
 
 	<select id="count" resultClass="int">
 		<![CDATA[
-		SELECT COUNT(*) AS NUM FROM erp.keyword
+		SELECT COUNT(*) AS NUM FROM "keyword"
 		]]>
 	</select>
 
 	<select id="list" resultClass="string">
 		<![CDATA[
-		SELECT token FROM erp.keyword
+		SELECT token FROM "keyword"
 		]]>
 	</select>
 	

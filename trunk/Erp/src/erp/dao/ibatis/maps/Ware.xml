@@ -19,12 +19,12 @@
 
 	<insert id="create" parameterClass="Ware">
 		<![CDATA[
-		INSERT INTO erp.ware (category_id,name,cost,price,barcode,number,status,lowest_cost,number_alarm,number_alarm_enable) 
+		INSERT INTO "ware" (category_id,name,cost,price,barcode,number,status,lowest_cost,number_alarm,number_alarm_enable) 
 		VALUES (#categoryId#,#name#,#cost#,#lastPrice#,#barcode#,#number#,#status#,#lowestCost#,#numberAlarm#,#numberAlarmEnable#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
-			SELECT currval('erp.ware_id_seq')
+			SELECT currval('ware_id_seq')
 			]]>
 		</selectKey>
 	</insert>
@@ -34,14 +34,14 @@
 		SELECT id,category_id AS categoryId,name,cost,price AS lastPrice,
 		barcode,number,status,lowest_cost AS lowestCost,
 		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable
-		FROM erp.ware
+		FROM "ware"
 		WHERE id=#id#
 		]]>
 	</select>
 
 	<update id="update" parameterClass="Ware">
 		<![CDATA[
-		UPDATE erp.ware SET category_id=#categoryId#,name=#name#,
+		UPDATE "ware" SET category_id=#categoryId#,name=#name#,
 		cost=#cost#,price=#lastPrice#,barcode=#barcode#,number=#number#,
 		status=#status#,lowest_cost=#lowestCost#,
 		number_alarm=#numberAlarm#,number_alarm_enable=#numberAlarmEnable#
@@ -51,13 +51,13 @@
 
 	<delete id="delete" parameterClass="int">
 		<![CDATA[
-		DELETE FROM erp.ware WHERE id=#id#
+		DELETE FROM "ware" WHERE id=#id#
 		]]>
 	</delete>
 
 	<select id="count" parameterClass="map" resultClass="int">
 		<![CDATA[
-		SELECT COUNT(*) AS NUM FROM erp.ware
+		SELECT COUNT(*) AS NUM FROM "ware"
 		]]>
 		<dynamic>
 			<isGreaterThan prepend="WHERE" property="status"
@@ -72,7 +72,7 @@
 		SELECT id,category_id AS categoryId,name,cost,price AS lastPrice,
 		barcode,number,status,lowest_cost AS lowestCost,
 		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable
-		FROM erp.ware
+		FROM "ware"
 		]]>
 		<dynamic>
 			<isGreaterThan prepend="WHERE" property="status"
@@ -91,7 +91,7 @@
 		SELECT id,category_id AS categoryId,name,cost,price AS lastPrice,
 		barcode,number,status,lowest_cost AS lowestCost,
 		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable
-		FROM erp.ware WHERE category_id=#id#
+		FROM "ware" WHERE category_id=#id#
 		]]>
 		<dynamic>
 			<isGreaterThan prepend="AND" property="status"
@@ -110,7 +110,7 @@
 		SELECT id,category_id AS categoryId,name,cost,price AS lastPrice,
 		barcode,number,status,lowest_cost AS lowestCost,
 		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable
-		FROM erp.ware WHERE number_alarm_enable>0 AND number<=number_alarm
+		FROM "ware" WHERE number_alarm_enable>0 AND number<=number_alarm
 		]]>
 		<dynamic>
 			<isGreaterThan prepend="AND" property="status"
@@ -129,7 +129,7 @@
 		SELECT id,category_id AS categoryId,name,cost,price AS lastPrice,
 		barcode,number,status,lowest_cost AS lowestCost,
 		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable
-		FROM erp.ware
+		FROM "ware"
 		WHERE barcode=#barcode#
 		]]>
 	</select>
@@ -140,7 +140,7 @@
 		SELECT id,category_id AS categoryId,name,cost,price AS lastPrice,
 		barcode,number,status,lowest_cost AS lowestCost,
 		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable
-		FROM erp.ware
+		FROM "ware"
 		]]>
 		<dynamic prepend="WHERE">
 			<iterate open="(" close=")" conjunction="AND">
@@ -159,7 +159,7 @@
 		barcode,number,status,lowest_cost AS lowestCost,
 		number_alarm AS numberAlarm,number_alarm_enable AS numberAlarmEnable,
 		ts_rank (idx_name, q) AS r
-		FROM erp.ware, to_tsquery(#content#) q
+		FROM "ware", to_tsquery(#content#) q
 		WHERE idx_name @@ q
 		ORDER BY r DESC
 		LIMIT 12
@@ -168,7 +168,7 @@
 
 	<update id="updateFullTextIndex" parameterClass="map">
 		<![CDATA[
-		UPDATE erp.ware SET idx_name=to_tsvector(#tokenize#)
+		UPDATE "ware" SET idx_name=to_tsvector(#tokenize#)
 		WHERE id=#id#
 		]]>
 	</update>
