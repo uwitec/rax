@@ -73,8 +73,8 @@ label { cursor:pointer; }
 
 <body>
 <a href="sell_list.action">返回发货单列表</a>
-<a href="express_input.action?sellId=${id?c}" target="_balnk">打印快递单</a>
 <#if id != 0>
+<a href="express_input.action?sellId=${id?c}" target="_balnk">打印快递单</a>
 <a href="sell_delete.action?id=${id?c}" onclick="return confirm('确实要删除这笔交易么？')">删除</a>
 </#if>
 <br /><br />
@@ -104,6 +104,7 @@ label { cursor:pointer; }
 </@s.form>
 </div>
 
+<#if id != 0>
 <a href="sell_item.action?sellId=${id?c}">添加购买的宝贝</a>
 <a href="sell_item_import_input.action?sellId=${id?c}">从淘宝导入售出记录</a>
 <a href="invoice.action?sellId=${id?c}" target="_balnk">打印发货单</a><br /><br />
@@ -138,6 +139,7 @@ label { cursor:pointer; }
 
 <span>合计: #{total;m2M2}</span><br />
 <span>总计: #{totalSum;m2M2}</span>
+</#if>
 
 </body>
 </html>

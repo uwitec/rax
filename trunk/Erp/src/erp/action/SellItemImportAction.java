@@ -39,7 +39,7 @@ public class SellItemImportAction extends ActionSupport {
 	private List<SellItem> sellItemList;
 	private double totalPrice;
 	private double totalExFee;
-	
+
 	@Override
 	public String input() throws Exception {
 		sell = sellService.getSellById(sellId);
@@ -104,24 +104,24 @@ public class SellItemImportAction extends ActionSupport {
 						if (matcher.find()) {
 							name = matcher.group(1).trim();
 							byerId = matcher.group(4).trim();
-							
+
 							try {
 								price = Double.valueOf(matcher.group(2));
 							} catch (Exception ex) {}
-							
+
 							try {
 								num = Integer.valueOf(matcher.group(3));
 							} catch (Exception ex) {}
-							
+
 							if (name.lastIndexOf("化妆品容量") != -1) {
 								name = infoArray.get(i + j - 1);
 								i++;
 							}
 						}
 					}
-					
+
 					if (infoArray.get(i + 3).indexOf("交易关闭") > -1) continue;
-				
+
 					info = infoArray.get(i + 2);
 					matcher = namePat.matcher(infoArray.get(i + 2));
 					byerName = matcher.find() ? matcher.group(1) : info;
@@ -130,7 +130,7 @@ public class SellItemImportAction extends ActionSupport {
 					for (int j = i + 3; j < infoArray.size(); j++) {
 						info = infoArray.get(j);
 						if (datePat.matcher(info).find()) break;
-						
+
 						matcher = feePat.matcher(info);
 						if (matcher.find()) {
 							try {
@@ -140,27 +140,26 @@ public class SellItemImportAction extends ActionSupport {
 							try {
 								total = Double.valueOf(infos[infos.length - 1]);
 							} catch (Exception ex) {}
-						}
-						else {
+						} else {
 							matcher = itemPat.matcher(info);
 							if (matcher.find()) {
 								String extName = "";
 								double extPrice = 0;
 								int extNumber = 0;
-								
+
 								extName = matcher.group(1).trim();
 								if (extName.lastIndexOf("化妆品容量") != -1) {
 									extName = infoArray.get(j - 1);
 								}
-								
+
 								try {
 									extPrice = Double.valueOf(matcher.group(2));
 								} catch (Exception ex) {}
-								
+
 								try {
 									extNumber = Integer.valueOf(matcher.group(3));
 								} catch (Exception ex) {}
-								
+
 								item = new InvoiceItem();
 								item.setDate(date);
 								item.setByerId(byerId);
@@ -187,29 +186,30 @@ public class SellItemImportAction extends ActionSupport {
 					totalPrice += total;
 				}
 			}
-			
+
 			for (InvoiceItem it : itemList) {
 				logger.debug("日期:" + formatter.format(it.getDate()) + " 宝贝名称:"
-						+ it.getName() + " 单价:" + it.getPrice() + " 数量:" + it.getNumber() + " 快递费:"
-						+ it.getExFee() + " 买家ID:" + it.getByerId()
-						+ " 买家姓名:" + it.getByerName());
+						+ it.getName() + " 单价:" + it.getPrice() + " 数量:"
+						+ it.getNumber() + " 快递费:" + it.getExFee() + " 买家ID:"
+						+ it.getByerId() + " 买家姓名:" + it.getByerName());
 			}
 			logger.debug("运费:" + totalExFee + " 合计:" + totalPrice);
 
 			if (sellId > 0 && item != null) {
 				Sell obj = sellService.getSellById(sellId);
-				if (obj.getCustomerIM().isEmpty()) {
-					obj.setCustomerIM(item.getByerId());
-					obj.setCustomerIMType(0);
-					// IMType的具体定义在SellService里
+				if (obj != null) {
+					if (obj.getCustomerIM().isEmpty()) {
+						obj.setCustomerIM(item.getByerId());
+						obj.setCustomerIMType(0);
+						// IMType的具体定义在SellService里
+					}
+					obj.setFee(totalExFee + obj.getFee());
+					sellService.updateSell(obj);
 				}
-				obj.setFee(totalExFee + obj.getFee());
-				sellService.updateSell(obj);
 			}
 		} catch (Exception ex) {
 			logger.error(ex.toString());
 		}
-
 		return SUCCESS;
 	}
 
@@ -229,23 +229,23 @@ public class SellItemImportAction extends ActionSupport {
 		SellItemImportAction action = new SellItemImportAction();
 		action.sellContent = buf.toString();
 		action.execute();
-		
+
 		/*
-		Matcher matcher;
-		Pattern pattern = Pattern.compile("([\\S\\s]+)[\\s]{2}([\\S]+)");
-		
-		String info;
-		String[] infos = buf.toString().split("\n");
-		for (int i = 0; i < infos.length; i++) {
-			info = infos[i].trim();
-			matcher = pattern.matcher(info); 
-			if (matcher.find()) {
-				logger.debug(matcher.group(0));
-				//logger.debug(matcher.group(1));
-				//logger.debug(matcher.group(2));
-			}
-		}
-		*/
+		 * Matcher matcher; Pattern pattern =
+		 * Pattern.compile("([\\S\\s]+)[\\s]{2}([\\S]+)");
+		 * 
+		 * String info; 
+		 * String[] infos = buf.toString().split("\n"); 
+		 * for (int i = 0; i < infos.length; i++) { 
+		 *   info = infos[i].trim(); 
+		 *   matcher = pattern.matcher(info); 
+		 *   if (matcher.find()) {
+		 *     logger.debug(matcher.group(0));
+		 *     //logger.debug(matcher.group(1));
+		 *     //logger.debug(matcher.group(2));
+		 *   }
+		 * }
+		 */
 
 	}
 

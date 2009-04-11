@@ -14,7 +14,7 @@ body { display: none; }
 <body>
 <a href="index.action">返回首页</a>
 <a href="sell_list.action?currentPage=${pager.currentPage}">待处理发货单</a>
-<a href="sell_listAll.action?currentPage=${pager.currentPage}">所有发货单</a>
+<a href="sell_list_all.action?currentPage=${pager.currentPage}">所有发货单</a>
 <a href="sell_search.action" target="_blank">搜索发货单</a>
 <br /><br />
 <a href="sell.action">添加新出库单</a>
@@ -48,7 +48,9 @@ ${imTypeSel.get(sell.customerIMType)}:${sell.customerIM}
 <a href="express_input.action?sellId=${sell.id?c}" target="_balnk">打印快递单</a>
 <a href="invoice.action?sellId=${sell.id?c}" target="_balnk">打印发货单</a>
 <#if sell.status = 0>
-<a href="sell_status.action?id=${sell.id?c}&status=1">设为已处理</a>
+<a href="sell_update_status.action?status=${status}&id=${sell.id?c}&s=1">设为已处理</a>
+<#else>
+<a href="sell_update_status.action?status=${status}&id=${sell.id?c}&s=0">设为未处理</a>
 </#if>
 </div>
 <br />

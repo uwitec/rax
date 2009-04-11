@@ -80,33 +80,33 @@
 			<result name="success" type="redirect-action">index</result>
 		</action>
 
-
-
 		<action name="sell_list" class="SellAction" method="list">
 			<result name="success">/sell/list.ftl</result>
 		</action>
-		<action name="sell_listAll" class="SellAction" method="list">
+		<action name="sell_list_all" class="SellAction" method="list">
 			<param name="status">-1</param>
 			<result name="success">/sell/list.ftl</result>
 		</action>
 		<action name="sell" class="SellAction" method="get">
 			<result name="success">/sell/property.ftl</result>
 		</action>
-		<action name="sell_search" class="SellFindAction">
+		<action name="sell_search" class="SellAction" method="search">
 			<result name="success">/sell/search.ftl</result>
 		</action>
 		<action name="sell_save" class="SellAction">
 			<result name="input" type="redirect-action">sell</result>
 			<result name="error" type="redirect-action">sell</result>
-			<result name="success" type="redirect-action">
-				sell_list
-			</result>
+			<result name="success" type="redirect-action">sell_list</result>
 		</action>
-		<action name="sell_status" class="SellAction" method="status">
-			<result name="error" type="redirect-action">sell</result>
+		<action name="sell_update_status" class="SellAction" method="updateStatus">
+			<result name="error" type="redirect-action">sell_list</result>
 			<result name="success" type="redirect-action">
 				<param name="actionName">sell_list</param>
-				<param name="page">${page}</param>
+				<param name="currentPage">${currentPage}</param>
+			</result>
+			<result name="input" type="redirect-action">
+				<param name="actionName">sell_list_all</param>
+				<param name="currentPage">${currentPage}</param>
 			</result>
 		</action>
 		<action name="sell_delete" class="SellAction" method="delete">

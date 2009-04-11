@@ -32,10 +32,6 @@ public class SellAction extends ActionSupport {
 	private ExpressService expressService = null;
 	private UtilService utilService = null;
 
-	public void setUtilService(UtilService utilService) {
-		this.utilService = utilService;
-	}
-
 	private int id;
 	private String customerName;
 	private String customerAddress;
@@ -53,6 +49,9 @@ public class SellAction extends ActionSupport {
 	private String sender;
 	private String date;
 	private int status = 0;
+	private int s = 0;
+
+	private String keyword;
 
 	private List<String> dateSel;
 	private Map<Integer, String> expressSel;
@@ -63,22 +62,18 @@ public class SellAction extends ActionSupport {
 	private Pager pager;
 
 	public String list() throws Exception {
-		imTypeSel = utilService.getIMTypeSel();
-
 		pager.setAction("sell_list.action?status=" + String.valueOf(status));
 		pager.setTotalItems(sellService.getCount(status));
 		pager.generatePageData();
 		sellList = sellService.list(pager.getOffsetItems(), pager.getPerPage(),
 				status);
 
-		// logger.info(pager.getCurrentPage() + "/" + pager.getTotalPage());
-
+		logger.debug(pager.getCurrentPage() + "/" + pager.getTotalPage());
 		return SUCCESS;
 	}
 
 	public String get() throws Exception {
 		expressSel = expressService.getExpressSel();
-		imTypeSel = utilService.getIMTypeSel();
 		date = genDate();
 		dateSel = genDateSel();
 		try {
@@ -129,6 +124,14 @@ public class SellAction extends ActionSupport {
 		return SUCCESS;
 	}
 
+	public String search() throws Exception {
+		if ((keyword != null) && keyword.trim().isEmpty() == false) {
+			logger.debug("findByKeyword:" + keyword);
+			sellList = sellService.findByKeyword(keyword.trim());
+		}
+		return SUCCESS;
+	}
+
 	@Override
 	public String execute() throws Exception {
 		try {
@@ -168,18 +171,18 @@ public class SellAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	public String status() throws Exception {
+	public String updateStatus() throws Exception {
 		try {
 			if (id > 0) {
 				Sell obj = sellService.getSellById(id);
-				obj.setStatus(status);
+				obj.setStatus(s);
 				sellService.updateSell(obj);
 			}
 		} catch (Exception ex) {
 			logger.error(ex.toString());
 			return ERROR;
 		}
-		return SUCCESS;
+		return status == 0 ? SUCCESS : INPUT;
 	}
 
 	private String genDate() throws Exception {
@@ -432,6 +435,27 @@ public class SellAction extends ActionSupport {
 
 	public Map<Integer, String> getImTypeSel() {
 		return imTypeSel;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public int getS() {
+		return s;
+	}
+
+	public void setS(int s) {
+		this.s = s;
+	}
+
+	public void setUtilService(UtilService utilService) {
+		this.utilService = utilService;
+		this.imTypeSel = utilService.getIMTypeSel();
 	}
 
 }

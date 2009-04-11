@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import erp.model.Sell;
 import erp.model.SellItem;
 import erp.model.Ware;
 import erp.service.SellItemService;
@@ -65,12 +64,9 @@ public class SellItemAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		// AJAX 方法
+		if (sellId == 0) return ERROR;
 		try {
-			if (sellId == 0) {
-				Sell sell = new Sell();
-				sellId = sellService.createSell(sell);
-			}
-			SellItem obj = new SellItem();			
+			SellItem obj = new SellItem();
 			obj.setId(id);
 			obj.setSellId(sellId);
 			obj.setWareId(wareId);

@@ -35,10 +35,6 @@
 		<property name="utilService" ref="UtilService" />
 		<property name="pager" ref="Pager" />
 	</bean>
-	<bean id="SellFindAction" class="erp.action.SellFindAction" scope="prototype">
-		<property name="sellService" ref="SellService" />
-		<property name="utilService" ref="UtilService" />
-	</bean>
 	<bean id="SellItemAction" class="erp.action.SellItemAction" scope="prototype">
 		<property name="wareService" ref="WareService" />
 		<property name="sellService" ref="SellService" />

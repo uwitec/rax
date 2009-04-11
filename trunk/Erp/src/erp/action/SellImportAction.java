@@ -26,7 +26,7 @@ public class SellImportAction extends ActionSupport {
 	private SellService sellService = null;
 	private ExpressService expressService = null;
 
-	private int sellId;
+	private int sellId = 0;
 	private String content;
 	private String fee;
 	private String feeReal;
@@ -81,14 +81,13 @@ public class SellImportAction extends ActionSupport {
 					: new Sell();
 			
 			String[] info = content.split("，");
+			//for (int i = 0; i < info.length; i++) logger.info("info[" + i + "]:" + info[i]);
+			
             obj.setCustomerName(info[0].trim());
             obj.setCustomerPhone1(info[1].trim());
             obj.setCustomerPhone2(info[2].trim());
             obj.setCustomerAddress(info[3].trim());
             obj.setCustomerPostCode(info[4].trim());
-
-			//for (int i = 0; i < info.length; i++) logger.info("info[" + i + "]:" + info[i]);
-			
 			obj.setExpressId(expressId);
 			obj.setCommentExpress(commentExpress);
 			obj.setCommentInvoice(commentInvoice);
@@ -106,15 +105,17 @@ public class SellImportAction extends ActionSupport {
 				obj.setSendDate(df.parse(date));
 			}
 
-			logger.info("Name:" + obj.getCustomerName());
-			logger.info("Phone1:" + obj.getCustomerPhone1());
-			logger.info("Phone2:" + obj.getCustomerPhone2());
-			logger.info("Address:" + obj.getCustomerAddress());
-			logger.info("PostCode:" + obj.getCustomerPostCode());
+			logger.debug("Name:" + obj.getCustomerName());
+			logger.debug("Phone1:" + obj.getCustomerPhone1());
+			logger.debug("Phone2:" + obj.getCustomerPhone2());
+			logger.debug("Address:" + obj.getCustomerAddress());
+			logger.debug("PostCode:" + obj.getCustomerPostCode());
 
 			if (sellId > 0) {
 				sellService.updateSell(obj);
 			} else if (sellId == 0) {
+				// 0  means create new
+				// -1 used for debug
 				sellId = sellService.createSell(obj);
 			}
 		} catch (Exception ex) {
