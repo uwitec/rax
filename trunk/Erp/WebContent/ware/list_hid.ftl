@@ -6,11 +6,8 @@
 </head>
 
 <body>
-<@s.url id="urlList" action="ware_list">
-	<@s.param name="page" value="page" />
-</@s.url>
 <a href="index.action">返回首页</a>
-<a href="${urlList}">返回宝贝列表</a>
+<a href="ware_list.action">返回宝贝列表</a>
 <br /><br />
 <div>总数:${pager.totalItems}</div><br />
 

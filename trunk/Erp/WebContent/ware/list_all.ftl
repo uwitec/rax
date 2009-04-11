@@ -2,17 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>宝贝列表</title>
+<title>所有宝贝列表</title>
 </head>
 
 <body>
-<a href="index.action">返回首页</a><br /><br />
+<a href="index.action">返回首页</a>
+<a href="ware_list.action">返回宝贝列表</a>
+<br /><br />
 
 <@s.form action="ware_search" target="ware_search_result" theme="simple">
     搜索关键字:<@s.textfield label="关键字" name="keyword"/><@s.submit value=" 提 交 "/>
 </@s.form>
 <br />
-
 
 <table>
 <tr>
