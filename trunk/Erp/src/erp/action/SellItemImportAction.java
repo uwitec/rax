@@ -54,6 +54,7 @@ public class SellItemImportAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
+		// AJAX 方法
 		try {
 			itemList = new ArrayList<InvoiceItem>();
 			totalPrice = 0;
@@ -202,7 +203,7 @@ public class SellItemImportAction extends ActionSupport {
 					obj.setCustomerIMType(0);
 					// IMType的具体定义在SellService里
 				}
-				obj.setFee(totalExFee);
+				obj.setFee(totalExFee + obj.getFee());
 				sellService.updateSell(obj);
 			}
 		} catch (Exception ex) {

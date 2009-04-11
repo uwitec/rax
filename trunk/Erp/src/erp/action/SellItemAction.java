@@ -64,6 +64,7 @@ public class SellItemAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
+		// AJAX 方法
 		try {
 			if (sellId == 0) {
 				Sell sell = new Sell();

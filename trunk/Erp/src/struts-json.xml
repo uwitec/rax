@@ -18,10 +18,10 @@
 				<param name="includeProperties">id</param>
 			</result>
 		</action>
-		<action name="order_item_add" class="OrderItemAction">
+		<action name="sell_item_import" class="SellItemImportAction">
 			<result type="json" />
 		</action>
-		<action name="sell_item_import" class="SellItemImportAction">
+		<action name="order_item_add" class="OrderItemAction">
 			<result type="json" />
 		</action>
 
