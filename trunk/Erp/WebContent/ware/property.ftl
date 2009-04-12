@@ -6,9 +6,9 @@
 <script language="javascript" type="text/javascript" src="js/dojo/dojo.js" djConfig="isDebug:false,usePlainJson:true,bindEncoding:'UTF-8'"></script>
 <script language="javascript" type="text/javascript">
 
-function parseToken() {
+function parseToken(name) {
 	var params = {
-		tokenize: dojo.byId("ware_save_name").value
+		tokenize: name
 	}
 	dojo.xhrPost({
 		url: "/erp/json/tokenize.action",
@@ -36,45 +36,43 @@ function onSubmit(event) {
 dojo.addOnLoad(function (){
 	var obj;
 	
-	obj = dojo.byId("ware_save_name");
+	obj = dojo.byId("ware_save_ware_name");
 	var name = dojo.trim(obj.value);
-	if (name.length > 0) parseToken();
+	if (name.length > 0) parseToken(name);
 	
 	obj = dojo.byId("ware_save");
-	dojo.connect(obj, "onsubmit", obj, onSubmit);
+	//dojo.connect(obj, "onsubmit", obj, onSubmit);
 });
 
 </script>
 </head>
 
 <body>
-<@s.url id="urlReturn" action="ware_list">
-	<@s.param name="page" value="page" />
-</@s.url>
-<a href="${urlReturn}">返回</a><br /><br />
+<#if status != 1>
+<a href="ware_list.action?categoryId=${categoryId}">返回</a><br /><br />
+<#else>
+<a href="ware_list_hid.action">返回</a><br /><br />
+</#if>
 
 <div>
 <@s.form action="ware_save">
-    <@s.textfield label="名称" name="name"/>
-    <@s.textfield label="条码" name="barcode"/>
-    <@s.textfield label="成本" name="cost"/>
-    <@s.textfield label="参考价格" name="lastPrice"/>
-    <@s.textfield label="数量" name="number"/>
-    <@s.textfield label="警戒数量" name="numberAlarm"/>
+    <@s.textfield label="名称" name="ware.name"/>
+    <@s.textfield label="条码" name="ware.barcode"/>
+    <@s.textfield label="成本" name="ware.cost"/>
+    <@s.textfield label="参考价格" name="ware.lastPrice"/>
+    <@s.textfield label="数量" name="ware.number"/>
+    <@s.textfield label="警戒数量" name="ware.numberAlarm"/>
     <@s.checkbox label="启用警戒" name="numberAlarmEnable"/>
     <@s.select label="分类" name="categoryId" list="categoryMap"/>
     <@s.textarea rows="3" cols="40" label="关键词" name="tokenize"/>
     <@s.hidden name="id"/>
+    <@s.hidden name="status"/>
     <@s.submit value=" 提 交 "/>
 </@s.form>
 </div>
 
-<@s.url id="urlDelete" action="ware_delete">
-	<@s.param name="id" value="id"/>
-	<@s.param name="page" value="page"/>
-</@s.url>
 <#if id != 0>
-<a href="${urlDelete}" onclick="return confirm('确实要删除这个宝贝么？')">删除</a>
+<a href="ware_delete.action?id=${id}" onclick="return confirm('确实要删除这个宝贝么？')">删除</a>
 </#if>
 
 </body>

@@ -17,10 +17,7 @@ dojo.addOnLoad(function (){
 </head>
 
 <body>
-<@s.url id="urlList" action="ware_list">
-	<@s.param name="page" value="page" />
-</@s.url>
-<a href="${urlList}">返回宝贝列表</a>
+<a href="ware_list.action?currentPage=${currentPage}">返回宝贝列表</a>
 <br /><br />
 <div>总数:<#if wareList??>${wareList.size()}<#else>0</#if></div><br />
 
@@ -32,11 +29,7 @@ dojo.addOnLoad(function (){
 <#if wareList??>
 <#list wareList as ware>
 <div>
-<@s.url id="url" action="ware">
-	<@s.param name="id" value="#{ware.id}"/>
-	<@s.param name="page" value="page"/>
-</@s.url>
-<a href="${url}">${ware.name} - (${ware.number})</a>
+<a href="ware.action?id=${ware.id?c}&currentPage=${currentPage}">${ware.name} - (${ware.number})</a>
 </div>
 </#list>
 </#if>

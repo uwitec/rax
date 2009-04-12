@@ -84,9 +84,13 @@ public class WareService {
 		return wareDao.list(status, index, num);
 	}
 
+	public List<Ware> listByCategoryId(int categoryId, int status) {
+		return wareDao.listByCategoryId(categoryId, status);
+	}
+	
 	public List<Ware> listByCategory(WareCategory category, int status) {
 		return wareDao.listByCategoryId(category.getId(), status);
-	}
+	}	
 
 	public List<Ware> listLowNumber(int status) {
 		return wareDao.listLowNumber(status);

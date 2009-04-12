@@ -50,10 +50,8 @@ public class VendorAction implements Action {
 			v.setIM(vendor.getIM());
 			v.setIMType(vendor.getIMType());
 			v.setComment(vendor.getComment());
-			if (id > 0)
-				vendorService.updateVendor(v);
-			else
-				vendorService.createVendor(v);
+			if (id > 0) vendorService.updateVendor(v);
+			else vendorService.createVendor(v);
 		} catch (Exception ex) {
 			logger.error(ex.toString());
 			return ERROR;
@@ -64,11 +62,11 @@ public class VendorAction implements Action {
 	public String delete() throws Exception {
 		try {
 			vendorService.deleteVendorById(id);
-			return SUCCESS;
 		} catch (Exception ex) {
 			logger.error(ex.toString());
-		}
-		return ERROR;
+			return ERROR;
+		}		
+		return SUCCESS;
 	}
 
 	public Map<Integer, String> getImTypeSel() {

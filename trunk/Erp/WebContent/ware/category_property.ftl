@@ -16,11 +16,8 @@
 </@s.form>
 </div>
 
-<@s.url id="url_delete" action="ware_category_delete">
-	<@s.param name="id" value="id"/>
-</@s.url>
 <#if id != 0>
-<a href="${url_delete}" onclick="return confirm('确实要删除这个分类么？')">删除</a>
+<a href="ware_category_delete.action?id=${id}" onclick="return confirm('确实要删除这个分类么？')">删除</a>
 </#if>
 
 </body>

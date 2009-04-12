@@ -16,10 +16,6 @@
 			<result name="success">/index.ftl</result>
 		</action>
 
-		<action name="ware_list_all" class="WareAction"
-			method="listAll">
-			<result name="success">/ware/list_all.ftl</result>
-		</action>
 		<action name="ware_list" class="WareAction"
 			method="listByCategory">
 			<result name="success">/ware/list.ftl</result>
@@ -38,6 +34,9 @@
 			<result name="success" type="redirect-action">
 				<param name="actionName">ware_list</param>
 				<param name="categoryId">${categoryId}</param>
+			</result>
+			<result name="success_hide" type="redirect-action">
+				ware_list_hid
 			</result>
 		</action>
 		<action name="ware_delete" class="WareAction" method="delete">

@@ -16,7 +16,6 @@
 		<property name="wareService" ref="WareService" />
 		<property name="wareCategoryService" ref="WareCategoryService" />
 		<property name="keywordService" ref="KeywordService" />
-		<property name="pager" ref="Pager" />
 	</bean>
 	<bean id="WareCategoryAction" class="erp.action.WareCategoryAction"
 		scope="prototype">

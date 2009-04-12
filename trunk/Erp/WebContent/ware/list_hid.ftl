@@ -7,18 +7,14 @@
 
 <body>
 <a href="index.action">返回首页</a>
-<a href="ware_list.action">返回宝贝列表</a>
+<a href="ware_list.action?categoryId=${categoryId}">返回宝贝列表</a>
 <br /><br />
-<div>总数:${pager.totalItems}</div><br />
+<div>总数:<#if wareList??>${wareList.size()}<#else>0</#if></div><br />
 
 <#if wareList??>
 <#list wareList as ware>
 <div>
-<@s.url id="url" action="ware">
-	<@s.param name="id" value="#{ware.id}"/>
-	<@s.param name="page" value="page"/>
-</@s.url>
-<a href="${url}">${ware.name}</a>
+<a href="ware.action?id=${ware.id?c}&status=${status}">${ware.name}</a>
 </div>
 </#list>
 </#if>

@@ -1,6 +1,5 @@
 package erp.action;
 
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -13,287 +12,185 @@ import erp.model.WareCategory;
 import erp.service.KeywordService;
 import erp.service.WareCategoryService;
 import erp.service.WareService;
-import erp.util.Pager;
 
 public class WareAction extends ActionSupport {
 
-    private static final long serialVersionUID = 1L;
-    private final static Logger logger = Logger.getLogger(WareAction.class);
+	private static final long serialVersionUID = 1L;
+	private final static Logger logger = Logger.getLogger(WareAction.class);
 
-    private WareService wareService = null;
-    private WareCategoryService wareCategoryService = null;
-    private KeywordService keywordService = null;
+	private WareService wareService = null;
+	private WareCategoryService wareCategoryService = null;
+	private KeywordService keywordService = null;
 
-    private int id;
-    private int categoryId;
-    private String name;
-    private String cost;
-    private String lastPrice;
-    private String barcode;
-    private String number;
-    private String numberAlarm;
-    private boolean numberAlarmEnable;
-    private int status = 0;
+	private int id;
+	private int categoryId = 0;
+	private Ware ware;
+	private int status = 0;
+	private String tokenize;
 
-    private String tokenize;
+	private List<Ware> wareList;
+	private Map<Integer, String> categoryMap;
+	private List<WareCategory> categoryList;
 
-    private List<Ware> wareList;
-    private Map<Integer, String> categoryMap;
-    private List<WareCategory> categoryList;
-    private Pager pager;
+	public String listByCategory() throws Exception {
+		categoryList = wareCategoryService.list();
+		wareList = wareService.listByCategoryId(categoryId, status);
+		return SUCCESS;
+	}
 
-    public String listAll() throws Exception {
-        pager.setPerPage(24);
-        pager.setAction("ware_list_all.action");
-        pager.setTotalItems(wareService.getCount(status));
-        pager.generatePageData();
-        wareList = wareService.list(status, pager.getOffsetItems(), pager
-                .getPerPage());
-        return SUCCESS;
-    }
+	public String listHided() throws Exception {
+		int num = wareService.getCount(status);
+		wareList = wareService.list(status, 0, num);
+		return SUCCESS;
+	}
 
-    public String listByCategory() throws Exception {
-        WareCategory category;
-        categoryList = wareCategoryService.list();
-        category = wareCategoryService.getWareCategoryById(categoryId);
-        if (category != null) {
-            wareList = wareService.listByCategory(category, status);
-        } else {
-            wareList = wareService.listByCategory(new WareCategory(), status);
-        }
-        return SUCCESS;
-    }
+	public String get() throws Exception {
+		try {
+			ware = wareService.getWareById(id);
+			categoryMap = wareCategoryService.getMap();
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 
-    public String listHided() throws Exception {
-        pager.setTotalItems(wareService.getCount(status));
-        wareList = wareService.list(status, 0, pager.getTotalItems());
-        return SUCCESS;
-    }
+	public String delete() throws Exception {
+		try {
+			// Just hide it, sell history was using them
+			Ware obj = wareService.getWareById(id);
+			obj.setStatus(1);
+			wareService.updateWare(obj);
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 
-    public String get() throws Exception {
-        try {
-            DecimalFormat f = new DecimalFormat("###0.00");
-            Ware w = wareService.getWareById(id);
-            categoryMap = wareCategoryService.getMap();
-            if (w != null) {
-                categoryId = w.getCategoryId();
-                name = w.getName();
-                barcode = w.getBarcode();
-                cost = f.format(w.getCost());
-                lastPrice = f.format(w.getLastPrice());
-                number = String.valueOf(w.getNumber());
-                numberAlarm = String.valueOf(w.getNumberAlarm());
-                numberAlarmEnable = w.getNumberAlarmEnable() > 0;
-                status = w.getStatus();
-            }
-        } catch (Exception ex) {
-            logger.error(ex.toString());
-            return ERROR;
-        }
-        return SUCCESS;
-    }
+	public String updateAlarm() throws Exception {
+		try {
+			Ware obj = wareService.getWareById(id);
+			if (obj != null) {
+				obj.setNumberAlarmEnable(0);
+				wareService.updateWare(obj);
+			}
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 
-    public String delete() throws Exception {
-        try {
-            Ware ware = wareService.getWareById(id);
-            ware.setStatus(1);
-            wareService.updateWare(ware);
-        } catch (Exception ex) {
-            logger.error(ex.toString());
-            return ERROR;
-        }
-        return SUCCESS;
-    }
+	@Override
+	public String execute() throws Exception {
+		try {
+			Ware obj = (id > 0) ? wareService.getWareById(id) : new Ware();
+			obj.setCategoryId(categoryId);
+			obj.setName(ware.getName());
+			obj.setBarcode(ware.getBarcode());
+			obj.setNumberAlarmEnable(ware.getNumberAlarmEnable());
+			obj.setCost(ware.getCost());
+			obj.setNumber(ware.getNumber());
+			obj.setLastPrice(ware.getLastPrice());
+			obj.setNumberAlarm(ware.getNumberAlarm());
+			obj.setId(id);
+			// Do not set obj.Status
+						
+			if (id > 0) wareService.updateWare(obj);
+			else id = wareService.createWare(obj);
+			
+			if (tokenize != null && tokenize.isEmpty() == false) {
+				keywordService.saveTokens(tokenize);
+				wareService.updateFullTextIndex(obj, tokenize);
+			}
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return ERROR;
+		}
+		return (status > 0) ? "success_hide" : SUCCESS;
+	}
 
-    public String updateAlarm() throws Exception {
-        try {
-            Ware obj = wareService.getWareById(id);
-            if (obj != null) {
-                obj.setNumberAlarmEnable(0);
-                wareService.updateWare(obj);
-            }
-        } catch (Exception ex) {
-            logger.error(ex.toString());
-            return ERROR;
-        }
-        return SUCCESS;
-    }
+	public void setWareService(WareService service) {
+		wareService = service;
+	}
 
-    @Override
-    public String execute() throws Exception {
-        try {
-            Ware obj = (id > 0) ? wareService.getWareById(id) : new Ware();
-            obj.setCategoryId(categoryId);
-            obj.setName(name.trim());
-            obj.setBarcode(barcode.trim());
-            /*
-             * status 默认是0，设置这个会导致编辑隐藏的宝贝时不小心将隐藏属性取消
-             * obj.setStatus(status);
-             */
-            obj.setNumberAlarmEnable(numberAlarmEnable ? 1 : 0);
-            if (cost.isEmpty() == false) {
-                obj.setCost(Double.parseDouble(cost));
-            }
-            if (number.isEmpty() == false) {
-                obj.setNumber(Integer.parseInt(number));
-            }
-            if (lastPrice.isEmpty() == false) {
-                obj.setLastPrice(Double.parseDouble(lastPrice));
-            }
-            if (numberAlarm.isEmpty() == false) {
-                obj.setNumberAlarm(Integer.parseInt(numberAlarm));
-            }
+	public void setWareCategoryService(WareCategoryService wareCategoryService) {
+		this.wareCategoryService = wareCategoryService;
+	}
 
-            if (id > 0) {
-                wareService.updateWare(obj);
-            } else {
-                id = wareService.createWare(obj);
-            }
-            if (tokenize != null && tokenize.isEmpty() == false) {
-                keywordService.saveTokens(tokenize);
-                wareService.updateFullTextIndex(obj, tokenize);
-            }
-        } catch (Exception ex) {
-            logger.error(ex.toString());
-            return ERROR;
-        }
-        return SUCCESS;
-    }
+	public List<Ware> getWareList() {
+		return wareList;
+	}
 
-    public void setWareService(WareService service) {
-        wareService = service;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setWareCategoryService(WareCategoryService wareCategoryService) {
-        this.wareCategoryService = wareCategoryService;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public int getCategoryId() {
+		return categoryId;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
 
-    public String getCost() {
-        return cost;
-    }
+	public int getStatus() {
+		return status;
+	}
 
-    public void setCost(String cost) {
-        this.cost = cost;
-    }
+	public void setStatus(int status) {
+		this.status = status;
+	}
 
-    public String getLastPrice() {
-        return lastPrice;
-    }
+	public WareService getWareService() {
+		return wareService;
+	}
 
-    public void setLastPrice(String lastPrice) {
-        this.lastPrice = lastPrice;
-    }
+	public void setWareList(List<Ware> wareList) {
+		this.wareList = wareList;
+	}
 
-    public String getBarcode() {
-        return barcode;
-    }
+	public Map<Integer, String> getCategoryMap() {
+		return categoryMap;
+	}
 
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
-    }
+	public List<WareCategory> getCategoryList() {
+		return categoryList;
+	}
 
-    public String getNumber() {
-        return number;
-    }
+	public void setKeywordService(KeywordService keywordService) {
+		this.keywordService = keywordService;
+	}
 
-    public void setNumber(String number) {
-        this.number = number;
-    }
+	public String getTokenize() {
+		return tokenize;
+	}
 
-    public List<Ware> getWareList() {
-        return wareList;
-    }
+	public void setTokenize(String tokenize) {
+		this.tokenize = tokenize;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public void setWare(Ware ware) {
+		this.ware = ware;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public Ware getWare() {
+		return ware;
+	}
 
-    public int getCategoryId() {
-        return categoryId;
-    }
+	public boolean isNumberAlarmEnable() {
+		return (ware != null) ? ware.getNumberAlarmEnable() > 0 : false;
+	}
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public WareService getWareService() {
-        return wareService;
-    }
-
-    public void setWareList(List<Ware> wareList) {
-        this.wareList = wareList;
-    }
-
-    public Map<Integer, String> getCategoryMap() {
-        return categoryMap;
-    }
-
-    public List<WareCategory> getCategoryList() {
-        return categoryList;
-    }
-
-    public Pager getPager() {
-        return pager;
-    }
-
-    public void setPager(Pager pager) {
-        this.pager = pager;
-    }
-
-    public int getCurrentPage() {
-        return pager.getCurrentPage();
-    }
-
-    public void setCurrentPage(int page) {
-        pager.setCurrentPage(page);
-    }
-
-    public void setKeywordService(KeywordService keywordService) {
-        this.keywordService = keywordService;
-    }
-
-    public String getTokenize() {
-        return tokenize;
-    }
-
-    public void setTokenize(String tokenize) {
-        this.tokenize = tokenize;
-    }
-
-    public String getNumberAlarm() {
-        return numberAlarm;
-    }
-
-    public void setNumberAlarm(String numberAlarm) {
-        this.numberAlarm = numberAlarm;
-    }
-
-    public boolean isNumberAlarmEnable() {
-        return numberAlarmEnable;
-    }
-
-    public void setNumberAlarmEnable(boolean numberAlarmEnable) {
-        this.numberAlarmEnable = numberAlarmEnable;
-    }
+	public void setNumberAlarmEnable(boolean numberAlarmEnable) {
+		if (ware != null) {
+			ware.setNumberAlarmEnable(numberAlarmEnable ? 1 : 0);
+		}
+	}
 
 }
