@@ -48,6 +48,14 @@ public class SellItemService {
 		sellItemDao.update(obj);
 		return true;
 	}
+	
+	public int countBySell(Sell s) {
+		return sellItemDao.countBySellId(s.getId());
+	}
+	
+	public int countBySellId(int sellId) {
+		return sellItemDao.countBySellId(sellId);
+	}
 
 	public List<SellItem> listBySell(Sell s) {
 		return sellItemDao.listBySellId(s.getId());

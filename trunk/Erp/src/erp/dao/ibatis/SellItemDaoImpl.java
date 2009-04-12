@@ -1,6 +1,8 @@
 package erp.dao.ibatis;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
@@ -36,6 +38,11 @@ public class SellItemDaoImpl extends SqlMapClientDaoSupport implements
                 persistentObject.getId());
     }
 
+    @Override
+    public int countBySellId(int sellId) throws DataAccessException {
+        return (Integer) getSqlMapClientTemplate().queryForObject("SellItem.count", sellId);
+    }
+    
     @Override
     public List<SellItem> listBySellId(int sellId) throws DataAccessException {
         return getSqlMapClientTemplate().queryForList("SellItem.list", sellId);

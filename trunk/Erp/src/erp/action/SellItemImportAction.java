@@ -198,12 +198,13 @@ public class SellItemImportAction extends ActionSupport {
 			if (sellId > 0 && item != null) {
 				Sell obj = sellService.getSellById(sellId);
 				if (obj != null) {
+					int cnt = sellItemService.countBySellId(sellId);
 					if (obj.getCustomerIM().isEmpty()) {
 						obj.setCustomerIM(item.getByerId());
 						obj.setCustomerIMType(0);
 						// IMType的具体定义在SellService里
 					}
-					obj.setFee(totalExFee + obj.getFee());
+					obj.setFee(cnt > 0 ? totalExFee + obj.getFee() : totalExFee);
 					sellService.updateSell(obj);
 				}
 			}

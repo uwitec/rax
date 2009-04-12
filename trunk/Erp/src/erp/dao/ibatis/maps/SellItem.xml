@@ -49,6 +49,12 @@
 		DELETE FROM "sell_item" WHERE id=#id#
 		]]>
 	</delete>
+	
+	<select id="count" parameterClass="int" resultClass="int">
+		<![CDATA[
+		SELECT COUNT(*) AS NUM FROM "sell_item" WHERE sell_id=#sellId#
+		]]>
+	</select>
 
 	<select id="list" parameterClass="int" resultClass="SellItem"
 		cacheModel="sellItem-cache">
