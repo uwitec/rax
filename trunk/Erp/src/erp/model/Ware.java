@@ -34,14 +34,22 @@ public class Ware {
         return numberAlarmEnable;
     }
 
-    public void setNumberAlarmEnable(int numberAlarmEnable) {
-        this.numberAlarmEnable = numberAlarmEnable;
+    public void setNumberAlarmEnable(int e) {
+        this.numberAlarmEnable = e;
+    }
+    
+    public void setNumberAlarmEnable(boolean e) {
+        this.numberAlarm = e ? 1 : 0;
+    }
+    
+    public void setNumberAlarmEnable(String e) {
+        this.numberAlarm = e.toLowerCase().indexOf("true") > -1 ? 1 : 0;
     }
 
     public int getNumberAlarm() {
         return numberAlarm;
     }
-
+    
     public void setNumberAlarm(int numberAlarm) {
         this.numberAlarm = numberAlarm;
     }

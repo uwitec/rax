@@ -27,6 +27,7 @@ public class WareAction extends ActionSupport {
 	private Ware ware;
 	private int status = 0;
 	private String tokenize;
+	private String keyword;
 
 	private List<Ware> wareList;
 	private Map<Integer, String> categoryMap;
@@ -87,16 +88,16 @@ public class WareAction extends ActionSupport {
 		try {
 			Ware obj = (id > 0) ? wareService.getWareById(id) : new Ware();
 			obj.setCategoryId(categoryId);
-			obj.setName(ware.getName());
-			obj.setBarcode(ware.getBarcode());
-			obj.setNumberAlarmEnable(ware.getNumberAlarmEnable());
+			obj.setName(ware.getName().trim());
+			obj.setBarcode(ware.getBarcode().trim());
 			obj.setCost(ware.getCost());
 			obj.setNumber(ware.getNumber());
 			obj.setLastPrice(ware.getLastPrice());
 			obj.setNumberAlarm(ware.getNumberAlarm());
+			obj.setNumberAlarmEnable(ware.getNumberAlarmEnable());
 			obj.setId(id);
 			// Do not set obj.Status
-						
+
 			if (id > 0) wareService.updateWare(obj);
 			else id = wareService.createWare(obj);
 			
@@ -111,6 +112,31 @@ public class WareAction extends ActionSupport {
 		return (status > 0) ? "success_hide" : SUCCESS;
 	}
 
+    public String keywordSearch() throws Exception {
+        if ((keyword != null) && keyword.isEmpty() == false) {
+            logger.debug("findByKeywords:" + keyword);
+            wareList = wareService.findByKeywords(keyword);
+        }
+        return SUCCESS;
+    }
+    
+    public String fullTextSearch() throws Exception {
+    	// AJAX
+        logger.debug("fullTextSearch:" + keyword);
+        List<String> tokenList = keywordService.parseToken(keyword);
+        StringBuffer tokenBuf = new StringBuffer();
+        boolean skipFirstToken = true;
+        for (String token : tokenList) {
+            if (skipFirstToken == false) {
+                tokenBuf.append("|");
+            }
+            tokenBuf.append(token);
+            skipFirstToken = false;
+        }
+        wareList = wareService.fullTextSearch(tokenBuf.toString().trim());
+        return SUCCESS;
+    }
+	
 	public void setWareService(WareService service) {
 		wareService = service;
 	}
@@ -183,14 +209,12 @@ public class WareAction extends ActionSupport {
 		return ware;
 	}
 
-	public boolean isNumberAlarmEnable() {
-		return (ware != null) ? ware.getNumberAlarmEnable() > 0 : false;
+	public String getKeyword() {
+		return keyword;
 	}
 
-	public void setNumberAlarmEnable(boolean numberAlarmEnable) {
-		if (ware != null) {
-			ware.setNumberAlarmEnable(numberAlarmEnable ? 1 : 0);
-		}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 }

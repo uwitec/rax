@@ -45,7 +45,7 @@
 				<param name="categoryId">${categoryId}</param>
 			</result>
 		</action>
-		<action name="ware_search" class="WareFindAction">
+		<action name="ware_search" class="WareAction" method="keywordSearch">
 			<result name="success">/ware/find.ftl</result>
 		</action>
 

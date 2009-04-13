@@ -53,7 +53,7 @@ public class WareCategoryAction extends ActionSupport {
         try {
             WareCategory obj = (id > 0) ? wareCategoryService
                     .getWareCategoryById(id) : new WareCategory();
-            obj.setName(category.getName());
+            obj.setName(category.getName().trim());
             if (id > 0) {
                 wareCategoryService.updateWareCategory(obj);
             } else {

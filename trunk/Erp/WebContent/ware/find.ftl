@@ -17,7 +17,7 @@ dojo.addOnLoad(function (){
 </head>
 
 <body>
-<a href="ware_list.action?currentPage=${currentPage}">返回宝贝列表</a>
+<a href="ware_list.action?categoryId=${categoryId}">返回宝贝列表</a>
 <br /><br />
 <div>总数:<#if wareList??>${wareList.size()}<#else>0</#if></div><br />
 
@@ -29,7 +29,7 @@ dojo.addOnLoad(function (){
 <#if wareList??>
 <#list wareList as ware>
 <div>
-<a href="ware.action?id=${ware.id?c}&currentPage=${currentPage}">${ware.name} - (${ware.number})</a>
+<a href="ware.action?id=${ware.id?c}&categoryId=${categoryId}">${ware.name} - (${ware.number})</a>
 </div>
 </#list>
 </#if>

@@ -46,7 +46,7 @@ public class KeywordService {
     }
 
     public int saveTokens(String content) {
-        logger.info("saveTokens:" + content);
+        logger.debug("saveTokens:" + content);
         String[] tokenList = content.split(" ");
         int maxTokenLength = 2;
         int tokenNum = 0;
@@ -80,7 +80,7 @@ public class KeywordService {
 
     public List<String> parseToken(String content) {
         // 分词
-        logger.info("parseToken:" + content);
+        logger.debug("parseToken:" + content);
         List<String> tokenList = new ArrayList<String>();
 
         Util u = utilDao.read("max_token_length");

@@ -22,10 +22,6 @@
 		<property name="wareCategoryService" ref="WareCategoryService" />
 		<property name="wareService" ref="WareService" />
 	</bean>
-	<bean id="WareFindAction" class="erp.action.WareFindAction" scope="prototype">
-		<property name="wareService" ref="WareService" />
-		<property name="keywordService" ref="KeywordService" />
-	</bean>
 	<bean id="SellAction" class="erp.action.SellAction" scope="prototype">
 		<property name="sellService" ref="SellService" />
 		<property name="sellItemService" ref="SellItemService" />
