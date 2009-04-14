@@ -107,6 +107,22 @@
 		]]>
 	</select>
 
+	<select id="listByExpress" parameterClass="map" resultClass="Sell">
+		<![CDATA[
+		SELECT id,customer_name AS customerName,customer_address AS customerAddress,
+		customer_phone1 AS customerPhone1,customer_phone2 AS customerPhone2,
+		customer_postcode AS customerPostCode,
+		customer_im AS customerIM, customer_im_type AS customerIMType, customer_im_comment AS customerIMComment,
+		fee, fee_real AS feeReal,create_date AS createDate,send_date AS sendDate,
+		express_id AS expressId,
+		comment_express AS commentExpress,comment_invoice AS commentInvoice,
+		sender,status
+		FROM "sell"
+		WHERE send_date BETWEEN #from# AND #to# AND express_id=#expressId#
+		ORDER BY send_date
+		]]>
+	</select>
+
 	<select id="findByKeyword" parameterClass="string" resultClass="Sell">
 		<![CDATA[
 		SELECT id,customer_name AS customerName,customer_address AS customerAddress,

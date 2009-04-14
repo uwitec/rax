@@ -28,6 +28,17 @@
 			</result>
 		</action>
 
+		<action name="express_summary" class="ExpressAction" method="summary">
+			<result name="success">/express/ex_summary.ftl
+			</result>
+		</action>
+
+		<action name="express_save_settle_date" class="ExpressAction"
+			method="updateSettleDate">
+			<result name="success" type="redirect-action">express/express_list
+			</result>
+		</action>
+
 	</package>
 
 </struts>

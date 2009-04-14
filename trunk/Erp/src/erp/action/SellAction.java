@@ -30,7 +30,6 @@ public class SellAction extends ActionSupport {
 	private SellItemService sellItemService = null;
 	private WareService wareService = null;
 	private ExpressService expressService = null;
-	private UtilService utilService = null;
 
 	private int id;
 	private String customerName;
@@ -454,7 +453,6 @@ public class SellAction extends ActionSupport {
 	}
 
 	public void setUtilService(UtilService utilService) {
-		this.utilService = utilService;
 		this.imTypeSel = utilService.getIMTypeSel();
 	}
 

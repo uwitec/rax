@@ -1,5 +1,6 @@
 package erp.service;
 
+import java.util.Date;
 import java.util.List;
 
 import erp.dao.SellDao;
@@ -51,6 +52,10 @@ public class SellService {
 	public List<Sell> list(int index, int num, int status) {
 		return sellDao.list(index, num, status);
 	}
+	
+    public List<Sell> listByExpress(int expressId, Date from, Date to) {
+        return sellDao.listByExpress(expressId, from, to);
+    }
 
 	public List<Sell> findByKeyword(String keyword) {
 		return sellDao.findByKeyword(keyword.toLowerCase());

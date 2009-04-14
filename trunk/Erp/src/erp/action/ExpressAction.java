@@ -27,6 +27,7 @@ import erp.model.Express;
 import erp.model.Sell;
 import erp.service.ExpressService;
 import erp.service.SellService;
+import erp.service.UtilService;
 
 public class ExpressAction implements Action {
 
@@ -34,7 +35,7 @@ public class ExpressAction implements Action {
 	private final static Logger logger = Logger.getLogger(ExpressAction.class);
 	private SellService sellService = null;
 	private ExpressService expressService = null;
-	
+
 	private Sell sell;
 	private int sellId;
 	private String date;
@@ -42,13 +43,18 @@ public class ExpressAction implements Action {
 	private String senderPhone;
 	private String senderAddress;
 	private String senderPostCode;
-	
-    private List<Express> expressList;
-    private Express express;
-    private int id;
-    
+
+	private List<Express> expressList;
+	private Express express;
+	private int id;
+
+	private String startDate;
+	private String endDate;
+	private List<Sell> sellList;
+
 	private List<String> dateSel;
 	private Map<Integer, String> expressSel;
+	private Map<Integer, String> imTypeSel;
 
 	private long mm2pt(int mm) {
 		return Math.round(mm * 2.834645669291);
@@ -177,19 +183,19 @@ public class ExpressAction implements Action {
 		if (sellId > 0) {
 			sell = sellService.getSellById(sellId);
 
-			logger.info("sell.expressId:" + sell.getExpressId());
-			logger.info("sell.sendDate:" + sell.getSendDate());
+			logger.debug("sell.expressId:" + sell.getExpressId());
+			logger.debug("sell.sendDate:" + sell.getSendDate());
 
 			Date d = new Date();
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar c = Calendar.getInstance();
 			c.setTime(d);
 
-			logger.info("Calendar.YEAR:" + c.get(Calendar.YEAR));
-			logger.info("Calendar.MONTH:" + c.get(Calendar.MONTH));
-			logger.info("Calendar.DATE:" + c.get(Calendar.DATE));
-			logger.info("Calendar.HOUR_OF_DAY:" + c.get(Calendar.HOUR_OF_DAY));
-			logger.info("Calendar.MINUTE:" + c.get(Calendar.MINUTE));
+			logger.debug("Calendar.YEAR:" + c.get(Calendar.YEAR));
+			logger.debug("Calendar.MONTH:" + c.get(Calendar.MONTH));
+			logger.debug("Calendar.DATE:" + c.get(Calendar.DATE));
+			logger.debug("Calendar.HOUR_OF_DAY:" + c.get(Calendar.HOUR_OF_DAY));
+			logger.debug("Calendar.MINUTE:" + c.get(Calendar.MINUTE));
 
 			if (sell.getSendDate() != null) {
 				d = sell.getSendDate();
@@ -198,7 +204,7 @@ public class ExpressAction implements Action {
 				d = c.getTime();
 			}
 			date = df.format(d);
-			logger.info("d3:" + date);
+			logger.debug("d3:" + date);
 
 			Date d1 = new Date();
 			c.setTimeInMillis(d1.getTime() + 86400000);
@@ -216,7 +222,6 @@ public class ExpressAction implements Action {
 			senderPhone = "0571-85790698";
 			senderPostCode = "310053";
 
-			expressSel = expressService.getExpressSel();
 			return SUCCESS;
 		}
 		return ERROR;
@@ -249,19 +254,73 @@ public class ExpressAction implements Action {
 		expressList = expressService.list();
 		return SUCCESS;
 	}
-	
+
 	public String get() throws Exception {
 		express = expressService.getExpressById(id);
 		return SUCCESS;
 	}
-	
+
 	public String save() throws Exception {
-        if (id > -1) {
-        	expressService.updateExpress(express);
-        } else {
-            id = expressService.createExpress(express);
-        }
-        return SUCCESS;
+		if (id > -1) {
+			expressService.updateExpress(express);
+		} else {
+			id = expressService.createExpress(express);
+		}
+		return SUCCESS;
+	}
+
+	public String summary() throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		if (startDate == null || endDate == null) {
+			express = expressService.getExpressById(id);
+			startDate = df.format(express.getSettleDate());
+			endDate = df.format(new Date());
+		}
+		try {
+			Date from = df.parse(startDate);
+			Date to = df.parse(endDate);
+			sellList = sellService.listByExpress(id, from, to);
+			sell = new Sell();
+			for (Sell s : sellList) {
+				sell.setFeeReal(sell.getFeeReal() + s.getFeeReal());
+			}
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+		}
+		return SUCCESS;
+	}
+
+	public String updateSettleDate() throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date settleDate = df.parse(endDate);
+			express = expressService.getExpressById(id);
+			express.setSettleDate(settleDate);
+			expressService.updateExpress(express);
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+		}
+		return SUCCESS;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public List<Sell> getSellList() {
+		return sellList;
 	}
 
 	public void setSellService(SellService sellService) {
@@ -272,16 +331,8 @@ public class ExpressAction implements Action {
 		return sellId;
 	}
 
-	public SellService getSellService() {
-		return sellService;
-	}
-
 	public void setSell(Sell sell) {
 		this.sell = sell;
-	}
-
-	public void setDateSel(List<String> dateSel) {
-		this.dateSel = dateSel;
 	}
 
 	public List<String> getDateSel() {
@@ -332,32 +383,21 @@ public class ExpressAction implements Action {
 		return senderPostCode;
 	}
 
-	public void setSenderPostCode(String senderPostCode) {
-		this.senderPostCode = senderPostCode;
-	}
-
-	public ExpressService getExpressService() {
-		return expressService;
-	}
-
 	public void setExpressService(ExpressService expressService) {
 		this.expressService = expressService;
+		expressSel = expressService.getExpressSel();
+	}
+
+	public void setSenderPostCode(String senderPostCode) {
+		this.senderPostCode = senderPostCode;
 	}
 
 	public Map<Integer, String> getExpressSel() {
 		return expressSel;
 	}
 
-	public void setExpressSel(Map<Integer, String> expressSel) {
-		this.expressSel = expressSel;
-	}
-
 	public List<Express> getExpressList() {
 		return expressList;
-	}
-
-	public void setExpressList(List<Express> expressList) {
-		this.expressList = expressList;
 	}
 
 	public Express getExpress() {
@@ -374,6 +414,14 @@ public class ExpressAction implements Action {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Map<Integer, String> getImTypeSel() {
+		return imTypeSel;
+	}
+
+	public void setUtilService(UtilService utilService) {
+		this.imTypeSel = utilService.getIMTypeSel();
 	}
 
 }

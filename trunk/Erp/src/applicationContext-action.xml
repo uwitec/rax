@@ -48,6 +48,7 @@
 	<bean id="ExpressAction" class="erp.action.ExpressAction" scope="prototype">
 		<property name="sellService" ref="SellService" />
 		<property name="expressService" ref="ExpressService" />
+		<property name="utilService" ref="UtilService" />
 	</bean>
 
 	<bean id="OrderAction" class="erp.action.OrderAction" scope="prototype">

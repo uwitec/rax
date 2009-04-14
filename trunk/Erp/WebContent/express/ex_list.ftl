@@ -29,7 +29,7 @@
 <td>${ex.exName}</td>
 <td>${ex.phone}</td>
 <td>${ex.settleDate?string("yyyy-MM-dd")}</td>
-<td><a href="express_property.action?id=${ex.id?c}">查看/编辑</a></td>
+<td><a href="express_property.action?id=${ex.id?c}">查看</a>&nbsp;<a href="express_summary.action?id=${ex.id?c}">结算</a></td>
 </tr>
 </#list>
 </#if>
