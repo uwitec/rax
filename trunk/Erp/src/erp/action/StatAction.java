@@ -38,8 +38,8 @@ public class StatAction extends ActionSupport {
             storeAmount = statService.getStoreAmount();
             weekProfitList = statService.listStatByDay(7);
             monthProfitList = statService.listStatByMonth(3);
-            startDate = utilService.getLastFeeDateStr();
-            endDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            startDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            endDate = startDate;
         } catch (Exception ex) {
             logger.error(ex.toString());
             return ERROR;
@@ -67,13 +67,6 @@ public class StatAction extends ActionSupport {
             logger.error(ex.toString());
             return ERROR;
         }
-        return SUCCESS;
-    }
-
-    public String saveFeeStatDate() {
-        // AJAX 方法
-        endDate = utilService.setLastFeeDate(endDate) ? "OK" : "ERR";
-        logger.info("saveFeeStatDate:" + endDate);
         return SUCCESS;
     }
 

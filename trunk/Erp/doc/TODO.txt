@@ -3,6 +3,7 @@
 DONE:
 修改erp schema为public
 添加vendor表
+删掉util表
 
 CHANGES:
 

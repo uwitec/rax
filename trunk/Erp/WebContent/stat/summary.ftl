@@ -12,11 +12,8 @@ dojo.require("dojo.parser");
 var objTimer = null;
 
 dojo.addOnLoad(function (){
-	var obj;
-	obj = dojo.byId("feeButton");
+	var obj = dojo.byId("feeButton");
 	dojo.connect(obj, "onclick", obj, onCompute);
-	obj = dojo.byId("saveButton");
-	dojo.connect(obj, "onclick", obj, onSave);
 });
 
 function onCompute() {
@@ -60,10 +57,6 @@ function onCompute() {
 			var obj			= dojo.byId("submitStatus");
 			obj.innerHTML	= text;
 			objTimer		= setTimeout(dojo.hitch(this, "onFinish"), 3000);
-			if (flag) {
-				var objBtn = dojo.byId("saveButton");
-				objBtn.style.display = "block";
-			}
 		},
 		onFinish: function() {
 			var obj			= dojo.byId("submitStatus");
@@ -71,47 +64,12 @@ function onCompute() {
 		}
 	});
 }
-
-function onSave() {
-	if (false == confirm('确定将当前结算日期保存么？')) return;
-
-	var endObj = dojo.byId("endDate");
-	var params = {
-		endDate:endObj.value
-	}
-	dojo.xhrPost({
-		url: "/erp/json/save_fee_stat_date.action",
-		content: params,
-		handleAs: "json",
-		load: function(json) {
-			this.onResponse(json.endDate == "OK");
-		},
-		error: function(response) { this.onResponse(false); },
-		onResponse: function(flag) {
-			if (null != objTimer) clearTimeout(objTimer);
-			var text		= flag ? "保存成功" : "保存失败";
-			var obj			= dojo.byId("submitStatus");
-			obj.innerHTML	= text;
-			objTimer		= setTimeout(dojo.hitch(this, "onFinish"), 3000);
-			if (flag) {
-				var objBtn = dojo.byId("saveButton");
-				objBtn.style.display = "none";
-			}
-		},
-		onFinish: function() {
-			var obj			= dojo.byId("submitStatus");
-			obj.innerHTML	= "";
-		}
-	});
-}
-
 
 </script>
 <style type="text/css">
 @import "../js/dijit/themes/tundra/tundra.css";
 .float { float:left; margin-right:12px; width:80px; text-align:right; }
 .row { clear:both; }
-#saveButton { display: none; }
 </style>
 
 </head>
@@ -169,7 +127,6 @@ function onSave() {
 <input type="text" id="endDate" name="endDate" value="${endDate}" dojoType="dijit.form.DateTextBox" length="20"/>
 <input type="button" id="feeButton" value=" 计 算 " />
 <span id="submitStatus"></span>
-<input type="button" id="saveButton" value=" 保存结算日期 " />
 </div><br />
 
 <div>

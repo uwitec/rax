@@ -294,8 +294,11 @@ public class ExpressAction implements Action {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			Date settleDate = df.parse(endDate);
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(settleDate);
+			calendar.add(Calendar.DATE, 1);
 			express = expressService.getExpressById(id);
-			express.setSettleDate(settleDate);
+			express.setSettleDate(calendar.getTime());
 			expressService.updateExpress(express);
 		} catch (Exception ex) {
 			logger.error(ex.toString());
