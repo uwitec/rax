@@ -51,7 +51,8 @@ public class SellImportAction extends ActionSupport {
 				d = c.getTime();
 			}
 			date = df.format(d);
-
+			
+			Date d0 = new Date(0);
 			Date d1 = new Date();
 			c.setTimeInMillis(d1.getTime() + 86400000);
 			Date d2 = c.getTime();
@@ -59,6 +60,7 @@ public class SellImportAction extends ActionSupport {
 			Date d3 = c.getTime();
 
 			dateSel = new ArrayList<String>();
+			dateSel.add(df.format(d0));
 			dateSel.add(df.format(d1));
 			dateSel.add(df.format(d2));
 			dateSel.add(df.format(d3));
