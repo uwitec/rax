@@ -118,6 +118,7 @@ label { cursor:pointer; }
 <td>数量</td>
 <td>价格</td>
 <td>宝贝名称</td>
+<td>剩余库存</td>
 </tr>
 <#if sellItemList??>
 <#list sellItemList as item>
@@ -128,6 +129,7 @@ label { cursor:pointer; }
 <td>${item.number}</td>
 <td>${item.price}</td>
 <td><a href="sell_item.action?id=${item.id?c}">${item.ware.name}</a></td>
+<td>${item.ware.number}</td>
 </tr>
 </#list>
 </#if>
