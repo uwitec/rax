@@ -119,6 +119,51 @@ function onCompute() {
 </div>
 <br /><br /><br />
 
+
+<table>
+<tr>
+<td>名次</td>
+<td>总数</td>
+<td>总价</td>
+<td>宝贝名称</td>
+<td>剩余库存</td>
+</tr>
+<#if numberRankList??>
+<#list numberRankList as rank>
+<tr>
+<td>${rank_index + 1}</td>
+<td>${rank.totalNumber}</td>
+<td>${rank.totalPrice}</td>
+<td>${rank.wareName}</td>
+<td>${rank.wareNumber}</td>
+</tr>
+</#list>
+</#if>
+</table>
+<br />
+
+<table>
+<tr>
+<td>名次</td>
+<td>总价</td>
+<td>总数</td>
+<td>宝贝名称</td>
+<td>剩余库存</td>
+</tr>
+<#if amountRankList??>
+<#list amountRankList as rank>
+<tr>
+<td>${rank_index + 1}</td>
+<td>${rank.totalNumber}</td>
+<td>${rank.totalPrice}</td>
+<td>${rank.wareName}</td>
+<td>${rank.wareNumber}</td>
+</tr>
+</#list>
+</#if>
+</table>
+<br /><br />
+
 <div>
 <div>
 <label for="startDate">起始日期</label>

@@ -8,6 +8,7 @@
 
 	<typeAlias alias="Stat" type="erp.model.Stat" />
 	<typeAlias alias="StatFee" type="erp.model.StatFee" />
+	<typeAlias alias="StatRankList" type="erp.model.StatRankList" />
 
 	<select id="storeAmount" resultClass="double">
 		<![CDATA[
@@ -66,6 +67,29 @@
 		FROM "sell"
 		WHERE send_date BETWEEN #from# AND #to#
 		GROUP BY express_id
+		]]>
+	</select>
+	
+	<select id="rankList" parameterClass="map" resultClass="StatRankList">
+		<![CDATA[
+		SELECT SUM(i.number * i.price) AS totalPrice, SUM(i.number) AS totalNumber, i.ware_id AS wareId, w.name AS wareName, w.number AS wareNumber
+		FROM "sell_item" AS i
+		LEFT JOIN "ware" AS w ON (i.ware_id=w.id)
+		LEFT JOIN "sell" AS s ON (i.sell_id=s.id) 
+		WHERE s.send_date BETWEEN #from# AND #to#
+		GROUP BY i.ware_id, w.name, w.number
+		ORDER BY
+		]]>
+		<dynamic>
+			<isEqual property="func" compareValue="0">
+				totalPrice
+			</isEqual>
+			<isNotEqual property="func" compareValue="0">
+				totalNumber
+			</isNotEqual>
+		</dynamic>
+		<![CDATA[
+		DESC
 		]]>
 	</select>
 	

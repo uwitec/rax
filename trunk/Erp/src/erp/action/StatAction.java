@@ -11,6 +11,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import erp.model.Stat;
 import erp.model.StatFee;
+import erp.model.StatRankList;
 import erp.service.ExpressService;
 import erp.service.StatService;
 import erp.service.UtilService;
@@ -27,6 +28,8 @@ public class StatAction extends ActionSupport {
     private double storeAmount;
     private List<Stat> weekProfitList;
     private List<Stat> monthProfitList;
+    private List<StatRankList> numberRankList;
+    private List<StatRankList> amountRankList;
 
     private String startDate;
     private String endDate;
@@ -38,6 +41,8 @@ public class StatAction extends ActionSupport {
             storeAmount = statService.getStoreAmount();
             weekProfitList = statService.listStatByDay(7);
             monthProfitList = statService.listStatByMonth(3);
+            numberRankList = statService.listRankList(30, 1);
+            amountRankList = statService.listRankList(30, 0);
             startDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
             endDate = startDate;
         } catch (Exception ex) {
@@ -106,7 +111,16 @@ public class StatAction extends ActionSupport {
         this.monthProfitList = monthProfitList;
     }
 
-    public List<StatFee> getFeeList() {
+
+	public List<StatRankList> getNumberRankList() {
+		return numberRankList;
+	}
+
+	public List<StatRankList> getAmountRankList() {
+		return amountRankList;
+	}
+
+	public List<StatFee> getFeeList() {
         return feeList;
     }
 
