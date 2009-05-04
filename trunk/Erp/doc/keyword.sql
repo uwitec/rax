@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2008-11-06 19:45:48
+-- Started on 2009-05-04 20:22:55
 
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = off;
@@ -10,16 +10,16 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET escape_string_warning = off;
 
-SET search_path = erp, pg_catalog;
+SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
 
 SET default_with_oids = false;
 
 --
--- TOC entry 1503 (class 1259 OID 16632)
+-- TOC entry 1494 (class 1259 OID 17458)
 -- Dependencies: 6
--- Name: keyword; Type: TABLE; Schema: erp; Owner: erp; Tablespace: 
+-- Name: keyword; Type: TABLE; Schema: public; Owner: erp; Tablespace: 
 --
 
 CREATE TABLE keyword (
@@ -27,19 +27,19 @@ CREATE TABLE keyword (
 );
 
 
-ALTER TABLE erp.keyword OWNER TO erp;
+ALTER TABLE public.keyword OWNER TO erp;
 
 --
--- TOC entry 1771 (class 2606 OID 16639)
--- Dependencies: 1503 1503
--- Name: idx_token; Type: CONSTRAINT; Schema: erp; Owner: erp; Tablespace: 
+-- TOC entry 1777 (class 2606 OID 17518)
+-- Dependencies: 1494 1494
+-- Name: idx_token; Type: CONSTRAINT; Schema: public; Owner: erp; Tablespace: 
 --
 
 ALTER TABLE ONLY keyword
     ADD CONSTRAINT idx_token UNIQUE (token);
 
 
--- Completed on 2008-11-06 19:45:48
+-- Completed on 2009-05-04 20:22:55
 
 --
 -- PostgreSQL database dump complete

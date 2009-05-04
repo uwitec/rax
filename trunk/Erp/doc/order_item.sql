@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2008-10-28 19:20:42
+-- Started on 2009-05-04 20:23:17
 
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = off;
@@ -10,16 +10,16 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET escape_string_warning = off;
 
-SET search_path = erp, pg_catalog;
+SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
 
 SET default_with_oids = false;
 
 --
--- TOC entry 1488 (class 1259 OID 16520)
+-- TOC entry 1497 (class 1259 OID 17466)
 -- Dependencies: 6
--- Name: order_item; Type: TABLE; Schema: erp; Owner: erp; Tablespace: 
+-- Name: order_item; Type: TABLE; Schema: public; Owner: erp; Tablespace: 
 --
 
 CREATE TABLE order_item (
@@ -31,12 +31,12 @@ CREATE TABLE order_item (
 );
 
 
-ALTER TABLE erp.order_item OWNER TO erp;
+ALTER TABLE public.order_item OWNER TO erp;
 
 --
--- TOC entry 1495 (class 1259 OID 16556)
--- Dependencies: 1488 6
--- Name: order_item_id_seq; Type: SEQUENCE; Schema: erp; Owner: erp
+-- TOC entry 1498 (class 1259 OID 17469)
+-- Dependencies: 1497 6
+-- Name: order_item_id_seq; Type: SEQUENCE; Schema: public; Owner: erp
 --
 
 CREATE SEQUENCE order_item_id_seq
@@ -46,30 +46,30 @@ CREATE SEQUENCE order_item_id_seq
     CACHE 1;
 
 
-ALTER TABLE erp.order_item_id_seq OWNER TO erp;
+ALTER TABLE public.order_item_id_seq OWNER TO erp;
 
 --
--- TOC entry 1772 (class 0 OID 0)
--- Dependencies: 1495
--- Name: order_item_id_seq; Type: SEQUENCE OWNED BY; Schema: erp; Owner: erp
+-- TOC entry 1782 (class 0 OID 0)
+-- Dependencies: 1498
+-- Name: order_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: erp
 --
 
 ALTER SEQUENCE order_item_id_seq OWNED BY order_item.id;
 
 
 --
--- TOC entry 1766 (class 2604 OID 16567)
--- Dependencies: 1495 1488
--- Name: id; Type: DEFAULT; Schema: erp; Owner: erp
+-- TOC entry 1776 (class 2604 OID 17510)
+-- Dependencies: 1498 1497
+-- Name: id; Type: DEFAULT; Schema: public; Owner: erp
 --
 
 ALTER TABLE order_item ALTER COLUMN id SET DEFAULT nextval('order_item_id_seq'::regclass);
 
 
 --
--- TOC entry 1768 (class 2606 OID 16573)
--- Dependencies: 1488 1488
--- Name: order_lst_p_key; Type: CONSTRAINT; Schema: erp; Owner: erp; Tablespace: 
+-- TOC entry 1778 (class 2606 OID 17520)
+-- Dependencies: 1497 1497
+-- Name: order_lst_p_key; Type: CONSTRAINT; Schema: public; Owner: erp; Tablespace: 
 --
 
 ALTER TABLE ONLY order_item
@@ -77,15 +77,15 @@ ALTER TABLE ONLY order_item
 
 
 --
--- TOC entry 1769 (class 1259 OID 16588)
--- Dependencies: 1488
--- Name: orderid_index; Type: INDEX; Schema: erp; Owner: erp; Tablespace: 
+-- TOC entry 1779 (class 1259 OID 17535)
+-- Dependencies: 1497
+-- Name: orderid_index; Type: INDEX; Schema: public; Owner: erp; Tablespace: 
 --
 
 CREATE INDEX orderid_index ON order_item USING btree (order_id);
 
 
--- Completed on 2008-10-28 19:20:42
+-- Completed on 2009-05-04 20:23:18
 
 --
 -- PostgreSQL database dump complete

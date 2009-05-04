@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2009-02-22 15:24:10
+-- Started on 2009-05-04 20:24:07
 
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = off;
@@ -10,16 +10,16 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET escape_string_warning = off;
 
-SET search_path = erp, pg_catalog;
+SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
 
 SET default_with_oids = false;
 
 --
--- TOC entry 1495 (class 1259 OID 16547)
+-- TOC entry 1505 (class 1259 OID 17501)
 -- Dependencies: 6
--- Name: ware_category; Type: TABLE; Schema: erp; Owner: erp; Tablespace: 
+-- Name: ware_category; Type: TABLE; Schema: public; Owner: erp; Tablespace: 
 --
 
 CREATE TABLE ware_category (
@@ -28,12 +28,12 @@ CREATE TABLE ware_category (
 );
 
 
-ALTER TABLE erp.ware_category OWNER TO erp;
+ALTER TABLE public.ware_category OWNER TO erp;
 
 --
--- TOC entry 1500 (class 1259 OID 16562)
--- Dependencies: 6 1495
--- Name: ware_category_id_seq; Type: SEQUENCE; Schema: erp; Owner: erp
+-- TOC entry 1506 (class 1259 OID 17504)
+-- Dependencies: 1505 6
+-- Name: ware_category_id_seq; Type: SEQUENCE; Schema: public; Owner: erp
 --
 
 CREATE SEQUENCE ware_category_id_seq
@@ -43,37 +43,37 @@ CREATE SEQUENCE ware_category_id_seq
     CACHE 1;
 
 
-ALTER TABLE erp.ware_category_id_seq OWNER TO erp;
+ALTER TABLE public.ware_category_id_seq OWNER TO erp;
 
 --
--- TOC entry 1776 (class 0 OID 0)
--- Dependencies: 1500
--- Name: ware_category_id_seq; Type: SEQUENCE OWNED BY; Schema: erp; Owner: erp
+-- TOC entry 1781 (class 0 OID 0)
+-- Dependencies: 1506
+-- Name: ware_category_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: erp
 --
 
 ALTER SEQUENCE ware_category_id_seq OWNED BY ware_category.id;
 
 
 --
--- TOC entry 1771 (class 2604 OID 16571)
--- Dependencies: 1500 1495
--- Name: id; Type: DEFAULT; Schema: erp; Owner: erp
+-- TOC entry 1776 (class 2604 OID 17514)
+-- Dependencies: 1506 1505
+-- Name: id; Type: DEFAULT; Schema: public; Owner: erp
 --
 
 ALTER TABLE ware_category ALTER COLUMN id SET DEFAULT nextval('ware_category_id_seq'::regclass);
 
 
 --
--- TOC entry 1773 (class 2606 OID 16583)
--- Dependencies: 1495 1495
--- Name: ware_category_p_key; Type: CONSTRAINT; Schema: erp; Owner: erp; Tablespace: 
+-- TOC entry 1778 (class 2606 OID 17530)
+-- Dependencies: 1505 1505
+-- Name: ware_category_p_key; Type: CONSTRAINT; Schema: public; Owner: erp; Tablespace: 
 --
 
 ALTER TABLE ONLY ware_category
     ADD CONSTRAINT ware_category_p_key PRIMARY KEY (id);
 
 
--- Completed on 2009-02-22 15:24:10
+-- Completed on 2009-05-04 20:24:07
 
 --
 -- PostgreSQL database dump complete

@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2009-04-08 23:18:42
+-- Started on 2009-05-04 20:23:52
 
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = off;
@@ -80,7 +80,7 @@ ALTER TABLE ONLY vendor
     ADD CONSTRAINT vendor_p_key PRIMARY KEY (id);
 
 
--- Completed on 2009-04-08 23:18:42
+-- Completed on 2009-05-04 20:23:53
 
 --
 -- PostgreSQL database dump complete

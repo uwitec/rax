@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2008-10-28 19:20:21
+-- Started on 2009-05-04 20:23:38
 
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = off;
@@ -10,16 +10,16 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET escape_string_warning = off;
 
-SET search_path = erp, pg_catalog;
+SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
 
 SET default_with_oids = false;
 
 --
--- TOC entry 1490 (class 1259 OID 16530)
--- Dependencies: 1766 6
--- Name: sell_item; Type: TABLE; Schema: erp; Owner: erp; Tablespace: 
+-- TOC entry 1501 (class 1259 OID 17480)
+-- Dependencies: 1776 6
+-- Name: sell_item; Type: TABLE; Schema: public; Owner: erp; Tablespace: 
 --
 
 CREATE TABLE sell_item (
@@ -31,12 +31,12 @@ CREATE TABLE sell_item (
 );
 
 
-ALTER TABLE erp.sell_item OWNER TO erp;
+ALTER TABLE public.sell_item OWNER TO erp;
 
 --
--- TOC entry 1497 (class 1259 OID 16560)
--- Dependencies: 1490 6
--- Name: sell_item_id_seq; Type: SEQUENCE; Schema: erp; Owner: erp
+-- TOC entry 1502 (class 1259 OID 17484)
+-- Dependencies: 6 1501
+-- Name: sell_item_id_seq; Type: SEQUENCE; Schema: public; Owner: erp
 --
 
 CREATE SEQUENCE sell_item_id_seq
@@ -46,30 +46,30 @@ CREATE SEQUENCE sell_item_id_seq
     CACHE 1;
 
 
-ALTER TABLE erp.sell_item_id_seq OWNER TO erp;
+ALTER TABLE public.sell_item_id_seq OWNER TO erp;
 
 --
--- TOC entry 1773 (class 0 OID 0)
--- Dependencies: 1497
--- Name: sell_item_id_seq; Type: SEQUENCE OWNED BY; Schema: erp; Owner: erp
+-- TOC entry 1783 (class 0 OID 0)
+-- Dependencies: 1502
+-- Name: sell_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: erp
 --
 
 ALTER SEQUENCE sell_item_id_seq OWNED BY sell_item.id;
 
 
 --
--- TOC entry 1767 (class 2604 OID 16569)
--- Dependencies: 1497 1490
--- Name: id; Type: DEFAULT; Schema: erp; Owner: erp
+-- TOC entry 1777 (class 2604 OID 17512)
+-- Dependencies: 1502 1501
+-- Name: id; Type: DEFAULT; Schema: public; Owner: erp
 --
 
 ALTER TABLE sell_item ALTER COLUMN id SET DEFAULT nextval('sell_item_id_seq'::regclass);
 
 
 --
--- TOC entry 1770 (class 2606 OID 16577)
--- Dependencies: 1490 1490
--- Name: sell_lst_p_code; Type: CONSTRAINT; Schema: erp; Owner: erp; Tablespace: 
+-- TOC entry 1780 (class 2606 OID 17524)
+-- Dependencies: 1501 1501
+-- Name: sell_lst_p_code; Type: CONSTRAINT; Schema: public; Owner: erp; Tablespace: 
 --
 
 ALTER TABLE ONLY sell_item
@@ -77,15 +77,15 @@ ALTER TABLE ONLY sell_item
 
 
 --
--- TOC entry 1768 (class 1259 OID 16590)
--- Dependencies: 1490
--- Name: sell_item_sellId; Type: INDEX; Schema: erp; Owner: erp; Tablespace: 
+-- TOC entry 1778 (class 1259 OID 17537)
+-- Dependencies: 1501
+-- Name: sell_item_sellId; Type: INDEX; Schema: public; Owner: erp; Tablespace: 
 --
 
 CREATE INDEX "sell_item_sellId" ON sell_item USING btree (sell_id);
 
 
--- Completed on 2008-10-28 19:20:21
+-- Completed on 2009-05-04 20:23:38
 
 --
 -- PostgreSQL database dump complete
