@@ -208,7 +208,10 @@ public class SellAction extends ActionSupport {
 		try {
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar c = Calendar.getInstance();
-
+			
+			Date d0 = new Date(0);
+			dateSel.add(df.format(d0));
+			
 			Date d1 = new Date();
 			c.setTimeInMillis(d1.getTime() + 86400000);
 			Date d2 = c.getTime();
@@ -218,6 +221,7 @@ public class SellAction extends ActionSupport {
 			dateSel.add(df.format(d1));
 			dateSel.add(df.format(d2));
 			dateSel.add(df.format(d3));
+
 		} catch (Exception ex) {
 			logger.error(ex.toString());
 		}
