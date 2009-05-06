@@ -1,32 +1,13 @@
 ﻿<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 DONE:
-修改erp schema为public
-添加vendor表
-更新全部.sql文件, 不再带erp schema了
+Sell 表添加discount 字段
 
 CHANGES:
-发件日期添加一个暂时不发的选项，不用手动写1970
-SellAction
-SellImportAction
-售出记录页面，显示剩余库存
-sell/property.ftl
-sell/item_property.ftl
-sell/item_import.ftl
-统计页面上显示 最近30天 卖出数量最多的品种，交易金额最大的品种
-action/StatAction
-maps/Stat.xml
-dao/StatDaoImpl
-dao/StatDao
-model/StatRankList
-service/StatService
-summary.ftl
+
 
 
 TODO:
-统计页面显示 最近30天 数量最多的分类，交易金额最大的分类
-
-调整订单总价，折算订单总折扣
 进货详单页面，显示包含/不包含的库存
 
 分类列表收到宝贝列表里面去

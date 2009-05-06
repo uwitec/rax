@@ -22,6 +22,7 @@ public class Sell {
     private String commentInvoice;
     private String sender;
     private int status;
+    private double discount;
 
     public Sell() {
         id = 0;
@@ -42,6 +43,7 @@ public class Sell {
         commentInvoice = "";
         sender = "";
         status = 0;
+        discount = 0;
     }
 
     public String getCustomerIM() {
@@ -190,5 +192,13 @@ public class Sell {
     public void setSendDate(Date sendDate) {
         this.sendDate = sendDate;
     }
+
+	public double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
+	}
 
 }

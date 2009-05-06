@@ -92,8 +92,8 @@ function onCompute() {
 <#list weekProfitList as profit>
 <div class="row">
 <div class="float">${profit.statDate?string("yy-MM-dd")}</div>
-<div class="float">#{(profit.profit + profit.fee - profit.feeReal);m2M2}</div>
-<div class="float">#{(profit.amount + profit.fee);m2M2}</div>
+<div class="float">#{(profit.profit - profit.discount + profit.fee - profit.feeReal);m2M2}</div>
+<div class="float">#{(profit.amount - profit.discount + profit.fee);m2M2}</div>
 <div class="float">${profit.number}</div>
 </div>
 </#list>
@@ -110,8 +110,8 @@ function onCompute() {
 <#list monthProfitList as profit>
 <div class="row">
 <div class="float">${profit.statDate?string("yy-MM")}</div>
-<div class="float">#{(profit.profit + profit.fee - profit.feeReal);m2M2}</div>
-<div class="float">#{(profit.amount + profit.fee);m2M2}</div>
+<div class="float">#{(profit.profit - profit.discount + profit.fee - profit.feeReal);m2M2}</div>
+<div class="float">#{(profit.amount - profit.discount + profit.fee);m2M2}</div>
 <div class="float">${profit.number}</div>
 </div>
 </#list>

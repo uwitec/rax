@@ -42,6 +42,7 @@ public class SellAction extends ActionSupport {
 	private String customerIMComment;
 	private String fee;
 	private String feeReal;
+	private String discount;
 	private int expressId;
 	private String commentExpress;
 	private String commentInvoice;
@@ -89,6 +90,7 @@ public class SellAction extends ActionSupport {
 				customerIMComment = s.getCustomerIMComment();
 				fee = f.format(s.getFee());
 				feeReal = f.format(s.getFeeReal());
+				discount = f.format(s.getDiscount());
 				expressId = s.getExpressId();
 				commentExpress = s.getCommentExpress();
 				commentInvoice = s.getCommentInvoice();
@@ -152,6 +154,9 @@ public class SellAction extends ActionSupport {
 			}
 			if (feeReal.isEmpty() == false) {
 				obj.setFeeReal(Double.parseDouble(feeReal));
+			}
+			if (discount.isEmpty() == false) {
+				obj.setDiscount(Double.parseDouble(discount));
 			}
 			if (date != null) {
 				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -458,6 +463,14 @@ public class SellAction extends ActionSupport {
 
 	public void setUtilService(UtilService utilService) {
 		this.imTypeSel = utilService.getIMTypeSel();
+	}
+
+	public String getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(String discount) {
+		this.discount = discount;
 	}
 
 }

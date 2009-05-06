@@ -30,7 +30,7 @@
 
 	<select id="countByDay" parameterClass="map" resultClass="Stat">
 		<![CDATA[
-		SELECT send_date AS statDate, COUNT(id) AS number, SUM(fee) AS fee, SUM(fee_real) AS feeReal
+		SELECT send_date AS statDate, COUNT(id) AS number, SUM(fee) AS fee, SUM(fee_real) AS feeReal, SUM(discount) AS discount
 		FROM "sell"
 		WHERE send_date BETWEEN #from# AND #to#
 		GROUP BY send_date
@@ -53,7 +53,7 @@
 
 	<select id="countByMonth" parameterClass="map" resultClass="Stat">
 		<![CDATA[
-		SELECT send_date AS statDate, COUNT(id) AS number, SUM(fee) AS fee, SUM(fee_real) AS feeReal
+		SELECT send_date AS statDate, COUNT(id) AS number, SUM(fee) AS fee, SUM(fee_real) AS feeReal, SUM(discount) AS discount
 		FROM "sell"
 		WHERE send_date BETWEEN #from# AND #to#
 		GROUP BY send_date

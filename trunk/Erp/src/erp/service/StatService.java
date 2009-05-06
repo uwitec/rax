@@ -27,6 +27,7 @@ public class StatService {
 	}
 
 	public List<StatFee> listFeeByDay(Date from, Date to) {
+		// Summary Express fee
 		return statDao.listFeeByDay(from, to);
 	}
 
@@ -56,8 +57,7 @@ public class StatService {
 					t.setNumber(st.getNumber());
 					t.setFee(st.getFee());
 					t.setFeeReal(st.getFeeReal());
-					// logger.info("Fee:" + String.valueOf(t.getFee()) + "
-					// FeeReal:" + String.valueOf(t.getFeeReal()));
+					t.setDiscount(st.getDiscount());
 					break;
 				}
 			}
@@ -127,6 +127,7 @@ public class StatService {
 				if (c.getTime().equals(t.getStatDate())) {
 					t.setProfit(t.getProfit() + st.getProfit());
 					t.setAmount(t.getAmount() + st.getAmount());
+					t.setDiscount(t.getDiscount() + st.getDiscount());
 					flag = true;
 					break;
 				}
@@ -136,6 +137,7 @@ public class StatService {
 				s.setStatDate(c.getTime());
 				s.setProfit(st.getProfit());
 				s.setAmount(st.getAmount());
+				s.setDiscount(st.getDiscount());
 				lstRet.add(s);
 			}
 		}
@@ -149,6 +151,7 @@ public class StatService {
 					t.setNumber(t.getNumber() + st.getNumber());
 					t.setFee(t.getFee() + st.getFee());
 					t.setFeeReal(t.getFeeReal() + st.getFeeReal());
+					t.setDiscount(t.getDiscount() + st.getDiscount());
 					flag = true;
 					break;
 				}
@@ -159,6 +162,7 @@ public class StatService {
 				s.setNumber(st.getNumber());
 				s.setFee(st.getFee());
 				s.setFeeReal(st.getFeeReal());
+				s.setDiscount(st.getDiscount());
 				lstRet.add(s);
 			}
 		}

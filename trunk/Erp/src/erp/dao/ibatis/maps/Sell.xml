@@ -23,12 +23,12 @@
 		customer_phone1,customer_phone2,customer_postcode,
 		customer_im,customer_im_type,customer_im_comment,
 		fee,fee_real,create_date,send_date,express_id,
-		comment_express,comment_invoice,sender,status)
+		comment_express,comment_invoice,sender,status,discount)
 		VALUES (#customerName#,#customerAddress#, 
 		#customerPhone1#,#customerPhone2#,#customerPostCode#,
 		#customerIM#,#customerIMType#,#customerIMComment#,
 		#fee#,#feeReal#,#createDate#,#sendDate#,#expressId#,
-		#commentExpress#,#commentInvoice#,#sender#,#status#)
+		#commentExpress#,#commentInvoice#,#sender#,#status#,#discount#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
@@ -46,7 +46,7 @@
 		fee, fee_real AS feeReal,create_date AS createDate,send_date AS sendDate,
 		express_id AS expressId,
 		comment_express AS commentExpress,comment_invoice AS commentInvoice,
-		sender,status
+		sender,status,discount
 		FROM "sell"
 		WHERE id=#id#
 		]]>
@@ -60,7 +60,7 @@
 		customer_im=#customerIM#,customer_im_type=#customerIMType#,customer_im_comment=#customerIMComment#,
 		fee=#fee#,fee_real=#feeReal#,create_date=#createDate#,send_date=#sendDate#,
 		express_id=#expressId#,comment_express=#commentExpress#,comment_invoice=#commentInvoice#,
-		sender=#sender#,status=#status#
+		sender=#sender#,status=#status#,discount=#discount#
 		WHERE id=#id#
 		]]>
 	</update>
@@ -93,7 +93,7 @@
 		fee, fee_real AS feeReal,create_date AS createDate,send_date AS sendDate,
 		express_id AS expressId,
 		comment_express AS commentExpress,comment_invoice AS commentInvoice,
-		sender,status
+		sender,status,discount
 		FROM "sell"
 		]]>
 		<dynamic>
@@ -116,7 +116,7 @@
 		fee, fee_real AS feeReal,create_date AS createDate,send_date AS sendDate,
 		express_id AS expressId,
 		comment_express AS commentExpress,comment_invoice AS commentInvoice,
-		sender,status
+		sender,status,discount
 		FROM "sell"
 		WHERE send_date BETWEEN #from# AND #to# AND express_id=#expressId#
 		ORDER BY send_date
@@ -132,7 +132,7 @@
 		fee, fee_real AS feeReal,create_date AS createDate,send_date AS sendDate,
 		express_id AS expressId,
 		comment_express AS commentExpress,comment_invoice AS commentInvoice,
-		sender,status
+		sender,status,discount
 		FROM "sell"
 		WHERE strpos(lower(customer_im), #keyword#) > 0 
 		OR strpos(lower(customer_name), #keyword#) > 0

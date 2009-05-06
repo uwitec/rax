@@ -10,6 +10,7 @@ public class Stat implements Comparable<Stat> {
     private int number;
     private double fee;
     private double feeReal;
+    private double discount;
 
     public Stat() {
         statDate = new Date();
@@ -18,13 +19,22 @@ public class Stat implements Comparable<Stat> {
         number = 0;
         fee = 0;
         feeReal = 0;
+        discount = 0;
     }
 
     public int compareTo(Stat o) {
         return -statDate.compareTo(o.getStatDate());
     }
 
-    public double getFee() {
+    public double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
+	}
+
+	public double getFee() {
         return fee;
     }
 

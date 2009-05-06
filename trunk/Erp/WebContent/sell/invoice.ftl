@@ -23,9 +23,10 @@ body { font-size:16px; margin:0px; }
     <td >货品名称</td>
     <td width="40" align="right">数量</td>
     <td width="60" align="right">单价</td>
-    <td width="60" align="right">小节</td>
+    <td align="right">小节</td>
   </tr>
-  <#assign total=sell.fee/>
+  <#assign total=sell.fee - sell.discount/>
+  <#assign maxlines=8/>
   <#list sellItemList as item>
   <#assign total=total + item.price * item.number/>
   <tr>
@@ -38,10 +39,18 @@ body { font-size:16px; margin:0px; }
   <tr>
     <td height="5" colspan="4"></td>
   </tr>
+  <#if sell.discount?number gt 0>
+  <#assign maxlines = maxlines - 1/>
+  <tr>
+    <td colspan="2"></td>
+    <td align="right">优惠</td>
+    <td align="right">-#{sell.discount;m2M2}</td>
+  </tr>
+  </#if>
   <tr>
     <td colspan="2"><#if sell.commentInvoice?length gt 0>备注: ${sell.commentInvoice}</#if></td>
     <td align="right">邮费</td>
-    <td align="right">#{sell.fee;m2M2}</td>
+    <td align="right">+#{sell.fee;m2M2}</td>
   </tr>
   <tr>
     <td colspan="2"><#if sell.sender?length gt 0>${sell.sender}<#else>冰心抹茶</#if> 祝您购物愉快!</td>
@@ -56,7 +65,7 @@ body { font-size:16px; margin:0px; }
 <br />
 <br />
 &nbsp;&nbsp;
-<#if sellItemList?size gt 8>
+<#if sellItemList?size gt maxlines>
 <font color="red">需换大纸打印</font>
 </#if>
 <a href='invoice_input.action?sellId=${sellId?c}'>编辑</a>
