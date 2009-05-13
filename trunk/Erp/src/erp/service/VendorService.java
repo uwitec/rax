@@ -11,11 +11,11 @@ public class VendorService {
 
 	private VendorDao vendorDao;
 
-	public Map<Integer, String> getVendorSel() {
+	public Map<Integer, String> getVendorMap() {
 		Map<Integer, String> mapEx = new HashMap<Integer, String>(16);
 		List<Vendor> lst = vendorDao.list();
 		for (Vendor obj : lst) {
-			mapEx.put(obj.getId(), obj.getName());
+			mapEx.put(obj.getId(), obj.getTitle());
 		}
 		return mapEx;
 	}

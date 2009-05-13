@@ -7,24 +7,22 @@
 
 <body>
 <a href="../index.action">返回首页</a>
-<a href="order_list.action?page=${page}">待处理进货单</a>
-<a href="order_listAll.action?page=${page}">所有进货单</a>
+<a href="order_list.action">待处理进货单</a>
+<a href="order_listAll.action">所有进货单</a>
 <br /><br />
-<a href="order.action?page=${page}">添加新进货单</a>
+<a href="order.action">添加新进货单</a>
 <br /><br />
-<div>总数:${count}</div><br />
 
-<#list 1..pageNum as i>
-<#if i == page>
-[${i}]
-<#else>
-<@s.url id="urlPage" action="order_list">
-	<@s.param name="page" value="#{i}"/>
-	<@s.param name="status" value="status"/>
-</@s.url>
-<a href="${urlPage}">[${i}]</a>
-</#if>
-</#list><br /><br />
+<div>
+<span>页数:${pager.currentPage}/${pager.totalPage}</span>&nbsp;&nbsp;
+<span>${pager.getPreviousSlide()}</span>
+<span>${pager.getBackLink()}</span>
+<span>${pager.getPageLinks()}</span>
+<span>${pager.getNextLink()}</span>
+<span>${pager.getNextSlide()}</span>&nbsp;&nbsp;
+<span>总数:${pager.totalItems}</span>
+<div>
+<br /><br /><br /><br />
 
 <#if orderList??>
 <#list orderList as order>

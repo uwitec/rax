@@ -137,7 +137,7 @@ public class Pager {
 
     public String getNextLink() {
         int pageId = getNextPage();
-        return (pageId > 0) ? "<a href='" + getAction(pageId) + "'>" + nextImg
+        return (pageId > 0 && pageId < totalPage) ? "<a href='" + getAction(pageId) + "'>" + nextImg
                 + "</a>" : "";
     }
 

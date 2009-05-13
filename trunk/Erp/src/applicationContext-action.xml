@@ -53,8 +53,10 @@
 
 	<bean id="OrderAction" class="erp.action.OrderAction" scope="prototype">
 		<property name="orderService" ref="OrderService" />
+		<property name="vendorService" ref="VendorService" />
 		<property name="orderItemService" ref="OrderItemService" />
 		<property name="wareService" ref="WareService" />
+		<property name="pager" ref="Pager" />
 	</bean>
 	<bean id="OrderItemAction" class="erp.action.OrderItemAction"
 		scope="prototype">

@@ -45,7 +45,7 @@
 			</result>
 			<result name="success" type="redirect-action">
 				<param name="actionName">order/order_list</param>
-				<param name="page">${page}</param>
+				<param name="currentPage">${currentPage}</param>
 			</result>
 		</action>
 

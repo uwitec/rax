@@ -9,6 +9,8 @@ public class Order {
     private int status;
     private double fee;
     private String comment;
+    private int vendorId;
+    private int weight;
 
     public Order() {
         id = 0;
@@ -16,6 +18,8 @@ public class Order {
         status = 0;
         fee = 0;
         comment = "";
+        vendorId = 0;
+        weight = 0;
     }
     
     public Date getCreateDate() {
@@ -57,5 +61,21 @@ public class Order {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+	public int getVendorId() {
+		return vendorId;
+	}
+
+	public void setVendorId(int vendorId) {
+		this.vendorId = vendorId;
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
 
 }

@@ -10,8 +10,8 @@
 
 	<insert id="create" parameterClass="Order">
 		<![CDATA[
-		INSERT INTO "order" (create_date, status, fee, comment) 
-		VALUES (#createDate#, #status#, #fee#, #comment#)
+		INSERT INTO "order" (create_date, status, fee, comment, vendor_id, weight) 
+		VALUES (#createDate#, #status#, #fee#, #comment#, #vendorId#, #weight#)
 		]]>
 		<selectKey resultClass="int" keyProperty="id">
 			<![CDATA[
@@ -22,7 +22,7 @@
 
 	<select id="read" parameterClass="int" resultClass="Order">
 		<![CDATA[
-		SELECT id,create_date AS createDate,status,fee,comment
+		SELECT id,create_date AS createDate,status,fee,comment,vendor_id AS vendorId,weight
 		FROM "order"
 		WHERE id=#id#
 		]]>
@@ -30,7 +30,7 @@
 
 	<update id="update" parameterClass="Order">
 		<![CDATA[
-		UPDATE "order" SET create_date=#createDate#,status=#status#,fee=#fee#,comment=#comment#
+		UPDATE "order" SET create_date=#createDate#,status=#status#,fee=#fee#,comment=#comment#,vendor_id=#vendorId#,weight=#weight#
 		WHERE id=#id#
 		]]>
 	</update>
@@ -55,7 +55,7 @@
 
 	<select id="list" parameterClass="map" resultClass="Order">
 		<![CDATA[
-		SELECT id,create_date AS createDate,status,fee,comment
+		SELECT id,create_date AS createDate,status,fee,comment, vendor_id AS vendorId, weight
 		FROM "order"
 		]]>
 		<dynamic>
