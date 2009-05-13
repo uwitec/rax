@@ -90,6 +90,7 @@
 		</dynamic>
 		<![CDATA[
 		DESC
+		LIMIT 10
 		]]>
 	</select>
 	

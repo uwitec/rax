@@ -240,7 +240,7 @@ function onSubmit(itemId, itemPrice, itemNum) {
 					for (var i = 0; i < wareList.length; i++) {
 						ware = wareList[i];
 						if (itemId == ware.id) {
-							addRow(objItems, [itemNum, itemPrice, ware.name]);
+							addRow(objItems, [itemNum, itemPrice, ware.name, ware.number - itemNum]);
 							break;
 						}
 					}
@@ -303,7 +303,7 @@ label { cursor:pointer; }
 <#list sellItemList as item>
 <tr>
 <td>${item.number}</td>
-<td>${item.price}</td>
+<td>#{item.price;m2M2}</td>
 <td>${item.ware.name}</td>
 <td>${item.ware.number}</td>
 </tr>

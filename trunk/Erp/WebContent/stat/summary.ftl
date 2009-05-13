@@ -70,6 +70,7 @@ function onCompute() {
 @import "../js/dijit/themes/tundra/tundra.css";
 .float { float:left; margin-right:12px; width:80px; text-align:right; }
 .row { clear:both; }
+.right { text-align:right }
 </style>
 
 </head>
@@ -121,43 +122,42 @@ function onCompute() {
 
 
 <table>
+<tr><td colspan="5">最近30天销售数量排行榜</td></tr>
 <tr>
 <td>名次</td>
-<td>总数</td>
-<td>总价</td>
+<td class="right">总数</td>
+<td class="right">总额</td>
 <td>宝贝名称</td>
-<td>剩余库存</td>
+<td class="right">剩余库存</td>
 </tr>
 <#if numberRankList??>
 <#list numberRankList as rank>
 <tr>
 <td>${rank_index + 1}</td>
-<td>${rank.totalNumber}</td>
-<td>${rank.totalPrice}</td>
+<td class="right">${rank.totalNumber}</td>
+<td class="right">#{rank.totalPrice;m2M2}</td>
 <td>${rank.wareName}</td>
-<td>${rank.wareNumber}</td>
+<td class="right">${rank.wareNumber}</td>
 </tr>
 </#list>
 </#if>
-</table>
-<br />
-
-<table>
+<tr><td colspan="5">&nbsp;</td></tr>
+<tr><td colspan="5">最近30天销售额排行榜</td></tr>
 <tr>
 <td>名次</td>
-<td>总价</td>
-<td>总数</td>
+<td class="right">总额</td>
+<td class="right">总数</td>
 <td>宝贝名称</td>
-<td>剩余库存</td>
+<td class="right">剩余库存</td>
 </tr>
 <#if amountRankList??>
 <#list amountRankList as rank>
 <tr>
 <td>${rank_index + 1}</td>
-<td>${rank.totalNumber}</td>
-<td>${rank.totalPrice}</td>
+<td class="right">#{rank.totalPrice;m2M2}</td>
+<td class="right">${rank.totalNumber}</td>
 <td>${rank.wareName}</td>
-<td>${rank.wareNumber}</td>
+<td class="right">${rank.wareNumber}</td>
 </tr>
 </#list>
 </#if>

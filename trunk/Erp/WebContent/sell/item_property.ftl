@@ -224,7 +224,7 @@ label { cursor:pointer; }
 <#list sellItemList as item>
 <tr>
 <td>${item.number}</td>
-<td>${item.price}</td>
+<td>#{item.price;m2M2}</td>
 <td>${item.ware.name}</td>
 <td>${item.ware.number}</td>
 </tr>
