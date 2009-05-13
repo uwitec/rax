@@ -20,6 +20,7 @@ public class UtilService {
 		IMTypeSel.put(1, "QQ");
 		IMTypeSel.put(2, "易趣通");
 		IMTypeSel.put(3, "MSN");
+		IMTypeSel.put(4, "百度Hi");
 		IMTypeSel.put(-1, "其他");
 	}
 
