@@ -6,13 +6,20 @@
 
 <sqlMap namespace="Keyword">
 
+	<cacheModel id="keyword-cache" type="MEMORY">
+		<flushInterval hours="24" />
+		<flushOnExecute statement="Keyword.create" />
+		<flushOnExecute statement="Keyword.delete" />
+		<property name="reference-type" value="WEAK" />
+	</cacheModel>
+	
 	<insert id="create" parameterClass="string">
 		<![CDATA[
 		INSERT INTO "keyword" VALUES (#token#)
 		]]>
 	</insert>
 
-	<select id="read" resultClass="string">
+	<select id="read" resultClass="string" cacheModel="keyword-cache">
 		<![CDATA[
 		SELECT token FROM "keyword" WHERE token=#token# LIMIT 1
 		]]>

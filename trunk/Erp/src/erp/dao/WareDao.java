@@ -31,7 +31,7 @@ public interface WareDao {
     public List<Ware> findByKeywords(List<String> keywordList)
             throws DataAccessException;
 
-    public List<Ware> fullTextSearch(String content) throws DataAccessException;
+    public List<Ware> fullTextSearch(String content, int status) throws DataAccessException;
 
     public int updateFullTextIndex(int id, String tokens)
             throws DataAccessException;

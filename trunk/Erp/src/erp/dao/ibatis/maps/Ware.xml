@@ -152,7 +152,7 @@
 		]]>
 	</select>
 
-	<select id="fullTextSearch" parameterClass="string"
+	<select id="fullTextSearch" parameterClass="map"
 		resultClass="Ware">
 		<![CDATA[
 		SELECT id,category_id AS categoryId,name,cost,price AS lastPrice,
@@ -161,6 +161,14 @@
 		ts_rank (idx_name, q) AS r
 		FROM "ware", to_tsquery(#content#) q
 		WHERE idx_name @@ q
+		]]>
+		<dynamic>
+			<isGreaterThan prepend="AND" property="status"
+				compareValue="-1">
+				status=#status#
+			</isGreaterThan>
+		</dynamic>
+		<![CDATA[
 		ORDER BY r DESC
 		LIMIT 12
 		]]>

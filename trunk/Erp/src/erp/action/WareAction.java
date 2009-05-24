@@ -133,7 +133,7 @@ public class WareAction extends ActionSupport {
             tokenBuf.append(token);
             skipFirstToken = false;
         }
-        wareList = wareService.fullTextSearch(tokenBuf.toString().trim());
+        wareList = wareService.fullTextSearch(tokenBuf.toString().trim(), 0);
         return SUCCESS;
     }
 	

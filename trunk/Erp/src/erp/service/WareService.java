@@ -87,10 +87,10 @@ public class WareService {
 	public List<Ware> listByCategoryId(int categoryId, int status) {
 		return wareDao.listByCategoryId(categoryId, status);
 	}
-	
+
 	public List<Ware> listByCategory(WareCategory category, int status) {
 		return wareDao.listByCategoryId(category.getId(), status);
-	}	
+	}
 
 	public List<Ware> listLowNumber(int status) {
 		return wareDao.listLowNumber(status);
@@ -109,9 +109,9 @@ public class WareService {
 		return wareDao.findByKeywords(keywordList);
 	}
 
-	public List<Ware> fullTextSearch(String content) {
-		logger.info("fullTextService:" + content);
-		return wareDao.fullTextSearch(content);
+	public List<Ware> fullTextSearch(String content, int status) {
+		logger.debug("fullTextService:" + content + " status:" + status);
+		return wareDao.fullTextSearch(content, status);
 	}
 
 	public void setWareDao(WareDao dao) {
