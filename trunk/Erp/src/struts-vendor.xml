@@ -15,6 +15,10 @@
 		<action name="vendor_list" class="VendorAction" method="list">
 			<result name="success">/vendor/list.ftl</result>
 		</action>
+		
+		<action name="vendor_history" class="VendorAction" method="listHistoryOffer">
+			<result name="success">/vendor/history.ftl</result>
+		</action>
 
 		<action name="vendor" class="VendorAction" method="get">
 			<result name="success">/vendor/property.ftl</result>

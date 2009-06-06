@@ -1,6 +1,7 @@
 package erp.dao.ibatis;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
@@ -46,4 +47,9 @@ public class VendorDaoImpl extends SqlMapClientDaoSupport implements VendorDao {
 		return getSqlMapClientTemplate().queryForList("Vendor.list");
 	}
 
+	@Override
+	public List<Map> listHistoryOffer(int id) throws DataAccessException {
+		return getSqlMapClientTemplate().queryForList("Vendor.listHistoryOffer",
+				id);
+	}
 }

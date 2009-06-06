@@ -49,10 +49,14 @@ dojo.addOnLoad(function (){
 
 <body>
 <#if status != 1>
-<a href="ware_list.action?categoryId=${categoryId}">返回</a><br /><br />
+<a href="ware_list.action?categoryId=${categoryId}">返回</a>
 <#else>
-<a href="ware_list_hid.action">返回</a><br /><br />
+<a href="ware_list_hid.action">返回</a>
 </#if>
+<#if id != 0>
+<a href="ware_delete.action?id=${id}" onclick="return confirm('确实要删除这个宝贝么？')">删除</a>
+</#if>
+<br /><br />
 
 <div>
 <@s.form action="ware_save">
@@ -71,9 +75,7 @@ dojo.addOnLoad(function (){
 </@s.form>
 </div>
 
-<#if id != 0>
-<a href="ware_delete.action?id=${id}" onclick="return confirm('确实要删除这个宝贝么？')">删除</a>
-</#if>
+
 
 </body>
 </html>

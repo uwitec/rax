@@ -21,6 +21,7 @@ body { display: none; }
 <#list vendorList as vendor>
 <div>${(vendor_index + 1)?string?left_pad(2)?replace(" ", "&nbsp;")}
 <a href="vendor.action?id=${vendor.id?c}" title="${imTypeSel.get(vendor.IMType)}:${vendor.IM}">${vendor.title}</a>
+<a href="vendor_history.action?id=${vendor.id?c}">进货历史</a>
 </div>
 <br />
 </#list>

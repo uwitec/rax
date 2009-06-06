@@ -1,6 +1,7 @@
 package erp.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
@@ -19,4 +20,7 @@ public interface VendorDao {
 	public int count() throws DataAccessException;
 
 	public List<Vendor> list() throws DataAccessException;
+	
+	public List<Map> listHistoryOffer(int id) throws DataAccessException;
+
 }

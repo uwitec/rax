@@ -85,6 +85,7 @@
 
 	<bean id="VendorAction" class="erp.action.VendorAction" scope="prototype">
 		<property name="vendorService" ref="VendorService" />
+		<property name="wareService" ref="WareService" />
 		<property name="utilService" ref="UtilService" />
 	</bean>
 

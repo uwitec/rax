@@ -60,6 +60,10 @@ public class VendorService {
 		return vendorDao.list();
 	}
 
+	public List<Map> listHistoryOffer(int id) {
+		return vendorDao.listHistoryOffer(id);
+	}
+
 	public VendorDao getVendorDao() {
 		return vendorDao;
 	}

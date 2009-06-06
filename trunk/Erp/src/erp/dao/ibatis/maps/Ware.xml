@@ -180,5 +180,43 @@
 		WHERE id=#id#
 		]]>
 	</update>
+	
+	<!--
+	select * from order_item AS oi 
+	left join "order" as o on (oi.order_id = o.id) 
+	left join "vendor" AS v on (o.vendor_id=v.id)
+	where oi.ware_id = 1;
+	/* 某件宝贝的历史拿货记录 */
+	-->
+	<select id="listHistoryOrder" parameterClass="int"
+		resultClass="java.util.HashMap">
+		<![CDATA[
+		SELECT * FROM "order_item" AS oi
+		LEFT JOIN "order" AS o ON (oi.order_id=o.id)
+		LEFT JOIN "vendor" AS v ON (o.vendor_id=v.id)
+		WHERE oi.ware_id=#id#;
+		]]>
+	</select>
+	
+	<!--
+	select min(cost), avg(cost),v.id 
+	from order_item AS oi 
+	left join "order" as o on (oi.order_id = o.id) 
+	left join "vendor" AS v on (o.vendor_id=v.id)
+	where oi.ware_id = 1 group by v.id;
+	/* 某件宝贝从各家供货商的拿货价， 最低价和平均价 */ 
+	-->
+	<select id="listHistoryPrice" parameterClass="int"
+		resultClass="java.util.HashMap">
+		<![CDATA[
+		SELECT MIN(cost),AVG(cost),v.id 
+		FROM "order_item" AS oi
+		LEFT JOIN "order" AS o ON (oi.order_id=o.id)
+		LEFT JOIN "vendor" AS v ON (o.vendor_id=v.id)
+		WHERE oi.ware_id=#id# GROUP BY v.id;
+		]]>
+	</select>
+	
+
 
 </sqlMap>
