@@ -70,7 +70,8 @@ function onCompute() {
 @import "../js/dijit/themes/tundra/tundra.css";
 .float { float:left; margin-right:12px; width:80px; text-align:right; }
 .row { clear:both; }
-.right { text-align:right }
+.right { text-align:right; width:40px; }
+.mid { text-align:center; width:40px; }
 </style>
 
 </head>
@@ -87,7 +88,7 @@ function onCompute() {
 <div class="float">日期</div>
 <div class="float">利润</div>
 <div class="float">营业额</div>
-<div class="float">包裹数</div>
+<div class="float">件数</div>
 </div>
 <#if weekProfitList??>
 <#list weekProfitList as profit>
@@ -105,7 +106,7 @@ function onCompute() {
 <div class="float">月份</div>
 <div class="float">利润</div>
 <div class="float">营业额</div>
-<div class="float">包裹数</div>
+<div class="float">件数</div>
 </div>
 <#if monthProfitList??>
 <#list monthProfitList as profit>
@@ -125,19 +126,19 @@ function onCompute() {
 <tr><td colspan="5">最近30天销售数量排行榜</td></tr>
 <tr>
 <td>名次</td>
-<td class="right">总数</td>
+<td class="mid">总数</td>
 <td class="right">总额</td>
+<td class="mid">库存</td>
 <td>宝贝名称</td>
-<td class="right">剩余库存</td>
 </tr>
 <#if numberRankList??>
 <#list numberRankList as rank>
 <tr>
 <td>${rank_index + 1}</td>
-<td class="right">${rank.totalNumber}</td>
+<td class="mid">${rank.totalNumber}</td>
 <td class="right">#{rank.totalPrice;m2M2}</td>
+<td class="mid">${rank.wareNumber}</td>
 <td>${rank.wareName}</td>
-<td class="right">${rank.wareNumber}</td>
 </tr>
 </#list>
 </#if>
@@ -146,18 +147,18 @@ function onCompute() {
 <tr>
 <td>名次</td>
 <td class="right">总额</td>
-<td class="right">总数</td>
+<td class="mid">总数</td>
+<td class="mid">库存</td>
 <td>宝贝名称</td>
-<td class="right">剩余库存</td>
 </tr>
 <#if amountRankList??>
 <#list amountRankList as rank>
 <tr>
 <td>${rank_index + 1}</td>
 <td class="right">#{rank.totalPrice;m2M2}</td>
-<td class="right">${rank.totalNumber}</td>
+<td class="mid">${rank.totalNumber}</td>
+<td class="mid">${rank.wareNumber}</td>
 <td>${rank.wareName}</td>
-<td class="right">${rank.wareNumber}</td>
 </tr>
 </#list>
 </#if>

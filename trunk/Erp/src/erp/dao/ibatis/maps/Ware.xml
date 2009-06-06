@@ -216,7 +216,5 @@
 		WHERE oi.ware_id=#id# GROUP BY v.id;
 		]]>
 	</select>
-	
-
 
 </sqlMap>
