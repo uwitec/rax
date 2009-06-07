@@ -155,7 +155,6 @@ public class WareAction extends ActionSupport {
 	}
 
 	public String listHistoryOrder() throws Exception {
-		pager.setPerPage(3);
 		pager.setAction("ware_list_history_order.action?id=" + String.valueOf(id) + "&status=" + String.valueOf(status) + "&categoryId=" + String.valueOf(categoryId));
 		pager.setTotalItems(orderItemService.getCountByWareId(id));
 		pager.generatePageData();

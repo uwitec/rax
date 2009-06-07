@@ -13,7 +13,7 @@
 
 <table>
 <tr>
-<td>供应商</td>
+<td>供货商</td>
 <td>平均进价</td>
 <td>最低进价</td>
 <td>最高进价</td>
@@ -21,10 +21,10 @@
 <#if historyList??>
 <#list historyList as history>
 <tr>
-<td>${history.vendor.title}</a>
+<td><#if history.vendor??>${history.vendor.title}<#else>未知供货商</#if></td>
 <td>#{history.avg;m2M2}</td>
 <td>#{history.min;m2M2}</td>
-<td>#{history.min;m2M2}</td>
+<td>#{history.max;m2M2}</td>
 <tr>
 </#list>
 </#if>
