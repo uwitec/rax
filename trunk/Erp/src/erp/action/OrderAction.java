@@ -43,6 +43,7 @@ public class OrderAction extends ActionSupport {
 	public String list() throws Exception {
 		pager.setAction("order_list.action?status=" + String.valueOf(status));
 		pager.setTotalItems(orderService.getCount(status));
+		pager.generatePageData();
 		orderList = orderService.list(status, pager.getOffsetItems(), pager
 				.getPerPage());
 		return SUCCESS;
