@@ -80,16 +80,19 @@ function onSelect(event) {
 	var obj = this.options[this.selectedIndex];
 	//console.debug(obj.text + ":" + obj.value);
 
+	var objName	= dojo.byId("order_item_save_orderItem_ware_name");
 	var objId	= dojo.byId("order_item_save_orderItem_wareId");
 	var objCost	= dojo.byId("order_item_save_orderItem_cost");
 	var objNum	= dojo.byId("order_item_save_orderItem_number");
+	
 	var ware;
 	for (var i = 0; i < wareList.length; i++) {
 		ware = wareList[i];
 		if (obj.value == ware.id) {
-			objId.value		= ware.id;
-			objCost.value	= ware.lowestCost;
-			objNum.value	= 1;
+			objId.value			= ware.id;
+			objName.innerHTML	= ware.name;
+			objCost.value		= ware.lowestCost;
+			objNum.value		= 1;
 			break;
 		}
 	}
@@ -111,13 +114,13 @@ function onSubmit() {
 				var objId		= dojo.byId("order_item_save_orderItem_wareId");
 				var objCost		= dojo.byId("order_item_save_orderItem_cost");
 				var objNum		= dojo.byId("order_item_save_orderItem_number");
-				var objResult	= dojo.byId("addList");
+				var objItems	= dojo.byId("itemsTable");
 				var ware;
 				if (wareList != null) {
 					for (var i = 0; i < wareList.length; i++) {
 						ware = wareList[i];
 						if (objId.value == ware.id) {
-							addOption(objResult, ware.name + " * " + objNum.value, null, true);
+							addRow(objItems, [objNum.value, objCost.value, ware.name, ware.number - objNum.value]);
 							break;
 						}
 					}
@@ -146,6 +149,18 @@ function onSubmit() {
 	});
 }
 
+function addRow(objTable, cells) {
+	var row;
+	var cell;
+	try {
+		row = objTable.insertRow(objTable.rows.length);
+		for (var i = 0; i < cells.length; i++) {
+			cell = row.insertCell(row.cells.length);
+			cell.innerHTML = cells[i];
+		}
+	} catch (ex) { alert(ex.description); }
+}
+
 dojo.addOnLoad(function (){
 	var obj;
 	obj = dojo.byId("search_result");
@@ -155,12 +170,18 @@ dojo.addOnLoad(function (){
 	obj.focus();
 	obj = dojo.byId("submitBtn");
 	dojo.connect(obj, "onclick", obj, onSubmit);
+	
+	obj = dojo.byId("order_item_save_id");
+	if (obj.value == 0) {
+		dojo.byId("add_div").style.display = "block";
+	}
 });
 
 </script>
 <style type="text/css">
 select { width:380px; }
 label { cursor:pointer; }
+#add_div { display:none; }
 </style>
 </head>
 
@@ -174,21 +195,41 @@ label { cursor:pointer; }
 
 <div>
 <@s.form action="order_item_save">
-    <@s.textfield label="宝贝编号" name="orderItem.wareId"/>
+    <@s.label label="宝贝名称" name="orderItem.ware.name"/>
     <@s.textfield label="成本" name="orderItem.cost"/>
     <@s.textfield label="数量" name="orderItem.number"/>
     <@s.hidden name="id"/>
+    <@s.hidden name="orderItem.wareId"/>
     <@s.hidden name="orderId"/>
 </@s.form>
 <input type="button" id="submitBtn" value=" 提 交 "/>
 <span id="submitStatus"></span>
 </div>
+<br />
 
-<div>
+<div id="add_div">
 <@s.textfield label="搜索" name="search"/>
 <a href="ware.action" target="_blank">添加新的宝贝</a><br />
 <@s.select name="search_result" size="16"/><br />
-<@s.select name="addList"/>
+
+<table id="itemsTable">
+<tr>
+<td>数量</td>
+<td>价格</td>
+<td>宝贝名称</td>
+<td>剩余库存</td>
+</tr>
+<#if orderItemList??>
+<#list orderItemList as item>
+<tr>
+<td>${item.number}</td>
+<td>#{item.cost;m2M2}</td>
+<td>${item.ware.name}</td>
+<td>${item.ware.number}</td>
+</tr>
+</#list>
+</#if>
+</table>
 </div>
 
 </body>

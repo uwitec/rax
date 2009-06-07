@@ -1,6 +1,7 @@
 package erp.service;
 
 import java.util.List;
+import java.util.Map;
 
 import erp.dao.OrderItemDao;
 import erp.model.Order;
@@ -52,6 +53,14 @@ public class OrderItemService {
     public List<OrderItem> listByOrderId(int orderId) {
         return orderItemDao.listByOrderId(orderId);
     }
+    
+    public int getCountByWareId(int id) {
+    	return orderItemDao.getCountByWareId(id);
+    }
+    
+	public List<OrderItem> listByWareId(int id, int index, int num) {
+		return orderItemDao.listByWareId(id, index, num);
+	}
 
     public void setOrderItemDao(OrderItemDao dao) {
         orderItemDao = dao;

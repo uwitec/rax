@@ -22,7 +22,7 @@
 <span>${pager.getNextSlide()}</span>&nbsp;&nbsp;
 <span>总数:${pager.totalItems}</span>
 <div>
-<br /><br /><br /><br />
+<br /><br />
 
 <#if orderList??>
 <#list orderList as order>

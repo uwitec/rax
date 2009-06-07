@@ -56,5 +56,5 @@ public class OrderDaoImpl extends SqlMapClientDaoSupport implements OrderDao {
 		}
 		return getSqlMapClientTemplate().queryForList("Order.list", param);
 	}
-
+	
 }

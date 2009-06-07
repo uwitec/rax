@@ -65,12 +65,7 @@
 	</select>
 	
 	<!--
-	select oi.ware_id, min(oi.cost), avg(oi.cost) 
-	from order_item AS oi 
-	left join "order" as o on (oi.order_id = o.id) 
-	left join "vendor" as v on (o.vendor_id=v.id)
-	where v.id=2 group by oi.ware_id;
-	/* 从某个供货商处曾经进过的货，分别最低价，和平均价 */ 
+	从某个供货商处曾经进过的货，分别最低价，和平均价
 	-->
 	<select id="listHistoryOffer" parameterClass="int"
 		resultClass="java.util.HashMap">
@@ -78,7 +73,8 @@
 		SELECT oi.ware_id,MIN(oi.cost),AVG(oi.cost),MAX(oi.cost) 
 		FROM "order_item" AS oi
 		LEFT JOIN "order" AS o ON (oi.order_id=o.id)
-		WHERE o.vendor_id=#id# GROUP BY oi.ware_id;
+		WHERE o.vendor_id=#id# 
+		GROUP BY oi.ware_id;
 		]]>
 	</select>
 

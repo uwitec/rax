@@ -2,6 +2,7 @@ package erp.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -94,6 +95,10 @@ public class WareService {
 
 	public List<Ware> listLowNumber(int status) {
 		return wareDao.listLowNumber(status);
+	}
+
+	public List<Map> listHistoryPrice(int id) {
+		return wareDao.listHistoryPrice(id);
 	}
 
 	public List<Ware> findByBarcode(String barcode) {

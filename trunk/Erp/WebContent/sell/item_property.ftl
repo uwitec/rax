@@ -88,11 +88,10 @@ function onSelect(event) {
 	for (var i = 0; i < wareList.length; i++) {
 		ware = wareList[i];
 		if (obj.value == ware.id) {
-			objId.value		= ware.id;
-			objPrice.value	= ware.lastPrice;
-			objNum.value	= 1;
-			objName.innerHTML = ware.name;
-			// console.debug(ware.name);
+			objId.value			= ware.id;
+			objPrice.value		= ware.lastPrice;
+			objNum.value		= 1;
+			objName.innerHTML	= ware.name;
 			break;
 		}
 	}
@@ -120,7 +119,7 @@ function onSubmit() {
 					for (var i = 0; i < wareList.length; i++) {
 						ware = wareList[i];
 						if (objId.value == ware.id) {
-							addRow(objItems, [objNum.value, objPrice.value, ware.name]);
+							addRow(objItems, [objNum.value, objPrice.value, ware.name, ware.number - objNum.value]);
 							break;
 						}
 					}

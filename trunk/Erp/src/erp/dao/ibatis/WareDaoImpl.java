@@ -103,5 +103,10 @@ public class WareDaoImpl extends SqlMapClientDaoSupport implements WareDao {
 		return getSqlMapClientTemplate().queryForList("Ware.listLowNumber",
 				param);
 	}
-
+	
+	@Override
+	public List<Map> listHistoryPrice(int id) throws DataAccessException {
+		return getSqlMapClientTemplate().queryForList("Ware.listHistoryPrice",
+				id);
+	}
 }

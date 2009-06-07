@@ -51,4 +51,27 @@
 		]]>
 	</select>
 	
+	<!--
+	某件宝贝的历史拿货记录
+	-->
+	<select id="listByWareId" parameterClass="map"
+		resultClass="OrderItem">
+		<![CDATA[
+		SELECT id, order_id AS orderId, ware_id AS wareId, cost, number
+		FROM "order_item"
+		WHERE ware_id=#id#
+		ORDER BY id
+		LIMIT #number# OFFSET #index#
+		]]>
+	</select>
+	
+	<select id="countByWareId" parameterClass="int"
+		resultClass="int">
+		<![CDATA[
+		SELECT COUNT(*)
+		FROM "order_item"
+		WHERE ware_id=#id#
+		]]>
+	</select>
+	
 </sqlMap>

@@ -16,15 +16,22 @@
 			<result name="success">/index.ftl</result>
 		</action>
 
-		<action name="ware_list" class="WareAction"
-			method="listByCategory">
+		<action name="ware_list" class="WareAction" method="listByCategory">
 			<result name="success">/ware/list.ftl</result>
 		</action>
-		<action name="ware_list_hid" class="WareAction"
-			method="listHided">
+		<action name="ware_list_hid" class="WareAction" method="listHided">
 			<param name="status">1</param>
 			<result name="success">/ware/list_hid.ftl</result>
 		</action>
+		<action name="ware_list_history_order" class="WareAction"
+			method="listHistoryOrder">
+			<result name="success">/ware/list_history_order.ftl</result>
+		</action>
+		<action name="ware_list_history_price" class="WareAction"
+			method="listHistoryPrice">
+			<result name="success">/ware/list_history_price.ftl</result>
+		</action>
+		
 		<action name="ware" class="WareAction" method="get">
 			<result name="success">/ware/property.ftl</result>
 		</action>
@@ -51,11 +58,12 @@
 
 		<action name="ware_category_list" class="WareCategoryAction"
 			method="list">
-			<result name="success">/ware/category_list.ftl</result>
+			<result name="success">/ware/category_list.ftl
+			</result>
 		</action>
-		<action name="ware_category" class="WareCategoryAction"
-			method="get">
-			<result name="success">/ware/category_property.ftl</result>
+		<action name="ware_category" class="WareCategoryAction" method="get">
+			<result name="success">/ware/category_property.ftl
+			</result>
 		</action>
 		<action name="ware_category_save" class="WareCategoryAction">
 			<result name="input" type="redirect-action">
@@ -74,8 +82,7 @@
 				ware_category_list
 			</result>
 		</action>
-		<action name="ware_alarm" class="WareAction"
-			method="updateAlarm">
+		<action name="ware_alarm" class="WareAction" method="updateAlarm">
 			<result name="success" type="redirect-action">index</result>
 		</action>
 
@@ -115,7 +122,8 @@
 		</action>
 
 		<action name="sell_item" class="SellItemAction" method="get">
-			<result name="success">/sell/item_property.ftl</result>
+			<result name="success">/sell/item_property.ftl
+			</result>
 		</action>
 		<action name="sell_item_save" class="SellItemAction">
 			<result name="error" type="redirect-action">
@@ -127,8 +135,7 @@
 				<param name="id">${sellId}</param>
 			</result>
 		</action>
-		<action name="sell_item_delete" class="SellItemAction"
-			method="delete">
+		<action name="sell_item_delete" class="SellItemAction" method="delete">
 			<result name="success" type="redirect-action">
 				<param name="actionName">sell</param>
 				<param name="id">${sellId}</param>
@@ -152,16 +159,17 @@
 			</result>
 		</action>
 
-		<action name="sell_item_import_input"
-			class="SellItemImportAction" method="input">
-			<result name="success">/sell/item_import.ftl</result>
+		<action name="sell_item_import_input" class="SellItemImportAction"
+			method="input">
+			<result name="success">/sell/item_import.ftl
+			</result>
 		</action>
 
 
 
-		<action name="invoice_input" class="InvoiceAction"
-			method="input">
-			<result name="success">/sell/invoice_input.ftl</result>
+		<action name="invoice_input" class="InvoiceAction" method="input">
+			<result name="success">/sell/invoice_input.ftl
+			</result>
 			<result name="error" type="redirect-action">
 				<param name="actionName">sell</param>
 				<param name="id">${sellId}</param>
@@ -175,9 +183,9 @@
 			</result>
 		</action>
 
-		<action name="express_input" class="ExpressAction"
-			method="input">
-			<result name="success">/sell/express_input.ftl</result>
+		<action name="express_input" class="ExpressAction" method="input">
+			<result name="success">/sell/express_input.ftl
+			</result>
 			<result name="error" type="redirect-action">
 				<param name="actionName">sell</param>
 				<param name="id">${sellId}</param>
@@ -189,7 +197,7 @@
 				<param name="contentType">application/pdf</param>
 				<param name="inputName">inputStream</param>
 				<param name="contentDisposition">
-					filename=express.pdf
+
 					<!-- attachment;filename=index.htm -->
 				</param>
 				<param name="bufferSize">4096</param>

@@ -8,6 +8,7 @@ public class OrderItem {
 	private double cost;
 	private int number;
 	private Ware ware;
+	private Order order;
 
 	public OrderItem() {
 		id = 0;
@@ -15,6 +16,9 @@ public class OrderItem {
 		wareId = 0;
 		cost = 0;
 		number = 0;
+		
+		ware = null;
+		order = null;
 	}
 
 	public int getOrderId() {
@@ -63,6 +67,14 @@ public class OrderItem {
 
 	public void setWare(Ware ware) {
 		this.ware = ware;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
 }

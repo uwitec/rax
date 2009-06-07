@@ -52,7 +52,7 @@ public class OrderService {
 	public List<Order> list(int status, int index, int num) {
 		return orderDao.list(status, index, num);
 	}
-
+	
 	public void setOrderDao(OrderDao dao) {
 		orderDao = dao;
 	}

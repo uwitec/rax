@@ -1,5 +1,7 @@
 package erp.action;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -7,11 +9,17 @@ import org.apache.log4j.Logger;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import erp.model.OrderItem;
+import erp.model.Vendor;
 import erp.model.Ware;
 import erp.model.WareCategory;
 import erp.service.KeywordService;
+import erp.service.OrderItemService;
+import erp.service.OrderService;
+import erp.service.VendorService;
 import erp.service.WareCategoryService;
 import erp.service.WareService;
+import erp.util.Pager;
 
 public class WareAction extends ActionSupport {
 
@@ -21,6 +29,9 @@ public class WareAction extends ActionSupport {
 	private WareService wareService = null;
 	private WareCategoryService wareCategoryService = null;
 	private KeywordService keywordService = null;
+	private VendorService vendorService = null;
+	private OrderService orderService = null;
+	private OrderItemService orderItemService = null;
 
 	private int id;
 	private int categoryId = 0;
@@ -28,11 +39,15 @@ public class WareAction extends ActionSupport {
 	private int status = 0;
 	private String tokenize;
 	private String keyword;
-
+	
 	private List<Ware> wareList;
 	private Map<Integer, String> categoryMap;
 	private List<WareCategory> categoryList;
-
+	private List<Map> historyList;
+	private List<OrderItem> orderItemList;
+	
+	private Pager pager;
+	
 	public String listByCategory() throws Exception {
 		categoryList = wareCategoryService.list();
 		wareList = wareService.listByCategoryId(categoryId, status);
@@ -98,9 +113,11 @@ public class WareAction extends ActionSupport {
 			obj.setId(id);
 			// Do not set obj.Status
 
-			if (id > 0) wareService.updateWare(obj);
-			else id = wareService.createWare(obj);
-			
+			if (id > 0)
+				wareService.updateWare(obj);
+			else
+				id = wareService.createWare(obj);
+
 			if (tokenize != null && tokenize.isEmpty() == false) {
 				keywordService.saveTokens(tokenize);
 				wareService.updateFullTextIndex(obj, tokenize);
@@ -112,31 +129,60 @@ public class WareAction extends ActionSupport {
 		return (status > 0) ? "success_hide" : SUCCESS;
 	}
 
-    public String keywordSearch() throws Exception {
-        if ((keyword != null) && keyword.isEmpty() == false) {
-            logger.debug("findByKeywords:" + keyword);
-            wareList = wareService.findByKeywords(keyword);
-        }
-        return SUCCESS;
-    }
-    
-    public String fullTextSearch() throws Exception {
-    	// AJAX
-        logger.debug("fullTextSearch:" + keyword);
-        List<String> tokenList = keywordService.parseToken(keyword);
-        StringBuffer tokenBuf = new StringBuffer();
-        boolean skipFirstToken = true;
-        for (String token : tokenList) {
-            if (skipFirstToken == false) {
-                tokenBuf.append("|");
-            }
-            tokenBuf.append(token);
-            skipFirstToken = false;
-        }
-        wareList = wareService.fullTextSearch(tokenBuf.toString().trim(), 0);
-        return SUCCESS;
-    }
-	
+	public String keywordSearch() throws Exception {
+		if ((keyword != null) && keyword.isEmpty() == false) {
+			logger.debug("findByKeywords:" + keyword);
+			wareList = wareService.findByKeywords(keyword);
+		}
+		return SUCCESS;
+	}
+
+	public String fullTextSearch() throws Exception {
+		// AJAX
+		logger.debug("fullTextSearch:" + keyword);
+		List<String> tokenList = keywordService.parseToken(keyword);
+		StringBuffer tokenBuf = new StringBuffer();
+		boolean skipFirstToken = true;
+		for (String token : tokenList) {
+			if (skipFirstToken == false) {
+				tokenBuf.append("|");
+			}
+			tokenBuf.append(token);
+			skipFirstToken = false;
+		}
+		wareList = wareService.fullTextSearch(tokenBuf.toString().trim(), 0);
+		return SUCCESS;
+	}
+
+	public String listHistoryOrder() throws Exception {
+		pager.setPerPage(3);
+		pager.setAction("ware_list_history_order.action?id=" + String.valueOf(id) + "&status=" + String.valueOf(status) + "&categoryId=" + String.valueOf(categoryId));
+		pager.setTotalItems(orderItemService.getCountByWareId(id));
+		pager.generatePageData();
+		orderItemList = orderItemService.listByWareId(id, pager.getOffsetItems(), pager.getPerPage());
+		for (OrderItem item : orderItemList) {
+			item.setWare(wareService.getWareById(item.getWareId()));
+			item.setOrder(orderService.getOrderById(item.getOrderId()));
+		}
+		return SUCCESS;
+	}
+
+	public String listHistoryPrice() throws Exception {
+		historyList = wareService.listHistoryPrice(id);
+		HashMap map = new HashMap();
+		Vendor vendor = null;
+		for (Iterator it = historyList.iterator(); it.hasNext(); ) {
+			map = (HashMap) it.next();
+			vendor = vendorService.getVendorById((Integer)map.get("vendor_id"));
+			map.put("vendor", vendor);
+		}
+		return SUCCESS;
+	}
+
+	public List<OrderItem> getOrderItemList() {
+		return orderItemList;
+	}
+
 	public void setWareService(WareService service) {
 		wareService = service;
 	}
@@ -217,4 +263,39 @@ public class WareAction extends ActionSupport {
 		this.keyword = keyword;
 	}
 
+	public List<Map> getHistoryList() {
+		return historyList;
+	}
+
+	public void setVendorService(VendorService vendorService) {
+		this.vendorService = vendorService;
+	}
+
+	public void setOrderItemService(OrderItemService orderItemService) {
+		this.orderItemService = orderItemService;
+	}
+
+	public void setOrderService(OrderService orderService) {
+		this.orderService = orderService;
+	}
+
+	public Map<Integer, String> getVendorMap() {
+		return vendorService.getVendorMap();
+	}
+	
+	public Pager getPager() {
+		return pager;
+	}
+
+	public void setPager(Pager pager) {
+		this.pager = pager;
+	}
+
+	public int getCurrentPage() {
+		return pager.getCurrentPage();
+	}
+
+	public void setCurrentPage(int page) {
+		pager.setCurrentPage(page);
+	}
 }

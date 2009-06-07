@@ -15,7 +15,11 @@
 	<bean id="WareAction" class="erp.action.WareAction" scope="prototype">
 		<property name="wareService" ref="WareService" />
 		<property name="wareCategoryService" ref="WareCategoryService" />
+		<property name="vendorService" ref="VendorService" />
+		<property name="orderService" ref="OrderService" />
+		<property name="orderItemService" ref="OrderItemService" />
 		<property name="keywordService" ref="KeywordService" />
+		<property name="pager" ref="Pager" />
 	</bean>
 	<bean id="WareCategoryAction" class="erp.action.WareCategoryAction"
 		scope="prototype">
@@ -53,8 +57,8 @@
 
 	<bean id="OrderAction" class="erp.action.OrderAction" scope="prototype">
 		<property name="orderService" ref="OrderService" />
-		<property name="vendorService" ref="VendorService" />
 		<property name="orderItemService" ref="OrderItemService" />
+		<property name="vendorService" ref="VendorService" />
 		<property name="wareService" ref="WareService" />
 		<property name="pager" ref="Pager" />
 	</bean>
@@ -62,6 +66,7 @@
 		scope="prototype">
 		<property name="orderService" ref="OrderService" />
 		<property name="orderItemService" ref="OrderItemService" />
+		<property name="wareService" ref="WareService" />
 	</bean>
 	<bean id="StatAction" class="erp.action.StatAction" scope="prototype">
 		<property name="statService" ref="StatService" />
