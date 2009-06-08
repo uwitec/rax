@@ -17,6 +17,7 @@ public class VendorService {
 		for (Vendor obj : lst) {
 			mapEx.put(obj.getId(), obj.getTitle());
 		}
+		mapEx.put(-1, "未设置");
 		return mapEx;
 	}
 

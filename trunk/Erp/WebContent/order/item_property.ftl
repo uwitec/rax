@@ -167,7 +167,6 @@ dojo.addOnLoad(function (){
 	dojo.connect(obj, "ondblclick", obj, onSelect);
 	obj = dojo.byId("search");
 	dojo.connect(obj, "onkeyup", obj, onKeyIn);
-	obj.focus();
 	obj = dojo.byId("submitBtn");
 	dojo.connect(obj, "onclick", obj, onSubmit);
 	

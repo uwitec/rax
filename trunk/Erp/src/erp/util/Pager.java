@@ -60,14 +60,21 @@ public class Pager {
 	}
 
 	public void generatePageData() {
+		logger.debug("totalItems:" + totalItems);
+		logger.debug("ignoreItems:" + ignoreItems);
+		logger.debug("perPage:" + perPage);
 		totalPage = (totalItems - ignoreItems + perPage - 1) / perPage;
+		logger.debug("totalPage:" + totalPage);
 		if (totalPage < 1) {
 			totalPage = 1;
 		}
+		logger.debug("totalPage:" + totalPage);
 		if (currentPage < 1 || currentPage > totalPage) {
 			currentPage = 1;
 		}
+		logger.debug("currentPage:" + currentPage);
 		offsetItems = (currentPage - 1) * perPage + ignoreItems;
+		logger.debug("offsetItems:" + offsetItems);
 	}
 
 	public int getNextPage() {
