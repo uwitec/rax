@@ -7,10 +7,11 @@
 
 	<package name="json" extends="json-default">
 		<action name="ware_find" class="WareAction" method="keywordSearch">
-			<result type="json" />
+			<result type="json">
+				<param name="excludeProperties">pager,vendorMap</param>
+			</result>
 		</action>
-		<action name="ware_find_fulltext" class="WareAction"
-			method="fullTextSearch">
+		<action name="ware_find_fulltext" class="WareAction" method="fullTextSearch">
 			<result type="json" />
 		</action>
 		<action name="sell_item_add" class="SellItemAction">

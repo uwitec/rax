@@ -218,10 +218,6 @@ public class WareAction extends ActionSupport {
 		this.status = status;
 	}
 
-	public WareService getWareService() {
-		return wareService;
-	}
-
 	public void setWareList(List<Ware> wareList) {
 		this.wareList = wareList;
 	}

@@ -26,7 +26,7 @@ function delOption(objSelect, idx) {
 	try {
 		//console.debug("DelOption:" + objSelect.options[idx].text + "," + objSelect.options[idx].value);
 		objSelect.remove(idx);
-	} catch (ex) { alert(ex.description); }
+	} catch (ex) { dojo.debug(ex.description); }
 }
 
 function doSearch(keyword) {
@@ -64,7 +64,7 @@ function doSearch(keyword) {
 			}
 			wareList = json.wareList;
 		} catch(e) { console.debug(e.toString()); } },
-		error: function(response) { console.debug(response.status); }
+		error: function(response) { console.debug(response); }
 	});
 }
 
