@@ -22,6 +22,7 @@ body { display: none; }
 <td>平均进价</td>
 <td>最低进价</td>
 <td>最高进价</td>
+<td>数量</td>
 </tr>
 <#if historyList??>
 <#list historyList as history>
@@ -30,6 +31,7 @@ body { display: none; }
 <td>#{history.avg;m2M2}</td>
 <td>#{history.min;m2M2}</td>
 <td>#{history.max;m2M2}</td>
+<td>${history.sum}</td>
 <tr>
 </#list>
 </#if>

@@ -70,7 +70,7 @@
 	<select id="listHistoryOffer" parameterClass="int"
 		resultClass="java.util.HashMap">
 		<![CDATA[
-		SELECT oi.ware_id,MIN(oi.cost),AVG(oi.cost),MAX(oi.cost) 
+		SELECT oi.ware_id,MIN(oi.cost),AVG(oi.cost),MAX(oi.cost),SUM(oi.number)
 		FROM "order_item" AS oi
 		LEFT JOIN "order" AS o ON (oi.order_id=o.id)
 		WHERE o.vendor_id=#id# 
