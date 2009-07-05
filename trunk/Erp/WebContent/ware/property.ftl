@@ -64,8 +64,8 @@ dojo.addOnLoad(function (){
 <@s.form action="ware_save">
     <@s.textfield label="名称" name="ware.name"/>
     <@s.textfield label="条码" name="ware.barcode"/>
-    <@s.textfield label="成本" name="ware.cost" value="#{ware.cost;m2M2}"/>
-    <@s.textfield label="参考价格" name="ware.lastPrice" value="#{ware.lastPrice;m2M2}" />
+    <@s.textfield label="成本" name="ware.cost"/>
+    <@s.textfield label="参考价格" name="ware.lastPrice"/>
     <@s.textfield label="数量" name="ware.number"/>
     <@s.textfield label="警戒数量" name="ware.numberAlarm"/>
     <@s.radio label="启用警戒" name="ware.numberAlarmEnable" list="{0, 1}"/>

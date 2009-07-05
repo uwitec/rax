@@ -23,7 +23,6 @@ body { display: none; }
 <a href="vendor.action?id=${vendor.id?c}" title="${imTypeSel.get(vendor.IMType)}:${vendor.IM}">${vendor.title}</a>
 <a href="vendor_history.action?id=${vendor.id?c}">进货历史</a>
 </div>
-<br />
 </#list>
 </#if>
 

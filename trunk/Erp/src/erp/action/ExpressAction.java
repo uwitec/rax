@@ -78,7 +78,7 @@ public class ExpressAction implements Action {
 			cb.beginText();
 
 			// 英文字体
-			cb.setFontAndSize(bfEnglish, 10);
+			cb.setFontAndSize(bfEnglish, 11);
 
 			// 发件日期
 			if (ex.getTplDateX() != 0 || ex.getTplDateY() != 0) {
@@ -95,13 +95,6 @@ public class ExpressAction implements Action {
 					.getTplSrcPhoneY()));
 			cb.showText(senderPhone);
 
-			// 发件人邮编
-			if (ex.getTplSrcZipX() != 0 || ex.getTplSrcZipY() != 0) {
-				cb.setTextMatrix(mm2pt(ex.getTplSrcZipX()), mm2pt(ex
-						.getTplSrcZipY()));
-				cb.showText(senderPostCode);
-			}
-
 			// 收件人电话1
 			cb.setTextMatrix(mm2pt(ex.getTplDstPhone1X()), mm2pt(ex
 					.getTplDstPhone1Y()));
@@ -112,12 +105,24 @@ public class ExpressAction implements Action {
 					.getTplDstPhone2Y()));
 			cb.showText(sell.getCustomerPhone2());
 
+			cb.setFontAndSize(bfEnglish, 12);
+			float charSpace = cb.getCharacterSpacing();
+			cb.setCharacterSpacing(6);
+			
+			// 发件人邮编
+			if (ex.getTplSrcZipX() != 0 || ex.getTplSrcZipY() != 0) {
+				cb.setTextMatrix(mm2pt(ex.getTplSrcZipX()), mm2pt(ex
+						.getTplSrcZipY()));
+				cb.showText(senderPostCode);
+			}
+			
 			// 收件人邮编
 			if (ex.getTplDstZipX() != 0 || ex.getTplDstZipY() != 0) {
 				cb.setTextMatrix(mm2pt(ex.getTplDstZipX()), mm2pt(ex
 						.getTplDstZipY()));
 				cb.showText(sell.getCustomerPostCode());
 			}
+			cb.setCharacterSpacing(charSpace);
 
 			// 发件人姓名
 			cb.setFontAndSize(bfChinese, 11);
