@@ -29,7 +29,7 @@ dojo.addOnLoad(function (){
 <#if wareList??>
 <#list wareList as ware>
 <div>
-<a href="ware.action?id=${ware.id?c}&categoryId=${categoryId}">${ware.name} - (${ware.number})</a>
+<a href="ware.action?id=${ware.id?c}&categoryId=${ware.categoryId?c}">${ware.name} - (${ware.number})</a>
 </div>
 </#list>
 </#if>
