@@ -5,9 +5,12 @@
 <title>发货单详情</title>
 <script language="javascript" type="text/javascript" src="js/dojo/dojo.js" djConfig="isDebug:false,usePlainJson:true,bindEncoding:'UTF-8'"></script>
 <script language="javascript" type="text/javascript">
+dojo.require("dojo.number");
+var totalAmount = 0;
 function setFee(value) {
 	var obj = document.getElementById("sell_save_fee");
 	obj.value = value;
+	updateTotalSpan(value, null);
 }
 function setFeeReal(value) {
 	var obj = document.getElementById("sell_save_feeReal");
@@ -16,11 +19,12 @@ function setFeeReal(value) {
 function onFeeChange(value) {
 	var objs = document.getElementsByName("feeSel");
 	value = parseFloat(value);
-	//console.debug("onFeeChange:" + value);
+	console.debug("onFeeChange:" + value);
 	for (var i = 0; i < objs.length; i++) {
 		if (parseFloat(objs[i].value) == value) objs[i].checked = true
 		else objs[i].checked = false;
 	}
+	updateTotalSpan(value, null);
 }
 function onFeeRealChange(value) {
 	var objs = document.getElementsByName("feeRealSel");
@@ -42,6 +46,34 @@ function onDateChange(event) {
 		objs[i].checked = (objs[i].value == this.value) ? true : false;
 	}
 }
+function updateTotalSpan(newFee, newDiscount) {
+	var objTotal = dojo.byId("span_total");
+	var objTotalSum = dojo.byId("span_total_sum");
+	var fee = (newFee == null) ? parseFloat(dojo.byId("sell_save_fee").value) : parseFloat(newFee);
+	var discount = (newDiscount == null) ? parseFloat(dojo.byId("sell_save_discount").value) : parseFloat(newDiscount);
+	if (isNaN(discount)) discount = 0;
+	console.debug("totalAmount:" + totalAmount + " fee:" + fee + " discount:" + discount);
+	objTotal.innerHTML = dojo.number.format(totalAmount - discount, {places:2});
+	objTotalSum.innerHTML = dojo.number.format(totalAmount + fee - discount, {places:2});
+}
+function onDiscountChange(event) {
+	var objDiscount = dojo.byId("sell_save_discount");
+	var objAmount = dojo.byId("sell_save_amount");
+	var newDiscount = parseFloat(objDiscount.value);
+	if (isNaN(newDiscount)) newDiscount = 0;
+	var newAmount = totalAmount - newDiscount;
+	objAmount.value = dojo.number.format(newAmount, {places:2});
+	if (event != null) updateTotalSpan(null, newDiscount);
+}
+function onAmountChange(event) {
+	var objDiscount = dojo.byId("sell_save_discount");
+	var objAmount = dojo.byId("sell_save_amount");
+	var newAmount = parseFloat(objAmount.value);
+	if (isNaN(newAmount)) return;
+	var newDiscount = totalAmount - newAmount;
+	objDiscount.value = dojo.number.format(newDiscount, {places:2});
+	if (event != null) updateTotalSpan(null, newDiscount);
+}
 dojo.addOnLoad(function (){
 	var obj;
 	var sels;
@@ -52,6 +84,12 @@ dojo.addOnLoad(function (){
 
 	obj = dojo.byId("sell_save_feeReal");
 	onFeeRealChange(obj.value);
+
+	obj	= dojo.byId("sell_save_discount");
+	dojo.connect(obj, "onkeyup", obj, onDiscountChange);
+	
+	obj	= dojo.byId("sell_save_amount");
+	dojo.connect(obj, "onkeyup", obj, onAmountChange);
 
 	obj	= dojo.byId("sell_save_date");
 	dojo.connect(obj, "onchange", obj, onDateChange);
@@ -97,6 +135,7 @@ label { cursor:pointer; }
     <@s.radio name="feeRealSel" list="{0, 3.5, 4, 5, 8, 10, 12, 15, 20, 25}" onclick="javascript:setFeeReal(this.value)"/>
     <@s.radio label="快递" name="expressId" list="expressSel"/>
     <@s.textfield label="折扣" name="discount"/>
+    <@s.textfield label="折后合计" name="amount"/>
     <@s.textfield label="快递单备注" name="commentExpress"/>
     <@s.textfield label="发货单备注" name="commentInvoice"/>
     <@s.textfield label="发件人" name="sender"/>
@@ -138,10 +177,16 @@ label { cursor:pointer; }
 
 <#if sellItemList??>
 <#assign totalSum=total + fee?number - discount?number/>
+<script language="javascript" type="text/javascript">
+totalAmount=parseFloat(#{total;m2M2});
+console.debug("totalAmount:" + totalAmount);
+onAmountChange(null);
+onDiscountChange(null);
+</script>
 </#if>
 
-<span>合计: #{total;m2M2}</span><br />
-<span>总计: #{totalSum;m2M2}</span>
+<span>合计: <span id="span_total">#{total;m2M2}</span></span><br />
+<span>总计: <span id="span_total_sum">#{totalSum;m2M2}</span></span>
 </#if>
 
 </body>
