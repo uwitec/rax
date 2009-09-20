@@ -224,7 +224,7 @@ public class ExpressAction implements Action {
 
 			sender = "李立林";
 			senderAddress = "浙江省杭州市滨江区\n签收前请确认内容物无缺损,如破损请拒收,如短缺请快递员在回执上证明数量";
-			senderPhone = "0571-85790698";
+			senderPhone = "15336540433";
 			senderPostCode = "310053";
 
 			return SUCCESS;
