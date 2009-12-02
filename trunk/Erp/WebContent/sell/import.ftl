@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -75,9 +75,12 @@ function onImportContent(event) {
 		case "上海市":
 		case "上海":
 			fee = 5;
-			feeReal = 4;
+			feeReal = 4.5;
 			break;
 		case "安徽省":
+			fee = 10;
+			feeReal = 8;
+			break;
 		case "山东省":
 		case "广东省":
 		case "福建省":
@@ -85,13 +88,23 @@ function onImportContent(event) {
 		case "北京市":
 		case "天津":
 		case "天津市":
+		case "河南省":
+		case "河北省":
+		case "湖南省":
+		case "湖北省":
+		case "江西省":
 			fee = 10;
-			feeReal = 8;
+			feeReal = 9;
+			break;
+		case "西藏自治区":
+		case "新疆维吾尔自治区":
+			fee = 15;
+			feeReal = 15;
 			break;
 		default:
 			fee = 10;
 			feeReal = 10;
-			if (addrs[0] == "四川省" && addrs[1] == "成都市") feeReal = 8;
+			if (addrs[0] == "四川省" && addrs[1] == "成都市") feeReal = 9;
 	}
 	//console.debug("addr:" + addr + " fee:" + fee + " feeReal:" + feeReal);
 
