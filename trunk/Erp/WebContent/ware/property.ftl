@@ -54,7 +54,7 @@ dojo.addOnLoad(function (){
 <a href="ware_list_hid.action">返回</a>
 </#if>
 <a href="ware_list_history_order.action?id=${id?c}&status=${status}&categoryId=${categoryId}">进货记录</a>
-<a href="ware_list_history_price.action?id=${id?c}&status=${status}&categoryId=${categoryId}">历史统计</a>
+<a href="ware_list_history_price.action?id=${id?c}&status=${status}&categoryId=${categoryId}">进货统计</a>
 <#if id != 0>
 <a href="ware_delete.action?id=${id}" onclick="return confirm('确实要删除这个宝贝么？')">删除</a>
 </#if>

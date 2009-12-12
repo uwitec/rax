@@ -177,7 +177,7 @@ public class WareAction extends ActionSupport {
 		}
 		return SUCCESS;
 	}
-
+	
 	public List<OrderItem> getOrderItemList() {
 		return orderItemList;
 	}

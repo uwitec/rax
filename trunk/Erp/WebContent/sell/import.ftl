@@ -78,7 +78,7 @@ function onImportContent(event) {
 			feeReal = 4.5;
 			break;
 		case "安徽省":
-			fee = 10;
+            fee = 10;
 			feeReal = 8;
 			break;
 		case "山东省":
@@ -98,7 +98,7 @@ function onImportContent(event) {
 			break;
 		case "西藏自治区":
 		case "新疆维吾尔自治区":
-			fee = 15;
+            fee = 15;
 			feeReal = 15;
 			break;
 		default:

@@ -3,6 +3,8 @@
 CHANGES:
 
 TODO:
+统计最近无售出记录的宝贝
+select w.id,count(si.id) from ware AS w left join sell_item AS si ON (w.id=si.ware_id) where w.number > 0 group by w.id
 更新分词算法
 售出记录可标记是否批发，不参与售出排行榜统计
 分类列表收到宝贝列表里面去
