@@ -18,6 +18,12 @@ function onDateChange(event) {
 	}
 }
 
+function checkPhoneNumber(objId) {
+	if (dojo.byId(objId).value.length != 11) {
+		dojo.byId("express_labelPhone").style.display = "block";
+	}
+}
+
 dojo.addOnLoad(function (){
 	var obj		= dojo.byId("express_date");
 	var sels	= document.getElementsByName("sel");
@@ -28,11 +34,13 @@ dojo.addOnLoad(function (){
 		dojo.connect(sel, "onclick", sel, setDate);
 		if (sel.value == obj.value) sel.checked = true;
 	}
+	checkPhoneNumber("express_sell_customerPhone1");
 });
 
 </script>
 <style type="text/css">
 label { cursor:pointer; }
+#express_labelPhone { color: red; display:none; }
 </style>
 <style media="print">
 body { display: none; }
@@ -45,6 +53,7 @@ body { display: none; }
     <@s.textfield label="姓名" name="sell.customerName"/>
     <@s.textarea label="地址" name="sell.customerAddress" cols="80" rows="2"/>
     <@s.textfield label="电话1" name="sell.customerPhone1"/>
+    <@s.label name="labelPhone" value="电话号码位数不正确"/>
     <@s.textfield label="电话2" name="sell.customerPhone2"/>
     <@s.textfield label="邮编" name="sell.customerPostCode"/>
     <@s.textfield label="日期" name="date"/>

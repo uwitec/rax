@@ -74,6 +74,11 @@ function onAmountChange(event) {
 	objDiscount.value = dojo.number.format(newDiscount, {places:2});
 	if (event != null) updateTotalSpan(null, newDiscount);
 }
+function checkPhoneNumber(objId) {
+	if (dojo.byId(objId).value.length != 11) {
+		dojo.byId("sell_save_labelPhone").style.display = "block";
+	}
+}
 dojo.addOnLoad(function (){
 	var obj;
 	var sels;
@@ -101,11 +106,14 @@ dojo.addOnLoad(function (){
 			sel.checked = true;
 		}
 	}
+	
+	checkPhoneNumber("sell_save_customerPhone1");
 });
 </script>
 <style type="text/css">
 label { cursor:pointer; }
 .float { float:left; margin-right:12px; width:40px; }
+#sell_save_labelPhone { color: red; display:none; }
 </style>
 </head>
 
@@ -127,6 +135,7 @@ label { cursor:pointer; }
     <@s.textfield label="日期" name="date"/>
     <@s.radio name="sel" list="dateSel"/>
     <@s.textfield label="电话1" name="customerPhone1"/>
+    <@s.label name="labelPhone" value="电话号码位数不正确"/>
     <@s.textfield label="电话2" name="customerPhone2"/>
     <@s.textfield label="邮编" name="customerPostCode"/>
     <@s.textfield label="收取运费" name="fee" onkeyup="javascript:onFeeChange(this.value)"/>
