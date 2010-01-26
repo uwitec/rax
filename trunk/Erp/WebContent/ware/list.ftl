@@ -6,6 +6,9 @@
 <style type="text/css">
 .categoryList ul{ list-style:none; }
 .categoryList li{ float:left; margin-right:20px; }
+.row { clear:both; }
+.right { text-align:right; width:40px; }
+.mid { text-align:center; width:40px; }
 </style>
 </head>
 
@@ -44,15 +47,15 @@
 
 <table>
 <tr>
-<td>数量</td>
-<td>成本</td>
+<td class="right">成本</td>
+<td class="mid">库存</td>
 <td>宝贝名称</td>
 </tr>
 <#if wareList??>
 <#list wareList as ware>
 <tr>
-<td>${ware.number}</td>
-<td>#{ware.cost;m2M2}</td>
+<td class="right">#{ware.cost;m2M2}</td>
+<td class="mid">${ware.number}</td>
 <td><a href="ware.action?id=${ware.id?c}&categoryId=${categoryId?c}">${ware.name}</a></td>
 </tr>
 </#list>
