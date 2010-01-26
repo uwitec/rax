@@ -200,13 +200,13 @@ public class WareAction extends ActionSupport {
 		StringBuffer buf = new StringBuffer();
 		DecimalFormat df = new DecimalFormat("####.00");
 		try {
-			buf.append("宝贝名称\t库存数量\t单价\t总价\t\n");
+			buf.append("宝贝名称\t库存数量\t成本价\t零售价\t\n");
 			wareList = wareService.listByCategoryId(categoryId, status);
 			for (Ware ware : wareList) {
 				buf.append(ware.getName() + "\t");
 				buf.append(String.valueOf(ware.getNumber()) + "\t");
+				buf.append(df.format(ware.getCost()) + "\t");
 				buf.append(df.format(ware.getLastPrice()) + "\t");
-				buf.append("\t");
 				buf.append("\n");
 			}
 		} catch (Exception ex) {
