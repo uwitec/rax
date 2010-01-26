@@ -1,5 +1,10 @@
 package erp.action;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -39,15 +44,16 @@ public class WareAction extends ActionSupport {
 	private int status = 0;
 	private String tokenize;
 	private String keyword;
-	
+
 	private List<Ware> wareList;
 	private Map<Integer, String> categoryMap;
 	private List<WareCategory> categoryList;
 	private List<Map> historyList;
 	private List<OrderItem> orderItemList;
-	
+
 	private Pager pager;
-	
+	private String fileName = "";
+
 	public String listByCategory() throws Exception {
 		categoryList = wareCategoryService.list();
 		wareList = wareService.listByCategoryId(categoryId, status);
@@ -155,10 +161,13 @@ public class WareAction extends ActionSupport {
 	}
 
 	public String listHistoryOrder() throws Exception {
-		pager.setAction("ware_list_history_order.action?id=" + String.valueOf(id) + "&status=" + String.valueOf(status) + "&categoryId=" + String.valueOf(categoryId));
+		pager.setAction("ware_list_history_order.action?id="
+				+ String.valueOf(id) + "&status=" + String.valueOf(status)
+				+ "&categoryId=" + String.valueOf(categoryId));
 		pager.setTotalItems(orderItemService.getCountByWareId(id));
 		pager.generatePageData();
-		orderItemList = orderItemService.listByWareId(id, pager.getOffsetItems(), pager.getPerPage());
+		orderItemList = orderItemService.listByWareId(id, pager
+				.getOffsetItems(), pager.getPerPage());
 		for (OrderItem item : orderItemList) {
 			item.setWare(wareService.getWareById(item.getWareId()));
 			item.setOrder(orderService.getOrderById(item.getOrderId()));
@@ -170,14 +179,52 @@ public class WareAction extends ActionSupport {
 		historyList = wareService.listHistoryPrice(id);
 		HashMap map = new HashMap();
 		Vendor vendor = null;
-		for (Iterator it = historyList.iterator(); it.hasNext(); ) {
+		for (Iterator it = historyList.iterator(); it.hasNext();) {
 			map = (HashMap) it.next();
-			vendor = vendorService.getVendorById((Integer)map.get("vendor_id"));
+			vendor = vendorService
+					.getVendorById((Integer) map.get("vendor_id"));
 			map.put("vendor", vendor);
 		}
 		return SUCCESS;
 	}
-	
+
+	public String export() throws Exception {
+		WareCategory category = wareCategoryService.getWareCategoryById(categoryId);
+		if (category != null) {
+			fileName = new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_" + category.getName();
+		}
+		return SUCCESS;
+	}
+
+	public InputStream getInputStream() throws Exception {
+		StringBuffer buf = new StringBuffer();
+		DecimalFormat df = new DecimalFormat("####.00");
+		try {
+			buf.append("宝贝名称\t库存数量\t单价\t总价\t\n");
+			wareList = wareService.listByCategoryId(categoryId, status);
+			for (Ware ware : wareList) {
+				buf.append(ware.getName() + "\t");
+				buf.append(String.valueOf(ware.getNumber()) + "\t");
+				buf.append(df.format(ware.getLastPrice()) + "\t");
+				buf.append("\t");
+				buf.append("\n");
+			}
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+		}
+		return new ByteArrayInputStream(buf.toString().getBytes());
+	}
+
+	public String getFileName() {
+		String ret = fileName;
+		try {
+			ret = new String(fileName.getBytes(), "ISO8859-1");
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+		}
+		return ret;
+	}
+
 	public List<OrderItem> getOrderItemList() {
 		return orderItemList;
 	}
@@ -277,7 +324,7 @@ public class WareAction extends ActionSupport {
 	public Map<Integer, String> getVendorMap() {
 		return vendorService.getVendorMap();
 	}
-	
+
 	public Pager getPager() {
 		return pager;
 	}

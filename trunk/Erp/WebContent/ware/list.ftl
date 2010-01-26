@@ -42,7 +42,10 @@
 </div>
 <br />
 
-<div>当前分类宝贝数:<#if wareList??>${wareList.size()}<#else>0</#if></div>
+<div>
+当前分类宝贝数:<#if wareList??>${wareList.size()}<#else>0</#if>
+<a href="ware_export.action?categoryId=${categoryId?c}">导出当前分类</a>
+</div>
 <br />
 
 <table>
