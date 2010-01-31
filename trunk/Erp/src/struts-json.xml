@@ -8,7 +8,7 @@
 	<package name="json" extends="json-default">
 		<action name="ware_find" class="WareAction" method="keywordSearch">
 			<result type="json">
-				<param name="excludeProperties">pager,vendorMap</param>
+				<param name="excludeProperties">pager,vendorMap,fileName,inputStream,categoryList,categoryMap,historyList,orderItemList,tokenize,ware</param>
 			</result>
 		</action>
 		<action name="ware_find_fulltext" class="WareAction" method="fullTextSearch">
