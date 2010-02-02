@@ -63,7 +63,8 @@ public class SellItemImportAction extends ActionSupport {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			String dateStr = "([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})";
 			String feeStr = "\\(含[\\s]*快递[\\s]*:([\\d\\.]+)\\)";
-			String itemStr = "([\\S\\s]*)[\\s]+([\\d\\.]+)[\\s]+([\\d]+)[\\s]+-([\\s\\S]*)";
+			String itemStr = "([\\S\\s]*)[\\s]+([\\d\\.]+)[\\s]+([\\d]+)[\\s]+([\\s\\S]*)";
+			String extItemStr = "([\\S\\s]*)[\\s]+([\\d\\.]+)[\\s]*([\\d]*)";
 			String nameStr = "([\\S\\s]+)[\\s]{2}([\\S]+)";
 
 			String[] infos = sellContent.split("\n");
@@ -77,6 +78,7 @@ public class SellItemImportAction extends ActionSupport {
 			Pattern datePat = Pattern.compile(dateStr);
 			Pattern feePat = Pattern.compile(feeStr);
 			Pattern itemPat = Pattern.compile(itemStr);
+			Pattern extItemPat = Pattern.compile(extItemStr);
 			Pattern namePat = Pattern.compile(nameStr);
 			Matcher matcher;
 			for (int i = 0; i < infoArray.size(); i++) {
@@ -127,12 +129,14 @@ public class SellItemImportAction extends ActionSupport {
 					byerName = matcher.find() ? matcher.group(1) : info;
 					byerName = byerName.equals("----") ? "" : byerName;
 
+					boolean foundFee = false;
 					for (int j = i + 3; j < infoArray.size(); j++) {
 						info = infoArray.get(j);
 						if (datePat.matcher(info).find()) break;
 
 						matcher = feePat.matcher(info);
 						if (matcher.find()) {
+							foundFee = true;
 							try {
 								exFee = Double.valueOf(matcher.group(1));
 							} catch (Exception ex) {}
@@ -140,12 +144,12 @@ public class SellItemImportAction extends ActionSupport {
 							try {
 								total = Double.valueOf(infos[infos.length - 1]);
 							} catch (Exception ex) {}
-						} else {
-							matcher = itemPat.matcher(info);
+						} else if (foundFee) {
+							matcher = extItemPat.matcher(info);
 							if (matcher.find()) {
 								String extName = "";
 								double extPrice = 0;
-								int extNumber = 0;
+								int extNumber = 1;
 
 								extName = matcher.group(1).trim();
 								if (extName.lastIndexOf("化妆品容量") != -1) {
