@@ -64,7 +64,7 @@ public class SellItemImportAction extends ActionSupport {
 			String dateStr = "([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})";
 			String feeStr = "\\(含[\\s]*快递[\\s]*:([\\d\\.]+)\\)";
 			String itemStr = "([\\S\\s]*)[\\s]+([\\d\\.]+)[\\s]+([\\d]+)[\\s]+([\\s\\S]*)";
-			String extItemStr = "([\\S\\s]*)[\\s]+([\\d\\.]+)[\\s]*([\\d]*)";
+			String extItemStr = "([\\S\\s]*)[\\s]+([\\d]+\\.[\\d]{2})[\\s]*([\\d]*)";
 			String nameStr = "([\\S\\s]+)[\\s]{2}([\\S]+)";
 
 			String[] infos = sellContent.split("\n");
