@@ -35,6 +35,7 @@ public class ExpressAction implements Action {
 	private final static Logger logger = Logger.getLogger(ExpressAction.class);
 	private SellService sellService = null;
 	private ExpressService expressService = null;
+	private UtilService utilService = null;
 
 	private Sell sell;
 	private int sellId;
@@ -222,10 +223,10 @@ public class ExpressAction implements Action {
 			dateSel.add(df.format(d2));
 			dateSel.add(df.format(d3));
 
-			sender = "李立林";
-			senderAddress = "浙江省杭州市滨江区\n签收前请确认内容物无缺损,如破损请拒收,如短缺请快递员在回执上证明数量";
-			senderPhone = "15336540433";
-			senderPostCode = "310053";
+			sender = utilService.getSenderName();
+			senderAddress = utilService.getSenderAddress();
+			senderPhone = utilService.getSenderPhone();
+			senderPostCode = utilService.getSenderPostCode();
 
 			return SUCCESS;
 		}
@@ -430,6 +431,7 @@ public class ExpressAction implements Action {
 
 	public void setUtilService(UtilService utilService) {
 		this.imTypeSel = utilService.getIMTypeSel();
+		this.utilService = utilService;
 	}
 
 }

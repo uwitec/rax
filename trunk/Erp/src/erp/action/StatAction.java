@@ -14,103 +14,96 @@ import erp.model.StatFee;
 import erp.model.StatRankList;
 import erp.service.ExpressService;
 import erp.service.StatService;
-import erp.service.UtilService;
 
 public class StatAction extends ActionSupport {
 
-    private static final long serialVersionUID = 1L;
-    private final static Logger logger = Logger.getLogger(StatAction.class);
+	private static final long serialVersionUID = 1L;
+	private final static Logger logger = Logger.getLogger(StatAction.class);
 
-    private StatService statService = null;
-    private ExpressService expressService = null;
-    private UtilService utilService = null;
+	private StatService statService = null;
+	private ExpressService expressService = null;
 
-    private double storeAmount;
-    private List<Stat> weekProfitList;
-    private List<Stat> monthProfitList;
-    private List<StatRankList> numberRankList;
-    private List<StatRankList> amountRankList;
+	private double storeAmount;
+	private List<Stat> weekProfitList;
+	private List<Stat> monthProfitList;
+	private List<StatRankList> numberRankList;
+	private List<StatRankList> amountRankList;
 
-    private String startDate;
-    private String endDate;
-    private List<StatFee> feeList;
+	private String startDate;
+	private String endDate;
+	private List<StatFee> feeList;
 
-    @Override
-    public String execute() throws Exception {
-        try {
-            storeAmount = statService.getStoreAmount();
-            weekProfitList = statService.listStatByDay(7);
-            monthProfitList = statService.listStatByMonth(3);
-            numberRankList = statService.listRankList(30, 1);
-            amountRankList = statService.listRankList(30, 0);
-            startDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-            endDate = startDate;
-        } catch (Exception ex) {
-            logger.error(ex.toString());
-            return ERROR;
-        }
-        return SUCCESS;
-    }
+	@Override
+	public String execute() throws Exception {
+		try {
+			storeAmount = statService.getStoreAmount();
+			weekProfitList = statService.listStatByDay(7);
+			monthProfitList = statService.listStatByMonth(3);
+			numberRankList = statService.listRankList(30, 1);
+			amountRankList = statService.listRankList(30, 0);
+			startDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+			endDate = startDate;
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 
-    public String statFee() throws Exception {
-        // AJAX 方法
-        try {
-            Date from;
-            Date to;
-            Map<Integer, String> expressMap;
+	public String statFee() throws Exception {
+		// AJAX 方法
+		try {
+			Date from;
+			Date to;
+			Map<Integer, String> expressMap;
 
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            from = df.parse(startDate);
-            to = df.parse(endDate);
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			from = df.parse(startDate);
+			to = df.parse(endDate);
 
-            feeList = statService.listFeeByDay(from, to);
-            expressMap = expressService.getExpressSel();
-            for (StatFee st : feeList) {
-                st.setExpressName(expressMap.get(st.getExpressId()));
-            }
-        } catch (Exception ex) {
-            logger.error(ex.toString());
-            return ERROR;
-        }
-        return SUCCESS;
-    }
+			feeList = statService.listFeeByDay(from, to);
+			expressMap = expressService.getExpressSel();
+			for (StatFee st : feeList) {
+				st.setExpressName(expressMap.get(st.getExpressId()));
+			}
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 
-    public void setUtilService(UtilService utilService) {
-        this.utilService = utilService;
-    }
+	public void setStatService(StatService statService) {
+		this.statService = statService;
+	}
 
-    public void setStatService(StatService statService) {
-        this.statService = statService;
-    }
+	public void setExpressService(ExpressService expressService) {
+		this.expressService = expressService;
+	}
 
-    public void setExpressService(ExpressService expressService) {
-        this.expressService = expressService;
-    }
+	public double getStoreAmount() {
+		return storeAmount;
+	}
 
-    public double getStoreAmount() {
-        return storeAmount;
-    }
+	public void setStoreAmount(double storeAmount) {
+		this.storeAmount = storeAmount;
+	}
 
-    public void setStoreAmount(double storeAmount) {
-        this.storeAmount = storeAmount;
-    }
+	public List<Stat> getWeekProfitList() {
+		return weekProfitList;
+	}
 
-    public List<Stat> getWeekProfitList() {
-        return weekProfitList;
-    }
+	public void setWeekProfitList(List<Stat> weekProfitList) {
+		this.weekProfitList = weekProfitList;
+	}
 
-    public void setWeekProfitList(List<Stat> weekProfitList) {
-        this.weekProfitList = weekProfitList;
-    }
+	public List<Stat> getMonthProfitList() {
+		return monthProfitList;
+	}
 
-    public List<Stat> getMonthProfitList() {
-        return monthProfitList;
-    }
-
-    public void setMonthProfitList(List<Stat> monthProfitList) {
-        this.monthProfitList = monthProfitList;
-    }
-
+	public void setMonthProfitList(List<Stat> monthProfitList) {
+		this.monthProfitList = monthProfitList;
+	}
 
 	public List<StatRankList> getNumberRankList() {
 		return numberRankList;
@@ -121,23 +114,23 @@ public class StatAction extends ActionSupport {
 	}
 
 	public List<StatFee> getFeeList() {
-        return feeList;
-    }
+		return feeList;
+	}
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
 
-    public String getStartDate() {
-        return startDate;
-    }
+	public String getStartDate() {
+		return startDate;
+	}
 
-    public String getEndDate() {
-        return endDate;
-    }
+	public String getEndDate() {
+		return endDate;
+	}
 
 }

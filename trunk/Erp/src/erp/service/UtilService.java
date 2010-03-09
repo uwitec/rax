@@ -3,13 +3,12 @@ package erp.service;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
 import erp.dao.UtilDao;
+import erp.model.Util;
 
 public class UtilService {
 
-	private final static Logger logger = Logger.getLogger(UtilService.class);
+	//private final static Logger logger = Logger.getLogger(UtilService.class);
 
 	private UtilDao utilDao;
 	private Map<Integer, String> IMTypeSel;
@@ -24,6 +23,27 @@ public class UtilService {
 		IMTypeSel.put(-1, "其他");
 	}
 
+	public String getSenderName() {
+		Util u = utilDao.read("sender_name");
+		String ret = (null == u) ? "" : u.getValue();
+		return ret;
+	}
+	
+	public String getSenderAddress() {
+		Util u = utilDao.read("sender_address");
+		return (null == u) ? "" : u.getValue();
+	}
+	
+	public String getSenderPhone() {
+		Util u = utilDao.read("sender_phone");
+		return (null == u) ? "" : u.getValue();
+	}
+	
+	public String getSenderPostCode() {
+		Util u = utilDao.read("sender_postcode");
+		return (null == u) ? "" : u.getValue();
+	}
+	
 	public UtilDao getUtilDao() {
 		return utilDao;
 	}
