@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:title="@string/app_name">
+
+    <CheckBoxPreference
+            android:key="CONF_AUTO_START"
+            android:defaultValue="false"
+            android:title="@string/conf_auto_start"
+            android:summary="@string/conf_auto_start_summary" />
+
+</PreferenceScreen>
