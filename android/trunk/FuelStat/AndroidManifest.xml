@@ -3,7 +3,7 @@
       package="com.rax.fuel"
       android:versionCode="1"
       android:versionName="1.0">
-    <application android:icon="@drawable/icon" android:label="@string/app_name">
+    <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="false">
         <activity android:name=".FuelActivity"
                   android:label="@string/app_name">
             <intent-filter>
@@ -15,4 +15,5 @@
     </application>
 
 
+<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="5"></uses-sdk>
 </manifest> 
