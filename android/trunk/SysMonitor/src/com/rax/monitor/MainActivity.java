@@ -30,7 +30,7 @@ import android.view.MenuItem;
 public class MainActivity extends Activity {
 
 	static final private boolean DEBUG = true;
-	static final private String TAG = "MainActivity";
+	static final private String TAG = "RaxLog";
 
 	public MainActivity() {
 	}
@@ -38,7 +38,6 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		if (DEBUG) Log.v(TAG, "onCreate");
 
 		setContentView(R.layout.main_activity);
@@ -83,6 +82,9 @@ public class MainActivity extends Activity {
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		super.onPrepareOptionsMenu(menu);
 
+		JNILib.nativeCpuUsage();
+		JNILib.nativeMemoryUsage();
+		
 		if (DEBUG) Log.v(TAG, "onPrepareOptionsMenu");
 		return true;
 	}
