@@ -35,14 +35,14 @@ get_cpu_usage()
     long	cpu_irq		= 0;
     long	cpu_softirq	= 0;
     long	cpu_reserve	= 0;
-    LOGV("get_cpu_usage+");
+    //LOGV("get_cpu_usage+");
 
     if (NULL != (fp = fopen("/proc/stat", "r"))) {
 	if (EOF != fscanf(fp, "cpu %ld %ld %ld %ld %ld %ld %ld %ld", 
 		&cpu_user, &cpu_nice, &cpu_system, &cpu_idle,
 		&cpu_iowait, &cpu_irq, &cpu_softirq, &cpu_reserve)) {
 
-	    /**/
+	    /*
 	    LOGV("get_cpu_usage user:%ld nice:%ld system:%ld idle:%ld iowait:%ld irq:%ld softirq:%ld reserve:%ld",
 		    cpu_user, 
 		    cpu_nice, 
@@ -52,12 +52,12 @@ get_cpu_usage()
 		    cpu_irq, 
 		    cpu_softirq, 
 		    cpu_reserve);
-	    /**/
-	    /**/
+	    */
+	    /*
 	    LOGD("get_cpu_usage total_idle:%ld total_used:%ld", 
 		    cpu_idle - last_cpu_idle, 
 		    cpu_used - last_cpu_used);
-	    /**/
+	    */
 
 	    cpu_used	= cpu_user + cpu_nice + cpu_system + cpu_idle + cpu_iowait + cpu_irq + cpu_softirq;
 	    if (cpu_used != last_cpu_used) {
@@ -68,7 +68,7 @@ get_cpu_usage()
 	}
 	fclose(fp);
     }
-    LOGV("get_cpu_usage- usage:%f%%", usage * 100);
+    //LOGV("get_cpu_usage- usage:%f%%", usage * 100);
     return usage; 
 }
 

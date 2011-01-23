@@ -28,11 +28,11 @@ get_memory_usage(long * report_free)
     long	mem_total	= 0;
     long	mem_free	= 0;
     char	token[128];
-    LOGV("get_memory_usage- report_free:%p", report_free);
+    //LOGV("get_memory_usage- report_free:%p", report_free);
 
     if (NULL != (fp = fopen("/proc/meminfo", "r"))) {
 	while (EOF != fscanf(fp, "%s %ld kB", token, &value)) {
-	    LOGV("get_memory_usage toker:%s value:%ld", token, value);
+	    //LOGV("get_memory_usage toker:%s value:%ld", token, value);
 	    if (0 == strncmp(token, "MemTotal", 8)) {
 		mem_total = value;
 	    }
@@ -41,7 +41,7 @@ get_memory_usage(long * report_free)
 	    }
 	    if (mem_free && mem_total) break;
 	}
-	LOGD("get_memory_usage mem_total:%ld mem_free:%ld", mem_total, mem_free);
+	//LOGD("get_memory_usage mem_total:%ld mem_free:%ld", mem_total, mem_free);
 	if (mem_total) {
 	    usage = (mem_total - mem_free) / (double)mem_total;
 	    if (NULL != report_free) {
@@ -50,7 +50,7 @@ get_memory_usage(long * report_free)
 	}
 	fclose(fp);
     }
-    LOGV("get_memory_usage- usage:%f%%", usage * 100);
+    //LOGV("get_memory_usage- usage:%f%%", usage * 100);
     return usage;
 }
 

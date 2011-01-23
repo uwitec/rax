@@ -28,18 +28,18 @@ static const char *	gClassPathName = "com/rax/monitor/JNILib";
 extern "C" jint
 nativeCpuUsage(JNIEnv* env, jobject thiz)
 {
-    LOGD("nativeCpuUsage+");
+    //LOGD("nativeCpuUsage+");
     double	usage = get_cpu_usage();    
-    LOGD("nativeCpuUsage- usage:%.2f", usage);
+    //LOGD("nativeCpuUsage- usage:%.2f", usage);
     return usage;
 }
 
 extern "C" jdouble
 nativeMemoryUsage(JNIEnv* env, jobject thiz)
 {
-    LOGD("nativeMemoryUsage+");
+    //LOGD("nativeMemoryUsage+");
     double	usage = get_memory_usage();
-    LOGD("nativeMemoryUsage- usage:%.2f", usage);
+    //LOGD("nativeMemoryUsage- usage:%.2f", usage);
     return usage;
 }
 
@@ -59,7 +59,7 @@ JNI_OnLoad(JavaVM * vm, void * reserved)
     jint	nResult		= JNI_ERR;
     jint	nMethods	= sizeof(gMethods) / sizeof(gMethods[0]);
     jclass	clazz;
-    LOGV("JNI_OnLoad+");
+    //LOGV("JNI_OnLoad+");
 
     if (JNI_OK == vm->GetEnv((void**) &env, JNI_VERSION_1_4)) {
 	clazz = env->FindClass(gClassPathName);
@@ -77,7 +77,7 @@ JNI_OnLoad(JavaVM * vm, void * reserved)
 	LOGE("JNI_OnLoad GetEnv failed");
     }
 
-    LOGV("JNI_OnLoad-");
+    //LOGV("JNI_OnLoad-");
     return nResult;
 }
 

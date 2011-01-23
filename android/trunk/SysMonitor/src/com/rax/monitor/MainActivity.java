@@ -16,11 +16,17 @@
 
 package com.rax.monitor;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 
 /**
  * This class provides a basic demonstration of how to write an Android
@@ -31,6 +37,9 @@ public class MainActivity extends Activity {
 
 	static final private boolean DEBUG = true;
 	static final private String TAG = "RaxLog";
+	
+	private GridSurfaceView mGridView;
+	private Timer mTimer;
 
 	public MainActivity() {
 	}
@@ -40,7 +49,26 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		if (DEBUG) Log.v(TAG, "onCreate");
 
-		setContentView(R.layout.main_activity);
+		//setContentView(R.layout.main_activity);
+		//mGridView = (GridSurfaceView) findViewById(R.id.grid_view);
+		//Log.v(TAG, "GridView:" + mGridView);
+
+		RelativeLayout mainLayout = new RelativeLayout(this);
+		setContentView(mainLayout);
+		mGridView = new GridSurfaceView(this);
+		mainLayout.addView(mGridView);
+		
+		mTimer = new Timer();
+		try {
+			mTimer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					mHandler.sendMessage(new Message());
+				}
+			}, 0, 2000);
+		} catch (Exception ex) {
+			Log.e(TAG, "Timer schedule exception:" + ex.toString());
+		}
 	}
 
 	@Override
@@ -64,7 +92,14 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onStop() {
 		super.onStop();
-		if (DEBUG) Log.v(TAG, "onResume");
+		if (DEBUG) Log.v(TAG, "onStop");
+	}
+	
+	@Override
+	protected void onDestroy() {
+		if (DEBUG) Log.v(TAG, "onDestroy");
+		if (null != mTimer) mTimer.cancel();
+		super.onDestroy();
 	}
 
 	@Override
@@ -72,9 +107,9 @@ public class MainActivity extends Activity {
 		super.onCreateOptionsMenu(menu);
 		if (DEBUG) Log.v(TAG, "onCreateOptionsMenu");
 
-		//MenuInflater inflater = getMenuInflater();
-		//inflater.inflate(R.layout.option_menu, menu);
-		
+		// MenuInflater inflater = getMenuInflater();
+		// inflater.inflate(R.layout.option_menu, menu);
+
 		return true;
 	}
 
@@ -82,9 +117,6 @@ public class MainActivity extends Activity {
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		super.onPrepareOptionsMenu(menu);
 
-		JNILib.nativeCpuUsage();
-		JNILib.nativeMemoryUsage();
-		
 		if (DEBUG) Log.v(TAG, "onPrepareOptionsMenu");
 		return true;
 	}
@@ -99,4 +131,13 @@ public class MainActivity extends Activity {
 
 		return super.onOptionsItemSelected(item);
 	}
+	
+	Handler mHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			//if (DEBUG) Log.w(TAG, "Handler::handleMessage msg:" + msg);
+			double cpu_usage = JNILib.nativeCpuUsage();
+			double memory_usage = JNILib.nativeMemoryUsage();
+			Log.i(TAG, String.format("CPU: %.3f%% Memory: %.3f%%", cpu_usage, memory_usage));
+		}
+	};
 }

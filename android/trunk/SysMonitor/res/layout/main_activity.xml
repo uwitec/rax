@@ -18,4 +18,9 @@
 	android:layout_height="fill_parent"
     android:orientation="vertical">
 
+	<com.rax.monitor.GridSurfaceView android:id="@+id/grid_view"
+		android:layout_width="fill_parent" 
+		android:layout_height="fill_parent"
+		android:layout_gravity="center" />
+
 </LinearLayout>
