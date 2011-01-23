@@ -20,6 +20,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -28,16 +29,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
-/**
- * This class provides a basic demonstration of how to write an Android
- * activity. Inside of its window, it places a single view: an EditText that
- * displays and edits some internal text.
- */
 public class MainActivity extends Activity {
 
 	static final private boolean DEBUG = true;
 	static final private String TAG = "RaxLog";
 	
+    private static final int MENU_SETTING = Menu.FIRST;
+    private static final int MENU_ABOUT = Menu.FIRST + 1;
+    
+    private static final int MSG_UPDATE_DATA = 0;
+    
 	private GridSurfaceView mGridView;
 	private Timer mTimer;
 
@@ -49,6 +50,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		if (DEBUG) Log.v(TAG, "onCreate");
 
+		// FIXME: Load main layout from XML file
 		//setContentView(R.layout.main_activity);
 		//mGridView = (GridSurfaceView) findViewById(R.id.grid_view);
 		//Log.v(TAG, "GridView:" + mGridView);
@@ -60,10 +62,12 @@ public class MainActivity extends Activity {
 		
 		mTimer = new Timer();
 		try {
+			// TODO: Run as system service
+			// TODO: Can change period in settings
 			mTimer.schedule(new TimerTask() {
 				@Override
 				public void run() {
-					mHandler.sendMessage(new Message());
+					mHandler.sendMessage(mHandler.obtainMessage(MSG_UPDATE_DATA));
 				}
 			}, 0, 2000);
 		} catch (Exception ex) {
@@ -103,41 +107,50 @@ public class MainActivity extends Activity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		if (DEBUG) Log.v(TAG, "onCreateOptionsMenu");
+	public boolean onCreateOptionsMenu(Menu menu) {	
+		//if (DEBUG) Log.v(TAG, "onCreateOptionsMenu");
 
-		// MenuInflater inflater = getMenuInflater();
-		// inflater.inflate(R.layout.option_menu, menu);
+		menu.add(0, MENU_SETTING, 0, R.string.menu_setting).setIcon(android.R.drawable.ic_menu_preferences);
+		menu.add(0, MENU_ABOUT, 0, R.string.menu_about).setIcon(android.R.drawable.ic_menu_info_details);
 
-		return true;
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
-		super.onPrepareOptionsMenu(menu);
-
-		if (DEBUG) Log.v(TAG, "onPrepareOptionsMenu");
-		return true;
+		//if (DEBUG) Log.v(TAG, "onPrepareOptionsMenu");
+		return super.onPrepareOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (DEBUG) Log.v(TAG, "onOptionsItemSelected itemId:" + item.getItemId());
 		switch (item.getItemId()) {
+		case MENU_SETTING:
+			Intent intent = new Intent(this, SettingActivity.class);
+			startActivity(intent);
+			break;
+		case MENU_ABOUT:
+			break;
 		default:
 			break;
 		}
-
 		return super.onOptionsItemSelected(item);
 	}
 	
 	Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			//if (DEBUG) Log.w(TAG, "Handler::handleMessage msg:" + msg);
-			double cpu_usage = JNILib.nativeCpuUsage();
-			double memory_usage = JNILib.nativeMemoryUsage();
-			Log.i(TAG, String.format("CPU: %.3f%% Memory: %.3f%%", cpu_usage, memory_usage));
+			switch (msg.what) {
+			case MSG_UPDATE_DATA:
+				double cpu_usage = JNILib.nativeCpuUsage();
+				double memory_usage = JNILib.nativeMemoryUsage();
+				Log.i(TAG, String.format("CPU: %.3f%% Memory: %.3f%%", cpu_usage, memory_usage));
+				// TODO: Render the Grid
+				break;
+			default:
+				break;
+			}
 		}
 	};
 }
