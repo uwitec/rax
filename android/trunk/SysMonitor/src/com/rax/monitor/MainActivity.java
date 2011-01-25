@@ -16,6 +16,7 @@
 
 package com.rax.monitor;
 
+import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -41,6 +42,8 @@ public class MainActivity extends Activity {
     
 	private GridSurfaceView mGridView;
 	private Timer mTimer;
+	private LinkedList<Double> mCPUList;
+	private LinkedList<Double> mMemoryList;
 
 	public MainActivity() {
 	}
@@ -58,7 +61,12 @@ public class MainActivity extends Activity {
 		RelativeLayout mainLayout = new RelativeLayout(this);
 		setContentView(mainLayout);
 		mGridView = new GridSurfaceView(this);
+
 		mainLayout.addView(mGridView);
+		
+		mCPUList = new LinkedList<Double>();
+		mMemoryList = new LinkedList<Double>();
+		mGridView.setData(mCPUList);
 		
 		mTimer = new Timer();
 		try {
@@ -67,9 +75,22 @@ public class MainActivity extends Activity {
 			mTimer.schedule(new TimerTask() {
 				@Override
 				public void run() {
-					mHandler.sendMessage(mHandler.obtainMessage(MSG_UPDATE_DATA));
+					//mHandler.sendMessage(mHandler.obtainMessage(MSG_UPDATE_DATA));
+					double cpu_usage = JNILib.nativeCpuUsage();
+					double memory_usage = JNILib.nativeMemoryUsage();
+					mCPUList.add(cpu_usage);
+					if (mCPUList.size() > 100) {
+						mCPUList.removeFirst();
+					}
+					mMemoryList.add(memory_usage);
+					if (mMemoryList.size() > 100) {
+						mMemoryList.removeFirst();
+					}
+					Log.i(TAG, String.format("CPU: %.3f%% Memory: %.3f%%", cpu_usage, memory_usage));
+					//mGridView.postInvalidate();
+					mGridView.onDraw();
 				}
-			}, 0, 2000);
+			}, 0, 100);
 		} catch (Exception ex) {
 			Log.e(TAG, "Timer schedule exception:" + ex.toString());
 		}
@@ -102,7 +123,11 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onDestroy() {
 		if (DEBUG) Log.v(TAG, "onDestroy");
-		if (null != mTimer) mTimer.cancel();
+		mGridView = null;
+		mTimer.cancel();
+		mTimer = null;
+		mCPUList = null;
+		mMemoryList = null;
 		super.onDestroy();
 	}
 
