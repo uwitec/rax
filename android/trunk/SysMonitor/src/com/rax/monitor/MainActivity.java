@@ -51,7 +51,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (DEBUG) Log.v(TAG, "onCreate");
+		if (DEBUG) Log.v(TAG, "MainActivity::onCreate");
 
 		// FIXME: Load main layout from XML file
 		//setContentView(R.layout.main_activity);
@@ -86,43 +86,43 @@ public class MainActivity extends Activity {
 					if (mMemoryList.size() > 100) {
 						mMemoryList.removeFirst();
 					}
-					Log.i(TAG, String.format("CPU: %.3f%% Memory: %.3f%%", cpu_usage, memory_usage));
+					Log.i(TAG, String.format("TimerTask::run CPU: %.3f%% Memory: %.3f%%", cpu_usage, memory_usage));
 					//mGridView.postInvalidate();
 					mGridView.onDraw();
 				}
 			}, 0, 100);
 		} catch (Exception ex) {
-			Log.e(TAG, "Timer schedule exception:" + ex.toString());
+			Log.e(TAG, "MainActivity::onCreate Timer schedule exception:" + ex.toString());
 		}
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
-		if (DEBUG) Log.v(TAG, "onStart");
+		if (DEBUG) Log.v(TAG, "MainActivity::onStart");
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (DEBUG) Log.v(TAG, "onPause");
+		if (DEBUG) Log.v(TAG, "MainActivity::onPause");
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (DEBUG) Log.v(TAG, "onResume");
+		if (DEBUG) Log.v(TAG, "MainActivity::onResume");
 	}
 
 	@Override
 	protected void onStop() {
 		super.onStop();
-		if (DEBUG) Log.v(TAG, "onStop");
+		if (DEBUG) Log.v(TAG, "MainActivity::onStop");
 	}
 	
 	@Override
 	protected void onDestroy() {
-		if (DEBUG) Log.v(TAG, "onDestroy");
+		if (DEBUG) Log.v(TAG, "MainActivity::onDestroy");
 		mGridView = null;
 		mTimer.cancel();
 		mTimer = null;
@@ -133,7 +133,7 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {	
-		//if (DEBUG) Log.v(TAG, "onCreateOptionsMenu");
+		//if (DEBUG) Log.v(TAG, "MainActivity::onCreateOptionsMenu");
 
 		menu.add(0, MENU_SETTING, 0, R.string.menu_setting).setIcon(android.R.drawable.ic_menu_preferences);
 		menu.add(0, MENU_ABOUT, 0, R.string.menu_about).setIcon(android.R.drawable.ic_menu_info_details);
@@ -143,13 +143,13 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
-		//if (DEBUG) Log.v(TAG, "onPrepareOptionsMenu");
+		//if (DEBUG) Log.v(TAG, "MainActivity::onPrepareOptionsMenu");
 		return super.onPrepareOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (DEBUG) Log.v(TAG, "onOptionsItemSelected itemId:" + item.getItemId());
+		if (DEBUG) Log.v(TAG, "MainActivity::onOptionsItemSelected itemId:" + item.getItemId());
 		switch (item.getItemId()) {
 		case MENU_SETTING:
 			Intent intent = new Intent(this, SettingActivity.class);
@@ -170,8 +170,7 @@ public class MainActivity extends Activity {
 			case MSG_UPDATE_DATA:
 				double cpu_usage = JNILib.nativeCpuUsage();
 				double memory_usage = JNILib.nativeMemoryUsage();
-				Log.i(TAG, String.format("CPU: %.3f%% Memory: %.3f%%", cpu_usage, memory_usage));
-				// TODO: Render the Grid
+				Log.i(TAG, String.format("Handler::handleMessage CPU: %.3f%% Memory: %.3f%%", cpu_usage, memory_usage));
 				break;
 			default:
 				break;

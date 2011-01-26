@@ -16,6 +16,7 @@
 package com.rax.monitor;
 
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -69,11 +70,12 @@ public class GridSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 			float vStep = (float)mWidth / 101f;
 			float hStep = (float)mHeight / 100f;
 			//if (DEBUG) Log.d(TAG, String.format("GridSurfaceView::onDraw mWidth:%d mHeight:%d vStep:%f hStep:%f", mWidth, mHeight, vStep, hStep));
-			for (Double f : mList) {
-				float startX = vStep * i;
-				float startY = 5;
-				float stopX = vStep * i;
-				float stopY = (float)(hStep * f + 5);
+			for (ListIterator<Double> it = mList.listIterator(mList.size() - 1); it.hasPrevious();) {
+				double f = it.previous();
+				float startX = mWidth - vStep * i;
+				float startY = mHeight - 5;
+				float stopX = mWidth - vStep * i;
+				float stopY = (float)(mHeight - 5 - hStep * f);
 				//if (DEBUG) Log.d(TAG, String.format("GridSurfaceView::onDraw startX:%f startY:%f stopX:%f stopY:%f", startX, startY, stopX, stopY));
 				canvas.drawLine(startX, startY, stopX, stopY, mPaint);
 				i++;
