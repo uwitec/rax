@@ -76,8 +76,8 @@ public class MainActivity extends Activity {
 				@Override
 				public void run() {
 					//mHandler.sendMessage(mHandler.obtainMessage(MSG_UPDATE_DATA));
-					double cpu_usage = JNILib.nativeCpuUsage();
-					double memory_usage = JNILib.nativeMemoryUsage();
+					double cpu_usage = 100 * JNILib.nativeCpuUsage();
+					double memory_usage = 100 * JNILib.nativeMemoryUsage();
 					mCPUList.add(cpu_usage);
 					if (mCPUList.size() > 100) {
 						mCPUList.removeFirst();

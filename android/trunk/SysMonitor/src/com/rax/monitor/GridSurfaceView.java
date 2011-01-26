@@ -73,7 +73,7 @@ public class GridSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 				float startX = vStep * i;
 				float startY = 5;
 				float stopX = vStep * i;
-				float stopY = (float)(hStep * f * 100 + 5);
+				float stopY = (float)(hStep * f + 5);
 				//if (DEBUG) Log.d(TAG, String.format("GridSurfaceView::onDraw startX:%f startY:%f stopX:%f stopY:%f", startX, startY, stopX, stopY));
 				canvas.drawLine(startX, startY, stopX, stopY, mPaint);
 				i++;
