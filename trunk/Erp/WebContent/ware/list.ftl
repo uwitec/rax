@@ -9,6 +9,7 @@
 .row { clear:both; }
 .right { text-align:right; width:40px; }
 .mid { text-align:center; width:40px; }
+.wide { width:100px; }
 </style>
 </head>
 
@@ -51,6 +52,8 @@
 <table>
 <tr>
 <td class="right">成本</td>
+<td class="mid wide">最近进货日期</td>
+<td class="mid wide">最近卖出日期</td>
 <td class="mid">库存</td>
 <td>宝贝名称</td>
 </tr>
@@ -58,6 +61,8 @@
 <#list wareList as ware>
 <tr>
 <td class="right">#{ware.cost;m2M2}</td>
+<td class="mid wide">${statList.get(ware_index).lastBuyDate?string("yyyy-MM-dd")}</td>
+<td class="mid wide">${statList.get(ware_index).lastSellDate?string("yyyy-MM-dd")}</td>
 <td class="mid">${ware.number}</td>
 <td><a href="ware.action?id=${ware.id?c}&categoryId=${categoryId?c}">${ware.name}</a></td>
 </tr>

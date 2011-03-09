@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
+import erp.model.StatWare;
 import erp.model.Ware;
 
 public interface WareDao {
@@ -39,4 +40,6 @@ public interface WareDao {
 			throws DataAccessException;
 
 	public List<Map> listHistoryPrice(int id) throws DataAccessException;
+
+	public StatWare getStatById(int id) throws DataAccessException;
 }

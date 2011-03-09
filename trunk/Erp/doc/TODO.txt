@@ -5,11 +5,13 @@ CHANGES:
 TODO:
 非特价满300提示
 统计最近无售出记录的宝贝
+默认不启用警戒，新添加的宝贝
+宝贝属性添加重量, 净重，毛重
+隐藏不用的分类
 select w.id,count(si.id) from ware AS w left join sell_item AS si ON (w.id=si.ware_id) where w.number > 0 group by w.id
 更新分词算法
 售出记录可标记是否批发，不参与售出排行榜统计
 分类列表收到宝贝列表里面去
-宝贝属性添加重量, 净重，毛重
 
 用淘宝API，列出即将过期的交易
 用淘宝API，快速查询买家历史信用

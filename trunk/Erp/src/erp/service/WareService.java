@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import erp.dao.WareDao;
+import erp.model.StatWare;
 import erp.model.Ware;
 import erp.model.WareCategory;
 
@@ -103,6 +104,10 @@ public class WareService {
 
 	public List<Ware> findByBarcode(String barcode) {
 		return wareDao.findByBarcode(barcode);
+	}
+	
+	public StatWare getStatById(int id) {
+		return wareDao.getStatById(id);
 	}
 
 	public List<Ware> findByKeywords(String keywords) {

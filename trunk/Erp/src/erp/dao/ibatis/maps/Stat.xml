@@ -9,10 +9,10 @@
 	<typeAlias alias="Stat" type="erp.model.Stat" />
 	<typeAlias alias="StatFee" type="erp.model.StatFee" />
 	<typeAlias alias="StatRankList" type="erp.model.StatRankList" />
-
+	
 	<select id="storeAmount" resultClass="double">
 		<![CDATA[
-		select sum(cost * number) from "ware"
+		SELECT SUM(cost * number) FROM "ware"
 		]]>
 	</select>
 

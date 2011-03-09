@@ -4,17 +4,21 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import erp.model.OrderItem;
+import erp.model.StatWare;
 import erp.model.Vendor;
 import erp.model.Ware;
 import erp.model.WareCategory;
@@ -50,6 +54,7 @@ public class WareAction extends ActionSupport {
 	private List<WareCategory> categoryList;
 	private List<Map> historyList;
 	private List<OrderItem> orderItemList;
+	private List<StatWare> statList;
 
 	private Pager pager;
 	private String fileName = "";
@@ -57,6 +62,10 @@ public class WareAction extends ActionSupport {
 	public String listByCategory() throws Exception {
 		categoryList = wareCategoryService.list();
 		wareList = wareService.listByCategoryId(categoryId, status);
+		statList = new ArrayList<StatWare>();
+		for (Ware w : wareList) {
+			statList.add(wareService.getStatById(w.getId()));
+		}
 		return SUCCESS;
 	}
 
@@ -189,9 +198,11 @@ public class WareAction extends ActionSupport {
 	}
 
 	public String export() throws Exception {
-		WareCategory category = wareCategoryService.getWareCategoryById(categoryId);
+		WareCategory category = wareCategoryService
+				.getWareCategoryById(categoryId);
 		if (category != null) {
-			fileName = new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_" + category.getName();
+			fileName = new SimpleDateFormat("yyyyMMdd").format(new Date())
+					+ "_" + category.getName();
 		}
 		return SUCCESS;
 	}
@@ -339,5 +350,17 @@ public class WareAction extends ActionSupport {
 
 	public void setCurrentPage(int page) {
 		pager.setCurrentPage(page);
+	}
+
+	public List<StatWare> getStatList() {
+		return statList;
+	}
+	
+	public static void main(String[] args) throws Exception {
+		BasicConfigurator.configure();
+		Logger.getRootLogger().setLevel(Level.DEBUG);
+		WareAction action = new WareAction();
+		action.categoryId = 12;
+		action.listByCategory();
 	}
 }

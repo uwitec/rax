@@ -8,6 +8,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import erp.dao.WareDao;
+import erp.model.OrderItem;
+import erp.model.StatWare;
 import erp.model.Ware;
 
 public class WareDaoImpl extends SqlMapClientDaoSupport implements WareDao {
@@ -103,10 +105,23 @@ public class WareDaoImpl extends SqlMapClientDaoSupport implements WareDao {
 		return getSqlMapClientTemplate().queryForList("Ware.listLowNumber",
 				param);
 	}
-	
+
 	@Override
 	public List<Map> listHistoryPrice(int id) throws DataAccessException {
 		return getSqlMapClientTemplate().queryForList("Ware.listHistoryPrice",
 				id);
+	}
+
+	@Override
+	public StatWare getStatById(int id) throws DataAccessException {
+		StatWare ret = new StatWare();
+		StatWare sellStat = (StatWare)getSqlMapClientTemplate().queryForObject(
+				"Ware.getLastSellDate", id);
+		StatWare buyStat = (StatWare)getSqlMapClientTemplate().queryForObject(
+				"Ware.getLastBuyDate", id);
+		if (sellStat != null) ret.setLastSellDate(sellStat.getLastSellDate());
+		if (buyStat != null) ret.setLastBuyDate(buyStat.getLastBuyDate());
+		ret.setId(id);
+		return ret;
 	}
 }

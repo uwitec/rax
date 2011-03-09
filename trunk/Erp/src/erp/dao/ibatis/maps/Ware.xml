@@ -7,7 +7,8 @@
 <sqlMap namespace="Ware">
 
 	<typeAlias alias="Ware" type="erp.model.Ware" />
-
+	<typeAlias alias="StatWare" type="erp.model.StatWare" />
+		
 	<cacheModel id="ware-cache" type="LRU" readOnly="true"
 		serialize="false">
 		<flushInterval hours="24" />
@@ -192,6 +193,28 @@
 		LEFT JOIN "order" AS o ON (oi.order_id=o.id)
 		WHERE oi.ware_id=#id#
 		GROUP BY o.vendor_id;
+		]]>
+	</select>
+	
+	<select id="getLastSellDate" parameterClass="int" resultClass="StatWare">
+		<![CDATA[
+		SELECT si.ware_id AS id, s.create_date AS lastSellDate
+		FROM sell_item AS si
+		LEFT JOIN sell AS s ON (si.sell_id=s.id)
+		WHERE si.ware_id=#id#
+		ORDER BY s.create_date DESC
+		LIMIT 1
+		]]>
+	</select>
+	
+	<select id="getLastBuyDate" parameterClass="int" resultClass="StatWare">
+		<![CDATA[
+		SELECT oi.ware_id AS id, o.create_date AS lastBuyDate
+		FROM order_item AS oi
+		LEFT JOIN "order" AS o ON (oi.order_id=o.id)
+		WHERE oi.ware_id=#id#
+		ORDER BY o.create_date DESC
+		LIMIT 1
 		]]>
 	</select>
 
