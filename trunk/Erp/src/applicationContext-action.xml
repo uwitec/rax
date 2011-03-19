@@ -77,9 +77,6 @@
 		<property name="keywordService" ref="KeywordService" />
 	</bean>
 
-	<bean id="EvaluationAction" class="erp.action.EvaluationAction"
-		scope="prototype" />
-
 	<bean id="SellItemImportAction" class="erp.action.SellItemImportAction"
 		scope="prototype">
 		<property name="sellService" ref="SellService" />
@@ -91,6 +88,10 @@
 		<property name="vendorService" ref="VendorService" />
 		<property name="wareService" ref="WareService" />
 		<property name="utilService" ref="UtilService" />
+	</bean>
+	
+	<bean id="TradeImportAction" class="erp.action.TradeImportAction" scope="prototype">
+		<property name="taobao" ref="taobaoSource" />
 	</bean>
 
 </beans>

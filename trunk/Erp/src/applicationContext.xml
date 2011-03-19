@@ -5,7 +5,7 @@
 
 <beans>
 
-	<bean id="dataSource"
+	<bean id="database"
 		class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName"
@@ -14,22 +14,33 @@
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
-
+	
+	<bean id="taobaoSource" class="erp.bean.TaobaoBean">
+		<property name="appKey" value="${taobao.appKey}" />
+		<property name="appSecret" value="${taobao.appSecret}" />
+		<property name="restUrl" value="${taobao.restUrl}" />
+		<property name="sessionUrl" value="${taobao.sessionUrl}" />
+	</bean>
+	
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location">
+		<property name="locations">
+			<list>
 			<value>classpath:dataSource.properties</value>
+			<value>classpath:taobao.properties</value>
 			<!-- 
 				<value>WEB-INF/dataSource.properties</value>
 			-->
+			</list>
 		</property>
+		<property name="fileEncoding" value="utf-8"/>
 	</bean>
 
 	<bean id="sqlMapClient"
 		class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
 		<property name="configLocation"
 			value="classpath:sqlMapConfig.xml" />
-		<property name="dataSource" ref="dataSource" />
+		<property name="dataSource" ref="database" />
 	</bean>
 
 </beans>
