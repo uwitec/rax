@@ -1,6 +1,13 @@
 package erp.bean;
 
+import org.apache.log4j.Logger;
+
+import erp.action.TradeImportAction;
+
 public class TaobaoBean {
+
+	private final static Logger logger = Logger
+			.getLogger(TradeImportAction.class);
 
 	private String appKey;
 	private String appSecret;
@@ -40,5 +47,12 @@ public class TaobaoBean {
 
 	public void setSessionUrl(String sessionUrl) {
 		this.sessionUrl = sessionUrl;
+	}
+
+	public void dump() {
+		logger.info("appkey:" + this.appKey);
+		logger.info("appSecret:" + this.appSecret);
+		logger.info("restUrl:" + this.restUrl);
+		logger.info("sessionUrl:" + this.sessionUrl);
 	}
 }

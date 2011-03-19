@@ -19,14 +19,16 @@
 		
 		<action name="trade_input" class="TradeImportAction" method="input">
 			<result name="success">/trade/input.ftl</result>
+			<result name="login" type="redirect">${taobao.sessionUrl}</result>
 		</action>
 		
 		<action name="trade" class="TradeImportAction">
 			<result name="success">/trade/import.ftl</result>
+			<result name="login" type="redirect">${taobao.sessionUrl}</result>
 		</action>
 		
 		<action name="trade_session" class="TradeImportAction" method="session_callback">
-			<result name="success" type="redirect-action">trade/trade_input</result>
+			<result name="success" type="redirect-action">/trade/trade_input</result>
 		</action>
 		
 	</package>
