@@ -1,6 +1,10 @@
 package erp.action;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -20,13 +24,16 @@ import com.taobao.api.response.TradesSoldGetResponse;
 import com.taobao.api.response.UserGetResponse;
 
 import erp.bean.TaobaoBean;
+import erp.service.ExpressService;
 
 public class TradeImportAction extends ActionSupport implements SessionAware {
 
 	private static final long serialVersionUID = 1L;
 	private final static Logger logger = Logger
 			.getLogger(TradeImportAction.class);
-
+	
+	private ExpressService expressService = null;
+	
 	private TaobaoBean taobao;
 	private Map session;
 
@@ -41,6 +48,26 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 	
 	// input()
 	private String tids;
+	ArrayList<Order> orders;
+	
+	private Date created;
+	private String buyerNick;
+	private String payment;
+	private String postFee;
+	private String totalFee;
+	private String discountFee;
+	private String adjustFee;
+	private String buyerMessage;
+	private String buyerMemo;
+	private String sellerMemo;
+	private String receiverName;
+	private String receiverAddress;
+	private String receiverPhone;
+	private String receiverMobile;
+	private String receiverZip;
+	
+	List<String> deliverDateOption;
+	Map<Integer, String> expressOption;
 
 	public String list() throws Exception {
 		try {
@@ -134,6 +161,8 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 					taobao.getAppKey(), taobao.getAppSecret());
 			
 			String[] tids = this.tids.split(",");
+			this.trades = new ArrayList<Trade>();
+			this.orders = new ArrayList<Order>();
 			
 			for (String tid : tids) {
 				tradeReq = new TradeFullinfoGetRequest();
@@ -161,6 +190,22 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 				
 				tradeResp = client.execute(tradeReq, (String)session.get("sess_top_session"));
 				trade = tradeResp.getTrade();
+				this.created = trade.getCreated();
+				this.buyerNick = trade.getBuyerNick();
+				this.totalFee = trade.getTotalFee();
+				this.discountFee = trade.getDiscountFee();				
+				this.adjustFee = trade.getAdjustFee();
+				this.postFee = trade.getPostFee();
+				this.payment = trade.getPayment();
+				this.buyerMessage = trade.getBuyerMessage();
+				this.buyerMemo = trade.getBuyerMemo();
+				this.sellerMemo = trade.getSellerMemo();
+				this.receiverName = trade.getReceiverName();
+				this.receiverAddress = String.format("%s %s %s %s", trade.getReceiverState(), trade.getReceiverCity(), trade.getReceiverDistrict(), trade.getReceiverAddress());
+				this.receiverMobile = trade.getReceiverMobile();
+				this.receiverPhone = trade.getReceiverPhone();
+				this.receiverZip = trade.getReceiverZip();
+				
 				logger.info("trade.created:" + trade.getCreated());
 				logger.info("trade.tid:" + trade.getTid());
 				logger.info("trade.buyer_nick:" + trade.getBuyerNick());
@@ -184,6 +229,7 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 				ArrayList<Order> orders = (ArrayList<Order>) trade.getOrders();
 				logger.info("trade.orders.length:" + orders.size());
 				for (Order o : orders) {
+					this.orders.add(o);
 					logger.info("order.title:" + o.getTitle());
 					logger.info("order.num:" + o.getNum());
 					logger.info("order.price:" + o.getPrice());
@@ -196,9 +242,21 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 					logger.info("order.payment:" + o.getPayment());
 				}
 				logger.info("");
+				this.trades.add(trade);
 			}
+			
+			Calendar c = Calendar.getInstance();
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			this.deliverDateOption = new ArrayList<String>();
+			this.deliverDateOption.add(df.format(new Date(0)));
+			for (int i = 0; i < 3; i++) {
+				c.setTimeInMillis(this.created.getTime() + 86400000 * i);
+				this.deliverDateOption.add(df.format(c.getTime()));
+			}
+			
 		} catch (Exception ex) {
 			logger.error(ex.toString());
+			this.orders = null;
 			return ERROR;
 		}
 		return SUCCESS;
@@ -253,12 +311,9 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 
 	private void printSession() {
 		try {
-			logger.info("sess_top_appkey:"
-					+ this.session.get("sess_top_appkey"));
-			logger.info("sess_top_parameters:"
-					+ this.session.get("sess_top_parameters"));
-			logger.info("sess_top_session:"
-					+ this.session.get("sess_top_session"));
+			logger.info("sess_top_appkey:" + this.session.get("sess_top_appkey"));
+			logger.info("sess_top_parameters:" + this.session.get("sess_top_parameters"));
+			logger.info("sess_top_session:" + this.session.get("sess_top_session"));
 			logger.info("sess_top_sign:" + this.session.get("sess_top_sign"));
 		} catch (Exception ex) {
 			logger.error(ex.toString());
@@ -308,6 +363,82 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 
 	public void setTids(String tids) {
 		this.tids = tids;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public String getBuyerNick() {
+		return buyerNick;
+	}
+
+	public String getPayment() {
+		return payment;
+	}
+
+	public String getPostFee() {
+		return postFee;
+	}
+
+	public String getTotalFee() {
+		return totalFee;
+	}
+
+	public String getDiscountFee() {
+		return discountFee;
+	}
+
+	public String getAdjustFee() {
+		return adjustFee;
+	}
+
+	public String getBuyerMessage() {
+		return buyerMessage;
+	}
+
+	public String getBuyerMemo() {
+		return buyerMemo;
+	}
+
+	public String getSellerMemo() {
+		return sellerMemo;
+	}
+
+	public String getReceiverName() {
+		return receiverName;
+	}
+
+	public String getReceiverAddress() {
+		return receiverAddress;
+	}	
+		
+	public String getReceiverPhone() {
+		return receiverPhone;
+	}
+
+	public String getReceiverMobile() {
+		return receiverMobile;
+	}
+
+	public String getReceiverZip() {
+		return receiverZip;
+	}
+
+	public ArrayList<Order> getOrders() {
+		return orders;
+	}
+
+	public void setExpressService(ExpressService expressService) {
+		this.expressService = expressService;
+	}
+
+	public Map<Integer, String> getExpressOption() {
+		return expressService.getExpressSel();
+	}
+
+	public List<String> getDeliverDateOption() {
+		return deliverDateOption;
 	}
 
 }

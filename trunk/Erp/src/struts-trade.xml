@@ -13,17 +13,17 @@
 		</result-types>
 
 		<action name="trade_list" class="TradeImportAction" method="list">
-			<result name="success">/trade/list.ftl</result>
+			<result name="success">/trade/trade_list.ftl</result>
 			<result name="login" type="redirect">${taobao.sessionUrl}</result>
 		</action>
 		
 		<action name="trade_input" class="TradeImportAction" method="input">
-			<result name="success">/trade/input.ftl</result>
+			<result name="success">/trade/trade_input.ftl</result>
 			<result name="login" type="redirect">${taobao.sessionUrl}</result>
 		</action>
 		
 		<action name="trade" class="TradeImportAction">
-			<result name="success">/trade/import.ftl</result>
+			<result name="success">/trade/trade_import.ftl</result>
 			<result name="login" type="redirect">${taobao.sessionUrl}</result>
 		</action>
 		

@@ -92,6 +92,7 @@
 	
 	<bean id="TradeImportAction" class="erp.action.TradeImportAction" scope="prototype">
 		<property name="taobao" ref="taobaoSource" />
+		<property name="expressService" ref="ExpressService" />
 	</bean>
 
 </beans>

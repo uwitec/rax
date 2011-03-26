@@ -3,7 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>淘宝在线</title>
+<link type="text/css" href="../css/smoothness/jquery-ui-1.8.11.css" rel="stylesheet" />	
 <script language="javascript" type="text/javascript" src="../js/jquery-1.5.1.min.js"></script>
+<script language="javascript" type="text/javascript" src="../js/jquery-ui-1.8.11.min.js"></script>
 <script language="javascript" type="text/javascript">
 
 $(document).ready(function() {
@@ -72,11 +74,7 @@ td { padding: 3px; }
 </tr>
 
 <tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td colspan="5"></td>
 </tr>
 
 </#list>
