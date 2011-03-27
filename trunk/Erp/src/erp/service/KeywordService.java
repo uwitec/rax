@@ -37,26 +37,37 @@ public class KeywordService {
         tokenTable.put("蜜粉", "蜜粉");
         tokenTable.put("蜜粉饼", "蜜粉饼");
         tokenTable.put("象牙", "象牙");
-        tokenTable.put("象牙白", "象牙白");
+        tokenTable.put("秋冬", "秋冬");
+        tokenTable.put("弹力", "弹力");
+        tokenTable.put("光泽", "光泽");
+        tokenTable.put("保湿", "保湿");
+        tokenTable.put("洗面奶", "洗面奶");
+        tokenTable.put("洁面乳", "洁面乳");
+        tokenTable.put("洗面", "洗面");
+        tokenTable.put("洁面", "洁面");
+        tokenTable.put("莎娜", "莎娜");
+        tokenTable.put("豆乳", "豆乳");
+        tokenTable.put("SANA", "SANA");
     }
 
     private boolean isToken(String q) {
-        // return tokenTable.containsKey(q);
-        return keywordDao.read(q) != null;
+        return (keywordDao != null) ? (keywordDao.read(q) != null) : tokenTable.containsKey(q);
     }
 
     public int saveTokens(String content) {
         logger.debug("saveTokens:" + content);
         String[] tokenList = content.split(" ");
-        int maxTokenLength = 2;
+        int maxTokenLength = 3;
         int tokenNum = 0;
-        Util u = utilDao.read("max_token_length");
-        if (u == null) {
-            utilDao.create(new Util("max_token_length", String
-                    .valueOf(maxTokenLength)));
-        } else {
-            maxTokenLength = Integer.parseInt(u.getValue());
-        }
+
+		Util u = utilDao.read("max_token_length");
+		if (u == null) {
+			utilDao.create(new Util("max_token_length", String
+					.valueOf(maxTokenLength)));
+		} else {
+			maxTokenLength = Integer.parseInt(u.getValue());
+		}
+        
         for (String token : tokenList) {
             switch (Character.getType(token.charAt(0))) {
             case Character.LOWERCASE_LETTER: // 2
@@ -83,9 +94,10 @@ public class KeywordService {
         logger.debug("parseToken:" + content);
         List<String> tokenList = new ArrayList<String>();
 
-        Util u = utilDao.read("max_token_length");
-        // Util u = null;
-        int maxTokenLength = (null == u) ? 3 : Integer.parseInt(u.getValue());
+        int maxTokenLength = 3;
+        try {
+        	maxTokenLength = Integer.parseInt(utilDao.read("max_token_length").getValue());
+        } catch(Exception ex) {}
 
         char curChar;
         char[] ioBuf = content.replaceAll("\\p{Punct}", " ").toCharArray();
@@ -96,7 +108,8 @@ public class KeywordService {
             curChar = ioBuf[tail];
             switch (Character.getType(curChar)) {
             case Character.DECIMAL_DIGIT_NUMBER: // 9
-                curType = 2;
+                //curType = 2;
+            	curType = 1; // Trust number is the same type as letters, e.g. Q10, 150ml
                 break;
             case Character.LOWERCASE_LETTER: // 2
             case Character.UPPERCASE_LETTER: // 1
@@ -156,8 +169,7 @@ public class KeywordService {
         }
         Collections.reverse(finalTokenList);
 
-        // for (String token : finalTokenList)
-        // logger.info("finalToken:" + token);
+        for (String token : finalTokenList) logger.info("finalToken:" + token);
 
         return finalTokenList;
     }
@@ -168,8 +180,9 @@ public class KeywordService {
 
     public static void main(String[] args) throws Exception {
         KeywordService service = new KeywordService();
-        service.parseToken("乐敦Rohto肌研-白润化妆水170ml超清爽型 浅咖啡-玻尿酸 抗痘蜜粉饼-象牙白绿盒");
-        // service.saveTokens("乐敦 Rohto 肌研 白润 化妆水 170 ml 清爽 型");
+        //service.parseToken("乐敦Rohto肌研-白润化妆水170ml超清爽型 浅咖啡-玻尿酸 抗痘蜜粉饼-象牙白绿盒");
+        service.parseToken("秋冬新SANA/莎娜 豆乳Q10弹力光泽 保湿洗面奶 洁面乳150g");
+        //service.saveTokens("乐敦 Rohto 肌研 白润 化妆水 170 ml 清爽 型");
     }
 
     public void setKeywordDao(KeywordDao keywordDao) {
