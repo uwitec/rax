@@ -27,10 +27,15 @@
 			<result name="login" type="redirect">${taobao.sessionUrl}</result>
 		</action>
 		
-		<action name="trade_session" class="TradeImportAction" method="session_callback">
-			<result name="success" type="redirect-action">/trade/trade_input</result>
+		<action name="trade_session" class="TradeImportAction" method="session">
+			<result name="success">/trade/trade_session.ftl</result>
 		</action>
 		
+		<action name="trade_session_callback" class="TradeImportAction" method="session_callback">
+			<!-- <result name="success" type="redirect-action">/trade/trade_list</result> -->
+			<result name="success">/trade/trade_session_callback.ftl</result>
+		</action>
+				
 	</package>
 
 </struts>

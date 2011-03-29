@@ -13,9 +13,7 @@
 		</action>
 		<action name="ware_find_fulltext" class="WareAction" method="fullTextSearch">
 			<result type="json">
-				<!--
-					<param name="includeProperties">id,categoryId,wareList</param>
-				-->
+				<!-- <param name="includeProperties">id,categoryId,wareList</param> -->
 				<param name="excludeProperties">pager,vendorMap,fileName,inputStream,categoryList,categoryMap,historyList,orderItemList,tokenize,ware</param>
 			</result>
 		</action>
@@ -48,6 +46,18 @@
 		<action name="save_tokens" class="KeywordAction" method="saveTokens">
 			<result type="json">
 				<param name="includeProperties">status</param>
+			</result>
+		</action>
+		
+		<action name="trade_import" class="TradeImportAction" method="trade_import">
+			<result type="json">
+				<param name="includeProperties">sellId</param>
+			</result>
+		</action>
+		
+		<action name="trade_import_item" class="TradeImportAction" method="trade_import_item">
+			<result type="json">
+				<param name="includeProperties">id</param>
 			</result>
 		</action>
 

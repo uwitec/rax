@@ -24,7 +24,13 @@ import com.taobao.api.response.TradesSoldGetResponse;
 import com.taobao.api.response.UserGetResponse;
 
 import erp.bean.TaobaoBean;
+import erp.model.Sell;
+import erp.model.SellItem;
+import erp.model.Ware;
 import erp.service.ExpressService;
+import erp.service.SellItemService;
+import erp.service.SellService;
+import erp.service.WareService;
 
 public class TradeImportAction extends ActionSupport implements SessionAware {
 
@@ -33,6 +39,9 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 			.getLogger(TradeImportAction.class);
 	
 	private ExpressService expressService = null;
+	private SellService sellService = null;
+	private SellItemService sellItemService = null;
+	private WareService wareService = null;
 	
 	private TaobaoBean taobao;
 	private Map session;
@@ -68,7 +77,20 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 	
 	List<String> deliverDateOption;
 	Map<Integer, String> expressOption;
-
+	
+	// import()
+	private int sellId;
+	private int expressId;
+	private String commentExpress;
+	private String commentInvoice;
+	private String postFeeReal;
+	
+	// import_item()
+	private int wareId;
+	private double price;
+	private int number;
+	private int id;
+	
 	public String list() throws Exception {
 		try {
 			TaobaoClient client = new DefaultTaobaoClient(taobao.getRestUrl(),
@@ -77,7 +99,7 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 			// getUser(client, "timonlio");
 			printSession();
 
-			TradesSoldGetRequest tradeSoldReq = new TradesSoldGetRequest();
+			TradesSoldGetRequest tradeSoldReq = new TradesSoldGetRequest();		
 			tradeSoldReq.setStatus("WAIT_SELLER_SEND_GOODS");
 			tradeSoldReq.setFields("tid,"
 					+ "created,"
@@ -164,6 +186,12 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 			this.trades = new ArrayList<Trade>();
 			this.orders = new ArrayList<Order>();
 			
+			double totalFee = 0;
+			double discountFee = 0;				
+			double adjustFee = 0;
+			double postFee = 0;
+			double payment = 0;
+			
 			for (String tid : tids) {
 				tradeReq = new TradeFullinfoGetRequest();
 				tradeReq.setTid(Long.parseLong(tid));
@@ -190,13 +218,13 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 				
 				tradeResp = client.execute(tradeReq, (String)session.get("sess_top_session"));
 				trade = tradeResp.getTrade();
+				totalFee += Double.parseDouble(trade.getTotalFee());
+				discountFee = Double.parseDouble(trade.getDiscountFee());
+				adjustFee = Double.parseDouble(trade.getAdjustFee());
+				postFee = Double.parseDouble(trade.getPostFee());
+				payment = Double.parseDouble(trade.getPayment());
 				this.created = trade.getCreated();
 				this.buyerNick = trade.getBuyerNick();
-				this.totalFee = trade.getTotalFee();
-				this.discountFee = trade.getDiscountFee();				
-				this.adjustFee = trade.getAdjustFee();
-				this.postFee = trade.getPostFee();
-				this.payment = trade.getPayment();
 				this.buyerMessage = trade.getBuyerMessage();
 				this.buyerMemo = trade.getBuyerMemo();
 				this.sellerMemo = trade.getSellerMemo();
@@ -229,7 +257,15 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 				ArrayList<Order> orders = (ArrayList<Order>) trade.getOrders();
 				logger.info("trade.orders.length:" + orders.size());
 				for (Order o : orders) {
-					this.orders.add(o);
+					boolean found = false;
+					for (Order io : this.orders) {
+						if (io.getNumIid() == o.getNumIid()) {
+							io.setNum(io.getNum() + o.getNum());
+							found = true;
+							break;
+						}
+					}
+					if (false == found) this.orders.add(o);
 					logger.info("order.title:" + o.getTitle());
 					logger.info("order.num:" + o.getNum());
 					logger.info("order.price:" + o.getPrice());
@@ -244,6 +280,11 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 				logger.info("");
 				this.trades.add(trade);
 			}
+			this.totalFee = String.valueOf(totalFee);
+			this.discountFee = String.valueOf(discountFee);
+			this.adjustFee = String.valueOf(adjustFee);
+			this.postFee = String.valueOf(postFee);
+			this.payment = String.valueOf(payment);
 			
 			Calendar c = Calendar.getInstance();
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -261,7 +302,17 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 		}
 		return SUCCESS;
 	}
-
+	
+	public String session() throws Exception {
+		try {
+			
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			return ERROR;
+		}
+		return LOGIN;
+	}
+	
 	public String session_callback() throws Exception {
 
 		logger.info("top_appkey:" + this.top_appkey);
@@ -274,6 +325,70 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 		this.session.put("sess_top_session", this.top_session);
 		this.session.put("sess_top_sign", this.top_sign);
 
+		return SUCCESS;
+	}
+	
+	public String trade_import() throws Exception {
+		try {
+			Sell obj = new Sell();			
+			obj.setId(0);
+			obj.setCustomerIM(this.buyerNick);
+			obj.setCustomerIMType(0); // 0 means wangwang
+            obj.setCustomerName(this.receiverName);
+            obj.setCustomerPhone1(this.receiverMobile);
+            obj.setCustomerPhone2(this.receiverPhone);
+            obj.setCustomerAddress(this.receiverAddress);
+            obj.setCustomerPostCode(this.receiverZip);
+			obj.setExpressId(this.expressId);
+			obj.setCommentExpress(this.commentExpress);
+			obj.setCommentInvoice(this.commentInvoice);
+			obj.setFee(Double.parseDouble(this.postFee));
+			obj.setFeeReal(Double.parseDouble(this.postFeeReal));
+			obj.setSendDate(this.created);
+
+			logger.info("Id:" + obj.getId());
+			logger.info("Name:" + obj.getCustomerName());
+			logger.info("Phone1:" + obj.getCustomerPhone1());
+			logger.info("Phone2:" + obj.getCustomerPhone2());
+			logger.info("Address:" + obj.getCustomerAddress());
+			logger.info("PostCode:" + obj.getCustomerPostCode());
+			logger.info("ExpressId:" + obj.getExpressId());
+			logger.info("CommentExpress:" + obj.getCommentExpress());
+			logger.info("CommentInvoice:" + obj.getCommentInvoice());
+			logger.info("Fee:" + obj.getFee());
+			logger.info("FeeReal:" + obj.getFeeReal());
+			logger.info("SendDate:" + obj.getSendDate());
+
+			//this.sellId = 1234;
+			this.sellId = sellService.createSell(obj);
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+		}
+		return SUCCESS;
+	}
+	
+	public String trade_import_item() throws Exception {
+		if (sellId == 0) return ERROR;
+		try {
+			SellItem obj = new SellItem();
+			obj.setId(0);
+			obj.setSellId(this.sellId);
+			obj.setWareId(this.wareId);
+			obj.setPrice(this.price);
+			obj.setNumber(this.number);
+			logger.info("Id:" + obj.getId());
+			logger.info("SellId:" + obj.getSellId());
+			logger.info("WareId:" + obj.getWareId());
+			logger.info("Price:" + obj.getPrice());
+			logger.info("Number:" + obj.getNumber());
+			//this.id = 5678;
+			this.id = sellItemService.createSellItem(obj);
+			Ware w = wareService.getWareById(wareId);
+			w.setLastPrice(price);
+			wareService.updateWare(w);
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+		}
 		return SUCCESS;
 	}
 
@@ -365,8 +480,32 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 		this.tids = tids;
 	}
 
-	public Date getCreated() {
-		return created;
+	public String getTop_appkey() {
+		return top_appkey;
+	}
+
+	public String getTop_parameters() {
+		return top_parameters;
+	}
+
+	public String getTop_session() {
+		return top_session;
+	}
+
+	public String getTop_sign() {
+		return top_sign;
+	}
+
+	public String getCreated() {
+		return new SimpleDateFormat("yyyy-MM-dd").format(this.created);
+	}
+
+	public void setCreated(String created) {
+		try {
+			this.created = new SimpleDateFormat("yyyy-MM-dd").parse(created);
+		} catch(Exception ex) {
+			this.created = new Date();
+		}
 	}
 
 	public String getBuyerNick() {
@@ -433,12 +572,116 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 		this.expressService = expressService;
 	}
 
+	public void setSellService(SellService sellService) {
+		this.sellService = sellService;
+	}
+
+	public void setBuyerNick(String buyerNick) {
+		this.buyerNick = buyerNick;
+	}
+
+	public void setSellItemService(SellItemService sellItemService) {
+		this.sellItemService = sellItemService;
+	}
+
+	public void setWareService(WareService wareService) {
+		this.wareService = wareService;
+	}
+
 	public Map<Integer, String> getExpressOption() {
 		return expressService.getExpressSel();
 	}
 
 	public List<String> getDeliverDateOption() {
 		return deliverDateOption;
+	}
+
+	public void setExpressId(int expressId) {
+		this.expressId = expressId;
+	}
+
+	public void setPostFeeReal(String postFeeReal) {
+		this.postFeeReal = postFeeReal;
+	}
+
+	public void setCommentExpress(String commentExpress) {
+		this.commentExpress = commentExpress;
+	}
+
+	public void setCommentInvoice(String commentInvoice) {
+		this.commentInvoice = commentInvoice;
+	}
+
+	public void setPostFee(String postFee) {
+		this.postFee = postFee;
+	}
+
+	public int getSellId() {
+		return sellId;
+	}
+
+	public void setWareId(int wareId) {
+		this.wareId = wareId;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setSellId(int sellId) {
+		this.sellId = sellId;
+	}
+
+	public void setReceiverName(String receiverName) {
+		this.receiverName = receiverName;
+	}
+
+	public String getPostFeeReal() {
+		return postFeeReal;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public void setReceiverAddress(String receiverAddress) {
+		this.receiverAddress = receiverAddress;
+	}
+
+	public int getExpressId() {
+		return expressId;
+	}
+
+	public String getCommentExpress() {
+		return commentExpress;
+	}
+
+	public String getCommentInvoice() {
+		return commentInvoice;
+	}
+
+	public void setReceiverPhone(String receiverPhone) {
+		this.receiverPhone = receiverPhone;
+	}
+
+	public void setReceiverMobile(String receiverMobile) {
+		this.receiverMobile = receiverMobile;
+	}
+
+	public void setReceiverZip(String receiverZip) {
+		this.receiverZip = receiverZip;
 	}
 
 }
