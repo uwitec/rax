@@ -28,7 +28,7 @@
 		</action>
 		
 		<action name="trade_session" class="TradeImportAction" method="session">
-			<result name="success">/trade/trade_session.ftl</result>
+			<result name="login">/trade/trade_session.ftl</result>
 		</action>
 		
 		<action name="trade_session_callback" class="TradeImportAction" method="session_callback">

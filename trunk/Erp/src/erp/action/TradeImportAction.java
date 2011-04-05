@@ -17,9 +17,11 @@ import com.taobao.api.domain.Order;
 import com.taobao.api.domain.Trade;
 import com.taobao.api.domain.User;
 import com.taobao.api.request.TradeFullinfoGetRequest;
+import com.taobao.api.request.TradeMemoUpdateRequest;
 import com.taobao.api.request.TradesSoldGetRequest;
 import com.taobao.api.request.UserGetRequest;
 import com.taobao.api.response.TradeFullinfoGetResponse;
+import com.taobao.api.response.TradeMemoUpdateResponse;
 import com.taobao.api.response.TradesSoldGetResponse;
 import com.taobao.api.response.UserGetResponse;
 
@@ -308,7 +310,6 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 			
 		} catch (Exception ex) {
 			logger.error(ex.toString());
-			return ERROR;
 		}
 		return LOGIN;
 	}
@@ -330,7 +331,7 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 	
 	public String trade_import() throws Exception {
 		try {
-			Sell obj = new Sell();			
+			Sell obj = new Sell();
 			obj.setId(0);
 			obj.setCustomerIM(this.buyerNick);
 			obj.setCustomerIMType(0); // 0 means wangwang
@@ -359,7 +360,6 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 			logger.info("FeeReal:" + obj.getFeeReal());
 			logger.info("SendDate:" + obj.getSendDate());
 
-			//this.sellId = 1234;
 			this.sellId = sellService.createSell(obj);
 		} catch (Exception ex) {
 			logger.error(ex.toString());
@@ -376,12 +376,13 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 			obj.setWareId(this.wareId);
 			obj.setPrice(this.price);
 			obj.setNumber(this.number);
+			
 			logger.info("Id:" + obj.getId());
 			logger.info("SellId:" + obj.getSellId());
 			logger.info("WareId:" + obj.getWareId());
 			logger.info("Price:" + obj.getPrice());
 			logger.info("Number:" + obj.getNumber());
-			//this.id = 5678;
+			
 			this.id = sellItemService.createSellItem(obj);
 			Ware w = wareService.getWareById(wareId);
 			w.setLastPrice(price);
@@ -391,6 +392,26 @@ public class TradeImportAction extends ActionSupport implements SessionAware {
 		}
 		return SUCCESS;
 	}
+	
+	public String trade_import_finish() throws Exception {
+		try {
+			TradeMemoUpdateRequest req;
+			TradeMemoUpdateResponse response;
+			TaobaoClient client = new DefaultTaobaoClient(taobao.getRestUrl(),
+					taobao.getAppKey(), taobao.getAppSecret());
+			
+			String[] tids = this.tids.split(",");
+			for (String tid : tids) {
+				req = new TradeMemoUpdateRequest();
+				req.setTid(Long.parseLong(tid));
+				req.setFlag(3L); // Set to green color
+				response = client.execute(req , (String)session.get("sess_top_session"));
+			}
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+		}
+		return SUCCESS;
+	}	
 
 	@Override
 	public String execute() throws Exception {

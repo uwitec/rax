@@ -60,7 +60,7 @@
 				<param name="includeProperties">id</param>
 			</result>
 		</action>
-
+		
 	</package>
 
 </struts>
