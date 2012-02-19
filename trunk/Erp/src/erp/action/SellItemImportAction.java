@@ -62,11 +62,17 @@ public class SellItemImportAction extends ActionSupport {
 			InvoiceItem item = null;
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			String dateStr = "([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})";
-			String feeStr = "\\(含[\\s]*快递[\\s]*:([\\d\\.]+)\\)";
-			String itemStr = "([\\S\\s]*)[\\s]+([\\d\\.]+)[\\s]+([\\d]+)[\\s]+([\\s\\S]*)";
-			String extItemStr = "([\\S\\s]*)[\\s]+([\\d]+\\.[\\d]{2})[\\s]*([\\d]*)";
-			String nameStr = "([\\S\\s]+)[\\s]{2}([\\S]+)";
+			String feeStr = "\\(含快递[\\s]*:([\\d\\.]+)\\)";
+			String priceStr = "([\\d\\.]+)[\\s]+([\\d]+)[\\s]+";
+			String idStr = "投诉维权[\\s]?([\\s\\S]*)?";
+			String subClassStr = "([^\\(]*):[\\s]+([\\S]*)";
 
+			Pattern datePat = Pattern.compile(dateStr);
+			Pattern feePat = Pattern.compile(feeStr);
+			Pattern pricePat = Pattern.compile(priceStr);
+			Pattern idPat = Pattern.compile(idStr);
+			Pattern subClassPat = Pattern.compile(subClassStr);
+			
 			String[] infos = sellContent.split("\n");
 			ArrayList<String> infoArray = new ArrayList<String>();
 			for (int i = 0; i < infos.length; i++) {
@@ -74,12 +80,7 @@ public class SellItemImportAction extends ActionSupport {
 					infoArray.add(infos[i].trim());
 				}
 			}
-
-			Pattern datePat = Pattern.compile(dateStr);
-			Pattern feePat = Pattern.compile(feeStr);
-			Pattern itemPat = Pattern.compile(itemStr);
-			Pattern extItemPat = Pattern.compile(extItemStr);
-			Pattern namePat = Pattern.compile(nameStr);
+			
 			Matcher matcher;
 			for (int i = 0; i < infoArray.size(); i++) {
 				Date date = new Date();
@@ -90,47 +91,74 @@ public class SellItemImportAction extends ActionSupport {
 				double price = 0;
 				double exFee = 0;
 				double total = 0;
+				boolean itemClosed = false;
 
 				String info = infoArray.get(i);
-				// logger.debug("info[" + i + "]:" + info);
+				logger.debug("info[" + i + "]:" + info);
 
 				matcher = datePat.matcher(info);
 				if (matcher.find()) {
-
+					//logger.debug("datePat matched <info[" + i + "]:" + info + ">");
 					try {
 						date = formatter.parse(matcher.group(1));
 					} catch (Exception ex) {}
-
-					for (int j = 1; j <= 2; j++) {
-						matcher = itemPat.matcher(infoArray.get(i + j));
+					
+					name = infoArray.get(i + 1);
+					
+					for (int j = i + 1; j < infoArray.size(); j++) {
+						info = infoArray.get(j);
+						if (datePat.matcher(info).find()) break;
+						
+						matcher = subClassPat.matcher(info);
 						if (matcher.find()) {
-							name = matcher.group(1).trim();
-							byerId = matcher.group(4).trim();
-
-							try {
-								price = Double.valueOf(matcher.group(2));
-							} catch (Exception ex) {}
-
-							try {
-								num = Integer.valueOf(matcher.group(3));
-							} catch (Exception ex) {}
-
-							if (name.lastIndexOf("化妆品容量") != -1) {
-								name = infoArray.get(i + j - 1);
-								i++;
+							logger.debug("subClassPat matched <info[" + j + "]:" + info + ">");
+							
+							if (!matcher.group(1).equals("商家编码")) {
+								name += " " + matcher.group(2);
 							}
 						}
+						
+						matcher = pricePat.matcher(info);
+						if (matcher.find()) {
+							//logger.debug("pricePat matched <info[" + j + "]:" + info + ">");
+							try {
+								price = Double.valueOf(matcher.group(1));
+							} catch (Exception ex) {}
+							
+							try {
+								num = Integer.valueOf(matcher.group(2));
+							} catch (Exception ex) {}
+							
+							//logger.debug("price:" + price + " num:" + num);
+						}
+						
+						matcher = idPat.matcher(info);
+						if (matcher.find()) {
+							//logger.debug("idPat matched <info[" + j + "]:" + info + ">");
+							
+							byerId = matcher.group(1).trim();
+							byerName = infoArray.get(j + 1);
+							
+							//logger.debug("byerId:" + byerId + " byerName:" + byerName);
+							
+							itemClosed = (infoArray.get(j + 2).indexOf("交易关闭") > -1);
+							
+							// ID founded, need break
+							break;
+						}
+					}
+					
+					// Remove item name tail with price and id
+					matcher = pricePat.matcher(name);
+					if (matcher.find()) {
+						logger.debug("pricePat matched <name:" + name + ">" + " group:" + matcher.group());
+						name = name.substring(0, name.indexOf(matcher.group())).trim();
 					}
 
-					if (infoArray.get(i + 3).indexOf("交易关闭") > -1) continue;
-
-					info = infoArray.get(i + 2);
-					matcher = namePat.matcher(infoArray.get(i + 2));
-					byerName = matcher.find() ? matcher.group(1) : info;
-					byerName = byerName.equals("----") ? "" : byerName;
-
+					if (itemClosed) continue;
+					
 					boolean foundFee = false;
-					for (int j = i + 3; j < infoArray.size(); j++) {
+					for (int j = i + 1; j < infoArray.size(); j++) {
 						info = infoArray.get(j);
 						if (datePat.matcher(info).find()) break;
 
@@ -144,36 +172,33 @@ public class SellItemImportAction extends ActionSupport {
 							try {
 								total = Double.valueOf(infos[infos.length - 1]);
 							} catch (Exception ex) {}
-						} else if (foundFee) {
-							matcher = extItemPat.matcher(info);
-							if (matcher.find()) {
-								String extName = "";
-								double extPrice = 0;
-								int extNumber = 1;
+						}
+						
+						matcher = pricePat.matcher(info);
+						if (foundFee && matcher.find()) {
+							String extName = "";
+							double extPrice = 0;
+							int extNumber = 1;
 
-								extName = matcher.group(1).trim();
-								if (extName.lastIndexOf("化妆品容量") != -1) {
-									extName = infoArray.get(j - 1);
-								}
+							extName = infoArray.get(j - 1);
 
-								try {
-									extPrice = Double.valueOf(matcher.group(2));
-								} catch (Exception ex) {}
+							try {
+								extPrice = Double.valueOf(matcher.group(1));
+							} catch (Exception ex) {}
 
-								try {
-									extNumber = Integer.valueOf(matcher.group(3));
-								} catch (Exception ex) {}
+							try {
+								extNumber = Integer.valueOf(matcher.group(2));
+							} catch (Exception ex) {}
 
-								item = new InvoiceItem();
-								item.setDate(date);
-								item.setByerId(byerId);
-								item.setByerName(byerName);
-								item.setExFee(0);
-								item.setName(extName);
-								item.setNumber(extNumber);
-								item.setPrice(extPrice);
-								itemList.add(item);
-							}
+							item = new InvoiceItem();
+							item.setDate(date);
+							item.setByerId(byerId);
+							item.setByerName(byerName);
+							item.setExFee(0);
+							item.setName(extName);
+							item.setNumber(extNumber);
+							item.setPrice(extPrice);
+							itemList.add(item);
 						}
 					}
 
@@ -225,7 +250,7 @@ public class SellItemImportAction extends ActionSupport {
 		char[] cbuf = new char[1024];
 		StringBuffer buf = new StringBuffer();
 		InputStreamReader is = new InputStreamReader(new FileInputStream(
-				"D:/content.txt"));
+				"F:/content2.txt"));
 		int size;
 		while ((size = is.read(cbuf)) != -1) {
 			buf.append(cbuf, 0, size);
