@@ -17,6 +17,7 @@
 package com.rax.accmeter;
 
 import android.app.Activity;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -25,6 +26,9 @@ public class GraphActivity extends Activity {
 	static final private boolean DEBUG = true;
 	static final private String TAG = "RaxLog";
 	
+    private SensorManager mSensorManager;
+    private GraphView mGraphView;
+    
 	public GraphActivity() {
 	}
 
@@ -33,11 +37,26 @@ public class GraphActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		if (DEBUG) Log.v(TAG, "GraphActivity::onCreate");
 		
-		setContentView(R.layout.graph_activity);
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        mGraphView = new GraphView(this);
+        setContentView(mGraphView);
 	}
 	
-	@Override
-	public void onBackPressed() {
-		getParent().onBackPressed();
-	}
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (DEBUG) Log.v(TAG, "GraphActivity::onResume");
+        mSensorManager.registerListener(mGraphView, 
+                SensorManager.SENSOR_ACCELEROMETER | 
+                SensorManager.SENSOR_MAGNETIC_FIELD | 
+                SensorManager.SENSOR_ORIENTATION,
+                SensorManager.SENSOR_DELAY_FASTEST);
+    }
+    
+    @Override
+    protected void onStop() {
+    	if (DEBUG) Log.v(TAG, "GraphActivity::onStop");
+        mSensorManager.unregisterListener(mGraphView);
+        super.onStop();
+    }
 }

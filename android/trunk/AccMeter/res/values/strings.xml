@@ -14,8 +14,14 @@
      limitations under the License.
 -->
 <resources>
-    <string name="app_name">"Rax Accelate Meter"</string>
+    <string name="app_name">"Rax Accelerate Meter"</string>
+    
+    <string name="tab_gpad">"G-Pad"</string>
+    <string name="tab_graph">"Graph"</string>
 
+    <string name="btn_switch_to_graph">"Start"</string>
+    <string name="btn_switch_to_gpad">"Start"</string>
+    
     <string name="conf_show_splash">"Show splash screen"</string>
     <string name="conf_show_splash_summary">"Show splash screen when launch app"</string>
     <string name="conf_allow_lock_screen">"Allow lock screen"</string>

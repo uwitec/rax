@@ -48,12 +48,12 @@ public class MainActivity extends TabActivity {
         final TabHost tabHost = getTabHost();
 
         tabHost.addTab(tabHost.newTabSpec("tab1")
-                .setIndicator("list")
-                .setContent(new Intent(this, GPadActivity.class)));
+                .setIndicator(getResources().getString(R.string.tab_gpad))
+                .setContent(new Intent(this, TabGPadActivity.class)));
 
         tabHost.addTab(tabHost.newTabSpec("tab2")
-                .setIndicator("photo list")
-                .setContent(new Intent(this, GraphActivity.class)));
+                .setIndicator(getResources().getString(R.string.tab_graph))
+                .setContent(new Intent(this, TabGraphActivity.class)));
         
         // TODO: Add animation for splash screen
 	}

@@ -20,20 +20,24 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
-public class GPadActivity extends Activity {
+public class TabGPadActivity extends Activity {
 
 	static final private boolean DEBUG = true;
 	static final private String TAG = "RaxLog";
 	
-	public GPadActivity() {
+	public TabGPadActivity() {
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (DEBUG) Log.v(TAG, "GPadActivity::onCreate");
+		if (DEBUG) Log.v(TAG, "TabGPadActivity::onCreate");
 		
 		setContentView(R.layout.gpad_activity);
 	}
 	
+	@Override
+	public void onBackPressed() {
+		getParent().onBackPressed();
+	}
 }
